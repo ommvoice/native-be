@@ -1,0 +1,654 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ROLE {
+  ADMIN
+  PARENT
+  PROVIDER
+}
+
+model Users {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  sub       String
+  role      ROLE     @default(PARENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parent Parents?
+
+  @@index([email])
+  @@map("users") 
+}
+
+model Parents {
+  id                  String   @id @default(uuid())
+  postCode            String   @db.VarChar(20)
+  firstNameOrNickName String
+  latitude            String
+  longitude           String
+  /// Search radius for recommendations and similar features, in **miles** (UK).
+  searchRadius        Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  children Children[]
+
+  /// Optional: categories this parent cares about (empty if unset).
+  interestCategories InterestCategory[]
+
+  /// Optional: subcategories this parent cares about (empty if unset).
+  interestSubCategories InterestSubCategory[]
+
+  userId              String @unique
+  user                Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  wishlists Wishlist[]
+
+  opportunityDrivingLegs ParentOpportunityDrivingLeg[]
+
+  @@map("parents") 
+}
+
+/// Cached Mapbox driving distance/duration from a parent home to an opportunity (venue/event/club/route).
+model ParentOpportunityDrivingLeg {
+  id       String @id @default(uuid())
+  parentId String
+  parent   Parents @relation(fields: [parentId], references: [id], onDelete: Cascade)
+
+  opportunityType OpportunityRecordType
+  opportunityId   String
+
+  parentPostCode       String  @db.VarChar(20)
+  parentLatitude       String
+  parentLongitude      String
+  opportunityPostCode  String? @db.VarChar(20)
+  opportunityLatitude  String
+  opportunityLongitude String
+
+  drivingDistanceMeters  Int
+  drivingDurationSeconds Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([parentId, opportunityType, opportunityId])
+  @@index([parentId])
+  @@map("parent_opportunity_driving_legs")
+}
+
+model Children {
+  id             String   @id @default(uuid())
+  nameOrNickName String
+  dateOfBirth    DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parent   Parents @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  parentId String
+
+  interestCategories    InterestCategory[]
+  interestSubCategories InterestSubCategory[]
+
+  /// Skills selected for this child (same pattern as interest categories).
+  skills Skill[]
+
+  wishlists Wishlist[]
+
+  @@map("children") 
+}
+
+model InterestCategory {
+  id   String @id @default(uuid())
+  slug String @unique
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  subCategories InterestSubCategory[]
+  parents       Parents[]
+  children      Children[]
+
+  @@map("interest_categories")
+}
+
+model InterestSubCategory {
+  id     String @id @default(uuid())
+  slug   String
+  name   String
+  /// Free-form age guidance, e.g. "3–5", "6+", "all ages"
+  suitableForAge String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category   InterestCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+
+  parentId String?
+  parent   InterestSubCategory?  @relation("InterestSubCategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
+  subCategories InterestSubCategory[] @relation("InterestSubCategoryTree")
+
+  parents  Parents[]
+  children Children[]
+  skills   Skill[]
+
+  @@unique([categoryId, parentId, slug])
+  @@map("interest_sub_categories")
+}
+
+enum SKILL_GROUP_TYPE {
+  INTEREST_BASED
+  AGE_BASED
+}
+
+model Skill {
+  id          String @id @default(uuid())
+  slug        String @unique
+  label       String
+  description String
+
+  type SKILL_GROUP_TYPE
+
+  /// Interest-based skills link to a root interest subcategory; age-based skills omit this.
+  subCategoryId String?
+  subCategory   InterestSubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+
+  /// Derived from guidance text when present, e.g. "Age 6 and over" → minAge 6, maxAge null
+  minAge Int?
+  maxAge Int?
+
+  children Children[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([subCategoryId])
+  @@map("skills")
+}
+
+model SkillLevel {
+  id          Int    @id
+  label       String @unique
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("skill_levels")
+}
+
+enum FacilityType {
+  GENERAL
+  PARENT
+  KID
+  DOG
+}
+
+model Facility {
+  id    String       @id @default(uuid())
+  type  FacilityType
+  slug  String       @unique
+  label String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@map("facilities")
+}
+
+/// Stored on each opportunity table row; used by recommendations and polymorphic-style APIs.
+enum OpportunityRecordType {
+  venue
+  event
+  club
+  route
+}
+
+model OpportunityVenue {
+  id          String  @id @default(uuid())
+  type        OpportunityRecordType @default(venue)
+  name        String
+  description String?
+
+  /// Canonical UK postcode for geo (WGS84 in latitude / longitude).
+  postCode  String? @db.VarChar(20)
+  latitude  String?
+  longitude String?
+
+  venuePostcode       String?  @db.VarChar(10)
+  openingDaysAndTimes String?
+  openingExclusions   String?
+
+  /// Application-defined; labels in code (see opportunity/common/constants/opportunity-theme.ts).
+  themeSlug String
+
+  /// Optional (see opportunity/common/constants/opportunity-theme-variant.ts).
+  themeVariantSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-activity-group.ts).
+  activityGroupSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-terrain.ts).
+  terrainTypeSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-venue-setting.ts).
+  venueSettingSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-parking-provision.ts).
+  parkingProvisionSlug String?
+
+  adultCost  Decimal? @db.Decimal(10, 2)
+  childCost  Decimal? @db.Decimal(10, 2)
+  infantCost Decimal? @db.Decimal(10, 2)
+
+  /// Labels in code (see opportunity/common/constants/opportunity-general-facility.ts).
+  generalFacilitySlugs String[] @default([])
+
+  /// Labels in code (see opportunity/common/constants/opportunity-kids-facility.ts).
+  kidsFacilitySlugs String[] @default([])
+
+  /// Labels in code (see opportunity/common/constants/opportunity-parent-facility.ts).
+  parentFacilitySlugs String[] @default([])
+
+  /// Dog facilities where relevant (e.g. dog-friendly grounds); labels in opportunity/routes/constants/dog-facility.ts.
+  dogFacilitySlugs String[] @default([])
+
+  /// Labels in code (see opportunity/common/constants/opportunity-age-suitability.ts).
+  ageSuitabilitySlugs String[] @default([])
+
+  /// Labels in code (see opportunity/common/constants/opportunity-extra-kit.ts).
+  extraKitSlugs String[] @default([])
+
+  interestTags         String?
+  estimatedTimeToSpend String?
+
+  /// Optional (see opportunity/common/constants/opportunity-seasonal-tag.ts).
+  seasonalTagSlug String?
+
+  /// Labels in code (see opportunity/common/constants/opportunity-seasonal-highlight.ts).
+  seasonalHighlightSlugs String[] @default([])
+
+  /// Labels in code (see opportunity/common/constants/opportunity-highlight-attraction.ts).
+  highlightAttractionSlugs String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlistItems WishlistItem[]
+
+  @@index([themeSlug])
+  @@index([activityGroupSlug])
+  @@map("opportunity_venues")
+}
+
+model OpportunityEvent {
+  id          String  @id @default(uuid())
+  type        OpportunityRecordType @default(event)
+  name        String
+  description String?
+
+  /// Canonical UK postcode for geo (WGS84 in latitude / longitude).
+  postCode  String? @db.VarChar(20)
+  latitude  String?
+  longitude String?
+
+  /// Application-defined slug; labels in code (see opportunity/common/constants/opportunity-theme.ts).
+  themeSlug String
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-theme-variant.ts).
+  themeVariantSlug String?
+
+  /// Application-defined slug; labels live in code (see opportunity/common/constants/opportunity-types.ts)
+  eventTypeSlug String
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-activity-group.ts).
+  activityGroupSlug String?
+
+  startDate         DateTime?
+  endDate           DateTime?
+  startTime         String?   @db.VarChar(5)
+  finishTime        String?   @db.VarChar(5)
+  venuePostCode     String?   @db.VarChar(10)
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-parking-provision.ts).
+  parkingProvisionSlug String?
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-venue-setting.ts).
+  venueSettingSlug String?
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-general-facility.ts).
+  generalFacilitySlugs String[] @default([])
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-kids-facility.ts).
+  kidsFacilitySlugs String[] @default([])
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-parent-facility.ts).
+  parentFacilitySlugs String[] @default([])
+
+  adultCost  Decimal? @db.Decimal(10, 2)
+  childCost  Decimal? @db.Decimal(10, 2)
+  infantCost Decimal? @db.Decimal(10, 2)
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-age-suitability.ts).
+  ageSuitabilitySlugs String[] @default([])
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-skill-area.ts).
+  skillAreaSlug    String?
+  skillAreaVariant String?
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-ability-level.ts).
+  abilityLevelSlug String?
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-extra-kit.ts).
+  extraKitSlugs String[] @default([])
+
+  interestTags String?
+
+  /// Optional; application-defined (see opportunity/common/constants/opportunity-seasonal-tag.ts).
+  seasonalTagSlug String?
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-seasonal-highlight.ts).
+  seasonalHighlightSlugs String[] @default([])
+
+  /// For events; labels in code (see opportunity/common/constants/opportunity-highlight-attraction.ts).
+  highlightAttractionSlugs String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlistItems WishlistItem[]
+
+  @@index([themeSlug])
+  @@index([eventTypeSlug])
+  @@index([activityGroupSlug])
+  @@index([seasonalTagSlug])
+  @@map("opportunity_events")
+}
+
+model OpportunityClub {
+  id          String  @id @default(uuid())
+  type        OpportunityRecordType @default(club)
+  name        String
+  description String?
+
+  /// Canonical UK postcode for geo (WGS84 in latitude / longitude).
+  postCode  String? @db.VarChar(20)
+  latitude  String?
+  longitude String?
+
+  /// Application-defined (see opportunity/common/constants/opportunity-theme.ts).
+  themeSlug String
+
+  /// Optional; same constant set as events (opportunity/common/constants/opportunity-theme-variant.ts).
+  themeVariantSlug String?
+
+  venuePostCode String? @db.VarChar(10)
+  startTime     String? @db.VarChar(5)
+  finishTime    String? @db.VarChar(5)
+
+  /// Optional (see opportunity/clubs/constants/day-of-week.ts).
+  dayOfWeekSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-activity-group.ts).
+  activityGroupSlug String?
+
+  /// Optional (see opportunity/clubs/constants/format.ts).
+  clubFormatSlug String?
+
+  /// Optional (see opportunity/clubs/constants/frequency.ts).
+  clubFrequencySlug String?
+
+  /// Optional (see opportunity/clubs/constants/commitment.ts).
+  commitmentSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-skill-area.ts).
+  skillAreaSlug    String?
+  skillAreaVariant String?
+
+  /// Optional (see opportunity/common/constants/opportunity-ability-level.ts).
+  abilityLevelSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-parking-provision.ts).
+  parkingProvisionSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-venue-setting.ts).
+  venueSettingSlug String?
+
+  adultCost  Decimal? @db.Decimal(10, 2)
+  childCost  Decimal? @db.Decimal(10, 2)
+  infantCost Decimal? @db.Decimal(10, 2)
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-general-facility.ts).
+  generalFacilitySlugs String[] @default([])
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-kids-facility.ts).
+  kidsFacilitySlugs String[] @default([])
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-parent-facility.ts).
+  parentFacilitySlugs String[] @default([])
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-age-suitability.ts).
+  ageSuitabilitySlugs String[] @default([])
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-extra-kit.ts).
+  extraKitSlugs String[] @default([])
+
+  interestTags String?
+
+  /// Optional (see opportunity/common/constants/opportunity-seasonal-tag.ts).
+  seasonalTagSlug String?
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-seasonal-highlight.ts).
+  seasonalHighlightSlugs String[] @default([])
+
+  /// For clubs only; labels in code (see opportunity/common/constants/opportunity-highlight-attraction.ts).
+  highlightAttractionSlugs String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlistItems WishlistItem[]
+
+  @@index([themeSlug])
+  @@index([activityGroupSlug])
+  @@index([dayOfWeekSlug])
+  @@map("opportunity_clubs")
+}
+
+model OpportunityRoute {
+  id          String  @id @default(uuid())
+  type        OpportunityRecordType @default(route)
+  name        String
+  description String?
+
+  /// Canonical UK postcode for geo (WGS84 in latitude / longitude).
+  postCode  String? @db.VarChar(20)
+  latitude  String?
+  longitude String?
+
+  /// Application-defined; labels in code (see opportunity/common/constants/opportunity-theme.ts).
+  themeSlug String
+
+  /// Optional (see opportunity/common/constants/opportunity-theme-variant.ts).
+  themeVariantSlug String?
+
+  /// Optional (see opportunity/routes/constants/route-type.ts).
+  routeTypeSlug String?
+
+  routeDistanceMiles Decimal? @db.Decimal(5, 2)
+
+  /// For routes only; labels in opportunity/routes/constants/route-suitability.ts.
+  routeSuitabilitySlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-terrain.ts.
+  terrainTypeSlugs String[] @default([])
+
+  /// Optional (see opportunity/routes/constants/difficulty-rating.ts).
+  difficultyRatingSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-activity-group.ts).
+  activityGroupSlug String?
+
+  startPointPostCode String? @db.VarChar(10)
+
+  /// Optional (see opportunity/common/constants/opportunity-parking-provision.ts).
+  parkingProvisionSlug String?
+
+  /// Optional (see opportunity/common/constants/opportunity-venue-setting.ts).
+  venueSettingSlug String?
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-general-facility.ts.
+  generalFacilitySlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-kids-facility.ts.
+  kidsFacilitySlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-parent-facility.ts.
+  parentFacilitySlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/routes/constants/dog-facility.ts.
+  dogFacilitySlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-extra-kit.ts.
+  extraKitSlugs String[] @default([])
+
+  adultCost  Decimal? @db.Decimal(10, 2)
+  childCost  Decimal? @db.Decimal(10, 2)
+  infantCost Decimal? @db.Decimal(10, 2)
+
+  interestTags String?
+
+  /// Optional (see opportunity/common/constants/opportunity-seasonal-tag.ts).
+  seasonalTagSlug String?
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-seasonal-highlight.ts.
+  seasonalHighlightSlugs String[] @default([])
+
+  /// For routes only; labels in opportunity/common/constants/opportunity-highlight-attraction.ts.
+  highlightAttractionSlugs String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlistItems WishlistItem[]
+
+  @@index([themeSlug])
+  @@index([activityGroupSlug])
+  @@index([routeTypeSlug])
+  @@map("opportunity_routes")
+}
+
+model Wishlist {
+  id        String   @id @default(uuid())
+  name      String
+  color     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parentId String
+  parent   Parents @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  childId  String
+  child    Children @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  items WishlistItem[]
+
+  @@index([parentId])
+  @@index([childId])
+  @@map("wishlists")
+}
+
+model WishlistItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+
+  /// Exactly one of the four opportunity relations should be set (enforce in application or DB CHECK).
+  opportunityVenueId String?
+  opportunityVenue   OpportunityVenue? @relation(fields: [opportunityVenueId], references: [id], onDelete: Cascade)
+  opportunityEventId String?
+  opportunityEvent   OpportunityEvent? @relation(fields: [opportunityEventId], references: [id], onDelete: Cascade)
+  opportunityClubId  String?
+  opportunityClub    OpportunityClub? @relation(fields: [opportunityClubId], references: [id], onDelete: Cascade)
+  opportunityRouteId String?
+  opportunityRoute   OpportunityRoute? @relation(fields: [opportunityRouteId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, opportunityVenueId])
+  @@unique([wishlistId, opportunityEventId])
+  @@unique([wishlistId, opportunityClubId])
+  @@unique([wishlistId, opportunityRouteId])
+  @@index([wishlistId])
+  @@map("wishlist_items")
+}
+
+// model Opportunity {
+//   id          String  @id @default(uuid())
+//   providerId  String
+//   name        String
+//   description String?
+//   category    String
+//   subcategory String?
+//
+//   minAge Int?
+//   maxAge Int?
+//
+//   suitableFor           String[] // e.g. ["Buggies","Wheelchairs","Dogs"]
+//   accessibilityFeatures String[]
+//
+//   address   String?
+//   city      String?
+//   postcode  String?
+//   latitude  Float?
+//   longitude Float?
+//
+//   openingHours String?
+//   isFree       Boolean @default(false)
+//   priceInfo    String?
+//   entryCost    String?
+//
+//   websiteUrl String?
+//   imageUrls  String[]
+//   isActive   Boolean @default(true)
+//
+//   oppType           String? // activity_venue, route
+//   oppClassification String?
+//   oppCategory       String?
+//
+//   facilities       String[]
+//   parkingProvision String[]
+//   terrain          String[]
+//
+//   activityEffortTag       String? // low_effort, energy_burner, special_day_out
+//   estimatedVisitDuration  String?
+//   difficultyRating        String? // easy, moderate
+//   interestCategory        String?
+//   opportunityThemeVariant String?
+//
+//   routeDistance String?
+//   routeType    String?
+//
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//
+//   @@index([category])
+//   @@index([city])
+//   @@index([isActive])
+// }

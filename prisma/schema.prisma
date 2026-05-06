@@ -235,7 +235,8 @@ model OpportunityTheme {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  variants OpportunityThemeVariant[]
+  variants             OpportunityThemeVariant[]
+  opportunityVenuesV2  OpportunityVenuesV2[]
 
   @@unique([recordType, slug])
   @@index([recordType])
@@ -262,6 +263,8 @@ model OpportunityThemeVariant {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  opportunityVenuesV2 OpportunityVenuesV2[]
 
   @@unique([themeId, slug])
   @@index([themeId])
@@ -343,6 +346,101 @@ model OpportunityVenue {
   @@index([themeSlug])
   @@index([activityGroupSlug])
   @@map("opportunity_venues")
+}
+
+/// Spreadsheet-style venue import rows; theme and variant reference `opportunity_theme` / `opportunity_theme_variant`.
+model OpportunityVenuesV2 {
+  id String @id @default(uuid())
+
+  opportunityType OpportunityRecordType @default(venue) @map("opportunity_type")
+
+  themeId String @map("venue_opportunity_theme_id")
+  theme   OpportunityTheme @relation(fields: [themeId], references: [id], onDelete: Restrict)
+
+  themeVariantId String @map("venue_opportunity_theme_variant_id")
+  themeVariant   OpportunityThemeVariant @relation(fields: [themeVariantId], references: [id], onDelete: Restrict)
+
+  venueName             String  @map("venue_name")
+  venueActivityGroup    String? @map("venue_activity_group")
+  venueDescription      String? @map("venue_description") @db.Text
+  venueAddressLine1     String? @map("venue_address_line_1")
+  venueAddressLine2     String? @map("venue_address_line_2")
+  venueCity             String? @map("venue_city")
+  venueRegion           String? @map("venue_region")
+  venuePostcode         String? @map("venue_postcode") @db.VarChar(20)
+  latitude              String?
+  longitude             String?
+  venueCountry          String? @map("venue_country")
+  venueSchedulePattern  String? @map("venue_schedule_pattern") @db.Text
+
+  venueFixedDailyTimings         Boolean? @map("venue_fixed_daily_timings")
+  venueFixedTimingsStartTime     String?  @map("venue_fixed_timings_start_time") @db.VarChar(5)
+  venueFixedTimingsEndTime       String?  @map("venue_fixed_timings_end_time") @db.VarChar(5)
+  venueMixedTimingsMondayStart    String? @map("venue_mixed_timings_monday_start_time") @db.VarChar(5)
+  venueMixedTimingsMondayEnd      String? @map("venue_mixed_timings_monday_end_time") @db.VarChar(5)
+  venueMixedTimingsTuesdayStart   String? @map("venue_mixed_timings_tuesday_start_time") @db.VarChar(5)
+  venueMixedTimingsTuesdayEnd     String? @map("venue_mixed_timings_tuesday_end_time") @db.VarChar(5)
+  venueMixedTimingsWednesdayStart String? @map("venue_mixed_timings_wednesday_start_time") @db.VarChar(5)
+  venueMixedTimingsWednesdayEnd   String? @map("venue_mixed_timings_wednesday_end_time") @db.VarChar(5)
+  venueMixedTimingsThursdayStart  String? @map("venue_mixed_timings_thursday_start_time") @db.VarChar(5)
+  venueMixedTimingsThursdayEnd    String? @map("venue_mixed_timings_thursday_end_time") @db.VarChar(5)
+  venueMixedTimingsFridayStart    String? @map("venue_mixed_timings_friday_start_time") @db.VarChar(5)
+  venueMixedTimingsFridayEnd      String? @map("venue_mixed_timings_friday_end_time") @db.VarChar(5)
+  venueMixedTimingsSaturdayStart  String? @map("venue_mixed_timings_saturday_start_time") @db.VarChar(5)
+  venueMixedTimingsSaturdayEnd    String? @map("venue_mixed_timings_saturday_end_time") @db.VarChar(5)
+  venueMixedTimingsSundayStart    String? @map("venue_mixed_timings_sunday_start_time") @db.VarChar(5)
+  venueMixedTimingsSundayEnd      String? @map("venue_mixed_timings_sunday_end_time") @db.VarChar(5)
+
+  venueEntryCost        Boolean? @map("venue_entry_cost")
+  ticketingRequirement  Boolean? @map("ticketing_requirement")
+  venueBookingType      String?  @map("venue_booking_type") @db.Text
+  ticketingVariants     String?  @map("ticketing_variants") @db.Text
+
+  ticketVariantDefinitionBaby       String? @map("ticket_variant_definition_baby")
+  ticketVariantBabyPrice            String? @map("ticket_variant_baby_price")
+  ticketVariantDefinitionFixedChild String? @map("ticket_variant_definition__fixed_child")
+  ticketVariantFixedChildPrice      String? @map("ticket_variant_fixed_child_price")
+  ticketVariantDefinitionYoungChild String? @map("ticket_variant_definition_young_child")
+  ticketVariantYoungChildPrice      String? @map("ticket_variant_young_child_price")
+  ticketVariantDefinitionOlderChild String? @map("ticket_variant_definition_older_child")
+  ticketVariantOlderChildPrice      String? @map("ticket_variant_older_child_price")
+  ticketVariantDefinitionAdult      String? @map("ticket_variant_definition_adult")
+  ticketVariantAdultPrice           String? @map("ticket_variant_adult_price")
+  ticketVariantDefinitionConcession String? @map("ticket_variant_definition_concession")
+  ticketVariantConcessionPrice      String? @map("ticket_variant_concession_price")
+  ticketVariantDefinitionGroup      String? @map("ticket_variant_definition_group")
+  ticketVariantGroupPrice           String? @map("ticket_variant_group_price")
+
+  venueGeneralFacilities  String? @map("venue_general_facilities") @db.Text
+  venueChildFacilities    String? @map("venue_child_facilities") @db.Text
+  venueAdultFacilities    String? @map("venue_adult_facilities") @db.Text
+  venueDogFacilities      String? @map("venue_dog_facilities") @db.Text
+  venueParkingProvision   String? @map("venue_parking_provision") @db.Text
+
+  venueAgeSuitabilityUnder1Years    Boolean? @map("venue_age_suitability_under_1_s")
+  venueAgeSuitability1To2Years      Boolean? @map("venue_age_suitability_1_to_2_years")
+  venueAgeSuitability3To4Years      Boolean? @map("venue_age_suitability_3_to_4_years")
+  venueAgeSuitability5To7Years      Boolean? @map("venue_age_suitability_5_to_7_years")
+  venueAgeSuitability8To12Years     Boolean? @map("venue_age_suitability_8_to_12_years")
+  venueAgeSuitabilityOver13Years    Boolean? @map("venue_age_suitability_over_13_years")
+  venueAgeSuitabilityAdults         Boolean? @map("venue_age_suitability_adults")
+
+  venuePhysicalSetting              String? @map("venue_physical_setting") @db.Text
+  venueDetailedWeatherSuitability   String? @map("venue_detailed_weather_suitability") @db.Text
+  venueEstimatedDuration            String? @map("venue_estimated_duration") @db.Text
+  venueInterestTags                 String? @map("venue_interest_tags") @db.Text
+  venueSeasonalTag                  String? @map("venue_seasonal_tag") @db.Text
+  venueSeasonalHighlights           String? @map("venue_seasonal_highlights") @db.Text
+  venueAttractions                  String? @map("venue_attractions") @db.Text
+  venueExtraKit                     String? @map("venue_extra_kit") @db.Text
+  image                             String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([themeId])
+  @@index([themeVariantId])
+  @@map("opportunity_venues_v2")
 }
 
 model OpportunityEvent {

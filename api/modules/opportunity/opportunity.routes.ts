@@ -4,6 +4,7 @@ import opportunityEventsRoutes from "./events/routes.js";
 import opportunityClubsRoutes from "./clubs/routes.js";
 import opportunityRoutesRoutes from "./routes/routes.js";
 import opportunityVenuesRoutes from "./venues/routes.js";
+import opportunityVenuesV2Routes from "./venues_v2/routes.js";
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.use(opportunityEventsRoutes);
 router.use(opportunityClubsRoutes);
 router.use(opportunityRoutesRoutes);
 router.use(opportunityVenuesRoutes);
+router.use(opportunityVenuesV2Routes);
 
 export default router;

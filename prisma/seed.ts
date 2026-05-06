@@ -7,6 +7,7 @@ import {
 import { seedInterestBasedSkills } from "./seed_skills.js";
 import { seedFacilities } from "./seed_facilities.js";
 import { seedOpportunityThemes } from "./seed_opportunity_themes.js";
+import { seedOpportunityVenuesV2 } from "./seed_opportunity_venues_v2/index.js";
 
 const prisma = new PrismaClient();
 
@@ -103,95 +104,6 @@ async function seedOpportunityEvents() {
         "hands_on_activities",
         "challenges_or_missions",
       ],
-    },
-  });
-}
-
-async function seedOpportunityVenuesV2() {
-  await prisma.opportunityVenuesV2.deleteMany();
-
-  const theme = await prisma.opportunityTheme.findFirst({
-    where: {
-      recordType: "venue",
-      slug: "gardens_and_curated_outdoor_spaces",
-    },
-  });
-  const variant = theme
-    ? await prisma.opportunityThemeVariant.findFirst({
-        where: {
-          themeId: theme.id,
-          slug: "historic_estate_gardens",
-        },
-      })
-    : null;
-
-  if (!theme || !variant) {
-    console.log(
-      "Skipping opportunity venue v2 seed: venue theme or variant not found.",
-    );
-    return;
-  }
-
-  await prisma.opportunityVenuesV2.create({
-    data: {
-      opportunityType: "venue",
-      themeId: theme.id,
-      themeVariantId: variant.id,
-      venueName: "Castle Drogo Estate (NT)",
-      venueActivityGroup: "Energy Burner",
-      venueDescription:
-        "Castle Drogo brings together castle exploring, Dartmoor views and plenty of space to stretch your legs. Families can wander through the castle, follow seasonal trails, explore the gardens and look out across the Teign Gorge, with enough variety to make it work as either a focused visit or a longer day out. Hidden gardens, meandering paths and plenty of picnics spots make for an scenic trip for children of all ages.",
-      venueAddressLine1: "Drive",
-      venueAddressLine2: "Drewsteignton",
-      venueCity: "Exeter",
-      venueRegion: null,
-      venuePostcode: "EX6 6PB",
-      latitude: "50.699421",
-      longitude: "-3.809834",
-      venueCountry: null,
-      venueSchedulePattern:
-        "Monday, Tuesday, Wednesday, Thursday, Saturday, Friday, Sunday",
-      venueFixedDailyTimings: true,
-      venueFixedTimingsStartTime: "10:00",
-      venueFixedTimingsEndTime: "17:00",
-      venueEntryCost: true,
-      ticketingRequirement: true,
-      venueBookingType: "Pay On Arrival, Members Only",
-      ticketingVariants: "Adult, (Fixed) Child, Baby",
-      ticketVariantDefinitionBaby: "0-5",
-      ticketVariantBabyPrice: "£0.00",
-      ticketVariantDefinitionFixedChild: "5-17",
-      ticketVariantFixedChildPrice: "£9.00",
-      ticketVariantDefinitionAdult: "18+",
-      ticketVariantAdultPrice: "£18.00",
-      ticketVariantDefinitionConcession: "1 adult & up to 3 children",
-      ticketVariantConcessionPrice: "£27.00",
-      ticketVariantDefinitionGroup: "Family (2 adults and up to 3 children)",
-      ticketVariantGroupPrice: "£45.00",
-      venueGeneralFacilities:
-        "Toilets, Disabled toilets, Indoor Seating, Picnic Benches, Guided Tour, Dogs Allowed",
-      venueChildFacilities: "Children's trail",
-      venueAdultFacilities:
-        "Hot Drinks, Hot & Cold food, Snacks, Giftshop, Bookshop",
-      venueDogFacilities: null,
-      venueParkingProvision: "Paid Car Park, Bike racks / bays",
-      venueAgeSuitabilityUnder1Years: true,
-      venueAgeSuitability1To2Years: true,
-      venueAgeSuitability3To4Years: true,
-      venueAgeSuitability5To7Years: true,
-      venueAgeSuitability8To12Years: true,
-      venueAgeSuitabilityOver13Years: true,
-      venueAgeSuitabilityAdults: true,
-      venuePhysicalSetting: "Outside",
-      venueDetailedWeatherSuitability:
-        "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot",
-      venueEstimatedDuration: "1-2hrs, 2-3hrs",
-      venueSeasonalTag: "Autumn colours",
-      venueSeasonalHighlights: `Autumn Leaves, "Berries, Nuts, Conkers"`,
-      venueAttractions: `Designed or sculpted landscapes, Seasonal foliage, Room to run freely, Open sightlines, "Hidden corners, passageways, gates & gardens", Children's Activity Trails, Statues & sculptures`,
-      venueExtraKit:
-        "XC Buggy, Sling / baby carrier, Infant / toddler carrier",
-      image: "Castle Drogo Estate.JPG",
     },
   });
 }
@@ -298,7 +210,7 @@ async function main() {
   await seedOpportunityVenues();
 
   console.log("Seeding opportunity venues v2...");
-  await seedOpportunityVenuesV2();
+  await seedOpportunityVenuesV2(prisma);
 
   const venuesV2 = await prisma.opportunityVenuesV2.findMany({
     include: { theme: true, themeVariant: true },

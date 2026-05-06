@@ -6,6 +6,7 @@ import {
 } from "./seed_interests.js";
 import { seedInterestBasedSkills } from "./seed_skills.js";
 import { seedFacilities } from "./seed_facilities.js";
+import { seedOpportunityThemes } from "./seed_opportunity_themes.js";
 
 const prisma = new PrismaClient();
 
@@ -186,6 +187,9 @@ async function main() {
 
   console.log("Seeding facilities...");
   await seedFacilities(prisma);
+
+  console.log("Seeding opportunity themes & variants...");
+  await seedOpportunityThemes(prisma);
 
   console.log("Seeding opportunity events...");
   await seedOpportunityEvents();

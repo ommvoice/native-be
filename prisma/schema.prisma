@@ -219,6 +219,55 @@ enum OpportunityRecordType {
   route
 }
 
+/// Canonical theme options per opportunity record type (e.g. route vs venue pickers).
+/// `slug` is unique together with `recordType`; display copy lives in `name`.
+model OpportunityTheme {
+  id String @id @default(uuid())
+
+  slug String
+  name String
+
+  recordType OpportunityRecordType
+
+  isActive Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  variants OpportunityThemeVariant[]
+
+  @@unique([recordType, slug])
+  @@index([recordType])
+  @@map("opportunity_theme")
+}
+
+/// Finer-grained option under a parent theme (walk types, venue sub-styles, etc.).
+model OpportunityThemeVariant {
+  id String @id @default(uuid())
+
+  themeId String
+  theme   OpportunityTheme @relation(fields: [themeId], references: [id], onDelete: Cascade)
+
+  slug String
+  name String
+
+  /// Raw applicability from spec, e.g. `all`, `route`, `venue, club, event` (not normalised to enums).
+  applicableTypes String?
+
+  description String?
+
+  isActive Boolean @default(true)
+  sortOrder Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([themeId, slug])
+  @@index([themeId])
+  @@map("opportunity_theme_variant")
+}
+
 model OpportunityVenue {
   id          String  @id @default(uuid())
   type        OpportunityRecordType @default(venue)

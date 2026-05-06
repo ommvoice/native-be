@@ -9,6 +9,7 @@
     "start": "tsx api/index.ts",
     "dev": "prisma generate && tsx watch api/index.ts",
     "seed:interests": "tsx prisma/seed_interests.ts",
+    "seed:opportunity-themes": "tsx prisma/seed_opportunity_themes_standalone.ts",
     "seed:rec-demo": "tsx prisma/seed_recommendations_demo.ts",
     "seed:swagger-corridor": "tsx prisma/seed_swagger_corridor.ts"
   },

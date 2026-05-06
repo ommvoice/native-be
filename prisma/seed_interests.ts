@@ -307,7 +307,7 @@ const interestSubCategories: {
     parentSlug: "animal_encounters",
     slug: "horse_riding",
     name: "Horse Riding",
-    suitableForAge: "8+",
+    suitableForAge: "6+",
   },
   {
     categorySlug: "learning_curiosity",

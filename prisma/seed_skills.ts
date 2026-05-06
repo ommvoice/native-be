@@ -249,9 +249,9 @@ const INTEREST_BASED_SKILL_SEEDS: InterestSkillSeedBundle[] = [
       {
         slug: "learning_animal_encounters_horse_riding",
         label: "Horse Riding",
-        ageGuidance: "Age 8 and over",
+        ageGuidance: "Age 6 and over",
         description:
-          "Riding position, control, and care around horses. Typically suitable from age 8 and over; providers vary.",
+          "Riding position, control, and care around horses. Typically suitable from age 6 and over; providers vary.",
       },
       {
         slug: "learning_animal_encounters_animal_husbandry",

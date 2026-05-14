@@ -32,6 +32,23 @@ export class ParentRepository {
     });
   }
 
+  async getByUserId(userId: string) {
+    return prisma.parents.findUnique({
+      where: { userId },
+      include: {
+        children: true,
+        interestCategories: {
+          orderBy: { slug: "asc" },
+          select: interestCategorySelect,
+        },
+        interestSubCategories: {
+          orderBy: { slug: "asc" },
+          select: interestSubCategorySelect,
+        },
+      },
+    });
+  }
+
   async interestCategoriesExist(ids: string[]) {
     if (ids.length === 0) return true;
     const count = await prisma.interestCategory.count({

@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import { configureRoutes } from "./routes/index.js";
 import { connectDB } from "./database/database.config.js";
 import { setupSwagger } from "./docs/swagger.js";
@@ -23,14 +24,18 @@ const PORT = process.env["PORT"] ?? 3000;
     console.error("❌ Failed to connect to DB:", err);
     process.exit(1);
   });
-  
+
 setupSwagger(app);
+app.use(cors({
+  origin: "*",
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/api", configureRoutes());
 app.use(globalError);
-app.listen(PORT, () => {
+app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

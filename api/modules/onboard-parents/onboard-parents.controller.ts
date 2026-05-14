@@ -9,7 +9,7 @@ export class OnboardParentController {
   create = async (req: Request, res: Response): Promise<void> => {
     const payload = req.body as RequestOnboardParentCreateDto;
 
-    const id = await this.onboardParentService.create(payload);
-    res.status(StatusCodes.CREATED).json({ id });
+    const result = await this.onboardParentService.create(payload);
+    res.status(StatusCodes.CREATED).json(result);
   };
 }

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import childrenRoutes from "../modules/children/routes.js";
 import usersRoutes from "../modules/users/users.routes.js";
+import authRoutes from "../modules/auth/auth.routes.js";
 import parentsRoutes from "../modules/parents/routes.js";
 import onboardParentsRoutes from "../modules/onboard-parents/onboard.parents.routes.js";
 import recommendationsRoutes from "../modules/recommendations/recommendations.routes.js";
@@ -14,6 +15,7 @@ import facilitiesRoutes from "../modules/facilities/routes.js";
 
 export const configureRoutes = (io?: any) => {
   const router = Router();
+  router.use("/auth", authRoutes);
   router.use("/children", childrenRoutes);
   router.use("/onboard-parents", onboardParentsRoutes);
   router.use("/parents", parentsRoutes);

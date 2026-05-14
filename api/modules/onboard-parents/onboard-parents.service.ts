@@ -1,38 +1,32 @@
 import { StatusCodes } from "http-status-codes";
 import AppError from "../../shared/errors/AppError.js";
 import type { RequestOnboardParentCreateDto } from "./onboard-parents.dto.js";
-import type { UserRepository } from "../users/users.repository.js";
 import type { OnboardParentRepository } from "./onboard-parents.repository.js";
+import type { AuthService } from "../auth/auth.service.js";
 import { getLatLngForPostCode } from "../../shared/utils/external-api-calls.js";
 
 export class OnboardParentService {
   constructor(
     private onboardParentRepository: OnboardParentRepository,
-    private userRepository: UserRepository,
+    private authService: AuthService,
   ) {}
 
-  async create(data: RequestOnboardParentCreateDto): Promise<string> {
-    const existingEntity = await this.userRepository.getByEmail(data.email);
-    if (existingEntity)
-      throw new AppError(StatusCodes.CONFLICT, "Duplicate entry.");
-    const sub = "sub"; // TODO: get from cognito
+  async create(data: RequestOnboardParentCreateDto): Promise<{ id: string; token: string; sub: string }> {
+    const { token, user } = await this.authService.register(data.email, data.password);
 
-    const newUserId = await this.userRepository.create(
-      data.email,
-      "PARENT",
-      sub,
-    );
     const latLongs = await getLatLngForPostCode(data.postCode);
     if (!latLongs) {
       throw new AppError(StatusCodes.BAD_REQUEST, "Mapbox failed.");
     }
 
     const { longitude, latitude } = latLongs;
-    return await this.onboardParentRepository.createParentAndChildren(
+    const id = await this.onboardParentRepository.createParentAndChildren(
       data,
-      newUserId,
+      user.id,
       String(latitude),
       String(longitude),
     );
+
+    return { id, token, sub: user.sub };
   }
 }

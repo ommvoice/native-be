@@ -3,12 +3,14 @@ import { OnboardParentRepository } from "./onboard-parents.repository.js";
 import { OnboardParentService } from "./onboard-parents.service.js";
 import { OnboardParentController } from "./onboard-parents.controller.js";
 import { UserRepository } from "../users/users.repository.js";
+import { AuthService } from "../auth/auth.service.js";
 import { createOnboardParentSchema, validateBody } from "./schema.js";
 
 const router = express.Router();
 const onboardParentRepository = new OnboardParentRepository();
-const userRepository= new UserRepository();
-const service = new OnboardParentService(onboardParentRepository, userRepository);
+const userRepository = new UserRepository();
+const authService = new AuthService(userRepository);
+const service = new OnboardParentService(onboardParentRepository, authService);
 const controller = new OnboardParentController(service);
 
 /**

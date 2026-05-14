@@ -1,4 +1,5 @@
-import type { PrismaClient } from "@prisma/client";
+import "dotenv/config";
+import { PrismaClient } from "@prisma/client";
 import { skillBoundsFromAgeGuidance } from "../api/modules/skills/skillAgeGuidance.js";
 
 type SkillRow = {
@@ -385,3 +386,14 @@ export async function seedInterestBasedSkills(prisma: PrismaClient): Promise<voi
 
 /** @deprecated Use `seedInterestBasedSkills` */
 export const seedCoastalAdventureSkills = seedInterestBasedSkills;
+
+if (process.argv[1] === new URL(import.meta.url).pathname) {
+  const prisma = new PrismaClient();
+  seedInterestBasedSkills(prisma)
+    .then(() => console.log("Skills seeded successfully."))
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(() => prisma.$disconnect());
+}

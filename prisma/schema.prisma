@@ -21,7 +21,7 @@ enum ROLE {
 model Users {
   id        String   @id @default(uuid())
   email     String   @unique
-  sub       String
+  sub       String   @unique
   role      ROLE     @default(PARENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -82,8 +82,6 @@ export class DrivingLegService {
     const token = this.getToken();
     const missing = routableLegs.filter((leg) => !valid.has(legKey(leg.type, leg.id)));
 
-    console.log('v1: ', { missing, snap: missing[0]?.snapshot, existing, valid, currentByKey})
-
     if (missing.length === 0 || !token) {
       return valid;
     }

@@ -25,4 +25,17 @@ export class UserRepository {
 
     return entity.id;
   }
+
+  async upsertBySub(sub: string, email: string) {
+    return prisma.users.upsert({
+      where: { sub },
+      update: { email },
+      create: { sub, email, role: "PARENT" },
+      select: { id: true, email: true, role: true, sub: true },
+    });
+  }
+
+  async getBySub(sub: string) {
+    return prisma.users.findUnique({ where: { sub } });
+  }
 }

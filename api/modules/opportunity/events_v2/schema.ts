@@ -78,6 +78,7 @@ export const createOpportunityVenueV2Schema = yup.object({
   eventMixedTimingsSundayEnd: sOpt(),
   ticketSalesStartDate: isoDateOpt,
   eventEntryCost: bOpt(),
+  ticketingRequirement: bOpt(),
   eventBookingType: sOpt(),
   ticketingVariants: sOpt(),
   ticketVariantDefinitionBaby: sOpt(),

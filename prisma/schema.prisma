@@ -237,9 +237,9 @@ model OpportunityTheme {
 
   variants             OpportunityThemeVariant[]
   opportunityVenuesV2  OpportunityVenuesV2[]
-  opportunityVenueV2   OpportunityVenueV2[]
-  opportunityClubV2   OpportunityClubV2[]
-  opportunityRouteV2  OpportunityRouteV2[]
+  opportunityEventsV2  OpportunityEventsV2[]
+  opportunityClubV2    OpportunityClubV2[]
+  opportunityRouteV2   OpportunityRouteV2[]
 
   @@unique([recordType, slug])
   @@index([recordType])
@@ -268,9 +268,9 @@ model OpportunityThemeVariant {
   updatedAt DateTime @updatedAt
 
   opportunityVenuesV2 OpportunityVenuesV2[]
-  opportunityVenueV2  OpportunityVenueV2[]
-  opportunityClubV2   OpportunityClubV2[]
-  opportunityRouteV2  OpportunityRouteV2[]
+  opportunityEventsV2 OpportunityEventsV2[]
+  opportunityClubV2  OpportunityClubV2[]
+  opportunityRouteV2 OpportunityRouteV2[]
 
   @@unique([themeId, slug])
   @@index([themeId])
@@ -354,11 +354,9 @@ model OpportunityVenue {
   @@map("opportunity_venues")
 }
 
-/// Spreadsheet-style venue import rows; theme and variant reference `opportunity_theme` / `opportunity_theme_variant`.
+/// Spreadsheet-style venue import rows (`opportunity_venues_v2`).
 model OpportunityVenuesV2 {
   id String @id @default(uuid())
-
-  opportunityType OpportunityRecordType @default(venue) @map("opportunity_type")
 
   themeId String @map("venue_opportunity_theme_id")
   theme   OpportunityTheme @relation(fields: [themeId], references: [id], onDelete: Restrict)
@@ -366,7 +364,7 @@ model OpportunityVenuesV2 {
   themeVariantId String @map("venue_opportunity_theme_variant_id")
   themeVariant   OpportunityThemeVariant @relation(fields: [themeVariantId], references: [id], onDelete: Restrict)
 
-  venueName             String  @map("venue_name")
+  venueName             String @map("venue_name")
   venueActivityGroup    String? @map("venue_activity_group")
   venueDescription      String? @map("venue_description") @db.Text
   venueAddressLine1     String? @map("venue_address_line_1")
@@ -417,6 +415,8 @@ model OpportunityVenuesV2 {
   ticketVariantDefinitionGroup      String? @map("ticket_variant_definition_group")
   ticketVariantGroupPrice           String? @map("ticket_variant_group_price")
 
+  ticketSalesStartDate DateTime? @map("ticket_sales_start_date")
+
   venueGeneralFacilities  String? @map("venue_general_facilities") @db.Text
   venueChildFacilities    String? @map("venue_child_facilities") @db.Text
   venueAdultFacilities    String? @map("venue_adult_facilities") @db.Text
@@ -439,7 +439,8 @@ model OpportunityVenuesV2 {
   venueSeasonalHighlights           String? @map("venue_seasonal_highlights") @db.Text
   venueAttractions                  String? @map("venue_attractions") @db.Text
   venueExtraKit                     String? @map("venue_extra_kit") @db.Text
-  image                             String?
+
+  image String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -449,8 +450,8 @@ model OpportunityVenuesV2 {
   @@map("opportunity_venues_v2")
 }
 
-/// Spreadsheet-style **event** import rows; theme and variant reference `opportunity_theme` / `opportunity_theme_variant`.
-model OpportunityVenueV2 {
+/// Spreadsheet-style event import rows (`opportunity_events_v2`).
+model OpportunityEventsV2 {
   id String @id @default(uuid())
 
   opportunityType OpportunityRecordType @default(event) @map("opportunity_type")
@@ -459,9 +460,9 @@ model OpportunityVenueV2 {
   theme   OpportunityTheme @relation(fields: [themeId], references: [id], onDelete: Restrict)
 
   themeVariantId String @map("event_opportunity_theme_variant_id")
-  themeVariant     OpportunityThemeVariant @relation(fields: [themeVariantId], references: [id], onDelete: Restrict)
+  themeVariant   OpportunityThemeVariant @relation(fields: [themeVariantId], references: [id], onDelete: Restrict)
 
-  eventName             String  @map("event_name")
+  eventName             String @map("event_name")
   eventActivityGroup    String? @map("event_activity_group")
   eventType             String? @map("event_type") @db.Text
   eventDescription      String? @map("event_description") @db.Text
@@ -470,9 +471,9 @@ model OpportunityVenueV2 {
   eventCity             String? @map("event_city")
   eventRegion           String? @map("event_region")
   eventPostcode         String? @map("event_postcode") @db.VarChar(20)
-  eventCountry          String? @map("event_country")
   latitude              String?
   longitude             String?
+  eventCountry          String? @map("event_country")
   eventPhysicalSetting              String? @map("event_physical_setting") @db.Text
   eventDetailedWeatherSuitability   String? @map("event_detailed_weather_suitability") @db.Text
   eventStartDate                    DateTime? @map("event_start_date")
@@ -501,10 +502,11 @@ model OpportunityVenueV2 {
   eventMixedTimingsSaturdayEnd      String?   @map("event_mixed_timings_saturday_end_time") @db.VarChar(5)
   eventMixedTimingsSundayStart      String?   @map("event_mixed_timings_sunday_start_time") @db.VarChar(5)
   eventMixedTimingsSundayEnd        String?   @map("event_mixed_timings_sunday_end_time") @db.VarChar(5)
-  ticketSalesStartDate              DateTime? @map("ticket_sales_start_date")
   eventEntryCost                    Boolean?  @map("event_entry_cost")
+  ticketingRequirement  Boolean? @map("ticketing_requirement")
   eventBookingType                  String?   @map("event_booking_type") @db.Text
-  ticketingVariants                 String?   @map("ticketing_variants") @db.Text
+  ticketingVariants     String? @map("ticketing_variants") @db.Text
+
   ticketVariantDefinitionBaby       String? @map("ticket_variant_definition_baby")
   ticketVariantBabyPrice            String? @map("ticket_variant_baby_price")
   ticketVariantDefinitionFixedChild String? @map("ticket_variant_definition__fixed_child")
@@ -519,33 +521,38 @@ model OpportunityVenueV2 {
   ticketVariantConcessionPrice      String? @map("ticket_variant_concession_price")
   ticketVariantDefinitionGroup      String? @map("ticket_variant_definition_group")
   ticketVariantGroupPrice           String? @map("ticket_variant_group_price")
+
+  ticketSalesStartDate DateTime? @map("ticket_sales_start_date")
+
   eventParkingProvision             String? @map("event_parking_provision") @db.Text
   eventGeneralFacilities            String? @map("event_general_facilities") @db.Text
   eventChildFacilities              String? @map("event_child_facilities") @db.Text
   eventAdultFacilities              String? @map("event_adult_facilities") @db.Text
-  eventAgeSuitabilityUnder1S        Boolean? @map("event_age_suitability_under_1_s")
-  eventAgeSuitability1To2Years      Boolean? @map("event_age_suitability_1_to_2_years")
-  eventAgeSuitability3To4Years      Boolean? @map("event_age_suitability_3_to_4_years")
-  eventAgeSuitability5To7Years      Boolean? @map("event_age_suitability_5_to_7_years")
-  eventAgeSuitability8To12Years     Boolean? @map("event_age_suitability_8_to_12_years")
-  eventAgeSuitabilityOver13Years    Boolean? @map("event_age_suitability_over_13_years")
-  eventAgeSuitabilityAdults         Boolean? @map("event_age_suitability_adults")
-  eventInterestTags                 String? @map("event_interest_tags") @db.Text
-  eventSeasonalTags                 String? @map("event_seasonal_tags") @db.Text
-  eventSeasonalHighlights           String? @map("event_seasonal_highlights") @db.Text
-  eventHighlights                   String? @map("event_highlights") @db.Text
-  eventExtraKit                     String? @map("event_extra_kit") @db.Text
-  eventSkillArea                    String? @map("event_skill_area") @db.Text
-  eventSkillAreaVariant             String? @map("event_skill_area_variant") @db.Text
-  eventAbilityLevel                 String? @map("event_ability_level") @db.Text
-  image                             String?
+  eventAgeSuitabilityUnder1S        Boolean?  @map("event_age_suitability_under_1_s")
+  eventAgeSuitability1To2Years     Boolean?  @map("event_age_suitability_1_to_2_years")
+  eventAgeSuitability3To4Years      Boolean?  @map("event_age_suitability_3_to_4_years")
+  eventAgeSuitability5To7Years      Boolean?  @map("event_age_suitability_5_to_7_years")
+  eventAgeSuitability8To12Years     Boolean?  @map("event_age_suitability_8_to_12_years")
+  eventAgeSuitabilityOver13Years    Boolean?  @map("event_age_suitability_over_13_years")
+  eventAgeSuitabilityAdults         Boolean?  @map("event_age_suitability_adults")
+  eventInterestTags                 String?   @map("event_interest_tags") @db.Text
+  eventSeasonalTags                 String?   @map("event_seasonal_tags") @db.Text
+  eventSeasonalHighlights           String?   @map("event_seasonal_highlights") @db.Text
+  eventHighlights                   String?   @map("event_highlights") @db.Text
+  eventExtraKit                     String?   @map("event_extra_kit") @db.Text
+  eventSkillArea                    String?   @map("event_skill_area") @db.Text
+  eventSkillAreaVariant             String?   @map("event_skill_area_variant") @db.Text
+  eventAbilityLevel                 String?   @map("event_ability_level") @db.Text
+
+  image String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([themeId])
   @@index([themeVariantId])
-  @@map("opportunity_venue_v2")
+  @@index([opportunityType])
+  @@map("opportunity_events_v2")
 }
 
 model OpportunityEvent {

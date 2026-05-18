@@ -191,7 +191,8 @@ async function main() {
   console.log("Seeding facilities...");
   await seedFacilities(prisma);
 
-  console.log("Clearing opportunity venues v2 (references theme catalog)...");
+  console.log("Clearing opportunity venues v2 & events v2 (references theme catalog)...");
+  await prisma.opportunityEventsV2.deleteMany();
   await prisma.opportunityVenuesV2.deleteMany();
 
   console.log("Seeding opportunity themes & variants...");

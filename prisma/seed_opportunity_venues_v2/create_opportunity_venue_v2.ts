@@ -1,8 +1,4 @@
-import type {
-  OpportunityRecordType,
-  Prisma,
-  PrismaClient,
-} from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 
 /**
  * Same shape as `OpportunityVenuesV2UncheckedCreateInput`, but theme links are
@@ -20,21 +16,16 @@ export async function createOpportunityVenueV2Seed(
   prisma: PrismaClient,
   input: OpportunityVenueV2SeedInput,
 ) {
-  const {
-    themeSlug,
-    themeVariantSlug,
-    opportunityType: inputRecordType,
-    ...scalars
-  } = input;
+  const { themeSlug, themeVariantSlug, ...scalars } = input;
 
-  const opportunityType = (inputRecordType ?? "venue") as OpportunityRecordType;
+  const recordType = "venue" as const;
 
   const theme = await prisma.opportunityTheme.findFirst({
-    where: { recordType: opportunityType, slug: themeSlug.trim() },
+    where: { recordType, slug: themeSlug.trim() },
   });
   if (!theme) {
     throw new Error(
-      `Opportunity theme not found for recordType=${opportunityType}, slug=${themeSlug}`,
+      `Opportunity theme not found for recordType=${recordType}, slug=${themeSlug}`,
     );
   }
 
@@ -53,7 +44,6 @@ export async function createOpportunityVenueV2Seed(
   return prisma.opportunityVenuesV2.create({
     data: {
       ...scalars,
-      opportunityType,
       themeId: theme.id,
       themeVariantId: themeVariant.id,
     },

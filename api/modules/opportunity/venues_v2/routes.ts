@@ -17,7 +17,7 @@ const controller = new OpportunityVenuesV2Controller(service);
  * /opportunity/venues_v2:
  *   post:
  *     summary: Create an opportunity venue (v2 import shape)
- *     description: Stores spreadsheet-style fields; themeSlug + themeVariantSlug must exist on opportunity_theme / opportunity_theme_variant for the given opportunityType (default venue).
+ *     description: Stores spreadsheet-style fields; themeSlug + themeVariantSlug must resolve to an opportunity_theme / opportunity_theme_variant with recordType venue.
  *     requestBody:
  *       required: true
  *       content:
@@ -32,7 +32,6 @@ const controller = new OpportunityVenuesV2Controller(service);
  *               venueName: { type: string }
  *               themeSlug: { type: string }
  *               themeVariantSlug: { type: string }
- *               opportunityType: { type: string, enum: [venue, event, club, route] }
  *     responses:
  *       201:
  *         description: Venue created

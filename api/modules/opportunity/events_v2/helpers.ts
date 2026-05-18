@@ -8,7 +8,7 @@ export const enrichOpportunityVenueV2Response = (
 ): OpportunityVenueV2Response => ({
   id: row.id,
   opportunityType: row.opportunityType,
-  eventName: row.eventName,
+  eventName: row.eventName ?? "",
   eventActivityGroup: row.eventActivityGroup,
   eventType: row.eventType,
   eventDescription: row.eventDescription,
@@ -50,6 +50,7 @@ export const enrichOpportunityVenueV2Response = (
   eventMixedTimingsSundayEnd: row.eventMixedTimingsSundayEnd,
   ticketSalesStartDate: row.ticketSalesStartDate,
   eventEntryCost: row.eventEntryCost,
+  ticketingRequirement: row.ticketingRequirement,
   eventBookingType: row.eventBookingType,
   ticketingVariants: row.ticketingVariants,
   ticketVariantDefinitionBaby: row.ticketVariantDefinitionBaby,

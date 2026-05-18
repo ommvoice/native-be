@@ -4,17 +4,17 @@ import type {
   PrismaClient,
 } from "@prisma/client";
 
-export type OpportunityVenueV2EventSeedInput = Omit<
-  Prisma.OpportunityVenueV2UncheckedCreateInput,
+export type OpportunityEventV2SeedInput = Omit<
+  Prisma.OpportunityEventsV2UncheckedCreateInput,
   "themeId" | "themeVariantId"
 > & {
   themeSlug: string;
   themeVariantSlug: string;
 };
 
-export async function createOpportunityVenueV2EventRow(
+export async function createOpportunityEventV2Row(
   prisma: PrismaClient,
-  input: OpportunityVenueV2EventSeedInput,
+  input: OpportunityEventV2SeedInput,
 ) {
   const {
     themeSlug,
@@ -46,7 +46,7 @@ export async function createOpportunityVenueV2EventRow(
     );
   }
 
-  return prisma.opportunityVenueV2.create({
+  return prisma.opportunityEventsV2.create({
     data: {
       ...scalars,
       opportunityType,

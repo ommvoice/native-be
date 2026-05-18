@@ -17,7 +17,7 @@ const controller = new OpportunityVenueV2Controller(service);
  * /opportunity/events_v2:
  *   post:
  *     summary: Create an opportunity event (v2 import shape)
- *     description: Stores spreadsheet-style event fields; themeSlug + themeVariantSlug must exist on opportunity_theme / opportunity_theme_variant for the given opportunityType (default event).
+ *     description: Stores spreadsheet-style event fields in opportunity_events_v2; themeSlug + themeVariantSlug must exist for the given opportunityType (default event).
  *     requestBody:
  *       required: true
  *       content:

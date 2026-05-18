@@ -1,4 +1,4 @@
-import type { OpportunityRecordType, Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import prisma from "../../../database/database.config.js";
 import AppError from "../../../shared/errors/AppError.js";
 import type { OpportunityVenuesV2Repository } from "./repository.js";
@@ -100,12 +100,14 @@ export class OpportunityVenuesV2Service {
 
   async getById(id: string): Promise<OpportunityVenuesV2Response> {
     const row = await this.repository.getById(id);
-    if (!row) throw new AppError(404, "Opportunity venue (v2) not found");
+    if (!row) {
+      throw new AppError(404, "Opportunity venue (v2) not found");
+    }
     return enrichOpportunityVenuesV2Response(row);
   }
 
   async create(data: CreateOpportunityVenuesV2Body): Promise<OpportunityVenuesV2Response> {
-    const recordType = (data.opportunityType ?? "venue") as OpportunityRecordType;
+    const recordType = "venue" as const;
 
     const theme = await prisma.opportunityTheme.findFirst({
       where: { recordType, slug: data.themeSlug.trim() },
@@ -134,7 +136,6 @@ export class OpportunityVenuesV2Service {
       themeId: theme.id,
       themeVariantId: themeVariant.id,
       venueName: data.venueName.trim(),
-      opportunityType: recordType,
       ...pickOptionalCreateFields(data),
     };
 

@@ -10,7 +10,7 @@
     "dev": "prisma generate && tsx watch api/index.ts",
     "seed:interests": "tsx prisma/seed_interests.ts",
     "seed:opportunity-themes": "tsx prisma/seed_opportunity_themes_standalone.ts",
-    "seed:opportunity-venue-v2-events": "tsx prisma/seed_opportunity_venue_v2_events_standalone.ts",
+    "seed:opportunity-events-v2": "tsx prisma/seed_opportunity_events_v2_standalone.ts",
     "seed:opportunity-venues-v2": "tsx prisma/seed_opportunity_venues_v2_standalone.ts",
     "seed:opportunity-club-v2": "tsx prisma/seed_opportunity_club_v2_standalone.ts",
     "seed:opportunity-route-v2": "tsx prisma/seed_opportunity_route_v2_standalone.ts",

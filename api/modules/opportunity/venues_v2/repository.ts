@@ -11,7 +11,7 @@ export class OpportunityVenuesV2Repository {
   }
 
   async getById(id: string) {
-    return prisma.opportunityVenuesV2.findUnique({
+    return prisma.opportunityVenuesV2.findFirst({
       where: { id },
       include: opportunityVenuesV2Include,
     });

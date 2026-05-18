@@ -7,7 +7,6 @@ export const enrichOpportunityVenuesV2Response = (
   row: EnrichableOpportunityVenuesV2,
 ): OpportunityVenuesV2Response => ({
   id: row.id,
-  opportunityType: row.opportunityType,
   venueName: row.venueName,
   venueActivityGroup: row.venueActivityGroup,
   venueDescription: row.venueDescription,

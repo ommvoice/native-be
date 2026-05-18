@@ -45,6 +45,7 @@ const OPTIONAL_OPPORTUNITY_VENUE_V2_CREATE_FIELDS = [
   "eventMixedTimingsSundayStart",
   "eventMixedTimingsSundayEnd",
   "eventEntryCost",
+  "ticketingRequirement",
   "eventBookingType",
   "ticketingVariants",
   "ticketVariantDefinitionBaby",
@@ -81,12 +82,12 @@ const OPTIONAL_OPPORTUNITY_VENUE_V2_CREATE_FIELDS = [
   "eventSkillAreaVariant",
   "eventAbilityLevel",
   "image",
-] as const satisfies readonly (keyof Prisma.OpportunityVenueV2UncheckedCreateInput)[];
+] as const satisfies readonly (keyof Prisma.OpportunityEventsV2UncheckedCreateInput)[];
 
 function pickOptionalCreateFields(
   body: CreateOpportunityVenueV2Body,
-): Partial<Prisma.OpportunityVenueV2UncheckedCreateInput> {
-  const out: Partial<Prisma.OpportunityVenueV2UncheckedCreateInput> = {};
+): Partial<Prisma.OpportunityEventsV2UncheckedCreateInput> {
+  const out: Partial<Prisma.OpportunityEventsV2UncheckedCreateInput> = {};
   for (const key of OPTIONAL_OPPORTUNITY_VENUE_V2_CREATE_FIELDS) {
     const v = body[key];
     if (v !== undefined) {
@@ -114,7 +115,9 @@ export class OpportunityVenueV2Service {
 
   async getById(id: string): Promise<OpportunityVenueV2Response> {
     const row = await this.repository.getById(id);
-    if (!row) throw new AppError(404, "Opportunity venue (v2 event import) not found");
+    if (!row) {
+      throw new AppError(404, "Opportunity venue (v2 event import) not found");
+    }
     return enrichOpportunityVenueV2Response(row);
   }
 
@@ -146,7 +149,7 @@ export class OpportunityVenueV2Service {
       );
     }
 
-    const prismaData: Prisma.OpportunityVenueV2UncheckedCreateInput = {
+    const prismaData: Prisma.OpportunityEventsV2UncheckedCreateInput = {
       themeId: theme.id,
       themeVariantId: themeVariant.id,
       eventName: data.eventName.trim(),

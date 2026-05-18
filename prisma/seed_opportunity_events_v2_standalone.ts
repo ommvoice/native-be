@@ -1,8 +1,8 @@
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
-import { seedOpportunityVenueV2Events } from "./seed_opportunity_venue_v2_events/index.js";
+import { seedOpportunityEventsV2 } from "./seed_opportunity_events_v2/index.js";
 
 const prisma = new PrismaClient();
 
-await seedOpportunityVenueV2Events(prisma);
+await seedOpportunityEventsV2(prisma);
 await prisma.$disconnect();

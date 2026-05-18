@@ -1,7 +1,7 @@
 import type { Prisma } from "@prisma/client";
-import type { OpportunityVenueV2EventSeedInput } from "./create_opportunity_venue_v2_event_row.js";
+import type { OpportunityEventV2SeedInput } from "./create_opportunity_event_v2_row.js";
 
-type Row = OpportunityVenueV2EventSeedInput;
+type Row = OpportunityEventV2SeedInput;
 
 /** UK calendar dates as UTC midnight (avoid TZ shifting the calendar day). */
 function uk(d: string): Date {
@@ -22,12 +22,24 @@ function uk(d: string): Date {
   return new Date(Date.UTC(year, month - 1, day));
 }
 
+/** WGS84 from postcodes.io (centre of postcode sector). */
+const COORDS_PL9_0HP = {
+  latitude: "50.320032",
+  longitude: "-4.079484",
+} as const;
+
+const COORDS_TQ12_4RG = {
+  latitude: "50.534332",
+  longitude: "-3.553749",
+} as const;
+
 /**
  * Spreadsheet import rows (Wembury / Amelia’s PYO). Requires
  * `npx prisma migrate deploy` and `npm run seed:opportunity-themes` first
  * so `event` themes include Marine Aquarium + Family-Friendly Cafés variants.
+ * Load rows with `npm run seed:opportunity-events-v2`.
  */
-export function opportunityVenueV2EventSeedRows(): Row[] {
+export function opportunityEventV2SeedRows(): Row[] {
   const rows: Row[] = [];
 
   rows.push({
@@ -45,8 +57,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
     eventRegion: "Devon",
     eventPostcode: "PL9 0HP",
     eventCountry: null,
-    latitude: null,
-    longitude: null,
+    ...COORDS_PL9_0HP,
     eventPhysicalSetting: "Outside",
     eventDetailedWeatherSuitability:
       "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot",
@@ -122,8 +133,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
     eventRegion: "Devon",
     eventPostcode: "PL9 0HP",
     eventCountry: null,
-    latitude: null,
-    longitude: null,
+    ...COORDS_PL9_0HP,
     eventPhysicalSetting: "Outside",
     eventDetailedWeatherSuitability:
       "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot",
@@ -199,8 +209,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
     eventRegion: "Devon",
     eventPostcode: "PL9 0HP",
     eventCountry: null,
-    latitude: null,
-    longitude: null,
+    ...COORDS_PL9_0HP,
     eventPhysicalSetting: "Mixed",
     eventDetailedWeatherSuitability:
       "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot, Windy (> X mph)",
@@ -272,8 +281,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
     eventRegion: "Devon",
     eventPostcode: "PL9 0HP",
     eventCountry: null,
-    latitude: null,
-    longitude: null,
+    ...COORDS_PL9_0HP,
     eventPhysicalSetting: "Outside",
     eventDetailedWeatherSuitability:
       "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot",
@@ -346,8 +354,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
     eventRegion: "Devon",
     eventPostcode: "TQ12 4RG",
     eventCountry: null,
-    latitude: null,
-    longitude: null,
+    ...COORDS_TQ12_4RG,
     eventPhysicalSetting: "Outside",
     eventDetailedWeatherSuitability:
       "Sunshine, Overcast / cloudy, Dry & mild, Dry & cold, Dry & warm, Dry & hot",
@@ -413,7 +420,7 @@ export function opportunityVenueV2EventSeedRows(): Row[] {
 }
 
 function emptyMixedTimings(): Pick<
-  Prisma.OpportunityVenueV2UncheckedCreateInput,
+  Prisma.OpportunityEventsV2UncheckedCreateInput,
   | "eventMixedTimingsMondayStart"
   | "eventMixedTimingsMondayEnd"
   | "eventMixedTimingsTuesdayStart"

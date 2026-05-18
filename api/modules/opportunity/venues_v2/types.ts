@@ -25,7 +25,6 @@ export interface OpportunityVenuesV2ThemeVariantRef {
 /** API shape: spreadsheet-style scalars plus theme rows from DB. */
 export interface OpportunityVenuesV2Response {
   id: string;
-  opportunityType: string;
   theme: OpportunityVenuesV2ThemeRef;
   themeVariant: OpportunityVenuesV2ThemeVariantRef;
   venueName: string;

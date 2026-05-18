@@ -1159,7 +1159,7 @@ const VARIANTS_BY_THEME: Record<ThemeSlug, VariantRow[]> = {
 export async function seedOpportunityThemes(prisma: PrismaClient) {
   // Import rows FK to theme/variant with ON DELETE RESTRICT — clear them before
   // wiping the catalog so deleteMany on themes does not fail (Postgres 23001).
-  await prisma.opportunityVenueV2.deleteMany();
+  await prisma.opportunityEventsV2.deleteMany();
   await prisma.opportunityVenuesV2.deleteMany();
   await prisma.opportunityClubV2.deleteMany();
   await prisma.opportunityRouteV2.deleteMany();

@@ -87,6 +87,7 @@ export class RecommendationsService {
     const parentInScope = this.narrowParentToChildrenInScope(parentRow, dto);
     const base = this.assertParentAndBuildContext(parentInScope, dto);
 
+    // 1: Interest categories and sub categories from the parent and all children are combined into a single set of slugs for interest overlap scoring; skills from all children are combined into a single set of slugs for skill overlap scoring. This means that when `dto.childId` is set, the parent interests still apply and the single child's interests and skills apply, but other children are ignored.
     const familySlugs = collectFamilyInterestSlugs({
       parentCategorySlugs: base.parent.interestCategories.map((x) => x.slug),
       parentSubCategorySlugs: base.parent.interestSubCategories.map((x) => x.slug),

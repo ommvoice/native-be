@@ -18,11 +18,6 @@ export const createOpportunityVenuesV2Schema = yup.object({
     .string()
     .trim()
     .required("themeVariantSlug is required"),
-  opportunityType: yup
-    .string()
-    .oneOf(["venue", "event", "club", "route"])
-    .optional()
-    .default("venue"),
   venueActivityGroup: sOpt(),
   venueDescription: sOpt(),
   venueAddressLine1: sOpt(),

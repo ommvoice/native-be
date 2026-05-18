@@ -1,7 +1,6 @@
 import type { OpportunityVenueV2SeedInput } from "../create_opportunity_venue_v2.js";
 
 export const theHamPlayParkVenueV2: OpportunityVenueV2SeedInput = {
-  opportunityType: "venue",
   themeSlug: "playgrounds_and_adventure_play",
   themeVariantSlug: "local_playgrounds",
   venueName: "The Ham Play Park",

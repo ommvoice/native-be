@@ -4,21 +4,21 @@ import { opportunityVenueV2Include } from "./types.js";
 
 export class OpportunityVenueV2Repository {
   async getAll() {
-    return prisma.opportunityVenueV2.findMany({
+    return prisma.opportunityEventsV2.findMany({
       include: opportunityVenueV2Include,
       orderBy: { createdAt: "asc" },
     });
   }
 
   async getById(id: string) {
-    return prisma.opportunityVenueV2.findUnique({
+    return prisma.opportunityEventsV2.findFirst({
       where: { id },
       include: opportunityVenueV2Include,
     });
   }
 
-  async create(data: Prisma.OpportunityVenueV2UncheckedCreateInput) {
-    return prisma.opportunityVenueV2.create({
+  async create(data: Prisma.OpportunityEventsV2UncheckedCreateInput) {
+    return prisma.opportunityEventsV2.create({
       data,
       include: opportunityVenueV2Include,
     });

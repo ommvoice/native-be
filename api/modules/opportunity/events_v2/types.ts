@@ -5,7 +5,7 @@ export const opportunityVenueV2Include = {
   themeVariant: true,
 } as const;
 
-export type EnrichableOpportunityVenueV2 = Prisma.OpportunityVenueV2GetPayload<{
+export type EnrichableOpportunityVenueV2 = Prisma.OpportunityEventsV2GetPayload<{
   include: typeof opportunityVenueV2Include;
 }>;
 
@@ -70,6 +70,7 @@ export interface OpportunityVenueV2Response {
   eventMixedTimingsSundayEnd: string | null;
   ticketSalesStartDate: Date | null;
   eventEntryCost: boolean | null;
+  ticketingRequirement: boolean | null;
   eventBookingType: string | null;
   ticketingVariants: string | null;
   ticketVariantDefinitionBaby: string | null;

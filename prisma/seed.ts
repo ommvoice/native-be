@@ -8,6 +8,8 @@ import { seedInterestBasedSkills } from "./seed_skills.js";
 import { seedFacilities } from "./seed_facilities.js";
 import { seedOpportunityThemes } from "./seed_opportunity_themes.js";
 import { seedOpportunityVenuesV2 } from "./seed_opportunity_venues_v2/index.js";
+import { seedOpportunityClubV2 } from "./seed_opportunity_club_v2/index.js";
+import { seedOpportunityRouteV2 } from "./seed_opportunity_route_v2/index.js";
 
 const prisma = new PrismaClient();
 
@@ -241,6 +243,17 @@ async function main() {
     );
   }
 
+  console.log("\nSeeding opportunity clubs v2...");
+  await seedOpportunityClubV2(prisma);
+  const clubsV2 = await prisma.opportunityClubV2.findMany({
+    include: { theme: true, themeVariant: true },
+    orderBy: { createdAt: "asc" },
+  });
+  console.log(`Seeded ${clubsV2.length} opportunity clubs (v2):`);
+  for (const c of clubsV2) {
+    console.log(`  ${c.clubName} — ${c.theme.name} / ${c.themeVariant.name}`);
+  }
+
   console.log("\nSeeding opportunity routes...");
   await seedOpportunityRoutes();
 
@@ -250,6 +263,17 @@ async function main() {
     console.log(
       `  ${r.name} — ${slugToName(r.themeSlug)} / ${r.themeVariantSlug ? slugToName(r.themeVariantSlug) : "—"} (${r.routeTypeSlug ? slugToName(r.routeTypeSlug) : "—"})`,
     );
+  }
+
+  console.log("\nSeeding opportunity routes v2...");
+  await seedOpportunityRouteV2(prisma);
+  const routesV2 = await prisma.opportunityRouteV2.findMany({
+    include: { theme: true, themeVariant: true },
+    orderBy: { createdAt: "asc" },
+  });
+  console.log(`Seeded ${routesV2.length} opportunity routes (v2):`);
+  for (const r of routesV2) {
+    console.log(`  ${r.routeName} — ${r.theme.name} / ${r.themeVariant.name}`);
   }
 
   console.log("\nSeeding wishlists...");

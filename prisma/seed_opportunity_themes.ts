@@ -27,7 +27,7 @@ const THEME_SLUG_BY_TYPE = {
   indoor_entertainment: [R.venue, R.club, R.event],
   transport_and_engineering: [R.venue, R.club, R.event],
   a_big_day_out: [R.venue, R.event],
-  a_relaxed_coffee_stop: [R.venue],
+  a_relaxed_coffee_stop: [R.venue, R.event],
   family_dining: [R.venue],
 } as const satisfies Record<string, readonly RT[]>;
 
@@ -828,8 +828,8 @@ const VARIANTS_BY_THEME: Record<ThemeSlug, VariantRow[]> = {
     {
       slug: "sealife_aquarium",
       name: "Marine Aquarium",
-      recordTypes: [R.venue],
-      applicableTypes: "venue",
+      recordTypes: [R.venue, R.event],
+      applicableTypes: "venue, event",
       description: "Aquatic animal centres",
     },
     {
@@ -1090,8 +1090,8 @@ const VARIANTS_BY_THEME: Record<ThemeSlug, VariantRow[]> = {
     {
       slug: "family_friendly_cafes",
       name: "Family-Friendly Cafés",
-      recordTypes: [R.venue],
-      applicableTypes: "venue",
+      recordTypes: [R.venue, R.event],
+      applicableTypes: "venue, event",
       description: "Welcoming, space for kids",
     },
     {
@@ -1157,6 +1157,13 @@ const VARIANTS_BY_THEME: Record<ThemeSlug, VariantRow[]> = {
 };
 
 export async function seedOpportunityThemes(prisma: PrismaClient) {
+  // Import rows FK to theme/variant with ON DELETE RESTRICT — clear them before
+  // wiping the catalog so deleteMany on themes does not fail (Postgres 23001).
+  await prisma.opportunityVenueV2.deleteMany();
+  await prisma.opportunityVenuesV2.deleteMany();
+  await prisma.opportunityClubV2.deleteMany();
+  await prisma.opportunityRouteV2.deleteMany();
+
   await prisma.opportunityTheme.deleteMany();
 
   const themeRows = themesToCreate();

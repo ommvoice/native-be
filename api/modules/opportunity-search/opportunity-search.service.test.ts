@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpportunityRecordType } from "@prisma/client";
+import type { OpportunityRecordType } from "../../types/db.js";
 import { legKey } from "../recommendations/driving-leg.repository.js";
 import { stubOpportunityPayloadFromCandidate } from "../recommendations/recommendation-stub-payload.js";
 import type { RecommendationCandidate } from "../recommendations/types.js";

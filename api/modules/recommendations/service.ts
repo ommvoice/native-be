@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import type { Parents, Children } from "@prisma/client";
+import type { Parents, Children } from "../../types/db.js";
 import AppError from "../../shared/errors/AppError.js";
 import type { RecommendationQueryDto } from "./dto.js";
 import {

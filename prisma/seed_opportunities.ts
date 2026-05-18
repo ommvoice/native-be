@@ -1,36 +1,57 @@
+/// <reference types="node" />
 import "dotenv/config";
-import { PrismaClient } from "@prisma/client";
+import { PutCommand, ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
+import { v4 as uuidv4 } from "uuid";
+import db from "../api/database/database.config.js";
+import { TABLES } from "../api/database/tables.js";
 
-const prisma = new PrismaClient();
-
-// ── UK postcodes spread within ~60 miles of HP2 7DB ──
 const LOCATIONS = {
-  hemel: { postCode: "HP2 7DB", lat: "51.756910", lon: "-0.444680" },
+  hemel:       { postCode: "HP2 7DB", lat: "51.756910", lon: "-0.444680" },
   berkhamsted: { postCode: "HP4 1AB", lat: "51.761548", lon: "-0.568634" },
-  watford: { postCode: "WD17 1NA", lat: "51.659461", lon: "-0.401221" },
-  luton: { postCode: "LU1 1AA", lat: "51.879985", lon: "-0.422902" },
-  stAlbans: { postCode: "AL1 1AA", lat: "51.742920", lon: "-0.341400" },
-  stevenage: { postCode: "SG1 1AB", lat: "51.902000", lon: "-0.199000" },
-  miltonKeynes: { postCode: "MK6 2AA", lat: "52.039000", lon: "-0.750000" },
-  oxford: { postCode: "OX3 7LF", lat: "51.768000", lon: "-1.209000" },
+  watford:     { postCode: "WD17 1NA", lat: "51.659461", lon: "-0.401221" },
+  luton:       { postCode: "LU1 1AA", lat: "51.879985", lon: "-0.422902" },
+  stAlbans:    { postCode: "AL1 1AA", lat: "51.742920", lon: "-0.341400" },
+  stevenage:   { postCode: "SG1 1AB", lat: "51.902000", lon: "-0.199000" },
+  miltonKeynes:{ postCode: "MK6 2AA", lat: "52.039000", lon: "-0.750000" },
+  oxford:      { postCode: "OX3 7LF", lat: "51.768000", lon: "-1.209000" },
 } as const;
 
-// ── Events ──────────────────────────────────────────────────────────────────
+async function clearTable(tableName: string) {
+  let lastKey: Record<string, unknown> | undefined;
+  const ids: string[] = [];
+  do {
+    const res = await db.send(
+      new ScanCommand({
+        TableName: tableName,
+        ProjectionExpression: "id",
+        ...(lastKey ? { ExclusiveStartKey: lastKey } : {}),
+      }),
+    );
+    for (const item of res.Items ?? []) ids.push(item.id as string);
+    lastKey = res.LastEvaluatedKey as Record<string, unknown> | undefined;
+  } while (lastKey);
 
-export async function seedOpportunityEvents(client: PrismaClient = prisma) {
-  await client.opportunityEvent.deleteMany();
+  for (const id of ids) {
+    await db.send(new DeleteCommand({ TableName: tableName, Key: { id } }));
+  }
+}
+
+// ── Events ───────────────────────────────────────────────────────────────────
+
+export async function seedOpportunityEvents() {
+  await clearTable(TABLES.opportunityEvents);
+  const now = new Date().toISOString();
 
   const events = [
     {
       name: "Gone Wild",
-      description:
-        "A family festival known for outdoors focused events and activities.",
+      description: "A family festival known for outdoors focused events and activities.",
       themeSlug: "a_big_day_out",
       themeVariantSlug: "seasonal_and_themed_events",
       eventTypeSlug: "festival",
       activityGroupSlug: "special_day_out",
-      startDate: new Date("2026-06-22"),
-      endDate: new Date("2026-06-23"),
+      startDate: "2026-06-22",
+      endDate: "2026-06-23",
       startTime: "09:00",
       finishTime: "21:00",
       postCode: LOCATIONS.berkhamsted.postCode,
@@ -49,24 +70,17 @@ export async function seedOpportunityEvents(client: PrismaClient = prisma) {
       ageSuitabilitySlugs: ["age_5", "age_6", "age_7", "age_8", "age_9", "age_10", "age_11", "age_12", "age_13_plus", "age_16_plus"],
       extraKitSlugs: ["wellies", "headtorch", "camping_gear"],
       seasonalHighlightSlugs: [],
-      highlightAttractionSlugs: [
-        "live_shows_or_performances",
-        "large_interactive_exhibits",
-        "meet_and_greet_characters",
-        "hands_on_activities",
-        "challenges_or_missions",
-      ],
+      highlightAttractionSlugs: ["live_shows_or_performances", "large_interactive_exhibits", "meet_and_greet_characters", "hands_on_activities", "challenges_or_missions"],
     },
     {
       name: "Nature Art Day",
-      description:
-        "Get creative with natural materials — leaf printing, mud painting, and nature collages in a woodland setting.",
+      description: "Get creative with natural materials — leaf printing, mud painting, and nature collages in a woodland setting.",
       themeSlug: "nature_and_wildlife_exploration",
       themeVariantSlug: "forest_school",
       eventTypeSlug: "workshop_or_talk",
       activityGroupSlug: "low_effort",
-      startDate: new Date("2026-05-10"),
-      endDate: new Date("2026-05-10"),
+      startDate: "2026-05-10",
+      endDate: "2026-05-10",
       startTime: "10:00",
       finishTime: "13:00",
       postCode: LOCATIONS.stAlbans.postCode,
@@ -91,13 +105,12 @@ export async function seedOpportunityEvents(client: PrismaClient = prisma) {
     },
     {
       name: "Family Sports Day",
-      description:
-        "Classic sports day fun for families — egg and spoon, sack races, relay sprints, and tug of war in the park.",
+      description: "Classic sports day fun for families — egg and spoon, sack races, relay sprints, and tug of war in the park.",
       themeSlug: "green_spaces_to_run_around",
       eventTypeSlug: "sport_based",
       activityGroupSlug: "energy_burner",
-      startDate: new Date("2026-07-19"),
-      endDate: new Date("2026-07-19"),
+      startDate: "2026-07-19",
+      endDate: "2026-07-19",
       startTime: "10:30",
       finishTime: "15:00",
       postCode: LOCATIONS.watford.postCode,
@@ -122,14 +135,13 @@ export async function seedOpportunityEvents(client: PrismaClient = prisma) {
     },
     {
       name: "Little Explorers Country Show",
-      description:
-        "A traditional agricultural show with family-friendly exhibits, animals, craft stalls, and arena events.",
+      description: "A traditional agricultural show with family-friendly exhibits, animals, craft stalls, and arena events.",
       themeSlug: "a_big_day_out",
       themeVariantSlug: "seasonal_and_themed_events",
       eventTypeSlug: "country_show",
       activityGroupSlug: "special_day_out",
-      startDate: new Date("2026-08-29"),
-      endDate: new Date("2026-08-30"),
+      startDate: "2026-08-29",
+      endDate: "2026-08-30",
       startTime: "09:30",
       finishTime: "18:00",
       postCode: LOCATIONS.miltonKeynes.postCode,
@@ -148,33 +160,26 @@ export async function seedOpportunityEvents(client: PrismaClient = prisma) {
       ageSuitabilitySlugs: ["age_1", "age_2", "age_3", "age_4", "age_5", "age_6", "age_7", "age_8", "age_9", "age_10", "age_11", "age_12"],
       extraKitSlugs: ["wellies", "sturdy_footwear"],
       seasonalHighlightSlugs: [],
-      highlightAttractionSlugs: [
-        "animal_displays_or_shows",
-        "animal_feeding",
-        "hands_on_petting",
-        "live_shows_or_performances",
-        "rides_and_attractions",
-      ],
+      highlightAttractionSlugs: ["animal_displays_or_shows", "animal_feeding", "hands_on_petting", "live_shows_or_performances", "rides_and_attractions"],
     },
   ];
 
   for (const data of events) {
-    await client.opportunityEvent.create({ data });
+    await db.send(new PutCommand({ TableName: TABLES.opportunityEvents, Item: { id: uuidv4(), ...data, createdAt: now, updatedAt: now } }));
   }
-
   console.log(`  Seeded ${events.length} opportunity events.`);
 }
 
-// ── Venues ──────────────────────────────────────────────────────────────────
+// ── Venues ───────────────────────────────────────────────────────────────────
 
-export async function seedOpportunityVenues(client: PrismaClient = prisma) {
-  await client.opportunityVenue.deleteMany();
+export async function seedOpportunityVenues() {
+  await clearTable(TABLES.opportunityVenues);
+  const now = new Date().toISOString();
 
   const venues = [
     {
       name: "World of Country Life",
-      description:
-        "A mix of farm experiences, museums, and play areas. Features animal petting, daily shows, a deer train safari, and extensive indoor/outdoor play areas.",
+      description: "A mix of farm experiences, museums, and play areas. Features animal petting, daily shows, a deer train safari, and extensive indoor/outdoor play areas.",
       postCode: LOCATIONS.hemel.postCode,
       latitude: LOCATIONS.hemel.lat,
       longitude: LOCATIONS.hemel.lon,
@@ -203,8 +208,7 @@ export async function seedOpportunityVenues(client: PrismaClient = prisma) {
     },
     {
       name: "Willowmere Adventure Park",
-      description:
-        "A high-energy adventure park with zip lines, climbing walls, aerial trails, and splash zones. Perfect for families with children aged 4 and up looking for an adrenaline-fuelled day out.",
+      description: "A high-energy adventure park with zip lines, climbing walls, aerial trails, and splash zones.",
       postCode: LOCATIONS.stevenage.postCode,
       latitude: LOCATIONS.stevenage.lat,
       longitude: LOCATIONS.stevenage.lon,
@@ -233,8 +237,7 @@ export async function seedOpportunityVenues(client: PrismaClient = prisma) {
     },
     {
       name: "Bluebell Wood Nature Reserve",
-      description:
-        "A peaceful ancient woodland blanketed in bluebells each spring. Marked family trails, wildlife-spotting guides, and a small visitor centre with bug hotels and nest boxes.",
+      description: "A peaceful ancient woodland blanketed in bluebells each spring. Marked family trails, wildlife-spotting guides, and a small visitor centre.",
       postCode: LOCATIONS.oxford.postCode,
       latitude: LOCATIONS.oxford.lat,
       longitude: LOCATIONS.oxford.lon,
@@ -263,8 +266,7 @@ export async function seedOpportunityVenues(client: PrismaClient = prisma) {
     },
     {
       name: "Oakfield Farm Park",
-      description:
-        "A working farm park where children can meet rare breeds, bottle-feed lambs, and ride the tractor trailer around the grounds. Indoor soft-play barn for wet days.",
+      description: "A working farm park where children can meet rare breeds, bottle-feed lambs, and ride the tractor trailer around the grounds.",
       postCode: LOCATIONS.luton.postCode,
       latitude: LOCATIONS.luton.lat,
       longitude: LOCATIONS.luton.lon,
@@ -294,22 +296,21 @@ export async function seedOpportunityVenues(client: PrismaClient = prisma) {
   ];
 
   for (const data of venues) {
-    await client.opportunityVenue.create({ data });
+    await db.send(new PutCommand({ TableName: TABLES.opportunityVenues, Item: { id: uuidv4(), ...data, createdAt: now, updatedAt: now } }));
   }
-
   console.log(`  Seeded ${venues.length} opportunity venues.`);
 }
 
-// ── Clubs ───────────────────────────────────────────────────────────────────
+// ── Clubs ────────────────────────────────────────────────────────────────────
 
-export async function seedOpportunityClubs(client: PrismaClient = prisma) {
-  await client.opportunityClub.deleteMany();
+export async function seedOpportunityClubs() {
+  await clearTable(TABLES.opportunityClubs);
+  const now = new Date().toISOString();
 
   const clubs = [
     {
       name: "Little Muddy Boots",
-      description:
-        "Come and get messy, learn new skills and connect in our woodland setting.",
+      description: "Come and get messy, learn new skills and connect in our woodland setting.",
       themeSlug: "nature_and_wildlife_exploration",
       themeVariantSlug: "forest_school",
       postCode: LOCATIONS.watford.postCode,
@@ -341,8 +342,7 @@ export async function seedOpportunityClubs(client: PrismaClient = prisma) {
     },
     {
       name: "Mini Athletes Club",
-      description:
-        "Fun sports sessions covering running, jumping, throwing, and team games. Builds confidence and coordination in a non-competitive, inclusive environment.",
+      description: "Fun sports sessions covering running, jumping, throwing, and team games.",
       themeSlug: "green_spaces_to_run_around",
       postCode: LOCATIONS.stAlbans.postCode,
       latitude: LOCATIONS.stAlbans.lat,
@@ -373,8 +373,7 @@ export async function seedOpportunityClubs(client: PrismaClient = prisma) {
     },
     {
       name: "Little Artists",
-      description:
-        "Weekly creative sessions exploring painting, collage, print-making, and clay. All materials provided; every child leaves with something unique.",
+      description: "Weekly creative sessions exploring painting, collage, print-making, and clay.",
       themeSlug: "a_big_day_out",
       postCode: LOCATIONS.hemel.postCode,
       latitude: LOCATIONS.hemel.lat,
@@ -405,8 +404,7 @@ export async function seedOpportunityClubs(client: PrismaClient = prisma) {
     },
     {
       name: "Family Yoga & Mindfulness",
-      description:
-        "Gentle yoga and mindfulness sessions designed for parents and children to enjoy together. Suitable for all abilities — no experience required.",
+      description: "Gentle yoga and mindfulness sessions designed for parents and children to enjoy together.",
       themeSlug: "green_spaces_to_run_around",
       postCode: LOCATIONS.miltonKeynes.postCode,
       latitude: LOCATIONS.miltonKeynes.lat,
@@ -438,22 +436,21 @@ export async function seedOpportunityClubs(client: PrismaClient = prisma) {
   ];
 
   for (const data of clubs) {
-    await client.opportunityClub.create({ data });
+    await db.send(new PutCommand({ TableName: TABLES.opportunityClubs, Item: { id: uuidv4(), ...data, createdAt: now, updatedAt: now } }));
   }
-
   console.log(`  Seeded ${clubs.length} opportunity clubs.`);
 }
 
-// ── Routes ──────────────────────────────────────────────────────────────────
+// ── Routes ───────────────────────────────────────────────────────────────────
 
-export async function seedOpportunityRoutes(client: PrismaClient = prisma) {
-  await client.opportunityRoute.deleteMany();
+export async function seedOpportunityRoutes() {
+  await clearTable(TABLES.opportunityRoutes);
+  const now = new Date().toISOString();
 
   const routes = [
     {
       name: "Woodbury Castle",
-      description:
-        "A short circular walk over the healthland of Woodbury. Great views, sturdy trails & gorseland.",
+      description: "A short circular walk over the healthland of Woodbury. Great views, sturdy trails & gorseland.",
       themeSlug: "scenic_walks_and_wanders",
       themeVariantSlug: "woodland_and_forest_walks",
       routeTypeSlug: "circular",
@@ -480,8 +477,7 @@ export async function seedOpportunityRoutes(client: PrismaClient = prisma) {
     },
     {
       name: "Riverside Family Trail",
-      description:
-        "A gentle flat path following the river bank through water meadows and wildflower fields. Ideal for pushchairs and little legs — ducks and kingfishers often spotted along the way.",
+      description: "A gentle flat path following the river bank through water meadows and wildflower fields.",
       themeSlug: "scenic_walks_and_wanders",
       routeTypeSlug: "straight",
       routeDistanceMiles: 1.5,
@@ -507,8 +503,7 @@ export async function seedOpportunityRoutes(client: PrismaClient = prisma) {
     },
     {
       name: "Chiltern Hills Loop",
-      description:
-        "A classic Chilterns circuit through beech woodland and open chalk downland with sweeping valley views. Moderate gradient with clear waymarking throughout.",
+      description: "A classic Chilterns circuit through beech woodland and open chalk downland with sweeping valley views.",
       themeSlug: "scenic_walks_and_wanders",
       themeVariantSlug: "woodland_and_forest_walks",
       routeTypeSlug: "circular",
@@ -535,8 +530,7 @@ export async function seedOpportunityRoutes(client: PrismaClient = prisma) {
     },
     {
       name: "Park Run & Play",
-      description:
-        "A marked 2km loop around a flat urban park — great for buggy runs, scooting, and teaching older children to pace themselves. Ends at the playground.",
+      description: "A marked 2km loop around a flat urban park — great for buggy runs, scooting, and teaching older children to pace themselves.",
       themeSlug: "green_spaces_to_run_around",
       routeTypeSlug: "circular",
       routeDistanceMiles: 1.2,
@@ -563,13 +557,12 @@ export async function seedOpportunityRoutes(client: PrismaClient = prisma) {
   ];
 
   for (const data of routes) {
-    await client.opportunityRoute.create({ data });
+    await db.send(new PutCommand({ TableName: TABLES.opportunityRoutes, Item: { id: uuidv4(), ...data, createdAt: now, updatedAt: now } }));
   }
-
   console.log(`  Seeded ${routes.length} opportunity routes.`);
 }
 
-// ── Main (standalone run) ────────────────────────────────────────────────────
+// ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
   console.log("Seeding opportunity events...");
@@ -587,11 +580,7 @@ async function main() {
   console.log("\nDone.");
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

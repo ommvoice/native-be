@@ -1,5 +1,8 @@
-import { Prisma, type OpportunityRecordType } from "@prisma/client";
-import prisma from "../../database/database.config.js";
+import { GetCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import db from "../../database/database.config.js";
+import { TABLES } from "../../database/tables.js";
+import { batchGetItems } from "../../database/dynamo-helpers.js";
+import type { OpportunityRecordType } from "../../types/db.js";
 import type { OpportunitySearchCandidateRow, OpportunitySearchDrivingLegRow } from "./types.js";
 
 const METERS_PER_MILE = 1609.344;
@@ -12,62 +15,87 @@ export class OpportunitySearchRepository {
   async findFacilityBySlug(slug: string): Promise<{ slug: string } | null> {
     const normalized = slug.trim().toLowerCase();
     if (!normalized) return null;
-    return prisma.facility.findUnique({
-      where: { slug: normalized },
-      select: { slug: true },
-    });
+    const { ScanCommand } = await import("@aws-sdk/lib-dynamodb");
+    const res = await db.send(
+      new ScanCommand({
+        TableName: TABLES.facilities,
+        FilterExpression: "#slug = :slug",
+        ExpressionAttributeNames: { "#slug": "slug" },
+        ExpressionAttributeValues: { ":slug": normalized },
+        Limit: 1,
+      }),
+    );
+    const item = res.Items?.[0];
+    return item ? { slug: item.slug as string } : null;
   }
 
   async findChildInterestSubCategorySlugs(
     parentId: string,
     childId: string,
   ): Promise<string[] | null> {
-    const row = await prisma.children.findFirst({
-      where: { id: childId, parentId },
-      select: {
-        interestSubCategories: { select: { slug: true } },
-      },
-    });
-    if (!row) return null;
-    return row.interestSubCategories.map((s) => s.slug);
+    const res = await db.send(
+      new QueryCommand({
+        TableName: TABLES.children,
+        IndexName: "parentId-index",
+        KeyConditionExpression: "parentId = :pid",
+        ExpressionAttributeValues: { ":pid": parentId },
+      }),
+    );
+    const child = (res.Items ?? []).find((i) => i.id === childId);
+    if (!child) return null;
+    const subCategoryIds = (child.interestSubCategoryIds as string[]) ?? [];
+    if (subCategoryIds.length === 0) return [];
+    const subItems = await batchGetItems(TABLES.interestSubCategories, subCategoryIds);
+    return subItems.map((i) => i.slug as string);
   }
 
-  async findParentLatLon(parentId: string): Promise<{ latitude: string; longitude: string } | null> {
-    const row = await prisma.parents.findUnique({
-      where: { id: parentId },
-      select: { latitude: true, longitude: true },
-    });
-    if (!row) return null;
-    return { latitude: row.latitude, longitude: row.longitude };
+  async findParentLatLon(
+    parentId: string,
+  ): Promise<{ latitude: string; longitude: string } | null> {
+    const res = await db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: parentId } }));
+    if (!res.Item) return null;
+    const item = res.Item as Record<string, unknown>;
+    return { latitude: item.latitude as string, longitude: item.longitude as string };
   }
 
   async listDrivingLegsForParent(
     parentId: string,
-    opts: {
-      maxDurationSeconds?: number;
-      maxDistanceMeters?: number;
-    },
+    opts: { maxDurationSeconds?: number; maxDistanceMeters?: number },
   ): Promise<OpportunitySearchDrivingLegRow[]> {
-    const where: Prisma.ParentOpportunityDrivingLegWhereInput = { parentId };
+    const conditions: string[] = ["parentId = :pid"];
+    const names: Record<string, string> = {};
+    const values: Record<string, unknown> = { ":pid": parentId };
+
+    let filterParts: string[] = [];
     if (opts.maxDurationSeconds != null) {
-      where.drivingDurationSeconds = { lte: opts.maxDurationSeconds };
+      filterParts.push("drivingDurationSeconds <= :maxDur");
+      values[":maxDur"] = opts.maxDurationSeconds;
     }
     if (opts.maxDistanceMeters != null) {
-      where.drivingDistanceMeters = { lte: opts.maxDistanceMeters };
+      filterParts.push("drivingDistanceMeters <= :maxDist");
+      values[":maxDist"] = opts.maxDistanceMeters;
     }
-    return prisma.parentOpportunityDrivingLeg.findMany({
-      where,
-      select: {
-        opportunityType: true,
-        opportunityId: true,
-        drivingDistanceMeters: true,
-        drivingDurationSeconds: true,
-        parentLatitude: true,
-        parentLongitude: true,
-        opportunityLatitude: true,
-        opportunityLongitude: true,
-      },
-    });
+
+    const queryParams: Record<string, unknown> = {
+      TableName: TABLES.drivingLegs,
+      KeyConditionExpression: conditions.join(" AND "),
+      ExpressionAttributeValues: values,
+    };
+    if (Object.keys(names).length > 0) queryParams.ExpressionAttributeNames = names;
+    if (filterParts.length > 0) queryParams.FilterExpression = filterParts.join(" AND ");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res = await db.send(new QueryCommand(queryParams as any));
+    return ((res.Items ?? []) as Record<string, unknown>[]).map((i) => ({
+      opportunityType: i.opportunityType as OpportunityRecordType,
+      opportunityId: i.opportunityId as string,
+      drivingDistanceMeters: i.drivingDistanceMeters as number,
+      drivingDurationSeconds: i.drivingDurationSeconds as number,
+      parentLatitude: i.parentLatitude as string,
+      parentLongitude: i.parentLongitude as string,
+      opportunityLatitude: i.opportunityLatitude as string,
+      opportunityLongitude: i.opportunityLongitude as string,
+    }));
   }
 
   async findCandidatesByRefs(
@@ -80,146 +108,72 @@ export class OpportunitySearchRepository {
     const clubIds = [...new Set(refs.filter((r) => r.type === "club").map((r) => r.id))];
     const routeIds = [...new Set(refs.filter((r) => r.type === "route").map((r) => r.id))];
 
-    const [venueDogById, venues, events, clubs, routes] = await Promise.all([
-      venueIds.length
-        ? prisma
-            .$queryRaw<{ id: string; dogFacilitySlugs: string[] | null }[]>`
-            SELECT id, "dogFacilitySlugs"
-            FROM "opportunity_venues"
-            WHERE id IN (${Prisma.join(venueIds)})
-          `
-            .then((rows) => {
-              const m = new Map<string, string[]>();
-              for (const r of rows) {
-                m.set(r.id, r.dogFacilitySlugs ?? []);
-              }
-              return m;
-            })
-        : Promise.resolve(new Map<string, string[]>()),
-      venueIds.length
-        ? prisma.opportunityVenue.findMany({
-            where: { id: { in: venueIds } },
-            select: {
-              id: true,
-              type: true,
-              interestTags: true,
-              themeSlug: true,
-              latitude: true,
-              longitude: true,
-              generalFacilitySlugs: true,
-              kidsFacilitySlugs: true,
-              parentFacilitySlugs: true,
-            },
-          })
-        : Promise.resolve([]),
-      eventIds.length
-        ? prisma.opportunityEvent.findMany({
-            where: { id: { in: eventIds } },
-            select: {
-              id: true,
-              type: true,
-              interestTags: true,
-              themeSlug: true,
-              latitude: true,
-              longitude: true,
-              generalFacilitySlugs: true,
-              kidsFacilitySlugs: true,
-              parentFacilitySlugs: true,
-            },
-          })
-        : Promise.resolve([]),
-      clubIds.length
-        ? prisma.opportunityClub.findMany({
-            where: { id: { in: clubIds } },
-            select: {
-              id: true,
-              type: true,
-              interestTags: true,
-              themeSlug: true,
-              latitude: true,
-              longitude: true,
-              generalFacilitySlugs: true,
-              kidsFacilitySlugs: true,
-              parentFacilitySlugs: true,
-            },
-          })
-        : Promise.resolve([]),
-      routeIds.length
-        ? prisma.opportunityRoute.findMany({
-            where: { id: { in: routeIds } },
-            select: {
-              id: true,
-              type: true,
-              interestTags: true,
-              themeSlug: true,
-              latitude: true,
-              longitude: true,
-              generalFacilitySlugs: true,
-              kidsFacilitySlugs: true,
-              parentFacilitySlugs: true,
-              dogFacilitySlugs: true,
-            },
-          })
-        : Promise.resolve([]),
+    const [venues, events, clubs, routes] = await Promise.all([
+      venueIds.length > 0 ? batchGetItems(TABLES.opportunityVenues, venueIds) : [],
+      eventIds.length > 0 ? batchGetItems(TABLES.opportunityEvents, eventIds) : [],
+      clubIds.length > 0 ? batchGetItems(TABLES.opportunityClubs, clubIds) : [],
+      routeIds.length > 0 ? batchGetItems(TABLES.opportunityRoutes, routeIds) : [],
     ]);
 
     const out: OpportunitySearchCandidateRow[] = [];
+
     for (const v of venues) {
       out.push({
-        type: v.type,
-        id: v.id,
-        interestTags: v.interestTags,
-        themeSlug: v.themeSlug,
-        latitude: v.latitude,
-        longitude: v.longitude,
-        generalFacilitySlugs: v.generalFacilitySlugs,
-        kidsFacilitySlugs: v.kidsFacilitySlugs,
-        parentFacilitySlugs: v.parentFacilitySlugs,
-        dogFacilitySlugs: venueDogById.get(v.id) ?? [],
+        type: "venue",
+        id: v.id as string,
+        interestTags: (v.interestTags as string | null) ?? null,
+        themeSlug: v.themeSlug as string,
+        latitude: (v.latitude as string | null) ?? null,
+        longitude: (v.longitude as string | null) ?? null,
+        generalFacilitySlugs: (v.generalFacilitySlugs as string[]) ?? [],
+        kidsFacilitySlugs: (v.kidsFacilitySlugs as string[]) ?? [],
+        parentFacilitySlugs: (v.parentFacilitySlugs as string[]) ?? [],
+        dogFacilitySlugs: (v.dogFacilitySlugs as string[]) ?? [],
       });
     }
     for (const e of events) {
       out.push({
-        type: e.type,
-        id: e.id,
-        interestTags: e.interestTags,
-        themeSlug: e.themeSlug,
-        latitude: e.latitude,
-        longitude: e.longitude,
-        generalFacilitySlugs: e.generalFacilitySlugs,
-        kidsFacilitySlugs: e.kidsFacilitySlugs,
-        parentFacilitySlugs: e.parentFacilitySlugs,
+        type: "event",
+        id: e.id as string,
+        interestTags: (e.interestTags as string | null) ?? null,
+        themeSlug: e.themeSlug as string,
+        latitude: (e.latitude as string | null) ?? null,
+        longitude: (e.longitude as string | null) ?? null,
+        generalFacilitySlugs: (e.generalFacilitySlugs as string[]) ?? [],
+        kidsFacilitySlugs: (e.kidsFacilitySlugs as string[]) ?? [],
+        parentFacilitySlugs: (e.parentFacilitySlugs as string[]) ?? [],
         dogFacilitySlugs: [],
       });
     }
     for (const c of clubs) {
       out.push({
-        type: c.type,
-        id: c.id,
-        interestTags: c.interestTags,
-        themeSlug: c.themeSlug,
-        latitude: c.latitude,
-        longitude: c.longitude,
-        generalFacilitySlugs: c.generalFacilitySlugs,
-        kidsFacilitySlugs: c.kidsFacilitySlugs,
-        parentFacilitySlugs: c.parentFacilitySlugs,
+        type: "club",
+        id: c.id as string,
+        interestTags: (c.interestTags as string | null) ?? null,
+        themeSlug: c.themeSlug as string,
+        latitude: (c.latitude as string | null) ?? null,
+        longitude: (c.longitude as string | null) ?? null,
+        generalFacilitySlugs: (c.generalFacilitySlugs as string[]) ?? [],
+        kidsFacilitySlugs: (c.kidsFacilitySlugs as string[]) ?? [],
+        parentFacilitySlugs: (c.parentFacilitySlugs as string[]) ?? [],
         dogFacilitySlugs: [],
       });
     }
     for (const r of routes) {
       out.push({
-        type: r.type,
-        id: r.id,
-        interestTags: r.interestTags,
-        themeSlug: r.themeSlug,
-        latitude: r.latitude,
-        longitude: r.longitude,
-        generalFacilitySlugs: r.generalFacilitySlugs,
-        kidsFacilitySlugs: r.kidsFacilitySlugs,
-        parentFacilitySlugs: r.parentFacilitySlugs,
-        dogFacilitySlugs: r.dogFacilitySlugs,
+        type: "route",
+        id: r.id as string,
+        interestTags: (r.interestTags as string | null) ?? null,
+        themeSlug: r.themeSlug as string,
+        latitude: (r.latitude as string | null) ?? null,
+        longitude: (r.longitude as string | null) ?? null,
+        generalFacilitySlugs: (r.generalFacilitySlugs as string[]) ?? [],
+        kidsFacilitySlugs: (r.kidsFacilitySlugs as string[]) ?? [],
+        parentFacilitySlugs: (r.parentFacilitySlugs as string[]) ?? [],
+        dogFacilitySlugs: (r.dogFacilitySlugs as string[]) ?? [],
       });
     }
+
     return out;
   }
 }

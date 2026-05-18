@@ -15,18 +15,26 @@ export function yearsBeforeFromAnchor(isoDate: string, years: number): Date {
   return d;
 }
 
-/** Minimal parent row shape used by `RecommendationsService` (matches Prisma include). */
+/** Minimal parent row shape used by `RecommendationsService` (matches DynamoDB repository return). */
 export type StubParentRow = {
   id: string;
   postCode: string;
+  firstNameOrNickName: string;
   latitude: string;
   longitude: string;
   searchRadius: number;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
   interestCategories: { slug: string }[];
   interestSubCategories: { slug: string }[];
   children: {
-    id?: string;
+    id: string;
+    nameOrNickName: string;
+    parentId: string;
     dateOfBirth: Date;
+    createdAt: Date;
+    updatedAt: Date;
     interestCategories: { slug: string }[];
     interestSubCategories: { slug: string }[];
     skills: {
@@ -39,18 +47,27 @@ export type StubParentRow = {
 };
 
 export function stubParentNatureChildAge7(overrides?: Partial<Pick<StubParentRow, "id" | "searchRadius">>): StubParentRow {
+  const parentId = overrides?.id ?? "p1";
   return {
-    id: overrides?.id ?? "p1",
+    id: parentId,
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: "51.773282",
     longitude: "-0.434612",
     searchRadius: overrides?.searchRadius ?? 500,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "nature_exploration" }],
     interestSubCategories: [],
     children: [
       {
         id: "stub-nature-child-7",
+        nameOrNickName: "Child",
+        parentId,
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 7),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [],
         interestSubCategories: [],
         skills: [],
@@ -62,18 +79,27 @@ export function stubParentNatureChildAge7(overrides?: Partial<Pick<StubParentRow
 export function stubParentLearningCuriosityChildAge7(
   overrides?: Partial<Pick<StubParentRow, "id" | "searchRadius">>,
 ): StubParentRow {
+  const parentId = overrides?.id ?? "p1";
   return {
-    id: overrides?.id ?? "p1",
+    id: parentId,
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: "51.773282",
     longitude: "-0.434612",
     searchRadius: overrides?.searchRadius ?? 500,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "learning_curiosity" }],
     interestSubCategories: [],
     children: [
       {
         id: "stub-learning-child-7",
+        nameOrNickName: "Child",
+        parentId,
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 7),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [],
         interestSubCategories: [],
         skills: [],
@@ -86,9 +112,13 @@ export function stubParentNoChildren(overrides?: Partial<Pick<StubParentRow, "id
   return {
     id: overrides?.id ?? "p1",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: "51.773282",
     longitude: "-0.434612",
     searchRadius: 100,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [],
     interestSubCategories: [],
     children: [],

@@ -129,7 +129,8 @@ export type OpportunitySearchQueryValidated = Omit<
 export const OPPORTUNITY_SEARCH_QUERY_LOCAL_KEY = "opportunitySearchQuery" as const;
 
 export const validateOpportunitySearchQuery =
-  (schema: yup.ObjectSchema<OpportunitySearchQueryValidated>) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (schema: yup.ObjectSchema<any>) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const validated = await schema.validate(req.query, { stripUnknown: true });

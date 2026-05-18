@@ -1,4 +1,4 @@
-import type { OpportunityEvent } from "@prisma/client";
+import type { OpportunityEvent } from "../../../types/db.js";
 
 type OpportunityEventSlugListFields = {
   generalFacilitySlugs?: string[] | null;

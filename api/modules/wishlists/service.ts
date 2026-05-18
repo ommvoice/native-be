@@ -80,7 +80,7 @@ export class WishlistService {
       childId,
       name,
       color,
-      items,
+      items: items as { opportunityVenueId?: string; opportunityEventId?: string; opportunityClubId?: string; opportunityRouteId?: string }[],
     });
   }
 }

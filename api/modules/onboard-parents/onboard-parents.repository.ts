@@ -1,4 +1,7 @@
-import prisma from "../../database/database.config.js";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { v4 as uuidv4 } from "uuid";
+import db from "../../database/database.config.js";
+import { TABLES } from "../../database/tables.js";
 import type { RequestParentAndChildrenCreateDto } from "./onboard-parents.dto.js";
 
 export class OnboardParentRepository {
@@ -8,27 +11,51 @@ export class OnboardParentRepository {
     latitude: string,
     longitude: string,
   ): Promise<string> {
-    const createData = {
-      firstNameOrNickName: dto.firstNameOrNickName,
-      user: {
-        connect: { id: newUserId },
-      },
-      postCode: dto.postCode,
-      latitude,
-      longitude,
-      searchRadius: 20, // Default value
-      ...(dto.children &&
-        dto.children.length > 0 && {
-          children: {
-            create: dto.children.map((child) => ({
-              nameOrNickName: child.nameOrNickName,
-              dateOfBirth: new Date(child.dateOfBirth),
-            })),
-          },
-        }),
-    };
+    const parentId = uuidv4();
+    const now = new Date().toISOString();
 
-    const newEntity = await prisma.parents.create({ data: createData });
-    return newEntity.id;
+    await db.send(
+      new PutCommand({
+        TableName: TABLES.parents,
+        Item: {
+          id: parentId,
+          firstNameOrNickName: dto.firstNameOrNickName,
+          userId: newUserId,
+          postCode: dto.postCode,
+          latitude,
+          longitude,
+          searchRadius: 20,
+          interestCategoryIds: [],
+          interestSubCategoryIds: [],
+          createdAt: now,
+          updatedAt: now,
+        },
+      }),
+    );
+
+    if (dto.children && dto.children.length > 0) {
+      await Promise.all(
+        dto.children.map((child) =>
+          db.send(
+            new PutCommand({
+              TableName: TABLES.children,
+              Item: {
+                id: uuidv4(),
+                parentId,
+                nameOrNickName: child.nameOrNickName,
+                dateOfBirth: new Date(child.dateOfBirth).toISOString(),
+                interestCategoryIds: [],
+                interestSubCategoryIds: [],
+                skillIds: [],
+                createdAt: now,
+                updatedAt: now,
+              },
+            }),
+          ),
+        ),
+      );
+    }
+
+    return parentId;
   }
 }

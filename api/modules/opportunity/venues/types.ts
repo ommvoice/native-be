@@ -1,4 +1,4 @@
-import type { OpportunityVenue } from "@prisma/client";
+import type { OpportunityVenue } from "../../../types/db.js";
 
 /** Plain DB row; facility values are slug arrays, labels resolved in helpers. */
 export type EnrichableOpportunityVenue = OpportunityVenue;

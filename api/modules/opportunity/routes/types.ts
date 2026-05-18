@@ -1,4 +1,4 @@
-import type { OpportunityRoute } from "@prisma/client";
+import type { OpportunityRoute } from "../../../types/db.js";
 
 type OpportunityRouteSlugListFields = {
   routeSuitabilitySlugs?: string[] | null;

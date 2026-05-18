@@ -1,15 +1,17 @@
-import { PrismaClient } from "@prisma/client";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
-const prisma = new PrismaClient();
+const client = new DynamoDBClient({
+  region: process.env.AWS_REGION ?? "us-east-1",
+  ...(process.env.DYNAMODB_ENDPOINT ? { endpoint: process.env.DYNAMODB_ENDPOINT } : {}),
+});
+
+export const db = DynamoDBDocumentClient.from(client, {
+  marshallOptions: { removeUndefinedValues: true },
+});
 
 export const connectDB = async () => {
-  try {
-    await prisma.$connect();
-    console.log("✅ Database connected successfully.");
-  } catch (error) {
-    console.error("❌ Failed to connect to DB:", error);
-    throw error;
-  }
+  console.log("✅ DynamoDB client initialized.");
 };
 
-export default prisma;
+export default db;

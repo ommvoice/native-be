@@ -89,8 +89,8 @@ export class OpportunitySearchService {
         : undefined;
 
     const legs = await this.searchRepo.listDrivingLegsForParent(dto.parentId, {
-      maxDurationSeconds,
-      maxDistanceMeters,
+      ...(maxDurationSeconds != null ? { maxDurationSeconds } : {}),
+      ...(maxDistanceMeters != null ? { maxDistanceMeters } : {}),
     });
 
     const refs = legs.map((l) => ({ type: l.opportunityType, id: l.opportunityId }));

@@ -40,5 +40,11 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "prisma",
+    "prisma.config.ts",
+    "api/modules/rec_old"
+  ]
 }

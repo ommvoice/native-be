@@ -1,4 +1,4 @@
-import type { ROLE } from "@prisma/client";
+import type { ROLE } from "../../types/db.js";
 
 export enum ROLES {
   ADMIN,

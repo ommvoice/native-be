@@ -1,4 +1,4 @@
-import type { OpportunityRecordType } from "@prisma/client";
+import type { OpportunityRecordType } from "../../types/db.js";
 import type { OpportunityClubResponse } from "../opportunity/clubs/types.js";
 import type { OpportunityEventResponse } from "../opportunity/events/types.js";
 import type { OpportunityRouteResponse } from "../opportunity/routes/types.js";

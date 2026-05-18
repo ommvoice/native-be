@@ -1,4 +1,3 @@
-import type { OpportunityEvent } from "@prisma/client";
 import type {
   EnrichableOpportunityEvent,
   OpportunityEventResponse,

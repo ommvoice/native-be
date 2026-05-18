@@ -1,7 +1,7 @@
 import type { RecommendationCandidate } from "./types.js";
 import { haversineDistanceMiles } from "./scoring.js";
 
-/** Fixed “today” for deterministic child ages in tests. */
+/** Fixed "today" for deterministic child ages in tests. */
 export const STUB_ANCHOR_ISO = "2026-06-15T12:00:00Z";
 
 export function stubDateYearsBeforeAnchor(years: number): Date {
@@ -100,7 +100,9 @@ export const FIFTY_STUB_CANDIDATES: RecommendationCandidate[] = Array.from(
   },
 );
 
-/** Parent + one child (age 7): strong overlap with “near” stub interests. */
+type SkillRow = { slug: string; minAge: number | null; maxAge: number | null; subCategory: { slug: string } | null };
+
+/** Parent + one child (age 7): strong overlap with "near" stub interests. */
 export function stubParentWithOneChild(overrides?: {
   searchRadius?: number;
   categorySlugs?: string[];
@@ -115,18 +117,26 @@ export function stubParentWithOneChild(overrides?: {
   return {
     id: "stub-parent-1",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: categorySlugs.map((slug) => ({ slug })),
     interestSubCategories: subCategorySlugs.map((s) => ({ slug: s.subSlug })),
     children: [
       {
         id: "stub-child-1",
+        nameOrNickName: "Child",
+        parentId: "stub-parent-1",
         dateOfBirth: stubDateYearsBeforeAnchor(childAge),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "learning_curiosity" }],
         interestSubCategories: [{ slug: "animal_encounters" }],
-        skills: [],
+        skills: [] as SkillRow[],
       },
     ],
   };
@@ -137,25 +147,37 @@ export function stubParentWithTwoChildren() {
   return {
     id: "stub-parent-2",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius: 500,
+    userId: "stub-user-2",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "nature_exploration" }],
     interestSubCategories: [{ slug: "nature_wildlife" }],
     children: [
       {
         id: "stub-child-toddler",
+        nameOrNickName: "Toddler",
+        parentId: "stub-parent-2",
         dateOfBirth: stubDateYearsBeforeAnchor(2),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "movement_energy" }],
         interestSubCategories: [{ slug: "soft_play" }],
-        skills: [],
+        skills: [] as SkillRow[],
       },
       {
         id: "stub-child-school",
+        nameOrNickName: "School Child",
+        parentId: "stub-parent-2",
         dateOfBirth: stubDateYearsBeforeAnchor(8),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "learning_curiosity" }],
         interestSubCategories: [{ slug: "animal_encounters" }],
-        skills: [],
+        skills: [] as SkillRow[],
       },
     ],
   };

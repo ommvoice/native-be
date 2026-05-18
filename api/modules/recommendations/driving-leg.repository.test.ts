@@ -27,7 +27,6 @@ function row(overrides: Partial<DrivingLegRow> & Pick<DrivingLegRow, "opportunit
     id: "row-id",
     parentId: "parent-1",
     opportunityType: "venue",
-    opportunityId: overrides.opportunityId,
     parentPostCode: "HP2 7DB",
     parentLatitude: "51.773282",
     parentLongitude: "-0.434612",

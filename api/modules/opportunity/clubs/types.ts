@@ -1,4 +1,4 @@
-import type { OpportunityClub } from "@prisma/client";
+import type { OpportunityClub } from "../../../types/db.js";
 
 type OpportunityClubSlugListFields = {
   generalFacilitySlugs?: string[] | null;

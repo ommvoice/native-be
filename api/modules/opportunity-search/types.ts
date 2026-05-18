@@ -1,4 +1,4 @@
-import type { OpportunityRecordType } from "@prisma/client";
+import type { OpportunityRecordType } from "../../types/db.js";
 import type { RecommendationOpportunityPayload } from "../recommendations/types.js";
 
 export type OpportunitySearchQueryDto = {

@@ -23,14 +23,22 @@ export function yearsBeforeFromAnchor(isoDate: string, years: number): Date {
 export type StubParentRow = {
   id: string;
   postCode: string;
+  firstNameOrNickName: string;
   latitude: string;
   longitude: string;
   searchRadius: number;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
   interestCategories: { slug: string }[];
   interestSubCategories: { slug: string }[];
   children: {
-    id?: string;
+    id: string;
+    nameOrNickName: string;
+    parentId: string;
     dateOfBirth: Date;
+    createdAt: Date;
+    updatedAt: Date;
     interestCategories: { slug: string }[];
     interestSubCategories: { slug: string }[];
     skills: {
@@ -45,18 +53,27 @@ export type StubParentRow = {
 export function stubParentNatureChildAge7(
   overrides?: Partial<Pick<StubParentRow, "id" | "searchRadius">>,
 ): StubParentRow {
+  const parentId = overrides?.id ?? "p1";
   return {
-    id: overrides?.id ?? "p1",
+    id: parentId,
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius: overrides?.searchRadius ?? 500,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "nature_exploration" }],
     interestSubCategories: [],
     children: [
       {
         id: "stub-nature-child-7",
+        nameOrNickName: "Child",
+        parentId,
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 7),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [],
         interestSubCategories: [],
         skills: [],
@@ -68,18 +85,27 @@ export function stubParentNatureChildAge7(
 export function stubParentLearningCuriosityChildAge7(
   overrides?: Partial<Pick<StubParentRow, "id" | "searchRadius">>,
 ): StubParentRow {
+  const parentId = overrides?.id ?? "p1";
   return {
-    id: overrides?.id ?? "p1",
+    id: parentId,
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius: overrides?.searchRadius ?? 500,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "learning_curiosity" }],
     interestSubCategories: [],
     children: [
       {
         id: "stub-learning-child-7",
+        nameOrNickName: "Child",
+        parentId,
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 7),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [],
         interestSubCategories: [],
         skills: [],
@@ -92,12 +118,16 @@ export function stubParentNoChildren(overrides?: Partial<Pick<StubParentRow, "id
   return {
     id: overrides?.id ?? "p1",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius: 100,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [],
     interestSubCategories: [],
-    children: [],
+    children: [] as StubParentRow["children"],
   };
 }
 
@@ -115,15 +145,23 @@ export function stubParentWithOneChild(overrides?: {
   return {
     id: "stub-parent-1",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius,
+    userId: "stub-user-1",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: categorySlugs.map((slug) => ({ slug })),
     interestSubCategories: subCategorySlugs.map((s) => ({ slug: s.subSlug })),
     children: [
       {
         id: "stub-child-1",
+        nameOrNickName: "Child",
+        parentId: "stub-parent-1",
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, childAge),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "learning_curiosity" }],
         interestSubCategories: [{ slug: "animal_encounters" }],
         skills: [],
@@ -136,22 +174,34 @@ export function stubParentWithTwoChildren(): StubParentRow {
   return {
     id: "stub-parent-2",
     postCode: "HP2 7DB",
+    firstNameOrNickName: "Stub Parent",
     latitude: STUB_PARENT_LAT,
     longitude: STUB_PARENT_LON,
     searchRadius: 500,
+    userId: "stub-user-2",
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
     interestCategories: [{ slug: "nature_exploration" }],
     interestSubCategories: [{ slug: "nature_wildlife" }],
     children: [
       {
         id: "stub-child-toddler",
+        nameOrNickName: "Toddler",
+        parentId: "stub-parent-2",
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 2),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "movement_energy" }],
         interestSubCategories: [{ slug: "soft_play" }],
         skills: [],
       },
       {
         id: "stub-child-school",
+        nameOrNickName: "School Child",
+        parentId: "stub-parent-2",
         dateOfBirth: yearsBeforeFromAnchor(STUB_TIME_ANCHOR_ISO, 8),
+        createdAt: new Date("2024-01-01"),
+        updatedAt: new Date("2024-01-01"),
         interestCategories: [{ slug: "learning_curiosity" }],
         interestSubCategories: [{ slug: "animal_encounters" }],
         skills: [],

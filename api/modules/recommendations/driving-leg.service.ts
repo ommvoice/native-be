@@ -1,4 +1,4 @@
-import type { OpportunityRecordType } from "@prisma/client";
+import type { OpportunityRecordType } from "../../types/db.js";
 import { normalizeUkPostcode } from "./postcode-coords.js";
 import {
   DrivingLegRepository,
@@ -70,7 +70,6 @@ export class DrivingLegService {
     parentId: string,
     routableLegs: RoutableOpportunityLeg[],
   ): Promise<Map<string, { drivingDistanceMeters: number; drivingDurationSeconds: number }>> {
-    console.log('b1 22: ')
     const currentByKey = new Map<string, DrivingLegSnapshot>();
     for (const leg of routableLegs) {
       currentByKey.set(legKey(leg.type, leg.id), leg.snapshot);

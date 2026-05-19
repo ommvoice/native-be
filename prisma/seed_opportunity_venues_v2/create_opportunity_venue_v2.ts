@@ -46,6 +46,7 @@ export async function createOpportunityVenueV2Seed(
       ...scalars,
       themeId: theme.id,
       themeVariantId: themeVariant.id,
+      opportunityType: "venue",
     },
   });
 }

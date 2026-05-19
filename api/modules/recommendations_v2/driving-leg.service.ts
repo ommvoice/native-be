@@ -2,9 +2,9 @@ import type { OpportunityRecordType } from "@prisma/client";
 import { normalizeUkPostcode } from "./postcode-coords.js";
 import {
   DrivingLegRepository,
-  legKey,
   type DrivingLegSnapshot,
 } from "./driving-leg.repository.js";
+import { legKey } from "./driving-leg-keys.js";
 import { mapboxDrivingOneToMany, MAPBOX_MATRIX_MAX_DESTINATIONS } from "./mapbox-routing.js";
 
 export type RoutableOpportunityLeg = {
@@ -70,7 +70,6 @@ export class DrivingLegService {
     parentId: string,
     routableLegs: RoutableOpportunityLeg[],
   ): Promise<Map<string, { drivingDistanceMeters: number; drivingDurationSeconds: number }>> {
-    // console.log('b1 22: ')
     const currentByKey = new Map<string, DrivingLegSnapshot>();
     for (const leg of routableLegs) {
       currentByKey.set(legKey(leg.type, leg.id), leg.snapshot);
@@ -81,8 +80,6 @@ export class DrivingLegService {
 
     const token = this.getToken();
     const missing = routableLegs.filter((leg) => !valid.has(legKey(leg.type, leg.id)));
-
-    //console.log('v1: ', { missing, snap: missing[0]?.snapshot, existing, valid, currentByKey})
 
     if (missing.length === 0 || !token) {
       return valid;
@@ -96,7 +93,6 @@ export class DrivingLegService {
       return valid;
     }
 
-    // One Mapbox request per chunk of ≤24 destinations (25 coords incl. parent). Not N separate calls for N legs unless N > 24.
     for (let i = 0; i < missing.length; i += MAPBOX_MATRIX_MAX_DESTINATIONS) {
       const chunk = missing.slice(i, i + MAPBOX_MATRIX_MAX_DESTINATIONS);
       const dests = chunk.map((c) => ({ lon: c.lon, lat: c.lat }));

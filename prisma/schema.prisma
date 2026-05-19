@@ -358,6 +358,8 @@ model OpportunityVenue {
 model OpportunityVenuesV2 {
   id String @id @default(uuid())
 
+  opportunityType OpportunityRecordType @default(venue) @map("opportunity_type")
+
   themeId String @map("venue_opportunity_theme_id")
   theme   OpportunityTheme @relation(fields: [themeId], references: [id], onDelete: Restrict)
 
@@ -447,6 +449,7 @@ model OpportunityVenuesV2 {
 
   @@index([themeId])
   @@index([themeVariantId])
+  @@index([opportunityType])
   @@map("opportunity_venues_v2")
 }
 

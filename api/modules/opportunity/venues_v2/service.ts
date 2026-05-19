@@ -137,6 +137,7 @@ export class OpportunityVenuesV2Service {
       themeVariantId: themeVariant.id,
       venueName: data.venueName.trim(),
       ...pickOptionalCreateFields(data),
+      opportunityType: "venue",
     };
 
     const created = await this.repository.create(prismaData);

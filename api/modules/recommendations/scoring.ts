@@ -41,6 +41,7 @@ export function collectFamilyInterestSlugs(input: {
   }[];
 }): Set<string> {
   const set = new Set<string>();
+  // set.add('playgrounds_and_adventure_play');
   for (const s of input.parentCategorySlugs) set.add(s.toLowerCase());
   for (const s of input.parentSubCategorySlugs) set.add(s.toLowerCase());
   for (const ch of input.children) {
@@ -61,7 +62,9 @@ export function scoreInterestOverlap(
 ): number {
   const opp = parseInterestTagSlugs(interestTags);
   opp.add(themeSlug.toLowerCase());
+  // console.log('c1 2: ', {familySlugs})
   if (familySlugs.size === 0) return 50;
+  // console.log('c1')
   let matched = 0;
   for (const s of familySlugs) {
     if (opp.has(s)) matched++;

@@ -221,7 +221,7 @@ async function main() {
   console.log(`Seeded ${venuesV2.length} opportunity venues (v2):`);
   for (const v of venuesV2) {
     console.log(
-      `  ${v.venueName} — ${v.theme.name} / ${v.themeVariant.name}`,
+      `  ${v.venueName} (${v.opportunityType}) — ${v.theme.name} / ${v.themeVariant.name}`,
     );
   }
 

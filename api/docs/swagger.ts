@@ -21,6 +21,10 @@ const options = {
         description: "Ranked opportunities for parents (full scoring and nearby-only)",
       },
       {
+        name: "Recommendations v2",
+        description: "Ranked opportunity_v2 spreadsheet rows (incremental scoring rollout)",
+      },
+      {
         name: "Facilities",
         description: "Reference data for venue, event, club, and route facility slugs",
       },

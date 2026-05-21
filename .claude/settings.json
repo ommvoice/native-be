@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npx tsc *)",
       "Bash(echo \"Exit code: $?\")",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(grep -v \"^seed_opportunity_club_v2$\\\\|^seed_opportunity_events_v2$\\\\|^seed_opportunity_route_v2$\\\\|^seed_opportunity_venues_v2$\")",
+      "Bash(npx tsx *)"
     ]
   }
 }

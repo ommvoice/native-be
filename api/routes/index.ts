@@ -5,6 +5,7 @@ import authRoutes from "../modules/auth/auth.routes.js";
 import parentsRoutes from "../modules/parents/routes.js";
 import onboardParentsRoutes from "../modules/onboard-parents/onboard.parents.routes.js";
 import recommendationsRoutes from "../modules/recommendations/recommendations.routes.js";
+import recommendationsV2Routes from "../modules/recommendations_v2/recommendations_v2.routes.js";
 import skillsRoutes from "../modules/skills/skills.routes.js";
 import interestsRoutes from "../modules/interests/routes.js";
 import opportunityRoutes from "../modules/opportunity/opportunity.routes.js";
@@ -21,6 +22,7 @@ export const configureRoutes = (io?: any) => {
   router.use("/parents", parentsRoutes);
   router.use("/users", usersRoutes);
   router.use("/recommendations", recommendationsRoutes);
+  router.use("/recommendations-v2", recommendationsV2Routes);
   router.use("/skills", skillsRoutes);
   router.use("/interests", interestsRoutes);
   router.use("/opportunity", opportunityRoutes);

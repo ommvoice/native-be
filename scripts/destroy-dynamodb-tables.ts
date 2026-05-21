@@ -1,30 +1,11 @@
 import "dotenv/config";
 import { DeleteTableCommand, DynamoDBClient, ResourceNotFoundException } from "@aws-sdk/client-dynamodb";
+import { TABLES } from "../api/database/tables.js";
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION ?? "us-east-1",
   ...(process.env.DYNAMODB_ENDPOINT ? { endpoint: process.env.DYNAMODB_ENDPOINT } : {}),
 });
-
-const PREFIX = process.env.DYNAMODB_TABLE_PREFIX ?? "native-be";
-
-const TABLE_NAMES = [
-  `${PREFIX}-users`,
-  `${PREFIX}-parents`,
-  `${PREFIX}-children`,
-  `${PREFIX}-interest-categories`,
-  `${PREFIX}-interest-sub-categories`,
-  `${PREFIX}-skills`,
-  `${PREFIX}-skill-levels`,
-  `${PREFIX}-facilities`,
-  `${PREFIX}-opportunity-venues`,
-  `${PREFIX}-opportunity-events`,
-  `${PREFIX}-opportunity-clubs`,
-  `${PREFIX}-opportunity-routes`,
-  `${PREFIX}-driving-legs`,
-  `${PREFIX}-wishlists`,
-  `${PREFIX}-wishlist-items`,
-];
 
 async function deleteTable(name: string) {
   try {
@@ -40,8 +21,9 @@ async function deleteTable(name: string) {
 }
 
 async function main() {
-  console.log(`\nDestroying DynamoDB tables (prefix: ${PREFIX})\n`);
-  for (const name of TABLE_NAMES) {
+  const tableNames = Object.values(TABLES);
+  console.log(`\nDestroying DynamoDB tables\n`);
+  for (const name of tableNames) {
     await deleteTable(name);
   }
   console.log("\nDone.\n");

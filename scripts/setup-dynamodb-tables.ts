@@ -5,13 +5,12 @@ import {
   DynamoDBClient,
   ResourceInUseException,
 } from "@aws-sdk/client-dynamodb";
+import { TABLES } from "../api/database/tables.js";
 
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION ?? "us-east-1",
   ...(process.env.DYNAMODB_ENDPOINT ? { endpoint: process.env.DYNAMODB_ENDPOINT } : {}),
 });
-
-const PREFIX = process.env.DYNAMODB_TABLE_PREFIX ?? "native-be";
 
 type TableDef = {
   name: string;
@@ -25,9 +24,9 @@ type TableDef = {
   }[];
 };
 
-const TABLES: TableDef[] = [
+const TABLE_DEFS: TableDef[] = [
   {
-    name: `${PREFIX}-users`,
+    name: TABLES.users,
     pk: "id",
     gsis: [
       { name: "email-index", pk: "email" },
@@ -35,55 +34,75 @@ const TABLES: TableDef[] = [
     ],
   },
   {
-    name: `${PREFIX}-parents`,
+    name: TABLES.parents,
     pk: "id",
     gsis: [{ name: "userId-index", pk: "userId" }],
   },
   {
-    name: `${PREFIX}-children`,
+    name: TABLES.children,
     pk: "id",
     gsis: [{ name: "parentId-index", pk: "parentId" }],
   },
   {
-    name: `${PREFIX}-interest-categories`,
+    name: TABLES.interestCategories,
     pk: "id",
     gsis: [{ name: "slug-index", pk: "slug" }],
   },
   {
-    name: `${PREFIX}-interest-sub-categories`,
+    name: TABLES.interestSubCategories,
     pk: "id",
     gsis: [{ name: "categoryId-index", pk: "categoryId" }],
   },
   {
-    name: `${PREFIX}-skills`,
+    name: TABLES.skills,
     pk: "id",
     gsis: [{ name: "type-index", pk: "type" }],
   },
   {
-    name: `${PREFIX}-skill-levels`,
+    name: TABLES.skillLevels,
     pk: "id",
   },
   {
-    name: `${PREFIX}-facilities`,
+    name: TABLES.facilities,
     pk: "id",
     gsis: [{ name: "type-index", pk: "type" }],
   },
-  { name: `${PREFIX}-opportunity-venues`, pk: "id" },
-  { name: `${PREFIX}-opportunity-events`, pk: "id" },
-  { name: `${PREFIX}-opportunity-clubs`, pk: "id" },
-  { name: `${PREFIX}-opportunity-routes`, pk: "id" },
+  { name: TABLES.opportunityVenues, pk: "id" },
+  { name: TABLES.opportunityEvents, pk: "id" },
+  { name: TABLES.opportunityClubs, pk: "id" },
+  { name: TABLES.opportunityRoutes, pk: "id" },
+  { name: TABLES.opportunityClubsV2, pk: "id" },
+  { name: TABLES.opportunityEventsV2, pk: "id" },
+  { name: TABLES.opportunityVenuesV2, pk: "id" },
+  { name: TABLES.opportunityRoutesV2, pk: "id" },
   {
-    name: `${PREFIX}-driving-legs`,
+    name: TABLES.opportunityThemes,
+    pk: "id",
+    gsis: [
+      { name: "recordType-index", pk: "recordType" },
+      { name: "slug-index", pk: "slug" },
+    ],
+  },
+  {
+    name: TABLES.opportunityThemeVariants,
+    pk: "id",
+    gsis: [
+      { name: "themeId-index", pk: "themeId" },
+      { name: "slug-index", pk: "slug" },
+    ],
+  },
+  {
+    name: TABLES.drivingLegs,
     pk: "parentId",
     sk: "typeId",
   },
   {
-    name: `${PREFIX}-wishlists`,
+    name: TABLES.wishlists,
     pk: "id",
     gsis: [{ name: "parentId-index", pk: "parentId" }],
   },
   {
-    name: `${PREFIX}-wishlist-items`,
+    name: TABLES.wishlistItems,
     pk: "id",
     gsis: [{ name: "wishlistId-index", pk: "wishlistId" }],
   },
@@ -145,8 +164,8 @@ async function createTable(def: TableDef) {
 }
 
 async function main() {
-  console.log(`\nSetting up DynamoDB tables (prefix: ${PREFIX})\n`);
-  for (const def of TABLES) {
+  console.log(`\nSetting up DynamoDB tables\n`);
+  for (const def of TABLE_DEFS) {
     const exists = await tableExists(def.name);
     if (exists) {
       console.log(`  ⏭  Already exists: ${def.name}`);

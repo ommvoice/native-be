@@ -16,4 +16,10 @@ export const TABLES = {
   drivingLegs: `${PREFIX}-driving-legs`,
   wishlists: `${PREFIX}-wishlists`,
   wishlistItems: `${PREFIX}-wishlist-items`,
+  opportunityClubsV2: `${PREFIX}-opportunity-clubs-v2`,
+  opportunityEventsV2: `${PREFIX}-opportunity-events-v2`,
+  opportunityVenuesV2: `${PREFIX}-opportunity-venues-v2`,
+  opportunityRoutesV2: `${PREFIX}-opportunity-routes-v2`,
+  opportunityThemes: `${PREFIX}-opportunity-themes`,
+  opportunityThemeVariants: `${PREFIX}-opportunity-theme-variants`,
 } as const;

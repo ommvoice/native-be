@@ -82,6 +82,7 @@ export class RecommendationsV2Service {
     const drivingMap = await this.drivingLegs.ensureLegsCached(base.parent.id, routable);
     const scored: ScoredRecommendation[] = [];
 
+    console.log("yy2", candidates)
     for (const c of candidates) {
       const row = this.scoreCandidateFull(c, base, familyInterestSlugs);
       if (row?.score === 0) continue;
@@ -165,6 +166,7 @@ export class RecommendationsV2Service {
     familyInterestSlugs: Set<string>,
   ): ScoredRecommendation | null {
     const oppCoords = this.parseOpportunityLatLon(c);
+    console.log("yy3", { oppCoords })
     if (!oppCoords) return null;
 
     const distanceMiles = haversineDistanceMiles(
@@ -173,8 +175,9 @@ export class RecommendationsV2Service {
       oppCoords.latitude,
       oppCoords.longitude,
     );
+    console.log("yy4", { distanceMiles })
     if (distanceMiles > base.maxDistanceMiles) return null;
-
+ console.log("yy5", { distanceMiles })
     const interestScore = Math.round(
       scoreInterestOverlapFromV2ThemeSlugs(
         familyInterestSlugs,
@@ -182,9 +185,11 @@ export class RecommendationsV2Service {
         c.themeVariantSlug,
       ),
     );
-    const ageScore = Math.round(scoreAgeFromV2AgeBands(base.childAges, c.ageBands));
+    // const ageScore = Math.round(scoreAgeFromV2AgeBands(base.childAges, c.ageBands));
+    const ageScore = Math.round(scoreAgeFromV2AgeBands([8], c.ageBands));
     const distanceScore = Math.round(scoreDistanceLinear(distanceMiles, base.maxDistanceMiles));
 
+    console.log(`yy Scoring candidate`, { interestScore, ageScore, distanceScore });
     const total = combineWeightedScore(interestScore, ageScore, distanceScore);
     return {
       type: c.type,

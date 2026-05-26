@@ -1,0 +1,219 @@
+import type { OpportunityClubV2Response } from "../../../modules/opportunity/clubs_v2/types.js";
+import type { OpportunityDetail } from "../../types.js";
+import { buildImageUrls } from "./image-url.js";
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function splitList(raw: string | null): string[] | null {
+  if (!raw) return null;
+  const parts = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  return parts.length > 0 ? parts : null;
+}
+
+function parsePrice(raw: string | null | undefined): number | null {
+  if (!raw) return null;
+  const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
+  return isNaN(num) ? null : num;
+}
+
+function buildAddress(line1: string | null, line2: string | null): string | null {
+  const parts = [line1, line2].filter(Boolean);
+  return parts.length > 0 ? parts.join(", ") : null;
+}
+
+function parseCoord(val: string | null): number | null {
+  if (!val) return null;
+  const num = parseFloat(val);
+  return isNaN(num) ? null : num;
+}
+
+/** Derive min_age from age-band booleans (lowest true band). */
+function resolveMinAge(data: OpportunityClubV2Response): number | null {
+  if (data.clubAgeSuitabilityUnder1S) return 0;
+  if (data.clubAgeSuitability1To2Years) return 1;
+  if (data.clubAgeSuitability3To4Years) return 3;
+  if (data.clubAgeSuitability5To7Years) return 5;
+  if (data.clubAgeSuitability8To12Years) return 8;
+  if (data.clubAgeSuitabilityOver13Years) return 13;
+  if (data.clubAgeSuitabilityAdults) return 18;
+  return null;
+}
+
+/** Derive max_age from age-band booleans (highest true band). */
+function resolveMaxAge(data: OpportunityClubV2Response): number | null {
+  if (data.clubAgeSuitabilityAdults) return null; // no upper cap
+  if (data.clubAgeSuitabilityOver13Years) return 17;
+  if (data.clubAgeSuitability8To12Years) return 12;
+  if (data.clubAgeSuitability5To7Years) return 7;
+  if (data.clubAgeSuitability3To4Years) return 4;
+  if (data.clubAgeSuitability1To2Years) return 2;
+  if (data.clubAgeSuitabilityUnder1S) return 1;
+  return null;
+}
+
+function resolveSuitableFor(data: OpportunityClubV2Response): string[] | null {
+  const bands: string[] = [];
+  if (data.clubAgeSuitabilityUnder1S) bands.push("Under 1");
+  if (data.clubAgeSuitability1To2Years) bands.push("1–2 years");
+  if (data.clubAgeSuitability3To4Years) bands.push("3–4 years");
+  if (data.clubAgeSuitability5To7Years) bands.push("5–7 years");
+  if (data.clubAgeSuitability8To12Years) bands.push("8–12 years");
+  if (data.clubAgeSuitabilityOver13Years) bands.push("13+ years");
+  if (data.clubAgeSuitabilityAdults) bands.push("Adults");
+  return bands.length > 0 ? bands : null;
+}
+
+function buildFacilities(data: OpportunityClubV2Response): string[] | null {
+  const all = [data.clubGeneralFacilities, data.clubChildFacilities, data.clubAdultFacilities]
+    .flatMap((raw) => splitList(raw) ?? []);
+  return all.length > 0 ? all : null;
+}
+
+/**
+ * Build club_availability from the mixed-timing columns.
+ * Returns e.g. { monday: ["09:00–10:30"], wednesday: ["14:00–15:00"] }
+ */
+function buildAvailability(data: OpportunityClubV2Response): Record<string, string[]> | null {
+  const days: [string, string | null, string | null][] = [
+    ["monday",    data.clubMixedTimingsMondayStartTime,    data.clubMixedTimingsMondayEndTime],
+    ["tuesday",   data.clubMixedTimingsTuesdayStartTime,   data.clubMixedTimingsTuesdayEndTime],
+    ["wednesday", data.clubMixedTimingsWednesdayStartTime, data.clubMixedTimingsWednesdayEndTime],
+    ["thursday",  data.clubMixedTimingsThursdayStartTime,  data.clubMixedTimingsThursdayEndTime],
+    ["friday",    data.clubMixedTimingsFridayStartTime,    data.clubMixedTimingsFridayEndTime],
+    ["saturday",  data.clubMixedTimingsSaturdayStartTime,  data.clubMixedTimingsSaturdayEndTime],
+    ["sunday",    data.clubMixedTimingsSundayStartTime,    data.clubMixedTimingsSundayEndTime],
+  ];
+
+  // Fall back to fixed daily timings if no mixed timings are set
+  if (data.clubFixedDailyTimings && data.clubDailyStartTime) {
+    const slot = data.clubDailyEndTime
+      ? `${data.clubDailyStartTime}–${data.clubDailyEndTime}`
+      : data.clubDailyStartTime;
+    const schedule = data.clubDailySchedule
+      ? splitList(data.clubDailySchedule) ?? days.map(([d]) => d)
+      : days.map(([d]) => d);
+    const out: Record<string, string[]> = {};
+    for (const day of schedule) out[day] = [slot];
+    return out;
+  }
+
+  const result: Record<string, string[]> = {};
+  for (const [day, start, end] of days) {
+    if (!start) continue;
+    result[day] = [end ? `${start}–${end}` : start];
+  }
+  return Object.keys(result).length > 0 ? result : null;
+}
+
+function resolvePriceInfo(data: OpportunityClubV2Response): string | null {
+  const parts: string[] = [];
+  if (data.ticketVariantDefinitionAdult && data.ticketVariantAdultPrice)
+    parts.push(`${data.ticketVariantDefinitionAdult}: ${data.ticketVariantAdultPrice}`);
+  if (data.ticketVariantDefinitionOlderChild && data.ticketVariantOlderChildPrice)
+    parts.push(`${data.ticketVariantDefinitionOlderChild}: ${data.ticketVariantOlderChildPrice}`);
+  if (data.ticketVariantDefinitionYoungChild && data.ticketVariantYoungChildPrice)
+    parts.push(`${data.ticketVariantDefinitionYoungChild}: ${data.ticketVariantYoungChildPrice}`);
+  if (data.ticketVariantDefinitionBaby && data.ticketVariantBabyPrice)
+    parts.push(`${data.ticketVariantDefinitionBaby}: ${data.ticketVariantBabyPrice}`);
+  return parts.length > 0 ? parts.join(" · ") : null;
+}
+
+// ── Formatter ─────────────────────────────────────────────────────────────────
+
+export const clubToOpportunity = (data: OpportunityClubV2Response): OpportunityDetail => {
+  const hasTicketing = data.ticketingRequirement === true;
+  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+
+  return {
+    // ── Core ──────────────────────────────────────────────
+    id: data.id,
+    opp_type: "club",
+    name: data.clubName,
+    description: data.clubDescription,
+    image_urls: buildImageUrls(data.image, "club"),
+
+    // Location
+    address: buildAddress(data.clubAddressLine1, data.clubAddressLine2),
+    city: data.clubCityTown,
+    postcode: data.clubPostcode,
+    latitude: parseCoord(data.latitude),
+    longitude: parseCoord(data.longitude),
+
+    // Classification
+    interest_category: data.theme.name,
+    opp_category: data.theme.slug,
+    subcategory: data.themeVariant.name,
+    activity_effort_tag: data.clubActivityGroup,
+
+    // Suitability
+    min_age: resolveMinAge(data),
+    max_age: resolveMaxAge(data),
+    suitable_for: resolveSuitableFor(data),
+    interest_tags: splitList(data.clubInterestTags),
+    accessibility_features: null,
+
+    // Facilities
+    facilities: buildFacilities(data),
+    parking_provision: splitList(data.clubParkingProvision),
+    required_kit: splitList(data.clubExtraKit),
+    weather_suitability: null,
+    seasonal_tag: splitList(data.clubSeasonalTag),
+    seasonal_highlights: data.clubSeasonalHighlights,
+    terrain: null,
+
+    // Pricing
+    is_free: !hasTicketing && !anyPrice,
+    entry_cost: anyPrice ?? null,
+    price_info: resolvePriceInfo(data),
+    adult_price: parsePrice(data.ticketVariantAdultPrice),
+    child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
+    infant_price: parsePrice(data.ticketVariantBabyPrice),
+    family_price: null,
+
+    // Contact / links
+    website_url: null,
+    booking_url: null,
+    contact_email: null,
+    contact_phone: null,
+
+    // Provider
+    provider_id: data.id,
+
+    // ── Venue only (n/a for club) ──────────────────────────
+    opening_hours: null,
+    estimated_visit_duration: null,
+
+    // ── Route only (n/a for club) ──────────────────────────
+    route_type: null,
+    route_distance: null,
+    route_start_point: null,
+    route_estimate_u5: null,
+    route_estimate_510: null,
+    route_estimate_10: null,
+    difficulty_rating: null,
+    dog_facilities: null,
+    bike_route: null,
+    scooter_route: null,
+    opportunity_theme_variant: data.themeVariant.slug,
+
+    // ── Club only ─────────────────────────────────────────
+    club_type: data.clubFormat,
+    club_commitment: data.clubCommittment,
+    club_session_cost: data.ticketVariantOlderChildPrice ?? data.ticketVariantAdultPrice,
+    club_total_cost: null,
+    club_session_total: data.clubDailyFixedSessionTotal,
+    club_availability: buildAvailability(data),
+    requires_booking: data.ticketingRequirement,
+
+    // ── Event only (n/a for club) ──────────────────────────
+    start_date: data.clubStartDate ? data.clubStartDate.toISOString() : null,
+    end_date: data.clubEndDate ? data.clubEndDate.toISOString() : null,
+    event_type: null,
+    event_times: null,
+    venue_name: null,
+    max_capacity: null,
+    spots_remaining: null,
+    is_online: null,
+    special_interest_tags: null,
+  };
+};

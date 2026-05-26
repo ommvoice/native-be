@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import type { OpportunityRouteV2Service } from "./service.js";
 import type { CreateOpportunityRouteV2Body } from "./schema.js";
+import { routeToOpportunity } from "../../../shared/utils/formatter/index.js";
 
 export class OpportunityRouteV2Controller {
   constructor(private routeV2Service: OpportunityRouteV2Service) {}
@@ -14,7 +15,8 @@ export class OpportunityRouteV2Controller {
   getById = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const row = await this.routeV2Service.getById(id as string);
-    res.status(StatusCodes.OK).json(row);
+    const item = routeToOpportunity(row);
+    res.status(StatusCodes.OK).json(item);
   };
 
   create = async (req: Request, res: Response): Promise<void> => {

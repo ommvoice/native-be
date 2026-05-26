@@ -3,6 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import type { RecommendationQueryDto } from "./dto.js";
 import type { RecommendationsV2Service } from "./service.js";
 import type { EnrichedScoredRecommendationV2 } from "./types.js";
+import { toOpportunityList } from "../../shared/utils/formatter/index.js";
 
 function recommendationDtoFromRequest(req: Request, parentId: string): RecommendationQueryDto {
   const { childId } = req.query;
@@ -22,7 +23,10 @@ export class RecommendationsV2Controller {
       return;
     }
     const dto = recommendationDtoFromRequest(req, parentId);
-    const data: EnrichedScoredRecommendationV2[] = await this.service.getRecommendationsForParent(dto);
+    const recommendations: EnrichedScoredRecommendationV2[] = await this.service.getRecommendationsForParent(dto);
+    const data= toOpportunityList(recommendations);
+
+    console.log(`yy `);
     res.status(StatusCodes.OK).json({ count: data.length, data });
   };
 
@@ -33,8 +37,10 @@ export class RecommendationsV2Controller {
       res.status(400).json({ message: "Invalid parent id or child id." });
       return;
     }
-    const data: EnrichedScoredRecommendationV2[] =
+    const recommendations: EnrichedScoredRecommendationV2[] =
       await this.service.getRecommendationsForParentAndChild(parentId, childId);
+    const data= toOpportunityList(recommendations);
+
     res.status(StatusCodes.OK).json({ count: data.length, data, scope: "parent_and_child", childId });
   };
 }

@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import type { OpportunityVenuesV2Service } from "./service.js";
 import type { CreateOpportunityVenuesV2Body } from "./schema.js";
+import { venueToOpportunity } from "../../../shared/utils/formatter/index.js";
 
 export class OpportunityVenuesV2Controller {
   constructor(private venuesV2Service: OpportunityVenuesV2Service) {}
@@ -14,7 +15,8 @@ export class OpportunityVenuesV2Controller {
   getById = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const venue = await this.venuesV2Service.getById(id as string);
-    res.status(StatusCodes.OK).json(venue);
+    const item = venueToOpportunity(venue);
+    res.status(StatusCodes.OK).json(item);
   };
 
   create = async (req: Request, res: Response): Promise<void> => {

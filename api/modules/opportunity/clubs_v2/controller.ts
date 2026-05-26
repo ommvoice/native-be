@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import type { OpportunityClubV2Service } from "./service.js";
 import type { CreateOpportunityClubV2Body } from "./schema.js";
+import { clubToOpportunity } from "../../../shared/utils/formatter/index.js";
 
 export class OpportunityClubV2Controller {
   constructor(private clubV2Service: OpportunityClubV2Service) {}
@@ -14,7 +15,8 @@ export class OpportunityClubV2Controller {
   getById = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const row = await this.clubV2Service.getById(id as string);
-    res.status(StatusCodes.OK).json(row);
+    const item = clubToOpportunity(row);
+    res.status(StatusCodes.OK).json(item);
   };
 
   create = async (req: Request, res: Response): Promise<void> => {

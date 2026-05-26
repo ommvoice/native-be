@@ -201,7 +201,8 @@ export class RecommendationsV2Repository {
       skillAreaVariant: null,
     }));
 
-    return [...venueRows, ...eventRows, ...clubRows, ...routeRows];
+    // return [...venueRows, ...eventRows, ...clubRows, ...routeRows];
+    return [...clubRows];
   }
 
   async getEnrichedOpportunityPayloadsForRecommendationsV2(

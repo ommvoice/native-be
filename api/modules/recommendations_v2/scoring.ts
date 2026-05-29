@@ -10,6 +10,7 @@ export function collectFamilyInterestSlugs(input: {
 }): Set<string> {
   const set = new Set<string>();
   // set.add('playgrounds_and_adventure_play');
+
   for (const s of input.parentCategorySlugs) set.add(s.toLowerCase());
   for (const s of input.parentSubCategorySlugs) set.add(s.toLowerCase());
   for (const ch of input.children) {
@@ -135,4 +136,15 @@ export function combineWeightedScore(
   }
 
   return Math.round((interestScore + ageScore + distanceScore) / 3);
+}
+
+/** Nearby mode: only age + distance; each 50% (theme / interests not used). */
+export function combineNearbyScore(ageScore: number, distanceScore: number): number {
+
+   // If any individual score is zero, the total should be zero (e.g. no theme match, age mismatch, or out-of-range distance should exclude the opportunity from recommendations).
+   if (ageScore === 0 || distanceScore === 0) {
+    return 0;
+  }
+
+  return Math.round(ageScore * 0.5 + distanceScore * 0.5);
 }

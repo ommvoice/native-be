@@ -55,6 +55,7 @@ const options = {
   apis: [
     "api/modules/**/*.routes.ts",
     "api/modules/interests/routes.ts",
+    "api/modules/themes/routes.ts",
     "api/modules/facilities/routes.ts",
     "api/modules/children/routes.ts",
     "api/modules/parents/routes.ts",

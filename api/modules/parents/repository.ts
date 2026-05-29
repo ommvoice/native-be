@@ -62,7 +62,7 @@ function fromDbSubCategory(
 
 async function resolveCategories(ids: string[]) {
   if (ids.length === 0) return [];
-  const items = await batchGetItems(TABLES.interestCategories, ids);
+  const items = await batchGetItems(TABLES.opportunityThemes, ids);
   return items.map(fromDbCategory).sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
@@ -140,7 +140,7 @@ export class ParentRepository {
   async interestCategoriesExist(ids: string[]): Promise<boolean> {
     if (ids.length === 0) return true;
     const unique = [...new Set(ids)];
-    const items = await batchGetItems(TABLES.interestCategories, unique);
+    const items = await batchGetItems(TABLES.opportunityThemes, unique);
     return items.length === unique.length;
   }
 

@@ -4,6 +4,7 @@ import type { OpportunityVenueV2Response } from "../../../modules/opportunity/ev
 import type { OpportunityClubV2Response } from "../../../modules/opportunity/clubs_v2/types.js";
 import type { OpportunityRouteV2Response } from "../../../modules/opportunity/routes_v2/types.js";
 import type { Opportunity, OppType } from "../../types.js";
+import { buildImageUrl } from "./image-url.js";
 
 
 
@@ -166,8 +167,10 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
     id: rec.id,
     type: rec.opportunityType as OppType,
     title: resolveName(rec),
-    // image: (rec as unknown as { image?: string | null }).image ?? null,
-    image: { uri: `https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=250&auto=format&fit=crop` },
+    image: { uri: rec.image ? buildImageUrl(rec.image, rec.opportunityType) : undefined },
+  //  image: (rec as unknown as { image?: string | null }).image? buildImageUrl(rec.image) : null,
+    //image: (rec as unknown as { image?: string | null }).image ?? null,
+    //image: { uri: `https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=250&auto=format&fit=crop` },
     duration: resolveDuration(rec),
     tags: resolveTags(rec),
     price,

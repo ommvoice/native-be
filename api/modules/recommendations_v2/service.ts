@@ -11,6 +11,7 @@ import { legKey } from "./driving-leg-keys.js";
 import type { RecommendationV2Candidate, ScoredRecommendation } from "./types.js";
 import {
   collectFamilyInterestSlugs,
+  combineNearbyScore,
   combineWeightedScore,
   getAgeInYears,
   haversineDistanceMiles,
@@ -68,6 +69,7 @@ export class RecommendationsV2Service {
     const parentInScope = this.narrowParentToChildrenInScope(parentRow, dto);
     const base = this.assertParentAndBuildContext(parentInScope, dto);
 
+    console.log('f1: ', {p: dto.parentId})
     const familyInterestSlugs = collectFamilyInterestSlugs({
       parentCategorySlugs: base.parent.interestCategories.map((x) => x.slug),
       parentSubCategorySlugs: base.parent.interestSubCategories.map((x) => x.slug),
@@ -82,9 +84,42 @@ export class RecommendationsV2Service {
     const drivingMap = await this.drivingLegs.ensureLegsCached(base.parent.id, routable);
     const scored: ScoredRecommendation[] = [];
 
-    console.log("yy2", candidates)
+    // console.log("yy2", {candidates, familyInterestSlugs})
     for (const c of candidates) {
       const row = this.scoreCandidateFull(c, base, familyInterestSlugs);
+      if (row?.score === 0) continue;
+      if (row) scored.push(row);
+    }
+
+
+    scored.sort((a, b) => b.score - a.score);
+    const top = scored.slice(0, base.limit);
+    const withDriving = this.mergeDrivingIntoScored(top, drivingMap);
+    return this.attachEnrichedOpportunityPayloads(withDriving);
+  }
+
+  /**
+   * Same pool and radius as full v2 recommendations, but ranks by **distance + child age only**
+   * (theme / interest overlap ignored). `scoreBreakdown.interestScore` is always `0`.
+   */
+  async getRecommendationsForParentNearby(
+    dto: RecommendationQueryDto,
+  ): Promise<EnrichedScoredRecommendationV2[]> {
+    const parentRow = (await this.repository.getParentForRecommendations(
+      dto.parentId,
+      dto.childId,
+    )) as ParentWithInterests | null;
+    const parentInScope = this.narrowParentToChildrenInScope(parentRow, dto);
+    const base = this.assertParentAndBuildContext(parentInScope, dto);
+
+    // console.log("yy2 nearby", { json: JSON.stringify(parentInScope), base });
+    const candidates = await this.repository.getOpportunityCandidatesV2();
+    const routable = this.collectRoutableLegsForFull(base.parent, candidates);
+    const drivingMap = await this.drivingLegs.ensureLegsCached(base.parent.id, routable);
+    const scored: ScoredRecommendation[] = [];
+
+    for (const c of candidates) {
+      const row = this.scoreCandidateNearby(c, base);
       if (row?.score === 0) continue;
       if (row) scored.push(row);
     }
@@ -166,7 +201,6 @@ export class RecommendationsV2Service {
     familyInterestSlugs: Set<string>,
   ): ScoredRecommendation | null {
     const oppCoords = this.parseOpportunityLatLon(c);
-    console.log("yy3", { oppCoords })
     if (!oppCoords) return null;
 
     const distanceMiles = haversineDistanceMiles(
@@ -175,9 +209,7 @@ export class RecommendationsV2Service {
       oppCoords.latitude,
       oppCoords.longitude,
     );
-    console.log("yy4", { distanceMiles })
     if (distanceMiles > base.maxDistanceMiles) return null;
- console.log("yy5", { distanceMiles })
     const interestScore = Math.round(
       scoreInterestOverlapFromV2ThemeSlugs(
         familyInterestSlugs,
@@ -185,12 +217,16 @@ export class RecommendationsV2Service {
         c.themeVariantSlug,
       ),
     );
-    // const ageScore = Math.round(scoreAgeFromV2AgeBands(base.childAges, c.ageBands));
-    const ageScore = Math.round(scoreAgeFromV2AgeBands([8], c.ageBands));
+    const ageScore = Math.round(scoreAgeFromV2AgeBands(base.childAges, c.ageBands));
+    // const ageScore = Math.round(scoreAgeFromV2AgeBands([8], c.ageBands));
     const distanceScore = Math.round(scoreDistanceLinear(distanceMiles, base.maxDistanceMiles));
 
-    console.log(`yy Scoring candidate`, { interestScore, ageScore, distanceScore });
+    // console.log(`a1 Scoring candidate`, { interestScore, ageScore, distanceScore });
+    // console.log(`a1 22`, {  familyInterestSlugs,
+    //     s: c.themeSlug,
+    //     v: c.themeVariantSlug, });
     const total = combineWeightedScore(interestScore, ageScore, distanceScore);
+    // console.log(`a1 Scoring candidate (full)`, { interestScore, ageScore, distanceScore, total});
     return {
       type: c.type,
       id: c.id,
@@ -203,6 +239,45 @@ export class RecommendationsV2Service {
       score: total,
       scoreBreakdown: {
         interestScore,
+        ageScore,
+        distanceScore,
+        total,
+      },
+    };
+  }
+
+  private scoreCandidateNearby(
+    c: RecommendationV2Candidate,
+    base: ParentRunContext,
+  ): ScoredRecommendation | null {
+    const oppCoords = this.parseOpportunityLatLon(c);
+    if (!oppCoords) return null;
+
+    const distanceMiles = haversineDistanceMiles(
+      base.lat,
+      base.lon,
+      oppCoords.latitude,
+      oppCoords.longitude,
+    );
+    if (distanceMiles > base.maxDistanceMiles) return null;
+
+    const ageScore = Math.round(scoreAgeFromV2AgeBands(base.childAges, c.ageBands));
+    const distanceScore = Math.round(scoreDistanceLinear(distanceMiles, base.maxDistanceMiles));
+    const total = combineNearbyScore(ageScore, distanceScore);
+
+   // console.log(`a1 Scoring candidate (nearby)`, { base, ageScore, distanceScore, total, c });
+    return {
+      type: c.type,
+      id: c.id,
+      name: c.name,
+      description: c.description,
+      postcode: c.postcode,
+      distanceMiles: Math.round(distanceMiles * 10) / 10,
+      drivingDistanceMiles: null,
+      drivingDurationSeconds: null,
+      score: total,
+      scoreBreakdown: {
+        interestScore: 0,
         ageScore,
         distanceScore,
         total,

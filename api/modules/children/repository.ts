@@ -5,6 +5,7 @@ import { TABLES } from "../../database/tables.js";
 import { batchGetItems } from "../../database/dynamo-helpers.js";
 import type { Children, InterestCategory, InterestSubCategory, Parents } from "../../types/db.js";
 import type { RequestChildrenCreateDto } from "./dto.js";
+import type { UpdateChildBody } from "./schema.js";
 
 function fromDbChild(item: Record<string, unknown>): Children {
   return {
@@ -53,9 +54,9 @@ async function hydrateChild(item: Record<string, unknown>) {
 
   const [parentRes, categoryItems, subCategoryItems] = await Promise.all([
     db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: child.parentId } })),
-    categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : Promise.resolve([]),
+    categoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, categoryIds) : Promise.resolve([]),
     subCategoryIds.length > 0
-      ? batchGetItems(TABLES.interestSubCategories, subCategoryIds)
+      ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds)
       : Promise.resolve([]),
   ]);
 
@@ -80,7 +81,7 @@ export class ChildrenRepository {
   async interestCategoriesExist(ids: string[]): Promise<boolean> {
     if (ids.length === 0) return true;
     const unique = [...new Set(ids)];
-    const items = await batchGetItems(TABLES.interestCategories, unique);
+    const items = await batchGetItems(TABLES.opportunityThemes, unique);
     return items.length === unique.length;
   }
 
@@ -122,6 +123,32 @@ export class ChildrenRepository {
     );
 
     return ids;
+  }
+
+  async updateChild(childId: string, body: UpdateChildBody) {
+    const sets: string[] = [];
+    const values: Record<string, unknown> = { ":ua": new Date().toISOString() };
+    if (body.nameOrNickName !== undefined) {
+      sets.push("nameOrNickName = :nn");
+      values[":nn"] = body.nameOrNickName;
+    }
+    if (body.dateOfBirth !== undefined) {
+      sets.push("dateOfBirth = :dob");
+      values[":dob"] = new Date(body.dateOfBirth).toISOString();
+    }
+    if (sets.length === 0) {
+      return this.getById(childId);
+    }
+    sets.push("updatedAt = :ua");
+    await db.send(
+      new UpdateCommand({
+        TableName: TABLES.children,
+        Key: { id: childId },
+        UpdateExpression: `SET ${sets.join(", ")}`,
+        ExpressionAttributeValues: values,
+      }),
+    );
+    return this.getById(childId);
   }
 
   async updateInterestPreferences(childId: string, categoryIds: string[], subCategoryIds: string[]) {

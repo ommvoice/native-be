@@ -21,7 +21,7 @@ export class WeatherService {
 
     const url = new URL(CURRENT_URL);
     url.searchParams.set("key", key);
-    url.searchParams.set("q", q);
+    url.searchParams.set("q", `${q}, GB`);
 
     const res = await fetch(url);
     let body: any;
@@ -30,6 +30,8 @@ export class WeatherService {
     } catch {
       throw new AppError(502, "Invalid response from weather provider.");
     }
+
+        // console.log('a1: weather: ', {url, body})
 
     if (!res.ok) {
       const fromApi = messageFromWeatherApiBody(body);

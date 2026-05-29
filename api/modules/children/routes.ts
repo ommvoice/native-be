@@ -1,7 +1,7 @@
 import express from "express";
 import { ParentRepository } from "../parents/repository.js";
 import { ChildrenController } from "./controller.js";
-import { createChildSchema } from "./schema.js";
+import { createChildSchema, updateChildSchema } from "./schema.js";
 import { validateBody as validateBodyUsers } from "../users/schema.js";
 import {
   getByIdSchema,
@@ -80,27 +80,6 @@ router.post("/", validateBodyUsers(createChildSchema), controller.create);
 
 /**
  * @swagger
- * /children/{id}:
- *   get:
- *     summary: Get child by ID
- *     description: Returns the child with parent and interest preferences (categories and subcategories).
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *           format: uuid
- *     responses:
- *       200:
- *         description: OK
- *       404:
- *         description: Child not found
- */
-router.get("/:id", validateParams(getByIdSchema), controller.getById);
-
-/**
- * @swagger
  * /children/{id}/interest-preferences:
  *   patch:
  *     summary: Update child interest categories and subcategories
@@ -143,5 +122,63 @@ router.patch(
   validateBody(updateInterestPreferencesSchema),
   controller.updateInterestPreferences,
 );
+
+/**
+ * @swagger
+ * /children/{id}:
+ *   get:
+ *     summary: Get child by ID
+ *     description: Returns the child with parent and interest preferences (categories and subcategories).
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: OK
+ *       404:
+ *         description: Child not found
+ *   patch:
+ *     summary: Update a child
+ *     description: Updates `nameOrNickName` and/or `dateOfBirth`. At least one field must be provided.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nameOrNickName:
+ *                 type: string
+ *               dateOfBirth:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Child updated; same shape as GET response
+ *       400:
+ *         description: Invalid body
+ *       404:
+ *         description: Child not found
+ */
+router.patch(
+  "/:id",
+  validateParams(getByIdSchema),
+  validateBody(updateChildSchema),
+  controller.update,
+);
+router.get("/:id", validateParams(getByIdSchema), controller.getById);
 
 export default router;

@@ -8,6 +8,7 @@ import recommendationsRoutes from "../modules/recommendations/recommendations.ro
 import recommendationsV2Routes from "../modules/recommendations_v2/recommendations_v2.routes.js";
 import skillsRoutes from "../modules/skills/skills.routes.js";
 import interestsRoutes from "../modules/interests/routes.js";
+import themesRoutes from "../modules/themes/routes.js";
 import opportunityRoutes from "../modules/opportunity/opportunity.routes.js";
 import wishlistsRoutes from "../modules/wishlists/wishlists.routes.js";
 import weatherRoutes from "../modules/weather/routes.js";
@@ -25,6 +26,7 @@ export const configureRoutes = (io?: any) => {
   router.use("/recommendations-v2", recommendationsV2Routes);
   router.use("/skills", skillsRoutes);
   router.use("/interests", interestsRoutes);
+  router.use("/themes", themesRoutes);
   router.use("/opportunity", opportunityRoutes);
   router.use("/wishlists", wishlistsRoutes);
   router.use("/weather", weatherRoutes);

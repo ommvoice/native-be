@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import type { RequestChildrenCreateDto } from "./dto.js";
+import type { UpdateChildBody } from "./schema.js";
 import { StatusCodes } from "http-status-codes";
 import type { ChildrenService } from "./service.js";
 import type { UpdateInterestPreferencesBody } from "../parents/schema.js";
@@ -12,6 +13,14 @@ export class ChildrenController {
 
     const ids = await this.childrenService.create(payload);
     res.status(StatusCodes.CREATED).json({ ids });
+  };
+
+  update = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const body = req.body as UpdateChildBody;
+
+    const child = await this.childrenService.update(id as string, body);
+    res.status(StatusCodes.OK).json(child);
   };
 
   getById = async (req: Request, res: Response): Promise<void> => {

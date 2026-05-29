@@ -1,6 +1,7 @@
 import AppError from "../../shared/errors/AppError.js";
 import type { ParentRepository } from "../parents/repository.js";
 import type { RequestChildrenCreateDto } from "./dto.js";
+import type { UpdateChildBody } from "./schema.js";
 import { StatusCodes } from "http-status-codes";
 import type { ChildrenRepository } from "./repository.js";
 
@@ -22,6 +23,13 @@ export class ChildrenService {
     if (!entity) throw new AppError(StatusCodes.NOT_FOUND, "Parent not found.");
 
     return await this.childrenRepository.create(data);
+  }
+
+  async update(id: string, body: UpdateChildBody) {
+    const existing = await this.childrenRepository.getById(id);
+    if (!existing) throw new AppError(StatusCodes.NOT_FOUND, "Child not found");
+
+    return this.childrenRepository.updateChild(id, body);
   }
 
   async updateInterestPreferences(

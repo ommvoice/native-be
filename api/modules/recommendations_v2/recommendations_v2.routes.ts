@@ -69,6 +69,58 @@ router.get("/:parentId/children/:childId", controller.getForParentAndChild);
 
 /**
  * @swagger
+ * /recommendations-v2/{parentId}/nearby:
+ *   get:
+ *     tags:
+ *       - Recommendations V2
+ *     summary: Nearby-style ranked v2 opportunities (age + distance only)
+ *     description: |
+ *       Same candidate pool and parent's profile search radius (**miles**) as
+ *       `GET /recommendations-v2/{parentId}`, but **ignores theme / interest overlap**.
+ *       Total score is 50% v2 age-band suitability + 50% crow-fly distance;
+ *       `scoreBreakdown.interestScore` is always 0.
+ *       Mapbox driving cache (`MAPBOX_ACCESS_TOKEN`) applies the same way as the main v2 endpoint.
+ *     parameters:
+ *       - in: path
+ *         name: parentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Parent DynamoDB ID
+ *       - in: query
+ *         name: childId
+ *         required: false
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Scope to one child for ages only (same as main v2 parent route)
+ *     responses:
+ *       200:
+ *         description: Scored nearby v2 recommendations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: integer
+ *                 mode:
+ *                   type: string
+ *                   example: nearby
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       400:
+ *         description: Missing / invalid parent location or no children
+ *       404:
+ *         description: Parent not found
+ */
+router.get("/:parentId/nearby", controller.getNearbyForParent);
+
+/**
+ * @swagger
  * /recommendations-v2/{parentId}:
  *   get:
  *     tags:

@@ -44,8 +44,8 @@ async function getChildrenForParent(
       const skillIds = (item.skillIds as string[]) ?? [];
 
       const [catItems, subItems, skillItems] = await Promise.all([
-        categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : [],
-        subCategoryIds.length > 0 ? batchGetItems(TABLES.interestSubCategories, subCategoryIds) : [],
+        categoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, categoryIds) : [],
+        subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds) : [],
         skillIds.length > 0 ? batchGetItems(TABLES.skills, skillIds) : [],
       ]);
 
@@ -84,8 +84,8 @@ export class RecommendationsV2Repository {
     const subCategoryIds = (item.interestSubCategoryIds as string[]) ?? [];
 
     const [catItems, subItems, children] = await Promise.all([
-      categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : [],
-      subCategoryIds.length > 0 ? batchGetItems(TABLES.interestSubCategories, subCategoryIds) : [],
+      categoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, categoryIds) : [],
+      subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds) : [],
       getChildrenForParent(parentId, childId),
     ]);
 

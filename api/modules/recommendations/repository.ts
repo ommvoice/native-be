@@ -212,14 +212,14 @@ async function getChildrenForParent(
 
       const [catItems, subItems, skillItems] = await Promise.all([
         categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : [],
-        subCategoryIds.length > 0 ? batchGetItems(TABLES.interestSubCategories, subCategoryIds) : [],
+        subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, subCategoryIds) : [],
         skillIds.length > 0 ? batchGetItems(TABLES.skills, skillIds) : [],
       ]);
 
       const subCategoryIdSet = new Set(skillItems.map((s) => s.subCategoryId as string).filter(Boolean));
       const subCatItems =
         subCategoryIdSet.size > 0
-          ? await batchGetItems(TABLES.interestSubCategories, [...subCategoryIdSet])
+          ? await batchGetItems(TABLES.opportunityThemes, [...subCategoryIdSet])
           : [];
       const subCatSlugMap = new Map(subCatItems.map((s) => [s.id as string, s.slug as string]));
 
@@ -256,7 +256,7 @@ export class RecommendationsRepository {
 
     const [catItems, subItems, children] = await Promise.all([
       categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : [],
-      subCategoryIds.length > 0 ? batchGetItems(TABLES.interestSubCategories, subCategoryIds) : [],
+      subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, subCategoryIds) : [],
       getChildrenForParent(parentId, childId),
     ]);
 

@@ -1,80 +1,49 @@
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import db from "../../database/database.config.js";
 import { TABLES } from "../../database/tables.js";
 import { scanAll } from "../../database/dynamo-helpers.js";
-import type { InterestCategoryResponse, InterestSubCategoryResponse } from "./types.js";
+import { groupThemeRowsByKey, pickCanonicalThemeRow } from "../../lib/opportunity-theme-helpers.js";
+import type { InterestCategoryResponse, InterestThemeResponse } from "./types.js";
 
-type FlatSubCategory = {
-  id: string;
-  slug: string;
-  name: string;
-  suitableForAge: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-  parentId: string | null;
-};
+function mapTheme(item: Record<string, unknown>): InterestThemeResponse {
+  return {
+    id: item.id as string,
+    slug: item.slug as string,
+    name: item.name as string,
+    createdAt: new Date(item.createdAt as string),
+    updatedAt: new Date(item.updatedAt as string),
+  };
+}
 
-function buildSubCategoryTree(flat: FlatSubCategory[]): InterestSubCategoryResponse[] {
-  const nodes = new Map<string, InterestSubCategoryResponse>();
-  for (const row of flat) {
-    nodes.set(row.id, {
-      id: row.id,
-      slug: row.slug,
-      name: row.name,
-      suitableForAge: row.suitableForAge,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
-      subCategories: [],
-    });
-  }
-
-  const roots: InterestSubCategoryResponse[] = [];
-  for (const row of flat) {
-    const node = nodes.get(row.id);
-    if (!node) continue;
-    if (row.parentId === null) {
-      roots.push(node);
-    } else {
-      const parent = nodes.get(row.parentId);
-      if (parent) {
-        parent.subCategories.push(node);
-      } else {
-        roots.push(node);
-      }
+function dedupeThemesBySlug(items: Record<string, unknown>[]): InterestThemeResponse[] {
+  const themes: { sortOrder: number; theme: InterestThemeResponse }[] = [];
+  for (const rows of groupThemeRowsByKey(items).values()) {
+    const canonical = pickCanonicalThemeRow(rows);
+    if (canonical) {
+      themes.push({
+        sortOrder: Number(canonical.sortOrder ?? 0),
+        theme: mapTheme(canonical),
+      });
     }
   }
-
-  const sortBySlug = (list: InterestSubCategoryResponse[]) => {
-    list.sort((a, b) => a.slug.localeCompare(b.slug));
-    for (const n of list) sortBySlug(n.subCategories);
-  };
-  sortBySlug(roots);
-
-  return roots;
+  return themes
+    .sort((a, b) => a.sortOrder - b.sortOrder || a.theme.slug.localeCompare(b.theme.slug))
+    .map((t) => t.theme);
 }
 
 export class InterestRepository {
   async getAll(): Promise<InterestCategoryResponse[]> {
-    const [categoryItems, subItems] = await Promise.all([
+    const [categoryItems, themeItems] = await Promise.all([
       scanAll(TABLES.interestCategories),
-      scanAll(TABLES.interestSubCategories),
+      scanAll(TABLES.opportunityThemes),
     ]);
 
-    const subsByCategoryId = new Map<string, FlatSubCategory[]>();
-    for (const item of subItems) {
-      const flat: FlatSubCategory = {
-        id: item.id as string,
-        slug: item.slug as string,
-        name: item.name as string,
-        suitableForAge: (item.suitableForAge as string | null) ?? null,
-        parentId: (item.parentId as string | null) ?? null,
-        createdAt: new Date(item.createdAt as string),
-        updatedAt: new Date(item.updatedAt as string),
-      };
-      const catId = item.categoryId as string;
-      const list = subsByCategoryId.get(catId) ?? [];
-      list.push(flat);
-      subsByCategoryId.set(catId, list);
+    const themesByInterestId = new Map<string, Record<string, unknown>[]>();
+    for (const item of themeItems) {
+      const interestId = item.interestId as string | undefined;
+      if (!interestId) continue;
+      const list = themesByInterestId.get(interestId) ?? [];
+      list.push(item);
+      themesByInterestId.set(interestId, list);
     }
 
     const categories: InterestCategoryResponse[] = categoryItems
@@ -84,31 +53,18 @@ export class InterestRepository {
         name: item.name as string,
         createdAt: new Date(item.createdAt as string),
         updatedAt: new Date(item.updatedAt as string),
-        subCategories: buildSubCategoryTree(subsByCategoryId.get(item.id as string) ?? []),
+        themes: dedupeThemesBySlug(themesByInterestId.get(item.id as string) ?? []),
       }))
       .sort((a, b) => a.slug.localeCompare(b.slug));
 
     return categories;
   }
 
-  async getSubCategoriesByCategoryId(categoryId: string): Promise<FlatSubCategory[]> {
-    const res = await db.send(
-      new QueryCommand({
-        TableName: TABLES.interestSubCategories,
-        IndexName: "categoryId-index",
-        KeyConditionExpression: "categoryId = :cid",
-        ExpressionAttributeValues: { ":cid": categoryId },
-      }),
+  async getThemesByCategoryId(categoryId: string): Promise<InterestThemeResponse[]> {
+    const themeItems = await scanAll(TABLES.opportunityThemes);
+    return dedupeThemesBySlug(
+      themeItems.filter((t) => (t.interestId as string) === categoryId),
     );
-    return (res.Items ?? []).map((item) => ({
-      id: item.id as string,
-      slug: item.slug as string,
-      name: item.name as string,
-      suitableForAge: (item.suitableForAge as string | null) ?? null,
-      parentId: (item.parentId as string | null) ?? null,
-      createdAt: new Date(item.createdAt as string),
-      updatedAt: new Date(item.updatedAt as string),
-    }));
   }
 }
 

@@ -1,20 +1,18 @@
-/** API shape for a subcategory node; may nest further subcategories (seed tree). */
-export interface InterestSubCategoryResponse {
+/** Theme linked to an interest category (replaces subcategories). */
+export interface InterestThemeResponse {
   id: string;
   slug: string;
   name: string;
-  suitableForAge: string | null;
   createdAt: Date;
   updatedAt: Date;
-  subCategories: InterestSubCategoryResponse[];
 }
 
-/** API shape for a category with top-level subcategories only (each may nest). */
+/** API shape for a category with its themes. */
 export interface InterestCategoryResponse {
   id: string;
   slug: string;
   name: string;
   createdAt: Date;
   updatedAt: Date;
-  subCategories: InterestSubCategoryResponse[];
+  themes: InterestThemeResponse[];
 }

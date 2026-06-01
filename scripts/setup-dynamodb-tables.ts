@@ -49,11 +49,6 @@ const TABLE_DEFS: TableDef[] = [
     gsis: [{ name: "slug-index", pk: "slug" }],
   },
   {
-    name: TABLES.interestSubCategories,
-    pk: "id",
-    gsis: [{ name: "categoryId-index", pk: "categoryId" }],
-  },
-  {
     name: TABLES.skills,
     pk: "id",
     gsis: [{ name: "type-index", pk: "type" }],
@@ -79,8 +74,8 @@ const TABLE_DEFS: TableDef[] = [
     name: TABLES.opportunityThemes,
     pk: "id",
     gsis: [
-      { name: "recordType-index", pk: "recordType" },
       { name: "slug-index", pk: "slug" },
+      { name: "interestId-index", pk: "interestId" },
     ],
   },
   {

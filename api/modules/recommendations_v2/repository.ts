@@ -52,7 +52,7 @@ async function getChildrenForParent(
       const subCategoryIdSet = new Set(skillItems.map((s) => s.subCategoryId as string).filter(Boolean));
       const subCatItems =
         subCategoryIdSet.size > 0
-          ? await batchGetItems(TABLES.interestSubCategories, [...subCategoryIdSet])
+          ? await batchGetItems(TABLES.opportunityThemes, [...subCategoryIdSet])
           : [];
       const subCatSlugMap = new Map(subCatItems.map((s) => [s.id as string, s.slug as string]));
 

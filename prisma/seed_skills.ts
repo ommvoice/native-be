@@ -156,26 +156,23 @@ async function scanAll(tableName: string): Promise<Record<string, unknown>[]> {
 }
 
 async function findRootSubCategoryId(categorySlug: string, subSlug: string): Promise<string> {
-  // Find category id by slug
   const catItems = await scanAll(TABLES.interestCategories);
   const cat = catItems.find((i) => i.slug === categorySlug);
   if (!cat) throw new Error(`Interest category not found: ${categorySlug}`);
-  const categoryId = cat.id as string;
+  const interestId = cat.id as string;
 
-  // Query subcategories by categoryId GSI, then filter by slug + no parentId
   const res = await db.send(
     new QueryCommand({
-      TableName: TABLES.interestSubCategories,
-      IndexName: "categoryId-index",
-      KeyConditionExpression: "categoryId = :cid",
-      ExpressionAttributeValues: { ":cid": categoryId },
+      TableName: TABLES.opportunityThemes,
+      IndexName: "interestId-index",
+      KeyConditionExpression: "interestId = :cid",
+      FilterExpression: "slug = :slug",
+      ExpressionAttributeValues: { ":cid": interestId, ":slug": subSlug },
     }),
   );
-  const sub = (res.Items ?? []).find(
-    (i) => i.slug === subSlug && (i.parentId == null || i.parentId === ""),
-  );
-  if (!sub) throw new Error(`Root subcategory not found: ${categorySlug}/${subSlug}`);
-  return sub.id as string;
+  const theme = res.Items?.[0];
+  if (!theme) throw new Error(`Theme not found: ${categorySlug}/${subSlug}`);
+  return theme.id as string;
 }
 
 export async function seedInterestBasedSkills(): Promise<void> {

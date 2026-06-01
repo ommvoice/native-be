@@ -6,15 +6,8 @@ import { TABLES } from "../api/database/tables.js";
 export type OpportunityRecordType = "route" | "venue" | "club" | "event";
 
 const THEME_SLUG_BY_TYPE: Record<string, OpportunityRecordType[]> = {
-  scenic_walks_and_wanders: ["route", "club", "event"],
   wheels_and_rideable_routes: ["route", "venue", "club", "event"],
-  nature_and_wildlife_exploration: ["route", "venue", "club", "event"],
-  green_spaces_to_run_around: ["venue", "event"],
-  coastal_adventures: ["venue", "club", "event"],
-  gardens_and_curated_outdoor_spaces: ["venue", "event"],
-  playgrounds_and_adventure_play: ["venue", "event"],
   sporty_activities: ["venue", "club", "event"],
-  water_based_fun: ["venue", "club", "event"],
   creative_and_expressive_play: ["venue", "club", "event"],
   imaginative_and_role_play: ["venue", "club", "event"],
   sensory_or_calming_experiences: ["venue", "club", "event"],
@@ -31,15 +24,8 @@ const THEME_SLUG_BY_TYPE: Record<string, OpportunityRecordType[]> = {
 };
 
 const THEME_LABELS: Record<string, string> = {
-  scenic_walks_and_wanders: "Scenic Walks & Wanders",
   wheels_and_rideable_routes: "Wheels & Rideable Routes",
-  nature_and_wildlife_exploration: "Nature & Wildlife Exploration",
-  green_spaces_to_run_around: "Green Spaces to Run Around",
-  coastal_adventures: "Coastal Adventures",
-  gardens_and_curated_outdoor_spaces: "Gardens & Curated Outdoor Spaces",
-  playgrounds_and_adventure_play: "Playgrounds & Adventure Play",
   sporty_activities: "Sporty Activities",
-  water_based_fun: "Water-Based Fun",
   creative_and_expressive_play: "Creative & Expressive Play",
   imaginative_and_role_play: "Imaginative & Role Play",
   sensory_or_calming_experiences: "Sensory or Calming Experiences",
@@ -65,62 +51,6 @@ type VariantRow = {
 };
 
 const VARIANTS_BY_THEME: Record<string, VariantRow[]> = {
-  scenic_walks_and_wanders: [
-    { slug: "woodland_walk", name: "Woodland Walk", recordTypes: ["route"], description: "Tree-covered, shaded walks" },
-    { slug: "coastal_walk", name: "Coastal & Clifftop Walk", recordTypes: ["route"], description: "Sea views, cliffs" },
-    { slug: "riverside_walk", name: "River or Lakeside Ramble", recordTypes: ["route"], description: "Calm waterside walks" },
-    { slug: "nature_trail", name: "Nature Trail", recordTypes: ["route"], description: "Signed or circular routes" },
-    { slug: "feature_walk", name: "Feature Walk", recordTypes: ["route"], description: "Destination-led" },
-    { slug: "gentle_wander", name: "Local Wander", recordTypes: ["route"], description: "Short, low-effort walks" },
-    { slug: "hilly_hike", name: "Challenging Hike", recordTypes: ["route"], description: "Challenging hikes on tricky terrain" },
-    { slug: "city_circuit", name: "City Circuit", recordTypes: ["route"], description: "Short loops in urban areas" },
-    { slug: "towpaths", name: "Towpath", recordTypes: ["route"], description: "Simple towpaths" },
-  ],
-  green_spaces_to_run_around: [
-    { slug: "country_parks", name: "Country Park", recordTypes: ["venue", "event"], description: "Big open parks with space to roam" },
-    { slug: "open_parkland", name: "Parkland or Meadow", recordTypes: ["venue", "event"], description: "Wide, unfenced grassy areas" },
-    { slug: "village_greens", name: "Village Green", recordTypes: ["venue", "event"], description: "Informal local green spaces" },
-    { slug: "village_parks", name: "Village Park", recordTypes: ["venue", "event"], description: "Smaller local park options" },
-    { slug: "urban_green_spaces", name: "Urban Green Space", recordTypes: ["venue", "event"], description: "City-based open green areas" },
-    { slug: "estate_grounds", name: "Estate Grounds", recordTypes: ["venue", "event"], description: "Managed grounds open to the public" },
-  ],
-  nature_and_wildlife_exploration: [
-    { slug: "nature_reserves", name: "Nature Reserve", recordTypes: ["route", "venue", "club", "event"], description: "Protected or unmanaged natural areas" },
-    { slug: "wildlife_spotting", name: "Wildlife Hotspot", recordTypes: ["route", "venue", "club", "event"], description: "Birds, insects, deer" },
-    { slug: "hydes_cabins", name: "Hydes or Cabins", recordTypes: ["route", "venue", "club", "event"], description: "Quiet observation" },
-    { slug: "forest_school", name: "Forest School", recordTypes: ["route", "venue", "club", "event"], description: "Lightly structured, nature-first learning" },
-    { slug: "natural_play_areas", name: "Natural Play Area", recordTypes: ["route", "venue", "club", "event"], description: "Play using natural materials" },
-    { slug: "den_building", name: "Den-Building & Nature Craft", recordTypes: ["route", "venue", "club", "event"], description: "Hands-on interaction with nature" },
-    { slug: "nature_trails", name: "Discovery Trail", recordTypes: ["route"], description: "Trails designed to encourage exploration" },
-  ],
-  coastal_adventures: [
-    { slug: "sandy_beach", name: "Sandy Beach", recordTypes: ["venue", "club", "event"], description: "Sand-focused play" },
-    { slug: "pebble_beach", name: "Pebble or Shingle Beach", recordTypes: ["venue", "club", "event"] },
-    { slug: "rnli_beach", name: "RNLI Beach", recordTypes: ["venue", "club", "event"], description: "Safe water entry" },
-    { slug: "coves_exploration", name: "Cove or Headland", recordTypes: ["venue", "club", "event"], description: "Smaller, enclosed bays" },
-    { slug: "coasteering_adventure", name: "Coasteering Spot", recordTypes: ["venue", "club"], description: "Coasteering as an activity or ideal preferred spot" },
-    { slug: "wild_open_beaches", name: "Wild & Open Beach", recordTypes: ["venue", "club", "event"], description: "Exposed, expansive beaches" },
-    { slug: "sheltered_family", name: "Sheltered Family Beach", recordTypes: ["venue", "club", "event"], description: "Calm, protected beaches" },
-    { slug: "dog_friendly_beaches", name: "Dog-Friendly Beach", recordTypes: ["venue", "club", "event"], description: "Dog access important" },
-  ],
-  gardens_and_curated_outdoor_spaces: [
-    { slug: "botanical_gardens", name: "Botanical Garden", recordTypes: ["venue", "event"], description: "Plant collections" },
-    { slug: "arboretum", name: "Arboretum", recordTypes: ["venue", "event"] },
-    { slug: "historic_estate_gardens", name: "Historic Estate Garden", recordTypes: ["venue", "event"], description: "Manor, estate, heritage gardens" },
-    { slug: "formal_landscape_gardens", name: "Landscaped Garden", recordTypes: ["venue", "event"], description: "Designed garden layouts" },
-    { slug: "community_gardens", name: "Community Garden", recordTypes: ["venue", "event"], description: "Local gardens open to the public" },
-    { slug: "themed_gardens", name: "Themed Garden", recordTypes: ["venue", "event"], description: "Art, sculpture, or concept-led gardens" },
-    { slug: "enclosed_gardens", name: "Enclosed Garden", recordTypes: ["venue", "event"], description: "Contained, intimate spaces" },
-  ],
-  playgrounds_and_adventure_play: [
-    { slug: "large_playgrounds", name: "Destination Playground", recordTypes: ["venue", "event"], description: "Big, well-equipped playgrounds" },
-    { slug: "local_playgrounds", name: "Local park", recordTypes: ["venue", "event"], description: "Smaller, village parks" },
-    { slug: "adventure_playgrounds", name: "Adventure Playground", recordTypes: ["venue", "event"], description: "More challenging, exploratory play" },
-    { slug: "natural_play", name: "Natural Obstacle Course", recordTypes: ["venue", "event"], description: "Wood, ropes, nature-led design" },
-    { slug: "skate_park", name: "Skate Park", recordTypes: ["venue", "event"], description: "Ramps, jumps, smoothed surface for skates" },
-    { slug: "orienteering_course", name: "Orienteering Course", recordTypes: ["venue", "event"], description: "Height, obstacles, physical challenge" },
-    { slug: "letterboxing_course", name: "Letterboxing Site", recordTypes: ["venue", "event"], description: "Fast-paced, physical play" },
-  ],
   sporty_activities: [
     { slug: "leisure_centre", name: "Leisure Centre", recordTypes: ["venue", "club", "event"] },
     { slug: "climbing_centre", name: "Climbing Centre", recordTypes: ["venue", "club", "event"] },
@@ -142,14 +72,6 @@ const VARIANTS_BY_THEME: Record<string, VariantRow[]> = {
     { slug: "longer_ride", name: "Longer ride", recordTypes: ["route"], description: "A more committed outing" },
     { slug: "practise_route", name: "Practise Space", recordTypes: ["route", "venue", "club", "event"], description: "Learning, improving, settling nerves" },
     { slug: "skills_and_stunts", name: "Skills & Stunts Space", recordTypes: ["route", "venue", "club", "event"], description: "Pump tracks, ramps, jumps" },
-  ],
-  water_based_fun: [
-    { slug: "paddle_spot", name: "Paddle Spot", recordTypes: ["venue", "club", "event"], description: "Paddling, shallow water, splashy play" },
-    { slug: "water_play", name: "Water play", recordTypes: ["venue", "club", "event"], description: "Calm, low-risk, sensory water experiences" },
-    { slug: "river_beach", name: "River Beach", recordTypes: ["venue", "club", "event"], description: "Calm water, shade, inland feel" },
-    { slug: "water_park", name: "Waterparks", recordTypes: ["venue"], description: "Splash parks / fountains" },
-    { slug: "water_rides", name: "On The Water", recordTypes: ["venue", "club", "event"] },
-    { slug: "water_adventure", name: "Water Adventure", recordTypes: ["venue", "club", "event"], description: "Braver, exploratory water experiences" },
   ],
   creative_and_expressive_play: [
     { slug: "making_and_creating", name: "Creative Artwork", recordTypes: ["venue", "club", "event"], description: "Hands-on creative output: art, craft, clay, textiles" },
@@ -270,69 +192,11 @@ async function clearTable(tableName: string) {
   } while (lastKey);
 }
 
+/**
+ * Legacy global theme seed is disabled — use per-category seeds (e.g. `npm run seed:themes:nature`).
+ * Re-seeds nature themes and removes unlinked legacy rows when run.
+ */
 export async function seedOpportunityThemes(): Promise<void> {
-  await clearTable(TABLES.opportunityThemeVariants);
-  await clearTable(TABLES.opportunityThemes);
-
-  const now = new Date().toISOString();
-  const themeIdByKey = new Map<string, string>();
-  let themeCount = 0;
-  let variantCount = 0;
-
-  for (const [themeSlug, recordTypes] of Object.entries(THEME_SLUG_BY_TYPE)) {
-    const name = THEME_LABELS[themeSlug];
-    const orderByType = new Map<string, number>();
-
-    for (const recordType of recordTypes) {
-      const id = uuidv4();
-      const sortOrder = orderByType.get(recordType) ?? 0;
-      orderByType.set(recordType, sortOrder + 1);
-
-      await db.send(
-        new PutCommand({
-          TableName: TABLES.opportunityThemes,
-          Item: { id, slug: themeSlug, name, recordType, isActive: true, sortOrder, createdAt: now, updatedAt: now },
-        }),
-      );
-      themeIdByKey.set(`${recordType}:${themeSlug}`, id);
-      themeCount++;
-    }
-  }
-
-  for (const [themeSlug, variants] of Object.entries(VARIANTS_BY_THEME)) {
-    const orderByThemeId = new Map<string, number>();
-
-    for (const v of variants) {
-      for (const recordType of v.recordTypes) {
-        const themeId = themeIdByKey.get(`${recordType}:${themeSlug}`);
-        if (!themeId) {
-          console.warn(`Skipping variant ${v.slug}: no theme ${recordType}:${themeSlug}`);
-          continue;
-        }
-        const sortOrder = orderByThemeId.get(themeId) ?? 0;
-        orderByThemeId.set(themeId, sortOrder + 1);
-
-        await db.send(
-          new PutCommand({
-            TableName: TABLES.opportunityThemeVariants,
-            Item: {
-              id: uuidv4(),
-              themeId,
-              slug: v.slug,
-              name: v.name,
-              applicableTypes: v.applicableTypes ?? null,
-              description: v.description ?? null,
-              isActive: v.isActive ?? true,
-              sortOrder,
-              createdAt: now,
-              updatedAt: now,
-            },
-          }),
-        );
-        variantCount++;
-      }
-    }
-  }
-
-  console.log(`Seeded ${themeCount} opportunity themes and ${variantCount} variants.`);
+  const { seedAllCategoryThemes } = await import("./seed_all_themes.js");
+  await seedAllCategoryThemes();
 }

@@ -14,11 +14,36 @@ const controller = new ThemeController(service);
  *   get:
  *     summary: List opportunity themes
  *     description: |
- *       Returns all rows from `opportunity-themes` with nested `variants` from `opportunity-theme-variants`
- *       (matched by `themeId`). Themes are ordered by `slug`, then `recordType`, then `sortOrder`.
- *       Variants are ordered by `sortOrder`, then `slug`.
- *       The service returns **one row per `slug`**: if Dynamo has multiple rows for the same slug (different
- *       `recordType`), the row with the **largest `variants` length** is kept; ties keep the first in that sort order.
+ *       Returns logical themes from `opportunity-themes` with nested `variants` from
+ *       `opportunity-theme-variants`.
+ *
+ *       Themes seeded for an interest category include `interestId`. Category-agnostic themes
+ *       (legacy / incremental global seed) have `interestId: null`.
+ *
+ *       By default only themes linked to an interest category (`interestId` set) are returned.
+ *       Pass `linkedOnly=false` to include legacy unlinked rows.
+ *
+ *       Optional filters (for incremental category seeds):
+ *       - `interestSlug` — e.g. `nature_exploration` (returns exactly that category's themes)
+ *       - `interestId` — interest category UUID
+ *     parameters:
+ *       - in: query
+ *         name: linkedOnly
+ *         schema:
+ *           type: boolean
+ *           default: true
+ *         description: When true, omit themes with no interestId
+ *       - in: query
+ *         name: interestSlug
+ *         schema:
+ *           type: string
+ *         description: Filter to themes linked to this interest category slug
+ *       - in: query
+ *         name: interestId
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Filter to themes linked to this interest category id
  *     responses:
  *       200:
  *         description: Opportunity themes retrieved successfully
@@ -36,9 +61,10 @@ const controller = new ThemeController(service);
  *                     type: string
  *                   name:
  *                     type: string
- *                   recordType:
+ *                   interestId:
  *                     type: string
- *                     enum: [route, venue, club, event]
+ *                     format: uuid
+ *                     nullable: true
  *                   isActive:
  *                     type: boolean
  *                   sortOrder:

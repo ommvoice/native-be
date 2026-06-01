@@ -14,10 +14,8 @@ const controller = new InterestController(service);
  *   get:
  *     summary: List interest categories
  *     description: |
- *       Returns all interest categories. Each category's `subCategories` contains only **root**
- *       subcategories; each node may include nested `subCategories` (same shape), matching the
- *       hierarchical seed data. Nodes are ordered by `slug` at each level. `suitableForAge` is
- *       null when not set.
+ *       Returns all interest categories. Each category's `themes` lists themes linked via
+ *       `interestId` on the opportunity theme table. Themes are ordered by `slug`.
  *     responses:
  *       200:
  *         description: Interest categories retrieved successfully
@@ -41,11 +39,19 @@ const controller = new InterestController(service);
  *                   updatedAt:
  *                     type: string
  *                     format: date-time
- *                   subCategories:
+ *                   themes:
  *                     type: array
- *                     description: Root-level subcategories (may nest arbitrarily)
+ *                     description: Themes for this interest category
  *                     items:
- *                       $ref: '#/components/schemas/InterestSubCategoryTree'
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           format: uuid
+ *                         slug:
+ *                           type: string
+ *                         name:
+ *                           type: string
  */
 router.get("/", controller.getAll);
 

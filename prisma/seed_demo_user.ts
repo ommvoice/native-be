@@ -210,14 +210,14 @@ async function main() {
   console.log("\nSeeding demo user...\n");
 
   // Load reference data maps
-  const [allCategories, allSubCategories, allSkills] = await Promise.all([
+  const [allCategories, allThemes, allSkills] = await Promise.all([
     scanAll(TABLES.interestCategories),
-    scanAll(TABLES.interestSubCategories),
+    scanAll(TABLES.opportunityThemes),
     scanAll(TABLES.skills),
   ]);
 
   const categoryIdBySlug = buildSlugIdMap(allCategories);
-  const subCategoryIdBySlug = buildSlugIdMap(allSubCategories);
+  const subCategoryIdBySlug = buildSlugIdMap(allThemes.filter((t) => t.interestId != null));
   const skillIdBySlug = buildSlugIdMap(allSkills);
 
   function resolveSlugs(slugs: string[], map: Map<string, string>, label: string): string[] {

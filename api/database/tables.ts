@@ -5,7 +5,6 @@ export const TABLES = {
   parents: `${PREFIX}-parents`,
   children: `${PREFIX}-children`,
   interestCategories: `${PREFIX}-interest-categories`,
-  interestSubCategories: `${PREFIX}-interest-sub-categories`,
   skills: `${PREFIX}-skills`,
   skillLevels: `${PREFIX}-skill-levels`,
   facilities: `${PREFIX}-facilities`,

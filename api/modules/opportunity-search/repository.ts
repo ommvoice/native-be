@@ -45,7 +45,7 @@ export class OpportunitySearchRepository {
     if (!child) return null;
     const subCategoryIds = (child.interestSubCategoryIds as string[]) ?? [];
     if (subCategoryIds.length === 0) return [];
-    const subItems = await batchGetItems(TABLES.interestSubCategories, subCategoryIds);
+    const subItems = await batchGetItems(TABLES.opportunityThemes, subCategoryIds);
     return subItems.map((i) => i.slug as string);
   }
 

@@ -56,19 +56,19 @@ function fromDbSubCategory(
     id: item.id as string,
     slug: item.slug as string,
     name: item.name as string,
-    categoryId: item.categoryId as string,
+    categoryId: item.interestId as string,
   };
 }
 
 async function resolveCategories(ids: string[]) {
   if (ids.length === 0) return [];
-  const items = await batchGetItems(TABLES.opportunityThemes, ids);
+  const items = await batchGetItems(TABLES.interestCategories, ids);
   return items.map(fromDbCategory).sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
 async function resolveSubCategories(ids: string[]) {
   if (ids.length === 0) return [];
-  const items = await batchGetItems(TABLES.interestSubCategories, ids);
+  const items = await batchGetItems(TABLES.opportunityThemes, ids);
   return items.map(fromDbSubCategory).sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
@@ -140,14 +140,17 @@ export class ParentRepository {
   async interestCategoriesExist(ids: string[]): Promise<boolean> {
     if (ids.length === 0) return true;
     const unique = [...new Set(ids)];
-    const items = await batchGetItems(TABLES.opportunityThemes, unique);
+    const items = await batchGetItems(TABLES.interestCategories, unique);
     return items.length === unique.length;
   }
 
   async findInterestSubCategoriesByIds(ids: string[]): Promise<{ id: string; categoryId: string }[]> {
     if (ids.length === 0) return [];
-    const items = await batchGetItems(TABLES.interestSubCategories, ids);
-    return items.map((i: Record<string, unknown>) => ({ id: i.id as string, categoryId: i.categoryId as string }));
+    const items = await batchGetItems(TABLES.opportunityThemes, ids);
+    return items.map((i: Record<string, unknown>) => ({
+      id: i.id as string,
+      categoryId: i.interestId as string,
+    }));
   }
 
   async updateSearchRadius(id: string, searchRadius: number) {

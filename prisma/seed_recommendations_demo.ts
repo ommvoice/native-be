@@ -42,16 +42,14 @@ async function findSubCategoryBySlug(
 ): Promise<{ id: string } | null> {
   const res = await db.send(
     new QueryCommand({
-      TableName: TABLES.interestSubCategories,
-      IndexName: "categoryId-index",
-      KeyConditionExpression: "categoryId = :cid",
+      TableName: TABLES.opportunityThemes,
+      IndexName: "interestId-index",
+      KeyConditionExpression: "interestId = :cid",
       FilterExpression: "slug = :slug",
       ExpressionAttributeValues: { ":cid": categoryId, ":slug": slug },
     }),
   );
-  const item = res.Items?.find(
-    (i) => i.parentId === null || i.parentId === undefined,
-  );
+  const item = res.Items?.[0];
   return item ? { id: item.id as string } : null;
 }
 

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import db from "../../database/database.config.js";
 import { TABLES } from "../../database/tables.js";
 import { batchGetItems } from "../../database/dynamo-helpers.js";
-import type { Children, InterestCategory, InterestSubCategory, Parents } from "../../types/db.js";
+import type { Children, InterestCategory, Parents } from "../../types/db.js";
 import type { RequestChildrenCreateDto } from "./dto.js";
 import type { UpdateChildBody } from "./schema.js";
 
@@ -36,14 +36,14 @@ function fromDbCategory(item: Record<string, unknown>): Pick<InterestCategory, "
   return { id: item.id as string, slug: item.slug as string, name: item.name as string };
 }
 
-function fromDbSubCategory(
+function fromDbTheme(
   item: Record<string, unknown>,
-): Pick<InterestSubCategory, "id" | "slug" | "name" | "categoryId"> {
+): Pick<InterestCategory, "id" | "slug" | "name"> & { interestId: string } {
   return {
     id: item.id as string,
     slug: item.slug as string,
     name: item.name as string,
-    categoryId: item.categoryId as string,
+    interestId: item.interestId as string,
   };
 }
 
@@ -52,20 +52,18 @@ async function hydrateChild(item: Record<string, unknown>) {
   const categoryIds = (item.interestCategoryIds as string[]) ?? [];
   const subCategoryIds = (item.interestSubCategoryIds as string[]) ?? [];
 
-  const [parentRes, categoryItems, subCategoryItems] = await Promise.all([
+  const [parentRes, categoryItems, themeItems] = await Promise.all([
     db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: child.parentId } })),
-    categoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, categoryIds) : Promise.resolve([]),
-    subCategoryIds.length > 0
-      ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds)
-      : Promise.resolve([]),
+    categoryIds.length > 0 ? batchGetItems(TABLES.interestCategories, categoryIds) : Promise.resolve([]),
+    subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemes, subCategoryIds) : Promise.resolve([]),
   ]);
 
   const parent = parentRes.Item ? fromDbParent(parentRes.Item as Record<string, unknown>) : null;
   const interestCategories = categoryItems
     .map((i: Record<string, unknown>) => fromDbCategory(i))
     .sort((a: { slug: string }, b: { slug: string }) => a.slug.localeCompare(b.slug));
-  const interestSubCategories = subCategoryItems
-    .map((i: Record<string, unknown>) => fromDbSubCategory(i))
+  const interestSubCategories = themeItems
+    .map((i: Record<string, unknown>) => fromDbTheme(i))
     .sort((a: { slug: string }, b: { slug: string }) => a.slug.localeCompare(b.slug));
 
   return { ...child, parent, interestCategories, interestSubCategories };
@@ -81,16 +79,16 @@ export class ChildrenRepository {
   async interestCategoriesExist(ids: string[]): Promise<boolean> {
     if (ids.length === 0) return true;
     const unique = [...new Set(ids)];
-    const items = await batchGetItems(TABLES.opportunityThemes, unique);
+    const items = await batchGetItems(TABLES.interestCategories, unique);
     return items.length === unique.length;
   }
 
   async findInterestSubCategoriesByIds(ids: string[]): Promise<{ id: string; categoryId: string }[]> {
     if (ids.length === 0) return [];
-    const items = await batchGetItems(TABLES.interestSubCategories, ids);
+    const items = await batchGetItems(TABLES.opportunityThemes, ids);
     return items.map((i: Record<string, unknown>) => ({
       id: i.id as string,
-      categoryId: i.categoryId as string,
+      categoryId: i.interestId as string,
     }));
   }
 

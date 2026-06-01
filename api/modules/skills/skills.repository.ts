@@ -41,9 +41,9 @@ function fromDbSubCategory(item: Record<string, unknown>): InterestSubCategory {
     id: item.id as string,
     slug: item.slug as string,
     name: item.name as string,
-    suitableForAge: (item.suitableForAge as string | null) ?? null,
-    categoryId: item.categoryId as string,
-    parentId: (item.parentId as string | null) ?? null,
+    suitableForAge: null,
+    categoryId: item.interestId as string,
+    parentId: null,
     createdAt: new Date(item.createdAt as string),
     updatedAt: new Date(item.updatedAt as string),
   };
@@ -73,10 +73,10 @@ export class SkillRepository {
     const rows = (res.Items ?? []).map((i) => fromDbSkill(i as Record<string, unknown>));
 
     const subCategoryIds = [...new Set(rows.map((r) => r.subCategoryId).filter(Boolean) as string[])];
-    const subItems = subCategoryIds.length > 0 ? await batchGetItems(TABLES.interestSubCategories, subCategoryIds) : [];
+    const subItems = subCategoryIds.length > 0 ? await batchGetItems(TABLES.opportunityThemes, subCategoryIds) : [];
     const subMap = new Map(subItems.map((i) => [i.id as string, fromDbSubCategory(i as Record<string, unknown>)]));
 
-    const categoryIds = [...new Set(subItems.map((i) => i.categoryId as string))];
+    const categoryIds = [...new Set(subItems.map((i) => i.interestId as string).filter(Boolean))];
     const catItems = categoryIds.length > 0 ? await batchGetItems(TABLES.interestCategories, categoryIds) : [];
     const catMap = new Map(catItems.map((i) => [i.id as string, fromDbCategory(i as Record<string, unknown>)]));
 

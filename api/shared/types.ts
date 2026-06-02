@@ -17,6 +17,10 @@ export interface Opportunity {
   description?: string;
   amenitiesForThem?: { icon: string; label: string }[];
   amenitiesForYou?: { icon: string; label: string }[];
+  location?: {
+    latitude: string | null;
+    longitude: string | null;
+  } | null;
 }
 
 export interface OpportunityDetail {
@@ -64,6 +68,7 @@ export interface OpportunityDetail {
   child_price: number | null;
   infant_price: number | null;
   family_price: number | null;
+  concession_price: number | null;
 
   // Contact / links
   website_url: string | null;
@@ -110,4 +115,6 @@ export interface OpportunityDetail {
   spots_remaining: number | null;
   is_online: boolean | null;
   special_interest_tags: string[] | null;
+
+  org?: any; // Include original data for debugging - to be removed
 }

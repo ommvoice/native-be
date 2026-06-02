@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import db from "../api/database/database.config.js";
 import { TABLES } from "../api/database/tables.js";
 import type { OpportunityRecordType } from "../api/types/db.js";
-import { seedInterestCategories, seedInterestSubCategories } from "./seed_interests.js";
+import { seedInterestCategories } from "./seed_interests.js";
 import { FACILITY_ROWS, seedFacilities } from "./seed_facilities.js";
 
 const NAME_PREFIX = "Corridor Seed";
@@ -362,9 +362,8 @@ function indexRanges() {
 }
 
 async function main() {
-  console.log("Seeding interest categories & subcategories (idempotent)…");
-  const categoryIdBySlug = await seedInterestCategories();
-  await seedInterestSubCategories(categoryIdBySlug);
+  console.log("Seeding interest categories (idempotent)…");
+  await seedInterestCategories();
 
   console.log("Seeding facilities…");
   await seedFacilities();

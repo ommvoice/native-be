@@ -148,7 +148,8 @@ export const clubToOpportunity = (data: OpportunityClubV2Response): OpportunityD
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
-    suitable_for: resolveSuitableFor(data),
+    // suitable_for: resolveSuitableFor(data),
+    suitable_for: splitList(data.clubChildFacilities),
     interest_tags: splitList(data.clubInterestTags),
     accessibility_features: null,
 
@@ -169,6 +170,7 @@ export const clubToOpportunity = (data: OpportunityClubV2Response): OpportunityD
     child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
     infant_price: parsePrice(data.ticketVariantBabyPrice),
     family_price: null,
+    concession_price: parsePrice(data.ticketVariantConcessionPrice),
 
     // Contact / links
     website_url: null,
@@ -215,5 +217,6 @@ export const clubToOpportunity = (data: OpportunityClubV2Response): OpportunityD
     spots_remaining: null,
     is_online: null,
     special_interest_tags: null,
+    org: data
   };
 };

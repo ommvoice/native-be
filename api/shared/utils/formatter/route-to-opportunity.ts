@@ -89,7 +89,8 @@ export const routeToOpportunity = (data: OpportunityRouteV2Response): Opportunit
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
-    suitable_for: resolveSuitableFor(data),
+    // suitable_for: resolveSuitableFor(data),
+    suitable_for: splitList(data.routeChildFacilities),
     interest_tags: splitList(data.routeInterestTags),
     accessibility_features: null,
 
@@ -110,6 +111,7 @@ export const routeToOpportunity = (data: OpportunityRouteV2Response): Opportunit
     child_price: null,
     infant_price: null,
     family_price: null,
+    concession_price: null,
 
     // Contact / links
     website_url: null,

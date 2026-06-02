@@ -37,7 +37,8 @@
     "seed:opportunities-v2:routes": "tsx prisma/seed_opportunity_route_v2_standalone.ts",
     "seed:opportunities-v2:venues": "tsx prisma/seed_opportunity_venues_v2_standalone.ts",
     "seed:opportunities-v2": "npm run seed:opportunities-v2:clubs && npm run seed:opportunities-v2:events && npm run seed:opportunities-v2:routes && npm run seed:opportunities-v2:venues",
-    "seed:all": "npm run seed:facilities && npm run seed:interests && npm run seed:skills && npm run seed:themes && npm run seed:opportunities && npm run seed:opportunities-v2 && npm run seed:rec-demo && npm run seed:swagger-corridor && npm run seed:demo-user",
+    "seed:variants": "npm run seed:variants:scenic-walks && npm run seed:variants:green-spaces && npm run seed:variants:nature-wildlife && npm run seed:variants:coastal-adventures && npm run seed:variants:gardens-outdoor && npm run seed:variants:active-play-climbing && npm run seed:variants:sporty-activities",
+    "seed:all": "npm run seed:facilities && npm run seed:interests && npm run seed:themes:all && npm run seed:themes && npm run seed:skills && npm run seed:opportunities && npm run seed:opportunities-v2 && npm run seed:variants && npm run seed:rec-demo && npm run seed:swagger-corridor && npm run seed:demo-user",
     "seed:demo-user": "tsx prisma/seed_demo_user.ts"
   },
   "type": "module",

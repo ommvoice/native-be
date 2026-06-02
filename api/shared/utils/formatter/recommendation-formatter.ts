@@ -182,6 +182,9 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
     ...(description !== undefined && { description }),
     amenitiesForThem: parseAmenities(resolveChildFacilities(rec)),
     amenitiesForYou: parseAmenities(resolveAdultFacilities(rec)),
+    location: rec.latitude !== undefined && rec.longitude !== undefined
+      ? { latitude: rec.latitude, longitude: rec.longitude }
+      : null,
   };
 }
 

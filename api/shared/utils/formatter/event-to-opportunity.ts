@@ -142,7 +142,8 @@ export const eventToOpportunity = (data: OpportunityVenueV2Response): Opportunit
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
-    suitable_for: resolveSuitableFor(data),
+    // suitable_for: resolveSuitableFor(data),
+    suitable_for: splitList(data.eventChildFacilities),
     interest_tags: splitList(data.eventInterestTags),
     accessibility_features: null,
 
@@ -163,6 +164,7 @@ export const eventToOpportunity = (data: OpportunityVenueV2Response): Opportunit
     child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
     infant_price: parsePrice(data.ticketVariantBabyPrice),
     family_price: null,
+    concession_price: null,
 
     // Contact / links
     website_url: null,

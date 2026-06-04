@@ -12,6 +12,7 @@ const getContextProperty = (
 
 const getAppContext = (app: Construct) => {
   let env = app.node.tryGetContext('config');
+
   if (!env) throw new Error('Context variable missing on CDK command');
 
   const context = app.node.tryGetContext(env);
@@ -33,6 +34,8 @@ const getAppContext = (app: Construct) => {
     mapboxAccessToken: getContextProperty(context, 'mapboxAccessToken'),
     weatherApiKey: getContextProperty(context, 'weatherApiKey'),
   };
+
+  console.log('App context:', buildConfig);
 
   return buildConfig;
 };

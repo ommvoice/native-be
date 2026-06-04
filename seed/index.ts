@@ -20,8 +20,8 @@ import { seedOpportunityRouteV2 } from "./opportunity/routes-v2/index.js";
 import { seedOpportunityVenuesV2 } from "./opportunity/venues-v2/index.js";
 
 async function main() {
-  const env = "dev";
-  const appName = "native-be";
+  const appName = process.env.APP_NAME ?? "native-be";
+  const env  = process.env.APP_ENV  ?? "dev";
   const prefix  = `${appName}-${env}`;
 
   console.log(`\n🌱  Seeding ${appName} (env: ${env}, table prefix: ${prefix})\n`);

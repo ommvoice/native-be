@@ -26,6 +26,8 @@ export interface LambdaStackProps extends cdk.StackProps {
 
 export class LambdaStack extends cdk.Stack {
   readonly lambdas: Record<string, lambdaNode.NodejsFunction>;
+  readonly layer:      lambda.LayerVersion;
+  readonly cognitoEnv: Record<string, string>;
 
   constructor(scope: Construct, id: string, props: LambdaStackProps) {
     super(scope, id, props);
@@ -186,6 +188,8 @@ export class LambdaStack extends cdk.Stack {
       const fn = fns[key]; if (fn) cognito.grantAdminActions(fn);
     }
 
-    this.lambdas = fns;
+    this.layer      = layer;
+    this.cognitoEnv = cognitoEnv;
+    this.lambdas    = fns;
   }
 }

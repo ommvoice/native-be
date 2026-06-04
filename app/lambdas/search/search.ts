@@ -1,6 +1,5 @@
 import middy from '@middy/core';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { authGuard } from '../../shared/middleware/auth-guard';
 import { queryValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { opportunitySearchQuerySchema } from '../../schemas/search.schema';
@@ -85,6 +84,5 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 };
 
 export const handler = middy(baseHandler)
-  .use(authGuard())
   .use(queryValidator(opportunitySearchQuerySchema))
   .use(errorHandler());

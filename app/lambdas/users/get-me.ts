@@ -1,17 +1,18 @@
 import middy from '@middy/core';
-import type { APIGatewayProxyResult } from 'aws-lambda';
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { UserRepository } from '../../repositories/user.repository';
 import { ParentRepository } from '../../repositories/parent.repository';
-import { authGuard, type AuthenticatedEvent } from '../../shared/middleware/auth-guard';
+import { getAuthUser } from '../../shared/middleware/auth-guard';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { ok } from '../../shared/utils/response';
 import { AppError } from '../../shared/errors/app-error';
 
-const baseHandler = async (event: AuthenticatedEvent): Promise<APIGatewayProxyResult> => {
+const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  const { sub }    = getAuthUser(event);
   const userRepo   = new UserRepository();
   const parentRepo = new ParentRepository();
 
-  const user = await userRepo.getBySub(event.user.sub);
+  const user = await userRepo.getBySub(sub);
   if (!user) throw new AppError(401, 'User not found');
 
   const parent = user.role === 'PARENT' ? await parentRepo.getByUserId(user.id) : null;
@@ -19,5 +20,4 @@ const baseHandler = async (event: AuthenticatedEvent): Promise<APIGatewayProxyRe
 };
 
 export const handler = middy(baseHandler)
-  .use(authGuard())
   .use(errorHandler());

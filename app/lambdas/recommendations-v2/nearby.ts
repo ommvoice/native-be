@@ -1,7 +1,6 @@
 import middy from '@middy/core';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { RecommendationV2Service } from '../../services/recommendation-v2.service';
-import { authGuard } from '../../shared/middleware/auth-guard';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { AppError } from '../../shared/errors/app-error';
 import { ok } from '../../shared/utils/response';
@@ -16,5 +15,4 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 };
 
 export const handler = middy(baseHandler)
-  .use(authGuard())
   .use(errorHandler());

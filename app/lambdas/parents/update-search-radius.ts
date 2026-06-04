@@ -4,7 +4,6 @@ import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ParentService } from '../../services/parent.service';
 import { ParentRepository } from '../../repositories/parent.repository';
 import { InterestRepository } from '../../repositories/interest.repository';
-import { authGuard } from '../../shared/middleware/auth-guard';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateSearchRadiusSchema } from '../../schemas/parent.schema';
@@ -19,6 +18,5 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
 export const handler = middy(baseHandler)
   .use(httpJsonBodyParser())
-  .use(authGuard())
   .use(bodyValidator(updateSearchRadiusSchema))
   .use(errorHandler());

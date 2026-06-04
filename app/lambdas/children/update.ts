@@ -3,7 +3,6 @@ import httpJsonBodyParser from '@middy/http-json-body-parser';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ChildService } from '../../services/child.service';
 import { ChildRepository } from '../../repositories/child.repository';
-import { authGuard } from '../../shared/middleware/auth-guard';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateChildSchema } from '../../schemas/child.schema';
@@ -19,6 +18,5 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
 export const handler = middy(baseHandler)
   .use(httpJsonBodyParser())
-  .use(authGuard())
   .use(bodyValidator(updateChildSchema))
   .use(errorHandler());

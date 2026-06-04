@@ -7,6 +7,9 @@ export interface AppConfigOptions {
   weatherApiKey: string;
   awsAccount?: string;
   awsRegion?: string;
+  hostedZoneId: string;
+  domain: string;
+  certificateArn: string;
 }
 
 /** All resource names are derived from appName + env — nothing is hardcoded inline. */
@@ -17,7 +20,9 @@ export class AppConfig {
   readonly weatherApiKey: string;
   readonly awsAccount: string | undefined;
   readonly awsRegion: string | undefined;
-
+  readonly hostedZoneId: string;
+  readonly domain: string;
+  readonly certificateArn: string;
 
   readonly tableNames: {
     users: string;
@@ -78,12 +83,15 @@ export class AppConfig {
   };
 
   constructor(opts: AppConfigOptions) {
-    this.appName = opts.appName;
-    this.env = opts.env;
+    this.appName           = opts.appName;
+    this.env               = opts.env;
     this.mapboxAccessToken = opts.mapboxAccessToken;
-    this.weatherApiKey = opts.weatherApiKey;
-    this.awsAccount = opts.awsAccount;
-    this.awsRegion = opts.awsRegion;
+    this.weatherApiKey     = opts.weatherApiKey;
+    this.awsAccount        = opts.awsAccount;
+    this.awsRegion         = opts.awsRegion;
+    this.hostedZoneId      = opts.hostedZoneId;
+    this.domain            = opts.domain;
+    this.certificateArn    = opts.certificateArn;
 
     const t = (name: string) => `${opts.appName}-${opts.env}-${name}`;
 

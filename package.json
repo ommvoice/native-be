@@ -11,23 +11,17 @@
     "install:all":       "npm install && npm install --prefix cdk && npm install --prefix layers",
 
     "___ CDK ___":       "",
-    "cdk:bootstrap":     "cd cdk && npm install && npx cdk bootstrap",
-    "cdk:synth":         "cd cdk && npx cdk synth --all",
+    "cdk:bootstrap":     "cd cdk && npm install && npx cdk bootstrap --context config=dev --profile=cdk_profile_fo9",
+    "cdk:synth":         "cd cdk && npx cdk synth --all -c config=dev --profile=cdk_profile_fo9",
 
     "___ DEPLOY ___": "",
-    "deploy:dev":     "cd cdk && npx cdk deploy --all --require-approval never --context env=dev",
-    "deploy:staging": "cd cdk && npx cdk deploy --all --require-approval never --context env=staging",
-    "deploy:prod":    "cd cdk && npx cdk deploy --all --require-approval never --context env=prod",
+    "deploy:dev":     "cd cdk && npx cdk deploy --all --require-approval never --context config=dev --profile=cdk_profile_fo9",
 
     "___ DESTROY ___": "",
-    "destroy:dev":     "cd cdk && npx cdk destroy --all --force --context env=dev",
-    "destroy:staging": "cd cdk && npx cdk destroy --all --force --context env=staging",
-    "destroy:prod":    "cd cdk && npx cdk destroy --all --force --context env=prod",
+    "destroy:dev":     "cd cdk && npx cdk destroy --all --force --context config=dev --profile=cdk_profile_fo9",
 
     "___ DEPLOY + SEED (one command) ___": "",
     "up:dev":     "npm run deploy:dev     && APP_ENV=dev     npm run seed:all",
-    "up:staging": "npm run deploy:staging && APP_ENV=staging npm run seed:all",
-    "up:prod":    "npm run deploy:prod",
 
     "___ SEED ___": "",
     "seed:interests":          "tsx seed/interests.ts",

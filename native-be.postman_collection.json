@@ -6,7 +6,7 @@
   },
 
   "variable": [
-    { "key": "baseUrl",  "value": "https://REPLACE_WITH_CDK_API_URL/dev", "type": "string" },
+    { "key": "baseUrl",  "value": "https://api-family-dev.reporting-tool.co.uk", "type": "string" },
     { "key": "token",    "value": "", "type": "string" },
     { "key": "parentId", "value": "", "type": "string" },
     { "key": "childId",  "value": "", "type": "string" },

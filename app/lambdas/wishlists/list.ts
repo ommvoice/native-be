@@ -1,7 +1,6 @@
 import middy from '@middy/core';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { WishlistService } from '../../services/wishlist.service';
-import { authGuard } from '../../shared/middleware/auth-guard';
 import { queryValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { getWishlistsQuerySchema } from '../../schemas/wishlist.schema';
@@ -13,6 +12,5 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 };
 
 export const handler = middy(baseHandler)
-  .use(authGuard())
   .use(queryValidator(getWishlistsQuerySchema))
   .use(errorHandler());

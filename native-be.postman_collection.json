@@ -1,0 +1,613 @@
+{
+  "info": {
+    "name": "Native Be API",
+    "description": "Complete collection for native-be serverless API.\n\n**Setup:**\n1. Set `baseUrl` variable to your deployed API Gateway URL (from CDK output `ApiUrl`).\n2. Run **Auth / Register** or **Onboard Parent** first.\n3. Run **Auth / Login** — the test script automatically captures the token, parentId and stores them as collection variables.\n4. All subsequent authenticated requests use `{{token}}` automatically.\n\n**Environments:** swap `baseUrl` to point at dev / staging / prod.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+
+  "variable": [
+    { "key": "baseUrl",  "value": "https://REPLACE_WITH_CDK_API_URL/dev", "type": "string" },
+    { "key": "token",    "value": "", "type": "string" },
+    { "key": "parentId", "value": "", "type": "string" },
+    { "key": "childId",  "value": "", "type": "string" },
+    { "key": "email",    "value": "a@a.com", "type": "string" },
+    { "key": "password", "value": "Password123!", "type": "string" }
+  ],
+
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+
+  "item": [
+
+    {
+      "name": "🔐 Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.token)   pm.collectionVariables.set('token',    body.token);",
+                  "  if (body.user?.id) pm.collectionVariables.set('userId',  body.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.token)    pm.collectionVariables.set('token',    body.token);",
+                  "  if (body.user?.id) pm.collectionVariables.set('userId',   body.user.id);",
+                  "  console.log('✅ Token saved. userId:', body.user?.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Me (current user)",
+          "request": {
+            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "👤 Users",
+      "item": [
+        {
+          "name": "Get Me (user + parent profile)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users", "me"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.parent?.id) {",
+                  "    pm.collectionVariables.set('parentId', body.parent.id);",
+                  "    console.log('✅ parentId saved:', body.parent.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "🏠 Onboarding",
+      "item": [
+        {
+          "name": "Onboard Parent (register + create family)",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/onboard-parents", "host": ["{{baseUrl}}"], "path": ["onboard-parents"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"firstNameOrNickName\": \"Alex\",\n  \"postCode\": \"EX5 6PB\",\n  \"searchRadius\": 25,\n  \"children\": [\n    {\n      \"nameOrNickName\": \"Olivia\",\n      \"dateOfBirth\": \"2018-04-12\"\n    },\n    {\n      \"nameOrNickName\": \"Noah\",\n      \"dateOfBirth\": \"2021-09-03\"\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.token)    pm.collectionVariables.set('token',    body.token);",
+                  "  if (body.id)       pm.collectionVariables.set('parentId', body.id);",
+                  "  console.log('✅ Onboarded. parentId:', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "👨‍👩‍👧 Parents",
+      "item": [
+        {
+          "name": "Get Parent",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/parents/{{parentId}}",
+              "host": ["{{baseUrl}}"], "path": ["parents", "{{parentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Search Radius",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/parents/{{parentId}}/search-radius",
+              "host": ["{{baseUrl}}"], "path": ["parents", "{{parentId}}", "search-radius"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"searchRadius\": 30\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Parent Interests",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/parents/{{parentId}}/interests",
+              "host": ["{{baseUrl}}"], "path": ["parents", "{{parentId}}", "interests"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interestCategoryIds\": [],\n  \"interestSubCategoryIds\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Set interestCategoryIds and interestSubCategoryIds using IDs from GET /interests/categories and GET /interests/sub-categories."
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "🧒 Children",
+      "item": [
+        {
+          "name": "Create Child",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/children", "host": ["{{baseUrl}}"], "path": ["children"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentId\": \"{{parentId}}\",\n  \"nameOrNickName\": \"Lily\",\n  \"dateOfBirth\": \"2019-07-20\",\n  \"skillIds\": [],\n  \"interestCategoryIds\": [],\n  \"interestSubCategoryIds\": []\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) {",
+                  "    pm.collectionVariables.set('childId', body.id);",
+                  "    console.log('✅ childId saved:', body.id);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Child",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/children/{{childId}}",
+              "host": ["{{baseUrl}}"], "path": ["children", "{{childId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Child",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/children/{{childId}}",
+              "host": ["{{baseUrl}}"], "path": ["children", "{{childId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nameOrNickName\": \"Lily Updated\",\n  \"dateOfBirth\": \"2019-07-20\",\n  \"skillIds\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Child Interests",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{baseUrl}}/children/{{childId}}/interests",
+              "host": ["{{baseUrl}}"], "path": ["children", "{{childId}}", "interests"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interestCategoryIds\": [],\n  \"interestSubCategoryIds\": []\n}"
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "📚 Reference Data",
+      "item": [
+        {
+          "name": "List Interest Categories",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/interests/categories", "host": ["{{baseUrl}}"], "path": ["interests", "categories"] }
+          }
+        },
+        {
+          "name": "List Interest Sub-Categories",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/interests/sub-categories",
+              "host": ["{{baseUrl}}"], "path": ["interests", "sub-categories"],
+              "query": [{ "key": "categoryId", "value": "", "disabled": true, "description": "Optional — filter by category ID" }]
+            }
+          }
+        },
+        {
+          "name": "List Skills",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/skills", "host": ["{{baseUrl}}"], "path": ["skills"] }
+          }
+        },
+        {
+          "name": "List Themes",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/themes", "host": ["{{baseUrl}}"], "path": ["themes"] }
+          }
+        },
+        {
+          "name": "List Theme Variants",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/themes/variants",
+              "host": ["{{baseUrl}}"], "path": ["themes", "variants"],
+              "query": [{ "key": "themeId", "value": "", "disabled": true, "description": "Optional — filter by theme ID" }]
+            }
+          }
+        },
+        {
+          "name": "List Facilities",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/facilities", "host": ["{{baseUrl}}"], "path": ["facilities"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "🎯 Opportunities",
+      "item": [
+        {
+          "name": "Venues",
+          "item": [
+            {
+              "name": "List Venues",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/opportunity/venues", "host": ["{{baseUrl}}"], "path": ["opportunity", "venues"] }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "  const items = pm.response.json();",
+                      "  if (Array.isArray(items) && items[0]?.id) {",
+                      "    pm.collectionVariables.set('venueId', items[0].id);",
+                      "  }",
+                      "}"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get Venue",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/opportunity/venues/{{venueId}}",
+                  "host": ["{{baseUrl}}"], "path": ["opportunity", "venues", "{{venueId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Events",
+          "item": [
+            {
+              "name": "List Events",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/opportunity/events", "host": ["{{baseUrl}}"], "path": ["opportunity", "events"] }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "  const items = pm.response.json();",
+                      "  if (Array.isArray(items) && items[0]?.id) pm.collectionVariables.set('eventId', items[0].id);",
+                      "}"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get Event",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/opportunity/events/{{eventId}}",
+                  "host": ["{{baseUrl}}"], "path": ["opportunity", "events", "{{eventId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Clubs",
+          "item": [
+            {
+              "name": "List Clubs",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/opportunity/clubs", "host": ["{{baseUrl}}"], "path": ["opportunity", "clubs"] }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "  const items = pm.response.json();",
+                      "  if (Array.isArray(items) && items[0]?.id) pm.collectionVariables.set('clubId', items[0].id);",
+                      "}"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get Club",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/opportunity/clubs/{{clubId}}",
+                  "host": ["{{baseUrl}}"], "path": ["opportunity", "clubs", "{{clubId}}"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Routes",
+          "item": [
+            {
+              "name": "List Routes",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": { "raw": "{{baseUrl}}/opportunity/routes", "host": ["{{baseUrl}}"], "path": ["opportunity", "routes"] }
+              },
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "  const items = pm.response.json();",
+                      "  if (Array.isArray(items) && items[0]?.id) pm.collectionVariables.set('routeId', items[0].id);",
+                      "}"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Get Route",
+              "request": {
+                "auth": { "type": "noauth" },
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/opportunity/routes/{{routeId}}",
+                  "host": ["{{baseUrl}}"], "path": ["opportunity", "routes", "{{routeId}}"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "🌟 Recommendations",
+      "item": [
+        {
+          "name": "Get Recommendations (scored by interests + age + distance)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/recommendations-v2?parentId={{parentId}}",
+              "host": ["{{baseUrl}}"], "path": ["recommendations-v2"],
+              "query": [
+                { "key": "parentId", "value": "{{parentId}}", "description": "Required" },
+                { "key": "childId",  "value": "{{childId}}",  "disabled": true, "description": "Optional — scope to one child" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Nearby (distance + age only, no interest filter)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/recommendations-v2/nearby?parentId={{parentId}}",
+              "host": ["{{baseUrl}}"], "path": ["recommendations-v2", "nearby"],
+              "query": [
+                { "key": "parentId", "value": "{{parentId}}", "description": "Required" },
+                { "key": "childId",  "value": "{{childId}}",  "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "📋 Wishlists",
+      "item": [
+        {
+          "name": "List Wishlists",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wishlists?parentId={{parentId}}",
+              "host": ["{{baseUrl}}"], "path": ["wishlists"],
+              "query": [{ "key": "parentId", "value": "{{parentId}}", "description": "Required" }]
+            }
+          }
+        },
+        {
+          "name": "Create Wishlist",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/wishlists", "host": ["{{baseUrl}}"], "path": ["wishlists"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Summer Adventures\",\n  \"color\": \"#4CAF50\",\n  \"parentId\": \"{{parentId}}\",\n  \"childId\": \"{{childId}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  if (body.id) pm.collectionVariables.set('wishlistId', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "name": "🔍 Search",
+      "item": [
+        {
+          "name": "Search Opportunities",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/search?parentId={{parentId}}",
+              "host": ["{{baseUrl}}"], "path": ["search"],
+              "query": [
+                { "key": "parentId",                "value": "{{parentId}}",  "description": "Required" },
+                { "key": "childId",                 "value": "{{childId}}",   "disabled": true },
+                { "key": "interestSubCategorySlug", "value": "nature_wildlife", "disabled": true, "description": "Slug from /interests/sub-categories" },
+                { "key": "facility",                "value": "toilets",        "disabled": true, "description": "Slug from /facilities — repeat for multiple" },
+                { "key": "maxDistanceMiles",         "value": "20",            "disabled": true },
+                { "key": "maxTimeToReachMinutes",    "value": "45",            "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "🌤 Weather",
+      "item": [
+        {
+          "name": "Get Weather by Postcode",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/weather?postcode=EX5 6PB",
+              "host": ["{{baseUrl}}"], "path": ["weather"],
+              "query": [{ "key": "postcode", "value": "EX5 6PB", "description": "UK postcode" }]
+            }
+          }
+        }
+      ]
+    }
+
+  ]
+}

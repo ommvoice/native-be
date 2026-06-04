@@ -5,7 +5,14 @@
       "Bash(echo \"Exit code: $?\")",
       "Bash(grep -v \"^$\")",
       "Bash(grep -v \"^seed_opportunity_club_v2$\\\\|^seed_opportunity_events_v2$\\\\|^seed_opportunity_route_v2$\\\\|^seed_opportunity_venues_v2$\")",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(cp /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/prisma/seed_opportunity_club_v2/*.ts /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/seed/opportunity/clubs-v2/)",
+      "Bash(cp /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/prisma/seed_opportunity_events_v2/*.ts /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/seed/opportunity/events-v2/)",
+      "Bash(cp /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/prisma/seed_opportunity_route_v2/*.ts /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/seed/opportunity/routes-v2/)",
+      "Bash(cp /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/prisma/seed_opportunity_venues_v2/*.ts /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/seed/opportunity/venues-v2/)",
+      "Bash(cp /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/prisma/seed_opportunity_venues_v2/items/*.ts /Users/yasiriqbal/Projects/react-native/native-family/native-be-lambda-v0/seed/opportunity/venues-v2/items/)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\(Object.keys\\(p.scripts\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(npm view *)"
     ]
   }
 }

@@ -1,5 +1,38 @@
+# Dependencies
 node_modules
-# Keep environment variables out of version control
-.env
+**/node_modules
 
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist
+build
+*.js.map
+
+# CDK
+cdk/cdk.out
+cdk.out
+cdk/cdk.json
+*.d.ts
+
+# AWS
+.aws-sam
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# Generated
 /generated/prisma

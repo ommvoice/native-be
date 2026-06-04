@@ -1,0 +1,20 @@
+{
+  "name": "native-be-shared-layer",
+  "version": "1.0.0",
+  "description": "Shared Lambda layer — heavy runtime dependencies excluded from individual Lambda bundles",
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1058.0",
+    "@aws-sdk/client-dynamodb": "^3.1058.0",
+    "@aws-sdk/lib-dynamodb": "^3.1058.0",
+    "@middy/core": "^7.6.5",
+    "@middy/http-json-body-parser": "^7.6.5",
+    "@middy/http-error-handler": "^7.6.5",
+    "@middy/http-cors": "^7.6.5",
+    "aws-jwt-verify": "^5.1.1",
+    "http-errors": "^2.0.0",
+    "http-status-codes": "^2.3.0",
+    "node-fetch": "^3.3.2",
+    "uuid": "^14.0.0",
+    "yup": "^1.7.1"
+  }
+}

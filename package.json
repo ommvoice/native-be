@@ -7,6 +7,9 @@
     "test":       "vitest run",
     "test:watch": "vitest",
 
+    "___ LAYER ___": "",
+    "layer:install": "cd layers && npm install",
+
     "___ INSTALL ___":   "",
     "install:all":       "npm install && npm install --prefix cdk && npm install --prefix layers",
 
@@ -45,10 +48,7 @@
     "seed:demo-rec":           "tsx seed/demo/recommendations.ts",
     "seed:demo-swagger":       "tsx seed/demo/swagger-corridor.ts",
     "preseed:all":             "cp cdk/lib/config/table-suffixes.ts seed/config/table-suffixes.ts",
-    "seed:all":                "npx tsx seed/index.ts",
-
-    "___ LAYER ___": "",
-    "layer:install": "cd layers && npm install"
+    "seed:all":                "npx tsx seed/index.ts"
   },
   "type": "module",
   "keywords": [],

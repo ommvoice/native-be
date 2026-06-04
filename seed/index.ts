@@ -9,6 +9,7 @@
  * Prerequisites: DynamoDB tables must exist (run npm run deploy first).
  */
 import "dotenv/config";
+import { appName, environment,  prefix } from "./config/index.js";
 import { seedInterestCategories } from "./interests.js";
 import { seedFacilities }         from "./facilities.js";
 import { seedAllCategoryThemes }  from "./themes/all.js";
@@ -20,11 +21,7 @@ import { seedOpportunityRouteV2 } from "./opportunity/routes-v2/index.js";
 import { seedOpportunityVenuesV2 } from "./opportunity/venues-v2/index.js";
 
 async function main() {
-  const appName = process.env.APP_NAME ?? "native-be";
-  const env  = process.env.APP_ENV  ?? "dev";
-  const prefix  = `${appName}-${env}`;
-
-  console.log(`\n🌱  Seeding ${appName} (env: ${env}, table prefix: ${prefix})\n`);
+  console.log(`\n🌱  Seeding ${appName} (env: ${environment}, table prefix: ${prefix})\n`);
 
   // ── 1. Reference data ──────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
-import db from "../../config/db.js";
-import { TABLES } from "../../config/db.js";
+import db from "../../config/index.js";
+import { TABLES } from "../../config/index.js";
 import { createOpportunityClubV2Row } from "./create_opportunity_club_v2_row.js";
 import { opportunityClubV2SeedRows } from "./data.js";
 

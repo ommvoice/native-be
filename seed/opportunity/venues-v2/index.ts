@@ -1,6 +1,6 @@
 import { ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
-import db from "../../config/db.js";
-import { TABLES } from "../../config/db.js";
+import db from "../../config/index.js";
+import { TABLES } from "../../config/index.js";
 import { createOpportunityVenueV2Seed } from "./create_opportunity_venue_v2.js";
 import { opportunityVenuesV2SeedItems } from "./items/index.js";
 

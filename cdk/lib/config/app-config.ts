@@ -1,4 +1,4 @@
-import { Construct } from 'constructs';
+import { TABLE_SUFFIXES } from './table-suffixes';
 
 export interface AppConfigOptions {
   appName: string;
@@ -24,28 +24,7 @@ export class AppConfig {
   readonly domain: string;
   readonly certificateArn: string;
 
-  readonly tableNames: {
-    users: string;
-    parents: string;
-    children: string;
-    interestCategories: string;
-    skills: string;
-    skillLevels: string;
-    facilities: string;
-    opportunityVenues: string;
-    opportunityEvents: string;
-    opportunityClubs: string;
-    opportunityRoutes: string;
-    drivingLegs: string;
-    wishlists: string;
-    wishlistItems: string;
-    opportunityClubsV2: string;
-    opportunityEventsV2: string;
-    opportunityVenuesV2: string;
-    opportunityRoutesV2: string;
-    opportunityThemes: string;
-    opportunityThemeVariants: string;
-  };
+  readonly tableNames: { [K in keyof typeof TABLE_SUFFIXES]: string };
 
   readonly lambdaNames: {
     authRegister: string;
@@ -93,30 +72,11 @@ export class AppConfig {
     this.domain            = opts.domain;
     this.certificateArn    = opts.certificateArn;
 
-    const t = (name: string) => `${opts.appName}-${opts.env}-${name}`;
+    const t = (suffix: string) => `${opts.appName}-${opts.env}-${suffix}`;
 
-    this.tableNames = {
-      users:                    t('users'),
-      parents:                  t('parents'),
-      children:                 t('children'),
-      interestCategories:       t('interest-categories'),
-      skills:                   t('skills'),
-      skillLevels:              t('skill-levels'),
-      facilities:               t('facilities'),
-      opportunityVenues:        t('opportunity-venues'),
-      opportunityEvents:        t('opportunity-events'),
-      opportunityClubs:         t('opportunity-clubs'),
-      opportunityRoutes:        t('opportunity-routes'),
-      drivingLegs:              t('driving-legs'),
-      wishlists:                t('wishlists'),
-      wishlistItems:            t('wishlist-items'),
-      opportunityClubsV2:       t('opportunity-clubs-v2'),
-      opportunityEventsV2:      t('opportunity-events-v2'),
-      opportunityVenuesV2:      t('opportunity-venues-v2'),
-      opportunityRoutesV2:      t('opportunity-routes-v2'),
-      opportunityThemes:        t('opportunity-themes'),
-      opportunityThemeVariants: t('opportunity-theme-variants'),
-    };
+    this.tableNames = Object.fromEntries(
+      Object.entries(TABLE_SUFFIXES).map(([key, suffix]) => [key, t(suffix)]),
+    ) as { [K in keyof typeof TABLE_SUFFIXES]: string };
 
     const l = (name: string) => `${opts.appName}-${opts.env}-${name}`;
 

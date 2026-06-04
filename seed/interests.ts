@@ -3,8 +3,8 @@ import "dotenv/config";
 import { fileURLToPath } from "node:url";
 import { PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
-import db from "./config/db.js";
-import { TABLES } from "./config/db.js";
+import db from "./config/index.js";
+import { TABLES } from "./config/index.js";
 
 const interestCategories: { slug: string; name: string }[] = [
   { slug: "nature_exploration", name: "Nature & Exploration" },

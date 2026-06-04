@@ -8,8 +8,8 @@
 import "dotenv/config";
 import { DeleteCommand, PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
-import db from "../config/db.js";
-import { TABLES } from "../config/db.js";
+import db from "../config/index.js";
+import { TABLES } from "../config/index.js";
 
 const HP2_7DB = "HP2 7DB";
 const HP2_LAT = "51.773282";

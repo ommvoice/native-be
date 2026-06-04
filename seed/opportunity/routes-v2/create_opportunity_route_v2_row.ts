@@ -1,8 +1,8 @@
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
-import db from "../../config/db.js";
-import { TABLES } from "../../config/db.js";
-import type { OpportunityRecordType } from "../../config/db.js";
+import db from "../../config/index.js";
+import { TABLES } from "../../config/index.js";
+import type { OpportunityRecordType } from "../../config/index.js";
 
 export type OpportunityRouteV2SeedInput = {
   opportunityType?: OpportunityRecordType;

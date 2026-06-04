@@ -8,9 +8,9 @@
 import "dotenv/config";
 import { DeleteCommand, PutCommand, QueryCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
-import db from "../config/db.js";
-import { TABLES } from "../config/db.js";
-import type { OpportunityRecordType } from "../config/db.js";
+import db from "../config/index.js";
+import { TABLES } from "../config/index.js";
+import type { OpportunityRecordType } from "../config/index.js";
 import { seedInterestCategories } from "./seed_interests.js";
 import { FACILITY_ROWS, seedFacilities } from "./seed_facilities.js";
 

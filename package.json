@@ -12,7 +12,7 @@
 
     "___ CDK ___":       "",
     "cdk:bootstrap":     "cd cdk && npm install && npx cdk bootstrap --context config=dev --profile=cdk_profile_fo9",
-    "cdk:synth":         "cd cdk && npx cdk synth --all -c config=dev --profile=cdk_profile_fo9",
+    "cdk:synth":         "cd cdk && npx cdk synth --all --context config=dev --profile=cdk_profile_fo9",
 
     "___ DEPLOY ___": "",
     "deploy:dev":     "cd cdk && npx cdk deploy --all --require-approval never --context config=dev --profile=cdk_profile_fo9",
@@ -44,7 +44,8 @@
     "seed:demo-user":          "tsx seed/demo/demo-user.ts",
     "seed:demo-rec":           "tsx seed/demo/recommendations.ts",
     "seed:demo-swagger":       "tsx seed/demo/swagger-corridor.ts",
-    "seed:all":                "tsx seed/index.ts",
+    "preseed:all":             "cp cdk/lib/config/table-suffixes.ts seed/config/table-suffixes.ts",
+    "seed:all":                "npx tsx seed/index.ts",
 
     "___ LAYER ___": "",
     "layer:install": "cd layers && npm install"

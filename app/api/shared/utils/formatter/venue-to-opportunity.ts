@@ -1,0 +1,227 @@
+import type { OpportunityVenuesV2Response } from "../../../modules/opportunity/venues_v2/types.js";
+import type { OpportunityDetail } from "../../types.js";
+import { buildImageUrls } from "./image-url.js";
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function splitList(raw: string | null): string[] | null {
+  if (!raw) return null;
+  const parts = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  return parts.length > 0 ? parts : null;
+}
+
+function parsePrice(raw: string | null | undefined): number | null {
+  if (!raw) return null;
+  const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
+  return isNaN(num) ? null : num;
+}
+
+function buildAddress(line1: string | null, line2: string | null): string | null {
+  const parts = [line1, line2].filter(Boolean);
+  return parts.length > 0 ? parts.join(", ") : null;
+}
+
+function parseCoord(val: string | null): number | null {
+  if (!val) return null;
+  const num = parseFloat(val);
+  return isNaN(num) ? null : num;
+}
+
+function resolveMinAge(data: OpportunityVenuesV2Response): number | null {
+  if (data.venueAgeSuitabilityUnder1Years) return 0;
+  if (data.venueAgeSuitability1To2Years) return 1;
+  if (data.venueAgeSuitability3To4Years) return 3;
+  if (data.venueAgeSuitability5To7Years) return 5;
+  if (data.venueAgeSuitability8To12Years) return 8;
+  if (data.venueAgeSuitabilityOver13Years) return 13;
+  if (data.venueAgeSuitabilityAdults) return 18;
+  return null;
+}
+
+function resolveMaxAge(data: OpportunityVenuesV2Response): number | null {
+  if (data.venueAgeSuitabilityAdults) return null;
+  if (data.venueAgeSuitabilityOver13Years) return 17;
+  if (data.venueAgeSuitability8To12Years) return 12;
+  if (data.venueAgeSuitability5To7Years) return 7;
+  if (data.venueAgeSuitability3To4Years) return 4;
+  if (data.venueAgeSuitability1To2Years) return 2;
+  if (data.venueAgeSuitabilityUnder1Years) return 1;
+  return null;
+}
+
+function resolveSuitableFor(data: OpportunityVenuesV2Response): string[] | null {
+  const bands: string[] = [];
+  if (data.venueAgeSuitabilityUnder1Years) bands.push("Under 1");
+  if (data.venueAgeSuitability1To2Years) bands.push("1–2 years");
+  if (data.venueAgeSuitability3To4Years) bands.push("3–4 years");
+  if (data.venueAgeSuitability5To7Years) bands.push("5–7 years");
+  if (data.venueAgeSuitability8To12Years) bands.push("8–12 years");
+  if (data.venueAgeSuitabilityOver13Years) bands.push("13+ years");
+  if (data.venueAgeSuitabilityAdults) bands.push("Adults");
+  return bands.length > 0 ? bands : null;
+}
+
+function buildFacilities(data: OpportunityVenuesV2Response): string[] | null {
+  const all = [data.venueGeneralFacilities, data.venueChildFacilities, data.venueAdultFacilities]
+    .flatMap((raw) => splitList(raw) ?? []);
+  return all.length > 0 ? all : null;
+}
+
+function buildOpeningHours(data: OpportunityVenuesV2Response): Record<string, { open?: string; close?: string }> | null {
+  const DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
+  type Day = typeof DAYS[number];
+
+  const mixedStart: Record<Day, string | null> = {
+    monday:    data.venueMixedTimingsMondayStart,
+    tuesday:   data.venueMixedTimingsTuesdayStart,
+    wednesday: data.venueMixedTimingsWednesdayStart,
+    thursday:  data.venueMixedTimingsThursdayStart,
+    friday:    data.venueMixedTimingsFridayStart,
+    saturday:  data.venueMixedTimingsSaturdayStart,
+    sunday:    data.venueMixedTimingsSundayStart,
+  };
+  const mixedEnd: Record<Day, string | null> = {
+    monday:    data.venueMixedTimingsMondayEnd,
+    tuesday:   data.venueMixedTimingsTuesdayEnd,
+    wednesday: data.venueMixedTimingsWednesdayEnd,
+    thursday:  data.venueMixedTimingsThursdayEnd,
+    friday:    data.venueMixedTimingsFridayEnd,
+    saturday:  data.venueMixedTimingsSaturdayEnd,
+    sunday:    data.venueMixedTimingsSundayEnd,
+  };
+
+  if (data.venueFixedDailyTimings && data.venueFixedTimingsStartTime) {
+    const days = data.venueSchedulePattern
+      ? splitList(data.venueSchedulePattern) ?? [...DAYS]
+      : [...DAYS];
+    const entry: { open?: string; close?: string } = { open: data.venueFixedTimingsStartTime };
+    if (data.venueFixedTimingsEndTime) entry.close = data.venueFixedTimingsEndTime;
+    const out: Record<string, { open?: string; close?: string }> = {};
+    for (const day of days) out[day] = entry;
+    return out;
+  }
+
+  const result: Record<string, { open?: string; close?: string }> = {};
+  for (const day of DAYS) {
+    const start = mixedStart[day];
+    if (!start) continue;
+    const end = mixedEnd[day];
+    result[day] = { open: start, ...(end ? { close: end } : {}) };
+  }
+  return Object.keys(result).length > 0 ? result : null;
+}
+
+function resolvePriceInfo(data: OpportunityVenuesV2Response): string | null {
+  const parts: string[] = [];
+  if (data.ticketVariantDefinitionAdult && data.ticketVariantAdultPrice)
+    parts.push(`${data.ticketVariantDefinitionAdult}: ${data.ticketVariantAdultPrice}`);
+  if (data.ticketVariantDefinitionOlderChild && data.ticketVariantOlderChildPrice)
+    parts.push(`${data.ticketVariantDefinitionOlderChild}: ${data.ticketVariantOlderChildPrice}`);
+  if (data.ticketVariantDefinitionYoungChild && data.ticketVariantYoungChildPrice)
+    parts.push(`${data.ticketVariantDefinitionYoungChild}: ${data.ticketVariantYoungChildPrice}`);
+  if (data.ticketVariantDefinitionBaby && data.ticketVariantBabyPrice)
+    parts.push(`${data.ticketVariantDefinitionBaby}: ${data.ticketVariantBabyPrice}`);
+  return parts.length > 0 ? parts.join(" · ") : null;
+}
+
+// ── Formatter ─────────────────────────────────────────────────────────────────
+
+export const venueToOpportunity = (data: OpportunityVenuesV2Response): OpportunityDetail => {
+  const hasEntryCost = data.venueEntryCost === true;
+  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+
+  return {
+    // ── Core ──────────────────────────────────────────────
+    id: data.id,
+    opp_type: "venue",
+    name: data.venueName,
+    description: data.venueDescription,
+    image_urls: buildImageUrls(data.image, "venue"),
+
+    // Location
+    address: buildAddress(data.venueAddressLine1, data.venueAddressLine2),
+    city: data.venueCity,
+    postcode: data.venuePostcode,
+    latitude: parseCoord(data.latitude),
+    longitude: parseCoord(data.longitude),
+
+    // Classification
+    interest_category: data.theme.name,
+    opp_category: data.theme.slug,
+    subcategory: data.themeVariant.name,
+    activity_effort_tag: data.venueActivityGroup,
+    opportunity_theme_variant: data.themeVariant.slug,
+
+    // Suitability
+    min_age: resolveMinAge(data),
+    max_age: resolveMaxAge(data),
+    // suitable_for: resolveSuitableFor(data),
+    suitable_for: splitList(data.venueChildFacilities),
+    interest_tags: splitList(data.venueInterestTags),
+    accessibility_features: null,
+
+    // Facilities
+    facilities: buildFacilities(data),
+    parking_provision: splitList(data.venueParkingProvision),
+    required_kit: splitList(data.venueExtraKit),
+    weather_suitability: splitList(data.venueDetailedWeatherSuitability),
+    seasonal_tag: splitList(data.venueSeasonalTag),
+    seasonal_highlights: data.venueSeasonalHighlights,
+    terrain: null,
+
+    // Pricing
+    is_free: !hasEntryCost && !anyPrice,
+    entry_cost: anyPrice ?? null,
+    price_info: resolvePriceInfo(data),
+    adult_price: parsePrice(data.ticketVariantAdultPrice),
+    child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
+    infant_price: parsePrice(data.ticketVariantBabyPrice),
+    family_price: null,
+    concession_price: null,
+
+    // Contact / links
+    website_url: null,
+    booking_url: null,
+    contact_email: null,
+    contact_phone: null,
+
+    // Provider
+    provider_id: data.id,
+
+    // ── Venue only ────────────────────────────────────────
+    opening_hours: buildOpeningHours(data),
+    estimated_visit_duration: data.venueEstimatedDuration,
+
+    // ── Route only (n/a for venue) ────────────────────────
+    route_type: null,
+    route_distance: null,
+    route_start_point: null,
+    route_estimate_u5: null,
+    route_estimate_510: null,
+    route_estimate_10: null,
+    difficulty_rating: null,
+    dog_facilities: splitList(data.venueDogFacilities),
+    bike_route: null,
+    scooter_route: null,
+
+    // ── Club only (n/a for venue) ─────────────────────────
+    club_type: null,
+    club_commitment: null,
+    club_session_cost: null,
+    club_total_cost: null,
+    club_session_total: null,
+    club_availability: null,
+    requires_booking: data.ticketingRequirement,
+
+    // ── Event only (n/a for venue) ────────────────────────
+    start_date: null,
+    end_date: null,
+    event_type: null,
+    event_times: null,
+    venue_name: null,
+    max_capacity: null,
+    spots_remaining: null,
+    is_online: null,
+    special_interest_tags: null,
+  };
+};

@@ -1,23 +1,26 @@
 import { AppError } from '../shared/errors/app-error';
 import { ParentRepository } from '../repositories/parent.repository';
 import { InterestRepository } from '../repositories/interest.repository';
+import { ChildRepository } from '../repositories/child.repository';
 
 export class ParentService {
   constructor(
     private readonly parentRepo: ParentRepository,
     private readonly interestRepo: InterestRepository,
+    private readonly childRepo: ChildRepository,
   ) {}
 
   async getById(id: string) {
     const parent = await this.parentRepo.getById(id);
     if (!parent) throw new AppError(404, 'Parent not found');
 
-    const [categories, subCategories] = await Promise.all([
+    const [categories, subCategories,  children] = await Promise.all([
       this.interestRepo.getCategoriesByIds(parent.interestCategoryIds),
       this.interestRepo.getSubCategoriesByIds(parent.interestSubCategoryIds),
+      this.childRepo.listByParentId(parent.id),
     ]);
 
-    return { ...parent, interestCategories: categories, interestSubCategories: subCategories };
+    return { ...parent, interestCategories: categories, interestSubCategories: subCategories, children };
   }
 
   async updateSearchRadius(id: string, searchRadius: number) {

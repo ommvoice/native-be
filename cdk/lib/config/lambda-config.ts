@@ -56,25 +56,6 @@ export const LAYER_EXTERNAL_MODULES: string[] = [
   'yup',
 ];
 
-// ── Per-function overrides (anything that differs from LAMBDA_DEFAULTS) ────────
-
-export interface LambdaOverride {
-  memoryMb?:      number;
-  timeoutSeconds?: number;
-}
-
-/**
- * Keyed by the register() key used in LambdaStack.
- * Only specify values that differ from LAMBDA_DEFAULTS.
- */
-export const LAMBDA_OVERRIDES: Record<string, LambdaOverride> = {
-  parentsUpdateSearchRadius: { timeoutSeconds: 30  },
-  onboardParents:            { timeoutSeconds: 30  },
-  recommendationsV2Get:      { timeoutSeconds: 60, memoryMb: 1024 },
-  recommendationsV2Nearby:   { timeoutSeconds: 60, memoryMb: 1024 },
-  searchOpportunities:       { timeoutSeconds: 30  },
-  weatherGet:                { timeoutSeconds: 15  },
-};
 
 // ── esbuild bundling options (env-aware) ──────────────────────────────────────
 
@@ -114,35 +95,3 @@ export function logRetentionDays(env: string): number {
   return LOG_RETENTION_DAYS[env] ?? LOG_RETENTION_DAYS['default']!;
 }
 
-// ── DynamoDB IAM permission groups ─────────────────────────────────────────────
-
-/** Lambda keys that need full read + write access to every table. */
-export const DYNAMODB_READ_WRITE_LAMBDAS: string[] = [
-  'authRegister', 'authLogin', 'authMe',
-  'usersGetMe',
-  'parentsGet', 'parentsUpdateSearchRadius', 'parentsUpdateInterests',
-  'onboardParents',
-  'childrenCreate', 'childrenGet', 'childrenUpdate', 'childrenUpdateInterests',
-  'wishlistsList', 'wishlistsCreate',
-  'searchOpportunities',
-  'recommendationsV2Get', 'recommendationsV2Nearby',
-];
-
-/** Lambda keys that only need read access. */
-export const DYNAMODB_READ_ONLY_LAMBDAS: string[] = [
-  'interestsListCategories', 'interestsListSubCategories',
-  'skillsList',
-  'themesList', 'themesListVariants',
-  'facilitiesList',
-  'opportunityVenuesV2List', 'opportunityVenuesV2Get',
-  'opportunityEventsV2List', 'opportunityEventsV2Get',
-  'opportunityClubsV2List',  'opportunityClubsV2Get',
-  'opportunityRoutesV2List', 'opportunityRoutesV2Get',
-];
-
-// ── Cognito IAM ────────────────────────────────────────────────────────────────
-
-/** Lambda keys that call AdminInitiateAuth / AdminCreateUser. */
-export const COGNITO_ADMIN_LAMBDAS: string[] = [
-  'authRegister', 'authLogin', 'authMe', 'onboardParents',
-];

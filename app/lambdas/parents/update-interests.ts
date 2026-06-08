@@ -9,11 +9,12 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateParentInterestsSchema } from '../../schemas/parent.schema';
 import { ok } from '../../shared/utils/response';
 import type { UpdateParentInterestsDto } from '../../dtos/parent.dto';
+import { ChildRepository } from '../../repositories/child.repository';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id      = event.pathParameters?.['id']!;
   const dto     = event.body as unknown as UpdateParentInterestsDto;
-  const service = new ParentService(new ParentRepository(), new InterestRepository());
+  const service = new ParentService(new ParentRepository(), new InterestRepository(), new ChildRepository());
   return ok(await service.updateInterests(id, dto.interestCategoryIds, dto.interestSubCategoryIds));
 };
 

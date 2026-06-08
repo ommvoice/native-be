@@ -8,11 +8,12 @@ import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateSearchRadiusSchema } from '../../schemas/parent.schema';
 import { ok } from '../../shared/utils/response';
+import { ChildRepository } from '../../repositories/child.repository';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id             = event.pathParameters?.['id']!;
   const { searchRadius } = event.body as unknown as { searchRadius: number };
-  const service        = new ParentService(new ParentRepository(), new InterestRepository());
+  const service        = new ParentService(new ParentRepository(), new InterestRepository(), new ChildRepository());
   return ok(await service.updateSearchRadius(id, searchRadius));
 };
 

@@ -26,40 +26,6 @@ export class AppConfig {
 
   readonly tableNames: { [K in keyof typeof TABLE_SUFFIXES]: string };
 
-  readonly lambdaNames: {
-    authRegister: string;
-    authLogin: string;
-    authMe: string;
-    usersGetMe: string;
-    parentsGet: string;
-    parentsUpdateSearchRadius: string;
-    parentsUpdateInterests: string;
-    onboardParents: string;
-    childrenCreate: string;
-    childrenGet: string;
-    childrenUpdate: string;
-    childrenUpdateInterests: string;
-    interestsListCategories: string;
-    interestsListSubCategories: string;
-    skillsList: string;
-    themesList: string;
-    themesListVariants: string;
-    facilitiesList: string;
-    opportunityVenuesV2List: string;
-    opportunityVenuesV2Get: string;
-    opportunityEventsV2List: string;
-    opportunityEventsV2Get: string;
-    opportunityClubsV2List: string;
-    opportunityClubsV2Get: string;
-    opportunityRoutesV2List: string;
-    opportunityRoutesV2Get: string;
-    recommendationsV2Get: string;
-    recommendationsV2Nearby: string;
-    wishlistsList: string;
-    wishlistsCreate: string;
-    searchOpportunities: string;
-    weatherGet: string;
-  };
 
   constructor(opts: AppConfigOptions) {
     this.appName           = opts.appName;
@@ -78,42 +44,6 @@ export class AppConfig {
       Object.entries(TABLE_SUFFIXES).map(([key, suffix]) => [key, t(suffix)]),
     ) as { [K in keyof typeof TABLE_SUFFIXES]: string };
 
-    const l = (name: string) => `${opts.appName}-${opts.env}-${name}`;
-
-    this.lambdaNames = {
-      authRegister:                 l('auth-register'),
-      authLogin:                    l('auth-login'),
-      authMe:                       l('auth-me'),
-      usersGetMe:                   l('users-get-me'),
-      parentsGet:                   l('parents-get'),
-      parentsUpdateSearchRadius:    l('parents-update-search-radius'),
-      parentsUpdateInterests:       l('parents-update-interests'),
-      onboardParents:               l('onboard-parents'),
-      childrenCreate:               l('children-create'),
-      childrenGet:                  l('children-get'),
-      childrenUpdate:               l('children-update'),
-      childrenUpdateInterests:      l('children-update-interests'),
-      interestsListCategories:      l('interests-list-categories'),
-      interestsListSubCategories:   l('interests-list-sub-categories'),
-      skillsList:                   l('skills-list'),
-      themesList:                   l('themes-list'),
-      themesListVariants:           l('themes-list-variants'),
-      facilitiesList:               l('facilities-list'),
-      opportunityVenuesV2List:      l('opportunity-venues-v2-list'),
-      opportunityVenuesV2Get:       l('opportunity-venues-v2-get'),
-      opportunityEventsV2List:      l('opportunity-events-v2-list'),
-      opportunityEventsV2Get:       l('opportunity-events-v2-get'),
-      opportunityClubsV2List:       l('opportunity-clubs-v2-list'),
-      opportunityClubsV2Get:        l('opportunity-clubs-v2-get'),
-      opportunityRoutesV2List:      l('opportunity-routes-v2-list'),
-      opportunityRoutesV2Get:       l('opportunity-routes-v2-get'),
-      recommendationsV2Get:         l('recommendations-v2-get'),
-      recommendationsV2Nearby:      l('recommendations-v2-nearby'),
-      wishlistsList:                l('wishlists-list'),
-      wishlistsCreate:              l('wishlists-create'),
-      searchOpportunities:          l('search-opportunities'),
-      weatherGet:                   l('weather-get'),
-    };
   }
 
   prefix(name: string): string {

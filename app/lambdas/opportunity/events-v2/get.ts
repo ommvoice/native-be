@@ -1,6 +1,7 @@
 import middy from '@middy/core';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { OpportunityV2Repository } from '../../../repositories/opportunity-v2.repository';
+import { eventToOpportunity } from '../../../shared/utils/formatter/event-to-opportunity';
 import { errorHandler } from '../../../shared/middleware/error-handler';
 import { AppError } from '../../../shared/errors/app-error';
 import { ok } from '../../../shared/utils/response';
@@ -9,7 +10,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   const id   = event.pathParameters?.['id']!;
   const item = await new OpportunityV2Repository().getEvent(id);
   if (!item) throw new AppError(404, 'Event not found');
-  return ok(item);
+  return ok(eventToOpportunity(item));
 };
 
 export const handler = middy(baseHandler).use(errorHandler());

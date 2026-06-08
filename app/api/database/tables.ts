@@ -1,0 +1,24 @@
+const PREFIX = process.env.DYNAMODB_TABLE_PREFIX ?? "native-be";
+
+export const TABLES = {
+  users: `${PREFIX}-users`,
+  parents: `${PREFIX}-parents`,
+  children: `${PREFIX}-children`,
+  interestCategories: `${PREFIX}-interest-categories`,
+  skills: `${PREFIX}-skills`,
+  skillLevels: `${PREFIX}-skill-levels`,
+  facilities: `${PREFIX}-facilities`,
+  opportunityVenues: `${PREFIX}-opportunity-venues`,
+  opportunityEvents: `${PREFIX}-opportunity-events`,
+  opportunityClubs: `${PREFIX}-opportunity-clubs`,
+  opportunityRoutes: `${PREFIX}-opportunity-routes`,
+  drivingLegs: `${PREFIX}-driving-legs`,
+  wishlists: `${PREFIX}-wishlists`,
+  wishlistItems: `${PREFIX}-wishlist-items`,
+  opportunityClubsV2: `${PREFIX}-opportunity-clubs-v2`,
+  opportunityEventsV2: `${PREFIX}-opportunity-events-v2`,
+  opportunityVenuesV2: `${PREFIX}-opportunity-venues-v2`,
+  opportunityRoutesV2: `${PREFIX}-opportunity-routes-v2`,
+  opportunityThemes: `${PREFIX}-opportunity-themes`,
+  opportunityThemeVariants: `${PREFIX}-opportunity-theme-variants`,
+} as const;

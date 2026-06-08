@@ -3,6 +3,8 @@ import httpJsonBodyParser from '@middy/http-json-body-parser';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ChildService } from '../../services/child.service';
 import { ChildRepository } from '../../repositories/child.repository';
+import { InterestRepository } from '../../repositories/interest.repository';
+import { ParentRepository } from '../../repositories/parent.repository';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateChildInterestsSchema } from '../../schemas/child.schema';
@@ -12,7 +14,7 @@ import type { UpdateChildInterestsDto } from '../../dtos/child.dto';
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id      = event.pathParameters?.['id']!;
   const dto     = event.body as unknown as UpdateChildInterestsDto;
-  const service = new ChildService(new ChildRepository());
+  const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository());
   return ok(await service.updateInterests(id, dto.interestCategoryIds, dto.interestSubCategoryIds));
 };
 

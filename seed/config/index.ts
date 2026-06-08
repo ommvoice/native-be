@@ -16,6 +16,7 @@ function getAppContext(env: string): AppContext {
   );
   const ctx = cdkJson.context?.[env] as AppContext | undefined;
   if (!ctx) throw new Error(`No CDK context found for env "${env}"`);
+  console.log(`Using CDK context for seeding :`, ctx);
   return ctx;
 }
 

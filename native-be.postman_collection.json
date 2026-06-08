@@ -1,17 +1,19 @@
 {
   "info": {
     "name": "Native Be API",
-    "description": "Complete collection for native-be serverless API.\n\n**Setup:**\n1. Set `baseUrl` variable to your deployed API Gateway URL (from CDK output `ApiUrl`).\n2. Run **Auth / Register** or **Onboard Parent** first.\n3. Run **Auth / Login** — the test script automatically captures the token, parentId and stores them as collection variables.\n4. All subsequent authenticated requests use `{{token}}` automatically.\n\n**Environments:** swap `baseUrl` to point at dev / staging / prod.",
+    "description": "Complete collection for native-be serverless API.\n\n**Setup:**\n1. Set `baseUrl` to the custom domain from CDK output `ApiDomainUrl` (e.g. `https://api-family-dev.reporting-tool.co.uk`).\n2. Run **Onboarding / Onboard Parent** (new user) or **Auth / Login** (existing user).\n3. The test script on Login automatically saves `token` and `userId` as collection variables.\n4. Run **Users / Get Me** — saves `parentId` automatically.\n5. All authenticated requests send `Authorization: Bearer {{token}}` via the collection-level auth.\n\n**Auth model:** token is verified by an API Gateway RequestAuthorizer (Cognito JWT). Protected endpoints return `401 Unauthorized` if the token is missing or expired — re-run Login to refresh.\n\n**Public endpoints** (no token needed): Register, Login, Onboard Parent, all Reference Data, Opportunities, Weather.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
 
   "variable": [
-    { "key": "baseUrl",  "value": "https://api-family-dev.reporting-tool.co.uk", "type": "string" },
-    { "key": "token",    "value": "", "type": "string" },
-    { "key": "parentId", "value": "", "type": "string" },
-    { "key": "childId",  "value": "", "type": "string" },
-    { "key": "email",    "value": "a@a.com", "type": "string" },
-    { "key": "password", "value": "Password123!", "type": "string" }
+    { "key": "baseUrl",    "value": "https://api-family-dev.reporting-tool.co.uk", "type": "string" },
+    { "key": "token",      "value": "", "type": "string" },
+    { "key": "userId",     "value": "", "type": "string" },
+    { "key": "parentId",   "value": "", "type": "string" },
+    { "key": "childId",    "value": "", "type": "string" },
+    { "key": "wishlistId", "value": "", "type": "string" },
+    { "key": "email",      "value": "a@a.com", "type": "string" },
+    { "key": "password",   "value": "Password123!", "type": "string" }
   ],
 
   "auth": {
@@ -27,6 +29,7 @@
         {
           "name": "Register",
           "request": {
+            "auth": { "type": "noauth" },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
@@ -42,8 +45,9 @@
                 "exec": [
                   "if (pm.response.code === 201) {",
                   "  const body = pm.response.json();",
-                  "  if (body.token)   pm.collectionVariables.set('token',    body.token);",
-                  "  if (body.user?.id) pm.collectionVariables.set('userId',  body.user.id);",
+                  "  if (body.token)    pm.collectionVariables.set('token',  body.token);",
+                  "  if (body.user?.id) pm.collectionVariables.set('userId', body.user.id);",
+                  "  console.log('✅ Registered. userId:', body.user?.id);",
                   "}"
                 ]
               }
@@ -53,6 +57,7 @@
         {
           "name": "Login",
           "request": {
+            "auth": { "type": "noauth" },
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
@@ -68,8 +73,8 @@
                 "exec": [
                   "if (pm.response.code === 200) {",
                   "  const body = pm.response.json();",
-                  "  if (body.token)    pm.collectionVariables.set('token',    body.token);",
-                  "  if (body.user?.id) pm.collectionVariables.set('userId',   body.user.id);",
+                  "  if (body.token)    pm.collectionVariables.set('token',  body.token);",
+                  "  if (body.user?.id) pm.collectionVariables.set('userId', body.user.id);",
                   "  console.log('✅ Token saved. userId:', body.user?.id);",
                   "}"
                 ]
@@ -78,9 +83,8 @@
           ]
         },
         {
-          "name": "Me (current user)",
+          "name": "Me (auth check)",
           "request": {
-            "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }] },
             "method": "GET",
             "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
           }
@@ -122,6 +126,7 @@
       "item": [
         {
           "name": "Onboard Parent (register + create family)",
+          "description": "Creates a Cognito user, a Parent record, and one or more Children in one call. Saves token and parentId automatically.",
           "request": {
             "auth": { "type": "noauth" },
             "method": "POST",
@@ -139,8 +144,8 @@
                 "exec": [
                   "if (pm.response.code === 201) {",
                   "  const body = pm.response.json();",
-                  "  if (body.token)    pm.collectionVariables.set('token',    body.token);",
-                  "  if (body.id)       pm.collectionVariables.set('parentId', body.id);",
+                  "  if (body.token) pm.collectionVariables.set('token',    body.token);",
+                  "  if (body.id)    pm.collectionVariables.set('parentId', body.id);",
                   "  console.log('✅ Onboarded. parentId:', body.id);",
                   "}"
                 ]
@@ -181,6 +186,7 @@
         },
         {
           "name": "Update Parent Interests",
+          "description": "Pass IDs from GET /interests/categories and GET /interests/sub-categories.",
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -192,8 +198,7 @@
               "mode": "raw",
               "raw": "{\n  \"interestCategoryIds\": [],\n  \"interestSubCategoryIds\": []\n}",
               "options": { "raw": { "language": "json" } }
-            },
-            "description": "Set interestCategoryIds and interestSubCategoryIds using IDs from GET /interests/categories and GET /interests/sub-categories."
+            }
           }
         }
       ]
@@ -355,9 +360,7 @@
                     "exec": [
                       "if (pm.response.code === 200) {",
                       "  const items = pm.response.json();",
-                      "  if (Array.isArray(items) && items[0]?.id) {",
-                      "    pm.collectionVariables.set('venueId', items[0].id);",
-                      "  }",
+                      "  if (Array.isArray(items) && items[0]?.id) pm.collectionVariables.set('venueId', items[0].id);",
                       "}"
                     ]
                   }
@@ -495,7 +498,7 @@
       "name": "🌟 Recommendations",
       "item": [
         {
-          "name": "Get Recommendations (scored by interests + age + distance)",
+          "name": "Get Recommendations",
           "request": {
             "method": "GET",
             "url": {
@@ -509,7 +512,7 @@
           }
         },
         {
-          "name": "Get Nearby (distance + age only, no interest filter)",
+          "name": "Get Nearby",
           "request": {
             "method": "GET",
             "url": {
@@ -557,7 +560,10 @@
                 "exec": [
                   "if (pm.response.code === 201) {",
                   "  const body = pm.response.json();",
-                  "  if (body.id) pm.collectionVariables.set('wishlistId', body.id);",
+                  "  if (body.id) {",
+                  "    pm.collectionVariables.set('wishlistId', body.id);",
+                  "    console.log('✅ wishlistId saved:', body.id);",
+                  "  }",
                   "}"
                 ]
               }
@@ -578,12 +584,12 @@
               "raw": "{{baseUrl}}/search?parentId={{parentId}}",
               "host": ["{{baseUrl}}"], "path": ["search"],
               "query": [
-                { "key": "parentId",                "value": "{{parentId}}",  "description": "Required" },
-                { "key": "childId",                 "value": "{{childId}}",   "disabled": true },
+                { "key": "parentId",                "value": "{{parentId}}",    "description": "Required" },
+                { "key": "childId",                 "value": "{{childId}}",     "disabled": true },
                 { "key": "interestSubCategorySlug", "value": "nature_wildlife", "disabled": true, "description": "Slug from /interests/sub-categories" },
-                { "key": "facility",                "value": "toilets",        "disabled": true, "description": "Slug from /facilities — repeat for multiple" },
-                { "key": "maxDistanceMiles",         "value": "20",            "disabled": true },
-                { "key": "maxTimeToReachMinutes",    "value": "45",            "disabled": true }
+                { "key": "facility",                "value": "toilets",         "disabled": true, "description": "Slug from /facilities — repeat for multiple" },
+                { "key": "maxDistanceMiles",         "value": "20",             "disabled": true },
+                { "key": "maxTimeToReachMinutes",    "value": "45",             "disabled": true }
               ]
             }
           }

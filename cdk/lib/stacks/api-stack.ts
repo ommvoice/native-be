@@ -11,6 +11,7 @@ import {
   LAMBDA_INTEGRATION_OPTIONS,
 } from '../config/api-gateway-config';
 import { logRetentionDays } from '../config/lambda-config';
+import { allLambdas } from '../config/lambda-registry';
 import { ApiLambda } from '../constructs/api-lambda.construct';
 import { CustomDomainsConstruct } from './custom-domains-stack';
 
@@ -78,91 +79,39 @@ export class ApiStack extends cdk.Stack {
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
-    const fn = (key: string) => {
+    const integration = (key: string) => {
       const f = lambdas[key];
-      if (!f) throw new Error(`Lambda "${key}" not registered in LambdaStack`);
+      if (!f) throw new Error(`Lambda "${key}" not found — add it to lambda-registry.ts`);
       return new apigateway.LambdaIntegration(f, LAMBDA_INTEGRATION_OPTIONS);
     };
 
-    const resource = (parent: apigateway.IResource, path: string) =>
-      parent.addResource(path);
+    // Cache ensures each path segment is created once even when shared across Lambdas.
+    const resourceCache = new Map<string, apigateway.Resource>();
 
-    // ── /auth ─────────────────────────────────────────────────────────────────
-    const auth = resource(this.api.root, 'auth');
-    resource(auth, 'register').addMethod('POST', fn('authRegister'), NO_AUTH);
-    resource(auth, 'login').addMethod('POST',    fn('authLogin'),    NO_AUTH);
-    resource(auth, 'me').addMethod('GET',        fn('authMe'),       AUTH);
-
-    // ── /users ────────────────────────────────────────────────────────────────
-    const users = resource(this.api.root, 'users');
-    resource(users, 'me').addMethod('GET', fn('usersGetMe'), AUTH);
-
-    // ── /parents ──────────────────────────────────────────────────────────────
-    const parents        = resource(this.api.root, 'parents');
-    const parentById     = resource(parents, '{id}');
-    parentById.addMethod('GET', fn('parentsGet'), AUTH);
-    resource(parentById, 'search-radius').addMethod('PUT', fn('parentsUpdateSearchRadius'), AUTH);
-    resource(parentById, 'interests').addMethod('PUT',     fn('parentsUpdateInterests'),    AUTH);
-
-    // ── /onboard-parents ──────────────────────────────────────────────────────
-    resource(this.api.root, 'onboard-parents').addMethod('POST', fn('onboardParents'), NO_AUTH);
-
-    // ── /children ─────────────────────────────────────────────────────────────
-    const children    = resource(this.api.root, 'children');
-    children.addMethod('POST', fn('childrenCreate'), AUTH);
-    const childById   = resource(children, '{id}');
-    childById.addMethod('GET',  fn('childrenGet'),    AUTH);
-    childById.addMethod('PUT',  fn('childrenUpdate'), AUTH);
-    resource(childById, 'interests').addMethod('PUT', fn('childrenUpdateInterests'), AUTH);
-
-    // ── /interests ────────────────────────────────────────────────────────────
-    const interests = resource(this.api.root, 'interests');
-    resource(interests, 'categories').addMethod('GET',     fn('interestsListCategories'),    NO_AUTH);
-    resource(interests, 'sub-categories').addMethod('GET', fn('interestsListSubCategories'), NO_AUTH);
-
-    // ── /skills ───────────────────────────────────────────────────────────────
-    resource(this.api.root, 'skills').addMethod('GET', fn('skillsList'), NO_AUTH);
-
-    // ── /themes ───────────────────────────────────────────────────────────────
-    const themes = resource(this.api.root, 'themes');
-    themes.addMethod('GET', fn('themesList'), NO_AUTH);
-    resource(themes, 'variants').addMethod('GET', fn('themesListVariants'), NO_AUTH);
-
-    // ── /facilities ───────────────────────────────────────────────────────────
-    resource(this.api.root, 'facilities').addMethod('GET', fn('facilitiesList'), NO_AUTH);
-
-    // ── /opportunity ──────────────────────────────────────────────────────────
-    const opportunity = resource(this.api.root, 'opportunity');
-
-    const addOpportunityRoutes = (
-      parent: apigateway.Resource,
-      listKey: string,
-      getKey: string,
-    ) => {
-      parent.addMethod('GET', fn(listKey), NO_AUTH);
-      resource(parent, '{id}').addMethod('GET', fn(getKey), NO_AUTH);
+    const getOrCreate = (segments: string[]): apigateway.Resource => {
+      for (let i = 0; i < segments.length; i++) {
+        const key = segments.slice(0, i + 1).join('/');
+        if (!resourceCache.has(key)) {
+          const parent: apigateway.IResource = i === 0
+            ? this.api.root
+            : resourceCache.get(segments.slice(0, i).join('/'))!;
+          resourceCache.set(key, parent.addResource(segments[i]!));
+        }
+      }
+      return resourceCache.get(segments.join('/'))!;
     };
 
-    addOpportunityRoutes(resource(opportunity, 'venues'),  'opportunityVenuesV2List', 'opportunityVenuesV2Get');
-    addOpportunityRoutes(resource(opportunity, 'events'),  'opportunityEventsV2List', 'opportunityEventsV2Get');
-    addOpportunityRoutes(resource(opportunity, 'clubs'),   'opportunityClubsV2List',  'opportunityClubsV2Get');
-    addOpportunityRoutes(resource(opportunity, 'routes'),  'opportunityRoutesV2List', 'opportunityRoutesV2Get');
+    // ── Routes (driven by lambda-registry.ts) ─────────────────────────────────
 
-    // ── /recommendations-v2 ───────────────────────────────────────────────────
-    const recsV2 = resource(this.api.root, 'recommendations-v2');
-    recsV2.addMethod('GET', fn('recommendationsV2Get'), AUTH);
-    resource(recsV2, 'nearby').addMethod('GET', fn('recommendationsV2Nearby'), AUTH);
-
-    // ── /wishlists ────────────────────────────────────────────────────────────
-    const wishlists = resource(this.api.root, 'wishlists');
-    wishlists.addMethod('GET',  fn('wishlistsList'),   AUTH);
-    wishlists.addMethod('POST', fn('wishlistsCreate'), AUTH);
-
-    // ── /search ───────────────────────────────────────────────────────────────
-    resource(this.api.root, 'search').addMethod('GET', fn('searchOpportunities'), AUTH);
-
-    // ── /weather ──────────────────────────────────────────────────────────────
-    resource(this.api.root, 'weather').addMethod('GET', fn('weatherGet'), NO_AUTH);
+    for (const def of allLambdas) {
+      for (const route of def.routes) {
+        getOrCreate(route.path).addMethod(
+          route.method,
+          integration(def.key),
+          route.auth ? AUTH : NO_AUTH,
+        );
+      }
+    }
 
     // ── Outputs ───────────────────────────────────────────────────────────────
     new cdk.CfnOutput(this, 'ApiUrl', {

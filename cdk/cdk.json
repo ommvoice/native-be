@@ -1,23 +1,20 @@
 {
   "app": "npx ts-node --prefer-ts-exts bin/app.ts",
+  "profile": "cdk_profile_fo9",
   "context": {
-    "appName": "native-be",
-    "env": "dev",
-    "mapboxAccessToken": "",
-    "weatherApiKey": "",
     "dev": {
       "awsAccountId" : "664876795774",
       "awsProfileName": "cdk_profile_fo9",
       "awsProfileRegion" : "eu-west-3",
-      "appName": "NGAppFamily",
+      "appName": "native-be",
       "environment": "dev",
       "version": "0.0.0",
       "build": "1",
       "domain": "reporting-tool.co.uk",
       "hostedZoneId": "Z03848251AQJ2LXYFX72H",
       "certificateArn": "arn:aws:acm:eu-west-3:664876795774:certificate/42cafbe7-19d8-4007-80fb-62508e50374b",
-      "FromEmail":"holypulse@gmail.com",
-      "ToEmail":"yasir.iqbal414@gmail.com",
+      "fromEmail":"holypulse@gmail.com",
+      "toEmail":"yasir.iqbal414@gmail.com",
       "mapboxAccessToken": "",
       "weatherApiKey": ""
     },

@@ -10,6 +10,7 @@ export interface ParentRecord {
   postCode: string;
   latitude: string;
   longitude: string;
+  placeName: string;
   searchRadius: number;
   userId: string;
   interestCategoryIds: string[];

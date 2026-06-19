@@ -61,6 +61,20 @@ function buildFacilities(data: OpportunityRouteV2): string[] | null {
   return all.length > 0 ? all : null;
 }
 
+function buildForThem(data: OpportunityRouteV2): string[] | null {
+  const childFacilities = splitList(data.routeChildFacilities) ?? [];
+  
+  if (childFacilities.length === 0) {
+    const seasonalHighlights = data.routeSeasonalHighlights ? splitList(data.routeSeasonalHighlights) ?? [] : [];
+    const seasonalTag = data.routeSeasonalTag ? splitList(data.routeSeasonalTag) ?? [] : [];
+
+    const combined = [...seasonalHighlights, ...seasonalTag];
+    return combined.length > 0 ? combined : null;
+  }
+
+  return childFacilities
+}
+
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
 export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail => {
@@ -102,6 +116,9 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     seasonal_tag: splitList(data.routeSeasonalTag),
     seasonal_highlights: data.routeSeasonalHighlights,
     terrain: splitList(data.routeTerrainType),
+    forThem:buildForThem(data),
+    forYou: splitList(data.routeAdultFacilities),
+    highlights: splitList(data.routeAttractions),
 
     // Pricing (routes are typically free)
     is_free: true,

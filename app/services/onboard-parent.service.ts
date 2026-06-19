@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { ParentRepository } from '../repositories/parent.repository';
 import { ChildRepository } from '../repositories/child.repository';
 import type { OnboardParentDto } from '../dtos/onboard.dto';
-import { getLatLngForPostCode } from './postcode.service';
+import { getLocationForPostCode } from './postcode.service';
 
 export class OnboardParentService {
   constructor(
@@ -15,14 +15,15 @@ export class OnboardParentService {
   async create(dto: OnboardParentDto): Promise<{ id: string; token: string; sub: string }> {
     const { token, user } = await this.authService.register(dto.email, dto.password);
 
-    const coords = await getLatLngForPostCode(dto.postCode);
-    if (!coords) throw new AppError(400, 'Could not resolve postcode coordinates');
+    const location = await getLocationForPostCode(dto.postCode);
+    if (!location) throw new AppError(400, 'Could not resolve postcode coordinates');
 
     const parent = await this.parentRepo.create({
       firstNameOrNickName: dto.firstNameOrNickName,
       postCode:            dto.postCode,
-      latitude:            String(coords.latitude),
-      longitude:           String(coords.longitude),
+      latitude:            String(location.latitude),
+      longitude:           String(location.longitude),
+      placeName:           location.placeName,
       searchRadius:        dto.searchRadius,
       userId:              user.id,
     });

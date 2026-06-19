@@ -111,6 +111,20 @@ function resolvePriceInfo(data: OpportunityEventV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
+function buildForThem(data: OpportunityEventV2): string[] | null {
+  const childFacilities = splitList(data.eventChildFacilities) ?? [];
+  
+  if (childFacilities.length === 0) {
+    const seasonalHighlights = data.eventSeasonalHighlights ? splitList(data.eventSeasonalHighlights) ?? [] : [];
+    
+    const combined = [...seasonalHighlights];
+    return combined.length > 0 ? combined : null;
+  }
+
+  return childFacilities
+}
+
+
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
 export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail => {
@@ -155,6 +169,9 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     seasonal_tag: splitList(data.eventSeasonalTags),
     seasonal_highlights: data.eventSeasonalHighlights,
     terrain: null,
+    forThem:buildForThem(data),
+    forYou: splitList(data.eventAdultFacilities),
+    highlights: splitList(data.eventHighlights),
 
     // Pricing
     is_free: !hasEntryCost && !anyPrice,

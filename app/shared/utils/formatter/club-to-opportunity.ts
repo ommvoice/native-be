@@ -69,6 +69,20 @@ function buildFacilities(data: OpportunityClubV2): string[] | null {
   return all.length > 0 ? all : null;
 }
 
+function buildForThem(data: OpportunityClubV2): string[] | null {
+  const childFacilities = splitList(data.clubChildFacilities) ?? [];
+  
+  if (childFacilities.length === 0) {
+    const seasonalTag = data.clubSeasonalTag ? splitList(data.clubSeasonalTag) ?? [] : [];
+    const seasonalHighlights = data.clubSeasonalHighlights ? splitList(data.clubSeasonalHighlights) ?? [] : [];
+    
+    const combined = [...seasonalTag, ...seasonalHighlights];
+    return combined.length > 0 ? combined : null;
+  }
+
+  return childFacilities
+}
+
 /**
  * Build club_availability from the mixed-timing columns.
  * Returns e.g. { monday: ["09:00–10:30"], wednesday: ["14:00–15:00"] }
@@ -161,6 +175,9 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     seasonal_tag: splitList(data.clubSeasonalTag),
     seasonal_highlights: data.clubSeasonalHighlights,
     terrain: null,
+    forThem:buildForThem(data),
+    forYou: splitList(data.clubAdultFacilities),
+    highlights: splitList(data.clubAttractions),
 
     // Pricing
     is_free: !hasTicketing && !anyPrice,

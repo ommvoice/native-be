@@ -37,6 +37,9 @@ export interface OpportunityDetail {
   seasonal_tag:        string[] | null;
   seasonal_highlights: string | null;
   terrain:             string[] | null;
+  forThem:             string[] | null;
+  forYou:            string[] | null;
+  highlights:        string[] | null;
 
   // Pricing
   is_free:          boolean | null;

@@ -5,7 +5,8 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { ok } from '../../shared/utils/response';
 
 const baseHandler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  return ok(await new SkillRepository().list());
+  // return ok(await new SkillRepository().list());
+  return ok([]);
 };
 
 export const handler = middy(baseHandler)

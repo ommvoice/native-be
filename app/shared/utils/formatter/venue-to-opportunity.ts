@@ -124,6 +124,20 @@ function resolvePriceInfo(data: OpportunityVenueV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
+function buildForThem(data: OpportunityVenueV2): string[] | null {
+  const childFacilities = splitList(data.venueChildFacilities) ?? [];
+  
+  if (childFacilities.length === 0) {
+    const seasonalHighlights = data.venueSeasonalHighlights ? splitList(data.venueSeasonalHighlights) ?? [] : [];
+    const seasonalTag = data.venueSeasonalTag ? splitList(data.venueSeasonalTag) ?? [] : [];
+
+    const combined = [...seasonalHighlights, ...seasonalTag];
+    return combined.length > 0 ? combined : null;
+  }
+
+  return childFacilities
+}
+
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
 export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail => {
@@ -168,6 +182,9 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     seasonal_tag: splitList(data.venueSeasonalTag),
     seasonal_highlights: data.venueSeasonalHighlights,
     terrain: null,
+    forThem:buildForThem(data),
+    forYou: splitList(data.venueAdultFacilities),
+    highlights: splitList(data.venueAttractions),
 
     // Pricing
     is_free: !hasEntryCost && !anyPrice,

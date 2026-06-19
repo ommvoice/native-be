@@ -113,6 +113,48 @@ export class ApiStack extends cdk.Stack {
       }
     }
 
+    // ── Gateway error responses ───────────────────────────────────────────────
+    // 401 → token missing or expired (authorizer throws "Unauthorized")
+    // 403 → token present but invalid  (authorizer returns Deny policy)
+
+    const corsHeaders = {
+      'Access-Control-Allow-Origin':  "'*'",
+      'Access-Control-Allow-Headers': "'*'",
+    };
+
+    new apigateway.GatewayResponse(this, 'GwResponse401', {
+      restApi:    this.api,
+      type:       apigateway.ResponseType.UNAUTHORIZED,
+      statusCode: '401',
+      responseHeaders: corsHeaders,
+      templates: {
+        'application/json': '{"code":"TOKEN_EXPIRED","message":"Token has expired or is missing"}',
+      },
+    });
+
+    new apigateway.GatewayResponse(this, 'GwResponse403', {
+      restApi:    this.api,
+      type:       apigateway.ResponseType.ACCESS_DENIED,
+      statusCode: '403',
+      responseHeaders: corsHeaders,
+      templates: {
+        'application/json': '{"code":"ACCESS_DENIED","message":"Access denied"}',
+      },
+    });
+
+    // Catch-alls so EVERY error response carries CORS headers (required by browsers)
+    new apigateway.GatewayResponse(this, 'GwResponseDefault4xx', {
+      restApi:         this.api,
+      type:            apigateway.ResponseType.DEFAULT_4XX,
+      responseHeaders: corsHeaders,
+    });
+
+    new apigateway.GatewayResponse(this, 'GwResponseDefault5xx', {
+      restApi:         this.api,
+      type:            apigateway.ResponseType.DEFAULT_5XX,
+      responseHeaders: corsHeaders,
+    });
+
     // ── Outputs ───────────────────────────────────────────────────────────────
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: this.api.url,

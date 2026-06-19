@@ -1,12 +1,13 @@
 import { env } from '../shared/config/env';
 
-export interface LatLng {
+export interface Location {
   latitude: number;
   longitude: number;
+  placeName: string;
 }
 
 /** Resolves a UK postcode to lat/lng via Mapbox geocoding. */
-export async function getLatLngForPostCode(postCode: string): Promise<LatLng | null> {
+export async function getLocationForPostCode(postCode: string): Promise<Location | null> {
   const token = env.mapboxToken();
   if (!token) return null;
 
@@ -15,11 +16,12 @@ export async function getLatLngForPostCode(postCode: string): Promise<LatLng | n
 
   try {
     const res  = await fetch(url);
-    const data = (await res.json()) as { features?: { center: [number, number] }[] };
+    const data = (await res.json()) as { features?: { center: [number, number], place_name: string }[] };
     const feat = data.features?.[0];
     if (!feat) return null;
     const [longitude, latitude] = feat.center;
-    return { latitude, longitude };
+    const placeName = feat.place_name ?? 'Unknown';
+    return { latitude, longitude, placeName };
   } catch {
     return null;
   }

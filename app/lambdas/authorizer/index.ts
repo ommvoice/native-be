@@ -1,4 +1,5 @@
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
+import { JwtExpiredError } from 'aws-jwt-verify/error';
 import type { APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult } from 'aws-lambda';
 import { env } from '../../shared/config/env';
 
@@ -37,7 +38,8 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<
     event.headers?.['authorization'];
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return deny(event.methodArn);
+    // Missing or malformed header → 401 (no credentials supplied)
+    throw new Error('Unauthorized');
   }
 
   try {
@@ -53,7 +55,12 @@ export const handler = async (event: APIGatewayRequestAuthorizerEvent): Promise<
       },
       context: { sub, email },
     };
-  } catch {
+  } catch (err) {
+    if (err instanceof JwtExpiredError) {
+      // Expired token → 401 so the client knows to refresh
+      throw new Error('Unauthorized');
+    }
+    // Invalid signature, wrong issuer, etc. → 403
     return deny(event.methodArn);
   }
 };

@@ -95,4 +95,5 @@ export interface OpportunityDetail {
   spots_remaining:      number | null;
   is_online:            boolean | null;
   special_interest_tags:string[] | null;
+  info_list:  any[] | null;
 }

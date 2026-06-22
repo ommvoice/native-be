@@ -98,6 +98,54 @@ function buildEventTimes(data: OpportunityEventV2): Record<string, string[]> | n
   return Object.keys(result).length > 0 ? result : null;
 }
 
+function buildScheduleInfo(data: OpportunityEventV2): { title: string; subtitle: string } | null {
+  if (!data.eventStartDate && !data.eventEndDate) return null;
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  const start = data.eventStartDate ? new Date(data.eventStartDate.getFullYear(), data.eventStartDate.getMonth(), data.eventStartDate.getDate()) : null;
+  const end = data.eventEndDate ? new Date(data.eventEndDate.getFullYear(), data.eventEndDate.getMonth(), data.eventEndDate.getDate()) : null;
+
+  if (end && end < today) return { title: "Ended", subtitle: "Event has ended" };
+  if (start && start.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Today" };
+  if (end && end.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Last day" };
+
+  if (end) {
+    const daysLeft = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    return { title: "Don't Miss It", subtitle: `${daysLeft} day${daysLeft === 1 ? "" : "s"} left` };
+  }
+
+  if (start && start > today) {
+    const daysUntil = Math.ceil((start.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    return { title: "Coming Soon", subtitle: `Starts in ${daysUntil} day${daysUntil === 1 ? "" : "s"}` };
+  }
+
+  return { title: "Don't Miss It", subtitle: "On now" };
+}
+
+function buildInfoData(data: OpportunityEventV2): any[] | null {
+  const infoList: { icon: string; title: string; subtitle: string; label: string }[] = [];
+
+  const schedule = buildScheduleInfo(data);
+  if (schedule) {
+    infoList.push({ icon: "schedule", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
+  }
+
+  if (data.themeVariant.name || data.eventSkillArea) {
+    infoList.push({ icon: "details", title: data.themeVariant.name ?? "—", subtitle: data.eventSkillArea ?? "—", label: "Details" });
+  }
+
+  if (data.eventBookingType || data.ticketingRequirement !== null) {
+    const type = (data.eventBookingType ?? "").toLowerCase().trim();
+    const title = type.includes("advance") ? "Book Ahead" : "Drop In";
+    const subtitle = data.eventBookingType || "-";
+    infoList.push({ icon: "booking", title, subtitle, label: "Booking" });
+  }
+
+  return infoList.length > 0 ? infoList : null;
+}
+
 function resolvePriceInfo(data: OpportunityEventV2): string | null {
   const parts: string[] = [];
   if (data.ticketVariantDefinitionAdult && data.ticketVariantAdultPrice)
@@ -227,5 +275,6 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     spots_remaining: null,
     is_online: null,
     special_interest_tags: null,
+    info_list: buildInfoData(data)
   };
 };

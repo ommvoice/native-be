@@ -174,5 +174,6 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     spots_remaining: null,
     is_online: null,
     special_interest_tags: null,
+    info_list:  null,
   };
 };

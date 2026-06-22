@@ -240,5 +240,6 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     spots_remaining: null,
     is_online: null,
     special_interest_tags: null,
+    info_list: null,
   };
 };

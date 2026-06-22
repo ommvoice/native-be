@@ -71,11 +71,11 @@ function buildFacilities(data: OpportunityClubV2): string[] | null {
 
 function buildForThem(data: OpportunityClubV2): string[] | null {
   const childFacilities = splitList(data.clubChildFacilities) ?? [];
-  
+
   if (childFacilities.length === 0) {
     const seasonalTag = data.clubSeasonalTag ? splitList(data.clubSeasonalTag) ?? [] : [];
     const seasonalHighlights = data.clubSeasonalHighlights ? splitList(data.clubSeasonalHighlights) ?? [] : [];
-    
+
     const combined = [...seasonalTag, ...seasonalHighlights];
     return combined.length > 0 ? combined : null;
   }
@@ -89,13 +89,13 @@ function buildForThem(data: OpportunityClubV2): string[] | null {
  */
 function buildAvailability(data: OpportunityClubV2): Record<string, string[]> | null {
   const days: [string, string | null, string | null][] = [
-    ["monday",    data.clubMixedTimingsMondayStartTime,    data.clubMixedTimingsMondayEndTime],
-    ["tuesday",   data.clubMixedTimingsTuesdayStartTime,   data.clubMixedTimingsTuesdayEndTime],
+    ["monday", data.clubMixedTimingsMondayStartTime, data.clubMixedTimingsMondayEndTime],
+    ["tuesday", data.clubMixedTimingsTuesdayStartTime, data.clubMixedTimingsTuesdayEndTime],
     ["wednesday", data.clubMixedTimingsWednesdayStartTime, data.clubMixedTimingsWednesdayEndTime],
-    ["thursday",  data.clubMixedTimingsThursdayStartTime,  data.clubMixedTimingsThursdayEndTime],
-    ["friday",    data.clubMixedTimingsFridayStartTime,    data.clubMixedTimingsFridayEndTime],
-    ["saturday",  data.clubMixedTimingsSaturdayStartTime,  data.clubMixedTimingsSaturdayEndTime],
-    ["sunday",    data.clubMixedTimingsSundayStartTime,    data.clubMixedTimingsSundayEndTime],
+    ["thursday", data.clubMixedTimingsThursdayStartTime, data.clubMixedTimingsThursdayEndTime],
+    ["friday", data.clubMixedTimingsFridayStartTime, data.clubMixedTimingsFridayEndTime],
+    ["saturday", data.clubMixedTimingsSaturdayStartTime, data.clubMixedTimingsSaturdayEndTime],
+    ["sunday", data.clubMixedTimingsSundayStartTime, data.clubMixedTimingsSundayEndTime],
   ];
 
   // Fall back to fixed daily timings if no mixed timings are set
@@ -117,6 +117,94 @@ function buildAvailability(data: OpportunityClubV2): Record<string, string[]> | 
     result[day] = [end ? `${start}–${end}` : start];
   }
   return Object.keys(result).length > 0 ? result : null;
+}
+
+function buildScheduleInfo(data: OpportunityClubV2): { title: string; subtitle: string } | null {
+  const weekDays: Record<string, string> = {
+    monday: "Mon",
+    tuesday: "Tue",
+    wednesday: "Wed",
+    thursday: "Thu",
+    friday: "Fri",
+    saturday: "Sat",
+    sunday: "Sun",
+  };
+
+  if (data.clubFixedDailyTimings && data.clubFixedDailyTimings && data.clubDailyStartTime) {
+    const days = splitList(data.clubDailySchedule)?.map(day => weekDays[day.trim().toLowerCase()] || day)
+      .join(", ") ?? null;
+
+    const time = data.clubDailyEndTime
+      ? `${data.clubDailyStartTime}–${data.clubDailyEndTime}`
+      : data.clubDailyStartTime;
+    return { title: days ?? "Daily", subtitle: time };
+  }
+
+  const weekDaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
+
+  const todayIndex = new Date().getDay();
+  const todayShort = weekDaysShort[todayIndex];
+
+  // map day index to your mixedDays structure
+  const mixedDays: [string, string | null, string | null][] = [
+    ["Mon", data.clubMixedTimingsMondayStartTime, data.clubMixedTimingsMondayEndTime],
+    ["Tue", data.clubMixedTimingsTuesdayStartTime, data.clubMixedTimingsTuesdayEndTime],
+    ["Wed", data.clubMixedTimingsWednesdayStartTime, data.clubMixedTimingsWednesdayEndTime],
+    ["Thu", data.clubMixedTimingsThursdayStartTime, data.clubMixedTimingsThursdayEndTime],
+    ["Fri", data.clubMixedTimingsFridayStartTime, data.clubMixedTimingsFridayEndTime],
+    ["Sat", data.clubMixedTimingsSaturdayStartTime, data.clubMixedTimingsSaturdayEndTime],
+    ["Sun", data.clubMixedTimingsSundayStartTime, data.clubMixedTimingsSundayEndTime],
+  ];
+
+  // find today entry
+  const today = mixedDays.find(([d]) => d === todayShort);
+
+  if (today) {
+    const [, start, end] = today;
+
+    if (start) {
+      return {
+        title: todayShort,
+        subtitle: end ? `${start}–${end}` : start,
+      };
+    }
+
+    return {
+      title: todayShort,
+      subtitle: "Closed",
+    };
+  }
+
+  // fallback (if no match for some reason)
+  const active = mixedDays.filter(([, start]) => !!start);
+
+  if (active.length === 0) return null;
+
+  const title = active.map(([d]) => d).join(", ");
+  const [, start, end] = active[0]!;
+  const subtitle = end ? `${start}–${end}` : "-";
+
+  return { title, subtitle };
+}
+
+function buildInfoData(data: OpportunityClubV2): any[] | null {
+  const infoList: { icon: string; title: string; subtitle: string; label: string }[] = [];
+
+  const schedule = buildScheduleInfo(data);
+  if (schedule) {
+    infoList.push({ icon: "schedule", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
+  }
+
+  if (data.clubFormat || data.clubFrequency) {
+    infoList.push({ icon: "format", title: data.clubFormat ?? "—", subtitle: data.clubFrequency ?? "—", label: "Format" });
+  }
+
+  const bookingTitle = data.ticketingRequirement ? "Book Ahead" : "Drop In";
+  if (data.ticketingRequirement !== null || data.clubCommittment) {
+    infoList.push({ icon: "booking", title: bookingTitle, subtitle: data.clubCommittment ?? "—", label: "Booking" });
+  }
+
+  return infoList.length > 0 ? infoList : null;
 }
 
 function resolvePriceInfo(data: OpportunityClubV2): string | null {
@@ -175,7 +263,7 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     seasonal_tag: splitList(data.clubSeasonalTag),
     seasonal_highlights: data.clubSeasonalHighlights,
     terrain: null,
-    forThem:buildForThem(data),
+    forThem: buildForThem(data),
     forYou: splitList(data.clubAdultFacilities),
     highlights: splitList(data.clubAttractions),
 
@@ -234,5 +322,6 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     spots_remaining: null,
     is_online: null,
     special_interest_tags: null,
+    info_list: buildInfoData(data),
   };
 };

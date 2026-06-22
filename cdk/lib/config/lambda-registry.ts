@@ -299,6 +299,18 @@ const weatherLambdas: LambdaDefinition[] = [
   },
 ];
 
+// ── Mapbox ────────────────────────────────────────────────────────────────────
+
+const mapboxLambdas: LambdaDefinition[] = [
+  {
+    key: 'mapboxDirections', name: 'mapbox-directions', entry: 'mapbox/directions.ts',
+    env: { externalApi: true },
+    permissions: { dynamodb: 'none', cognito: false },
+    overrides: { timeoutSeconds: 15 },
+    routes: [{ path: ['mapbox', 'directions'], method: 'POST', auth: true }],
+  },
+];
+
 // ── All Lambdas ───────────────────────────────────────────────────────────────
 
 export const allLambdas: LambdaDefinition[] = [
@@ -316,4 +328,5 @@ export const allLambdas: LambdaDefinition[] = [
   ...wishlistsLambdas,
   ...searchLambdas,
   ...weatherLambdas,
+  ...mapboxLambdas,
 ];

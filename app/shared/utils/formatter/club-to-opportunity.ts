@@ -220,6 +220,21 @@ function resolvePriceInfo(data: OpportunityClubV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
+function buildPerfectFor(data: OpportunityClubV2) : string[] | null {
+
+  let perfectFor = [];
+
+  const abilityLevel = data.clubAbilityLevel;
+  const suitableAges = resolveSuitableFor(data)?.join(", ");
+  const skillArea = data.clubSkillArea;
+
+  if(skillArea) perfectFor.push(skillArea);
+  if(abilityLevel) perfectFor.push(abilityLevel);
+  if(suitableAges) perfectFor.push(suitableAges)
+
+  return perfectFor.length > 0 ? perfectFor :  null;
+}
+
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
 export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail => {
@@ -266,6 +281,7 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     forThem: buildForThem(data),
     forYou: splitList(data.clubAdultFacilities),
     highlights: splitList(data.clubAttractions),
+    perfectFor: buildPerfectFor(data),
 
     // Pricing
     is_free: !hasTicketing && !anyPrice,

@@ -172,6 +172,21 @@ function buildForThem(data: OpportunityEventV2): string[] | null {
   return childFacilities
 }
 
+function buildPerfectFor(data: OpportunityEventV2) : string[] | null {
+
+  let perfectFor = [];
+
+  const abilityLevel = data.eventAbilityLevel;
+  const suitableAges = resolveSuitableFor(data)?.join(", ");
+  const skillArea = data.eventSkillArea;
+
+  if(skillArea) perfectFor.push(skillArea);
+  if(abilityLevel) perfectFor.push(abilityLevel);
+  if(suitableAges) perfectFor.push(suitableAges)
+
+  return perfectFor.length > 0 ? perfectFor :  null;
+}
+
 
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
@@ -220,6 +235,7 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     forThem:buildForThem(data),
     forYou: splitList(data.eventAdultFacilities),
     highlights: splitList(data.eventHighlights),
+    perfectFor:  buildPerfectFor(data),
 
     // Pricing
     is_free: !hasEntryCost && !anyPrice,

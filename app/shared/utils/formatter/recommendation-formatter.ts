@@ -130,17 +130,37 @@ function parseNumericPrice(raw: string | null | undefined): number | undefined {
 }
 
 function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
-  const v = rec as unknown as Record<string, unknown>;
-  const hasEntryCost = (v["venueEntryCost"] ?? v["eventEntryCost"]) as boolean | null | undefined;
+  switch (rec.opportunityType) {
+    case "route":
+      return { price: "Free", priceValue: 0 };
 
-  if (hasEntryCost === false) return { price: "Free", priceValue: 0 };
+    case "venue": {
+      const venue = rec as unknown as OpportunityVenueV2;
+      if (venue.venueEntryCost === false) return { price: "Free", priceValue: 0 };
+      const raw = venue.ticketVariantAdultPrice ?? venue.ticketVariantOlderChildPrice ?? venue.ticketVariantBabyPrice;
+      if (!raw) return { price: "Free", priceValue: 0 };
+      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+    }
 
-  const adultPrice = v["ticketVariantAdultPrice"] as string | null;
-  const childPrice = v["ticketVariantOlderChildPrice"] as string | null;
-  const raw = adultPrice ?? childPrice;
+    case "event": {
+      const event = rec as unknown as OpportunityEventV2;
+      if (event.eventEntryCost === false) return { price: "Free", priceValue: 0 };
+      const raw = event.ticketVariantAdultPrice ?? event.ticketVariantOlderChildPrice ?? event.ticketVariantBabyPrice;
+      if (!raw) return { price: "Free", priceValue: 0 };
+      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+    }
 
-  if (!raw) return { price: "Free", priceValue: 0 };
-  return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+    case "club": {
+      const club = rec as unknown as OpportunityClubV2;
+      if (club.ticketingRequirement === false) return { price: "Free", priceValue: 0 };
+      const raw = club.ticketVariantAdultPrice ?? club.ticketVariantOlderChildPrice ?? club.ticketVariantBabyPrice;
+      if (!raw) return { price: "Free", priceValue: 0 };
+      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+    }
+
+    default:
+      return { price: "Free", priceValue: 0 };
+  }
 }
 
 function resolveChildFacilities(rec: EnrichedScoredRecommendationV2): string | null {

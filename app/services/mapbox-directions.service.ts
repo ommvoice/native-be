@@ -36,44 +36,44 @@ export async function getDirections(
   if (!token) throw new AppError(503, 'Mapbox token not configured');
 
   const coords = `${originLng},${originLat};${destLng},${destLat}`;
-  // const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${coords}?geometries=geojson&overview=full&access_token=${token}`;
+  const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${coords}?geometries=geojson&overview=full&access_token=${token}`;
 
-  // const res = await fetch(url);
-  // const data = (await res.json()) as {
-  //   code?: string;
-  //   routes?: {
-  //     distance: number;
-  //     duration: number;
-  //     geometry: { coordinates: [number, number][] };
-  //   }[];
-  // };
+  const res = await fetch(url);
+  const data = (await res.json()) as {
+    code?: string;
+    routes?: {
+      distance: number;
+      duration: number;
+      geometry: { coordinates: [number, number][] };
+    }[];
+  };
 
-  const data = {
-    "routes": [
-      {
-        "distance": 8425.3,
-        "duration": 1120.6,
-        "geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [73.0479, 31.4504],
-            [73.0485, 31.4520],
-            [73.0502, 31.4555],
-            [73.0520, 31.4600],
-            [73.0555, 31.4652],
-            [73.0600, 31.4700]
-          ]
-        }
-      }
-    ],
-    "code": "Ok",
-    "uuid": "mock-uuid-123"
-  }
-
-  if ( data.code !== 'Ok' || !data.routes?.length) {
-  // if (!res.ok || data.code !== 'Ok' || !data.routes?.length) {
+  if (!res.ok || data.code !== 'Ok' || !data.routes?.length) {
     throw new AppError(502, `Mapbox directions request failed with data: ${data}`);
   }
+
+  //   const data = {
+  //   "routes": [
+  //     {
+  //       "distance": 8425.3,
+  //       "duration": 1120.6,
+  //       "geometry": {
+  //         "type": "LineString",
+  //         "coordinates": [
+  //           [73.0479, 31.4504],
+  //           [73.0485, 31.4520],
+  //           [73.0502, 31.4555],
+  //           [73.0520, 31.4600],
+  //           [73.0555, 31.4652],
+  //           [73.0600, 31.4700]
+  //         ]
+  //       }
+  //     }
+  //   ],
+  //   "code": "Ok",
+  //   "uuid": "mock-uuid-123"
+  // }
+
 
   const route = data.routes[0]!;
 

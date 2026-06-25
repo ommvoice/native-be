@@ -98,14 +98,16 @@ function buildEventTimes(data: OpportunityEventV2): Record<string, string[]> | n
   return Object.keys(result).length > 0 ? result : null;
 }
 
-function buildScheduleInfo(data: OpportunityEventV2): { title: string; subtitle: string } | null {
-  if (!data.eventStartDate && !data.eventEndDate) return null;
+export function buildScheduleInfo(data: OpportunityEventV2): { title: string; subtitle: string } | null {
+  const eventStartDate = data.eventStartDate ? new Date(data.eventStartDate): null;
+  const eventEndDate = data.eventEndDate ? new Date(data.eventEndDate): null;
+  if (!eventStartDate && !eventEndDate) return null;
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  const start = data.eventStartDate ? new Date(data.eventStartDate.getFullYear(), data.eventStartDate.getMonth(), data.eventStartDate.getDate()) : null;
-  const end = data.eventEndDate ? new Date(data.eventEndDate.getFullYear(), data.eventEndDate.getMonth(), data.eventEndDate.getDate()) : null;
+  const start = eventStartDate ? new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate()) : null;
+  const end = eventEndDate ? new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate()) : null;
 
   if (end && end < today) return { title: "Ended", subtitle: "Event has ended" };
   if (start && start.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Today" };
@@ -132,8 +134,8 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
     infoList.push({ icon: "schedule", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
   }
 
-  if (data.themeVariant.name || data.eventSkillArea) {
-    infoList.push({ icon: "details", title: data.themeVariant.name ?? "—", subtitle: data.eventSkillArea ?? "—", label: "Details" });
+  if (data.eventType || data.eventSkillArea) {
+    infoList.push({ icon: "details", title: data.eventType ?? "—", subtitle: data.eventSkillArea ?? "—", label: "Event Details" });
   }
 
   if (data.eventBookingType || data.ticketingRequirement !== null) {
@@ -172,17 +174,18 @@ function buildForThem(data: OpportunityEventV2): string[] | null {
   return childFacilities
 }
 
-function buildPerfectFor(data: OpportunityEventV2) : string[] | null {
+function buildPerfectFor(data: OpportunityEventV2) : any[] | null {
 
   let perfectFor = [];
+  
 
   const abilityLevel = data.eventAbilityLevel;
   const suitableAges = resolveSuitableFor(data)?.join(", ");
   const skillArea = data.eventSkillArea;
 
-  if(skillArea) perfectFor.push(skillArea);
-  if(abilityLevel) perfectFor.push(abilityLevel);
-  if(suitableAges) perfectFor.push(suitableAges)
+  if(abilityLevel) perfectFor.push({title: abilityLevel, label: 'ability'});
+  if(suitableAges) perfectFor.push({title: suitableAges, label:  'ages'})
+  if(skillArea) perfectFor.push({title: skillArea, label: 'skill'});
 
   return perfectFor.length > 0 ? perfectFor :  null;
 }

@@ -84,6 +84,59 @@ export function combineNearby(ageScore: number, distanceScore: number): number {
   return Math.round(ageScore * 0.5 + distanceScore * 0.5);
 }
 
+export function scoreSchedule(
+  type: string,
+  startDate?: string | null,
+  endDate?: string | null,
+  activeDays?: string[],
+): number {
+  if (type === 'venue' || type === 'route') return 100;
+
+  const now   = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const MS_PER_DAY = 86_400_000;
+
+  if (type === 'event') {
+    if (!startDate && !endDate) return 50;
+
+    if (endDate) {
+      const end    = new Date(endDate);
+      const endDay = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+      if (endDay < today) return 0;
+      if (endDay.getTime() === today.getTime()) return 100;
+      const daysLeft = Math.ceil((endDay.getTime() - today.getTime()) / MS_PER_DAY);
+      if (daysLeft <= 7)  return 90;
+      if (daysLeft <= 30) return 70;
+      return 50;
+    }
+
+    if (startDate) {
+      const start    = new Date(startDate);
+      const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      if (startDay.getTime() === today.getTime()) return 100;
+      if (startDay > today) {
+        const daysUntil = Math.ceil((startDay.getTime() - today.getTime()) / MS_PER_DAY);
+        return daysUntil <= 7 ? 80 : 50;
+      }
+      return 70;
+    }
+
+    return 50;
+  }
+
+  if (type === 'club') {
+    if (!activeDays || activeDays.length === 0) return 50;
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const todayName    = dayNames[now.getDay()]!;
+    const tomorrowName = dayNames[(now.getDay() + 1) % 7]!;
+    if (activeDays.includes(todayName))    return 100;
+    if (activeDays.includes(tomorrowName)) return 80;
+    return 60;
+  }
+
+  return 100;
+}
+
 export function metersToMilesOneDecimal(meters: number): number {
   return Math.round(meters * 0.000621371192 * 10) / 10;
 }

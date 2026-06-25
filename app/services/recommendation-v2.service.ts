@@ -12,6 +12,7 @@ import {
   scoreAge,
   scoreDistance,
   scoreInterestOverlap,
+  scoreSchedule,
 } from './scoring.service';
 import type { RecommendationQueryDto } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
@@ -82,8 +83,11 @@ export class RecommendationV2Service {
         const interestScore  = Math.round(scoreInterestOverlap(familySlugs, c.themeSlug, c.themeVariantSlug));
         const ageScore       = Math.round(scoreAge(childAges, c.ageBands));
         const distanceScore  = Math.round(scoreDistance(distMiles, maxMiles));
+        const scheduleScore  = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays);
+        if (scheduleScore === 0) return null;
         const total          = combineWeighted(interestScore, ageScore, distanceScore);
         if (total === 0) return null;
+        const adjusted       = Math.round(total * (scheduleScore / 100));
 
         const driving = drivingMap.get(legKey(c.type, c.id));
         return {
@@ -92,8 +96,8 @@ export class RecommendationV2Service {
           distanceMiles:          Math.round(distMiles * 10) / 10,
           drivingDistanceMiles:   driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters)  : null,
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
-          score: total,
-          scoreBreakdown: { interestScore, ageScore, distanceScore, total },
+          score: adjusted,
+          scoreBreakdown: { interestScore, ageScore, distanceScore, scheduleScore, total: adjusted },
         };
       })
       .filter(Boolean)
@@ -118,7 +122,8 @@ export class RecommendationV2Service {
     const lat       = Number.parseFloat(narrowed.latitude);
     const lon       = Number.parseFloat(narrowed.longitude);
     const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
-    const maxMiles  = narrowed.searchRadius;
+    // const maxMiles  = narrowed.searchRadius;
+    const maxMiles  = 5;
 
     const candidates = await this.repo.getOpportunityCandidatesV2();
     const routable   = candidates
@@ -140,19 +145,22 @@ export class RecommendationV2Service {
         if (!coords) return null;
         const distMiles    = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
         if (distMiles > maxMiles) return null;
-        const ageScore     = Math.round(scoreAge(childAges, c.ageBands));
-        const distScore    = Math.round(scoreDistance(distMiles, maxMiles));
-        const total        = combineNearby(ageScore, distScore);
+        const ageScore      = Math.round(scoreAge(childAges, c.ageBands));
+        const distScore     = Math.round(scoreDistance(distMiles, maxMiles));
+        const scheduleScore = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays);
+        if (scheduleScore === 0) return null;
+        const total         = combineNearby(ageScore, distScore);
         if (total === 0) return null;
-        const driving      = drivingMap.get(legKey(c.type, c.id));
+        const adjusted      = Math.round(total * (scheduleScore / 100));
+        const driving       = drivingMap.get(legKey(c.type, c.id));
         return {
           type: c.type, id: c.id, name: c.name, description: c.description,
           postcode: c.postcode,
           distanceMiles:          Math.round(distMiles * 10) / 10,
           drivingDistanceMiles:   driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters)  : null,
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
-          score: total,
-          scoreBreakdown: { interestScore: 0, ageScore, distanceScore: distScore, total },
+          score: adjusted,
+          scoreBreakdown: { interestScore: 0, ageScore, distanceScore: distScore, scheduleScore, total: adjusted },
         };
       })
       .filter(Boolean)

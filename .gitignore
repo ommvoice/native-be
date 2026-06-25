@@ -36,3 +36,5 @@ Thumbs.db
 
 # Generated
 /generated/prisma
+
+/downloads

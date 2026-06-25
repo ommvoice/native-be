@@ -185,6 +185,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     forThem:buildForThem(data),
     forYou: splitList(data.venueAdultFacilities),
     highlights: splitList(data.venueAttractions),
+    perfectFor: null,
 
     // Pricing
     is_free: !hasEntryCost && !anyPrice,

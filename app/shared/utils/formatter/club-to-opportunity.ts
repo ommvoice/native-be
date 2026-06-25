@@ -119,7 +119,7 @@ function buildAvailability(data: OpportunityClubV2): Record<string, string[]> | 
   return Object.keys(result).length > 0 ? result : null;
 }
 
-function buildScheduleInfo(data: OpportunityClubV2): { title: string; subtitle: string } | null {
+export function buildScheduleInfo(data: OpportunityClubV2): { title: string; subtitle: string } | null {
   const weekDays: Record<string, string> = {
     monday: "Mon",
     tuesday: "Tue",
@@ -220,7 +220,7 @@ function resolvePriceInfo(data: OpportunityClubV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-function buildPerfectFor(data: OpportunityClubV2) : string[] | null {
+function buildPerfectFor(data: OpportunityClubV2) : any[] | null {
 
   let perfectFor = [];
 
@@ -228,9 +228,9 @@ function buildPerfectFor(data: OpportunityClubV2) : string[] | null {
   const suitableAges = resolveSuitableFor(data)?.join(", ");
   const skillArea = data.clubSkillArea;
 
-  if(skillArea) perfectFor.push(skillArea);
-  if(abilityLevel) perfectFor.push(abilityLevel);
-  if(suitableAges) perfectFor.push(suitableAges)
+ if(abilityLevel) perfectFor.push({title: abilityLevel, label: 'ability'});
+  if(suitableAges) perfectFor.push({title: suitableAges, label:  'ages'})
+  if(skillArea) perfectFor.push({title: skillArea, label: 'skill'});
 
   return perfectFor.length > 0 ? perfectFor :  null;
 }

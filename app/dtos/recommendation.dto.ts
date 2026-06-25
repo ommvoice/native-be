@@ -33,4 +33,7 @@ export interface RecommendationV2Candidate {
   ageBands: RecommendationV2AgeBands;
   skillAreaSlug: string | null;
   skillAreaVariant: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  activeDays?: string[];
 }

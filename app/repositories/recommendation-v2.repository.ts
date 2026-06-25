@@ -10,6 +10,24 @@ function b(v: unknown): boolean | null {
   return typeof v === 'boolean' ? v : null;
 }
 
+function getClubActiveDays(c: Record<string, unknown>): string[] {
+  if (c.clubFixedDailyTimings === true && c.clubDailySchedule) {
+    return (c.clubDailySchedule as string)
+      .split(',')
+      .map((d) => d.trim().toLowerCase())
+      .filter(Boolean);
+  }
+  const days: string[] = [];
+  if (c.clubMixedTimingsMondayStartTime)    days.push('monday');
+  if (c.clubMixedTimingsTuesdayStartTime)   days.push('tuesday');
+  if (c.clubMixedTimingsWednesdayStartTime) days.push('wednesday');
+  if (c.clubMixedTimingsThursdayStartTime)  days.push('thursday');
+  if (c.clubMixedTimingsFridayStartTime)    days.push('friday');
+  if (c.clubMixedTimingsSaturdayStartTime)  days.push('saturday');
+  if (c.clubMixedTimingsSundayStartTime)    days.push('sunday');
+  return days;
+}
+
 export class RecommendationV2Repository {
   async getParentForRecommendations(parentId: string, childId?: string) {
     const res = await db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: parentId } }));
@@ -137,6 +155,8 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    (e.eventSkillArea         as string | null) ?? null,
       skillAreaVariant: (e.eventSkillAreaVariant   as string | null) ?? null,
+      startDate:        (e.eventStartDate as string | null) ?? null,
+      endDate:          (e.eventEndDate   as string | null) ?? null,
     }));
 
     const clubRows: RecommendationV2Candidate[] = clubs.map((c) => ({
@@ -160,6 +180,9 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    (c.clubSkillArea         as string | null) ?? null,
       skillAreaVariant: (c.clubSkillAreaVariant   as string | null) ?? null,
+      startDate:        (c.clubStartDate as string | null) ?? null,
+      endDate:          (c.clubEndDate   as string | null) ?? null,
+      activeDays:       getClubActiveDays(c),
     }));
 
     const routeRows: RecommendationV2Candidate[] = routes.map((r) => ({

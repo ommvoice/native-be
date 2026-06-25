@@ -119,6 +119,7 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     forThem:buildForThem(data),
     forYou: splitList(data.routeAdultFacilities),
     highlights: splitList(data.routeAttractions),
+    perfectFor: null,
 
     // Pricing (routes are typically free)
     is_free: true,

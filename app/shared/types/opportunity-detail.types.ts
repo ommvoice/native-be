@@ -40,8 +40,8 @@ export interface OpportunityDetail {
   forThem:             string[] | null;
   forYou:            string[] | null;
   highlights:        string[] | null;
-  perfectFor:        string[] | null;
-  
+  perfectFor:        any[] | null;
+
   // Pricing
   is_free:          boolean | null;
   entry_cost:       string | null;

@@ -6,6 +6,8 @@ import type {
 } from "../../types/opportunity-v2.types";
 import type { OppType } from "../../types/opportunity-detail.types";
 import { buildImageUrl } from "./image-url";
+import { buildScheduleInfo as buildClubScheduleInfo } from "./club-to-opportunity";
+import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportunity";
 
 /** Scored recommendation row enriched with full opportunity payload. */
 export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> {
@@ -107,7 +109,15 @@ function resolveDuration(rec: EnrichedScoredRecommendationV2): string {
   switch (rec.opportunityType) {
     case "venue": return (rec as unknown as OpportunityVenueV2).venueEstimatedDuration ?? "";
     case "route": return (rec as unknown as OpportunityRouteV2).routeEstimatedDuration ?? "";
-    default:      return "";
+    case "club": {
+      const schedule = buildClubScheduleInfo(rec as unknown as OpportunityClubV2);
+      return schedule ? `${schedule.title} · ${schedule.subtitle}` : "";
+    }
+    case "event": {
+      const schedule = buildEventScheduleInfo(rec as unknown as OpportunityEventV2);
+      return schedule ? `${schedule.title} · ${schedule.subtitle}` : "";
+    }
+    default: return "";
   }
 }
 
@@ -224,7 +234,8 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
   //  image: (rec as unknown as { image?: string | null }).image? buildImageUrl(rec.image) : null,
     //image: (rec as unknown as { image?: string | null }).image ?? null,
     //image: { uri: `https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=250&auto=format&fit=crop` },
-    duration: resolveDuration(rec),
+    // duration: resolveDuration(rec),
+    duration: "",
     tags: resolveTags(rec),
     price,
     travelTime: formatTravelTime(rec.drivingDurationSeconds ?? null),

@@ -18,6 +18,22 @@
       "mapboxAccessToken": "",
       "weatherApiKey": ""
     },
+    "uat": {
+      "awsAccountId" : "664876795774",
+      "awsProfileName": "cdk_profile_fo9",
+      "awsProfileRegion" : "eu-west-3",
+      "appName": "native-be",
+      "environment": "uat",
+      "version": "0.0.0",
+      "build": "1",
+      "domain": "reporting-tool.co.uk",
+      "hostedZoneId": "Z03848251AQJ2LXYFX72H",
+      "certificateArn": "arn:aws:acm:eu-west-3:664876795774:certificate/42cafbe7-19d8-4007-80fb-62508e50374b",
+      "fromEmail":"holypulse@gmail.com",
+      "toEmail":"yasir.iqbal414@gmail.com",
+      "mapboxAccessToken": "",
+      "weatherApiKey": ""
+    },
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/aws-cloudwatch-actions:changeLambdaPermissionLogicalIdForLambdaAction": true,
     "@aws-cdk/aws-codepipeline-actions:useNewDefaultBranchForCodeCommitSource": false,

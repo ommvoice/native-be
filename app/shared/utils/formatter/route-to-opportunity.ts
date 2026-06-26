@@ -1,6 +1,7 @@
 import type { OpportunityRouteV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
+import { buildPricingTiers } from "./pricing";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -78,7 +79,7 @@ function buildForThem(data: OpportunityRouteV2): string[] | null {
 // ── Formatter ─────────────────────────────────────────────────────────────────
 
 export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail => {
-  return {
+  const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────
     id: data.id,
     opp_type: "route",
@@ -130,6 +131,7 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     infant_price: null,
     family_price: null,
     concession_price: null,
+    pricingTiers: [],
 
     // Contact / links
     website_url: null,
@@ -177,4 +179,6 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     special_interest_tags: null,
     info_list:  null,
   };
+  opp.pricingTiers = buildPricingTiers(opp);
+  return opp;
 };

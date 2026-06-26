@@ -1,5 +1,11 @@
 export type OppType = 'venue' | 'route' | 'club' | 'event';
 
+export interface PricingTier {
+  label: string;
+  price: string;
+  description?: string;
+}
+
 export interface OpportunityDetail {
   // ── Core ──────────────────────────────────────────────
   id:          string;
@@ -51,6 +57,7 @@ export interface OpportunityDetail {
   infant_price:     number | null;
   family_price:     number | null;
   concession_price: number | null;
+  pricingTiers:     PricingTier[];
 
   // Contact / links
   website_url:   string | null;

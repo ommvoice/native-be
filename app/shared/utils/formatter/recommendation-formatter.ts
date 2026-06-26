@@ -8,6 +8,7 @@ import type { OppType } from "../../types/opportunity-detail.types";
 import { buildImageUrl } from "./image-url";
 import { buildScheduleInfo as buildClubScheduleInfo } from "./club-to-opportunity";
 import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportunity";
+import { resolveCardPrice } from "./pricing";
 
 /** Scored recommendation row enriched with full opportunity payload. */
 export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> {
@@ -133,12 +134,6 @@ function resolveTags(rec: EnrichedScoredRecommendationV2): string[] {
   return raw.split(",").map((t) => t.trim()).filter(Boolean);
 }
 
-function parseNumericPrice(raw: string | null | undefined): number | undefined {
-  if (!raw) return undefined;
-  const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
-  return isNaN(num) ? undefined : num;
-}
-
 function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
   switch (rec.opportunityType) {
     case "route":
@@ -146,26 +141,32 @@ function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; pri
 
     case "venue": {
       const venue = rec as unknown as OpportunityVenueV2;
-      if (venue.venueEntryCost === false) return { price: "Free", priceValue: 0 };
-      const raw = venue.ticketVariantAdultPrice ?? venue.ticketVariantOlderChildPrice ?? venue.ticketVariantBabyPrice;
-      if (!raw) return { price: "Free", priceValue: 0 };
-      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+      return resolveCardPrice(
+        venue.venueEntryCost === true,
+        venue.ticketVariantAdultPrice,
+        venue.ticketVariantOlderChildPrice,
+        venue.ticketVariantBabyPrice,
+      );
     }
 
     case "event": {
       const event = rec as unknown as OpportunityEventV2;
-      if (event.eventEntryCost === false) return { price: "Free", priceValue: 0 };
-      const raw = event.ticketVariantAdultPrice ?? event.ticketVariantOlderChildPrice ?? event.ticketVariantBabyPrice;
-      if (!raw) return { price: "Free", priceValue: 0 };
-      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+      return resolveCardPrice(
+        event.eventEntryCost === true,
+        event.ticketVariantAdultPrice,
+        event.ticketVariantOlderChildPrice,
+        event.ticketVariantBabyPrice,
+      );
     }
 
     case "club": {
       const club = rec as unknown as OpportunityClubV2;
-      if (club.ticketingRequirement === false) return { price: "Free", priceValue: 0 };
-      const raw = club.ticketVariantAdultPrice ?? club.ticketVariantOlderChildPrice ?? club.ticketVariantBabyPrice;
-      if (!raw) return { price: "Free", priceValue: 0 };
-      return { price: `From ${raw}`, priceValue: parseNumericPrice(raw) };
+      return resolveCardPrice(
+        club.ticketingRequirement === true,
+        club.ticketVariantAdultPrice,
+        club.ticketVariantOlderChildPrice,
+        club.ticketVariantBabyPrice,
+      );
     }
 
     default:

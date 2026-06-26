@@ -1,6 +1,7 @@
 import type { OpportunityVenueV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
+import { buildPricingTiers } from "./pricing";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -144,7 +145,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
   const hasEntryCost = data.venueEntryCost === true;
   const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
 
-  return {
+  const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────
     id: data.id,
     opp_type: "venue",
@@ -196,6 +197,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     infant_price: parsePrice(data.ticketVariantBabyPrice),
     family_price: null,
     concession_price: null,
+    pricingTiers: [],
 
     // Contact / links
     website_url: null,
@@ -243,4 +245,6 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     special_interest_tags: null,
     info_list: null,
   };
+  opp.pricingTiers = buildPricingTiers(opp);
+  return opp;
 };

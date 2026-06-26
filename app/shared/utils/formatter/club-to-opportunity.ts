@@ -1,6 +1,7 @@
 import type { OpportunityClubV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
+import { buildPricingTiers } from "./pricing";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -241,7 +242,7 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
   const hasTicketing = data.ticketingRequirement === true;
   const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
 
-  return {
+  const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────
     id: data.id,
     opp_type: "club",
@@ -292,6 +293,7 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     infant_price: parsePrice(data.ticketVariantBabyPrice),
     family_price: null,
     concession_price: parsePrice(data.ticketVariantConcessionPrice),
+    pricingTiers: [],
 
     // Contact / links
     website_url: null,
@@ -340,4 +342,6 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     special_interest_tags: null,
     info_list: buildInfoData(data),
   };
+  opp.pricingTiers = buildPricingTiers(opp);
+  return opp;
 };

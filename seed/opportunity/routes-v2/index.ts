@@ -2,7 +2,7 @@ import { ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import db from "../../config/index.js";
 import { TABLES } from "../../config/index.js";
 import { createOpportunityRouteV2Row } from "./create_opportunity_route_v2_row.js";
-import { opportunityRouteV2SeedRows } from "./data.js";
+import type { OpportunityRouteV2SeedInput } from "./create_opportunity_route_v2_row.js";
 
 export type { OpportunityRouteV2SeedInput } from "./create_opportunity_route_v2_row.js";
 export { createOpportunityRouteV2Row } from "./create_opportunity_route_v2_row.js";
@@ -27,9 +27,9 @@ async function clearTable() {
   }
 }
 
-export async function seedOpportunityRouteV2() {
+export async function seedOpportunityRouteV2(rows: OpportunityRouteV2SeedInput[]) {
   await clearTable();
-  for (const row of opportunityRouteV2SeedRows) {
+  for (const row of rows) {
     await createOpportunityRouteV2Row(row);
   }
 }

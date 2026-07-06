@@ -2,7 +2,7 @@ import { ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import db from "../../config/index.js";
 import { TABLES } from "../../config/index.js";
 import { createOpportunityVenueV2Seed } from "./create_opportunity_venue_v2.js";
-import { opportunityVenuesV2SeedItems } from "./items/index.js";
+import type { OpportunityVenueV2SeedInput } from "./create_opportunity_venue_v2.js";
 
 export type { OpportunityVenueV2SeedInput } from "./create_opportunity_venue_v2.js";
 export { createOpportunityVenueV2Seed } from "./create_opportunity_venue_v2.js";
@@ -27,10 +27,10 @@ async function clearTable() {
   }
 }
 
-export async function seedOpportunityVenuesV2() {
+export async function seedOpportunityVenuesV2(items: OpportunityVenueV2SeedInput[]) {
   await clearTable();
 
-  for (const item of opportunityVenuesV2SeedItems) {
+  for (const item of items) {
     try {
       await createOpportunityVenueV2Seed(item);
     } catch (err) {

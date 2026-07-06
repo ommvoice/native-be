@@ -26,9 +26,13 @@
     "destroy:uat":     "cd cdk && npx cdk destroy --all --force --context config=uat --profile=cdk_profile_fo9",
 
     "___ DEPLOY + SEED (one command) ___": "",
-    "up:dev":     "npm run deploy:dev     && APP_ENV=dev     npm run seed:all",
+    "up:dev":     "npm run deploy:dev && npm run seed:dev",
+    "up:uat":     "npm run deploy:uat && npm run seed:uat",
 
     "___ SEED ___": "",
+    "seed:dev":                "APP_ENV=dev npx tsx seed/index.ts",
+    "seed:uat":                "APP_ENV=uat npx tsx seed/index.ts",
+    "seed:all":                "npx tsx seed/index.ts",
     "seed:interests":          "tsx seed/interests.ts",
     "seed:facilities":         "tsx seed/facilities.ts",
     "seed:skills":             "tsx seed/skills.ts",
@@ -42,15 +46,10 @@
     "seed:themes:special":     "tsx seed/themes/special-memorable.ts",
     "seed:variants":           "tsx seed/variants/all.ts",
     "seed:opp-themes":         "tsx seed/opportunity/themes.ts",
-    "seed:opp-v2:clubs":       "tsx seed/opportunity/clubs-v2.ts",
-    "seed:opp-v2:events":      "tsx seed/opportunity/events-v2.ts",
-    "seed:opp-v2:routes":      "tsx seed/opportunity/routes-v2.ts",
-    "seed:opp-v2:venues":      "tsx seed/opportunity/venues-v2.ts",
     "seed:demo-user":          "tsx seed/demo/demo-user.ts",
     "seed:demo-rec":           "tsx seed/demo/recommendations.ts",
     "seed:demo-swagger":       "tsx seed/demo/swagger-corridor.ts",
-    "preseed:all":             "cp cdk/lib/config/table-suffixes.ts seed/config/table-suffixes.ts",
-    "seed:all":                "npx tsx seed/index.ts"
+    "preseed:all":             "cp cdk/lib/config/table-suffixes.ts seed/config/table-suffixes.ts"
   },
   "type": "module",
   "keywords": [],

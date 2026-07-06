@@ -24,7 +24,7 @@ export class OnboardParentService {
       latitude:            String(location.latitude),
       longitude:           String(location.longitude),
       placeName:           location.placeName,
-      searchRadius:        dto.searchRadius,
+      searchRadius:        dto.searchRadius ?? 25,
       userId:              user.id,
     });
 

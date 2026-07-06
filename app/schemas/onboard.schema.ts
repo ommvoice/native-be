@@ -5,7 +5,7 @@ export const onboardParentSchema = yup.object({
   password:            yup.string().min(8).required('password is required'),
   firstNameOrNickName: yup.string().required('firstNameOrNickName is required'),
   postCode:            yup.string().required('postCode is required'),
-  searchRadius:        yup.number().min(1).max(200).required('searchRadius is required'),
+  searchRadius:        yup.number().min(1).max(200).optional(),
   children: yup.array(
     yup.object({
       nameOrNickName: yup.string().required(),

@@ -2,11 +2,10 @@ import { ScanCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import db from "../../config/index.js";
 import { TABLES } from "../../config/index.js";
 import { createOpportunityEventV2Row } from "./create_opportunity_event_v2_row.js";
-import { opportunityEventV2SeedRows } from "./data.js";
+import type { OpportunityEventV2SeedInput } from "./create_opportunity_event_v2_row.js";
 
 export type { OpportunityEventV2SeedInput } from "./create_opportunity_event_v2_row.js";
 export { createOpportunityEventV2Row } from "./create_opportunity_event_v2_row.js";
-export { opportunityEventV2SeedRows } from "./data.js";
 
 async function clearTable() {
   let lastKey: Record<string, unknown> | undefined;
@@ -28,15 +27,10 @@ async function clearTable() {
   }
 }
 
-export async function seedOpportunityEventsV2() {
-  const rows = opportunityEventV2SeedRows();
+export async function seedOpportunityEventsV2(rows: OpportunityEventV2SeedInput[]) {
   await clearTable();
-
   for (const row of rows) {
     await createOpportunityEventV2Row(row);
   }
-
-  console.log(
-    `Seeded ${rows.length} opportunity_events_v2 row(s).`,
-  );
+  console.log(`Seeded ${rows.length} opportunity_events_v2 row(s).`);
 }

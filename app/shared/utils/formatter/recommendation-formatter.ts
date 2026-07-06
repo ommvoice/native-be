@@ -26,7 +26,7 @@ export interface Opportunity {
   id:          string;
   type:        OppType;
   title:       string;
-  image:       any;
+  image:       string;
   duration:    string;
   tags:        string[];
   price:       string;
@@ -231,10 +231,7 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
     id: rec.id,
     type: rec.opportunityType as OppType,
     title: resolveName(rec),
-    image: { uri: rec.image ? buildImageUrl(rec.image, rec.opportunityType) : undefined },
-  //  image: (rec as unknown as { image?: string | null }).image? buildImageUrl(rec.image) : null,
-    //image: (rec as unknown as { image?: string | null }).image ?? null,
-    //image: { uri: `https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=250&auto=format&fit=crop` },
+    image: buildImageUrl(rec.image, rec.opportunityType) ,
     // duration: resolveDuration(rec),
     duration: "",
     tags: resolveTags(rec),

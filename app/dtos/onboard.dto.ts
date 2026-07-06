@@ -8,6 +8,6 @@ export interface OnboardParentDto {
   password: string;
   firstNameOrNickName: string;
   postCode: string;
-  searchRadius: number;
   children: OnboardChildDto[];
+  searchRadius?: number;
 }

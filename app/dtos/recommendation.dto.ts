@@ -36,4 +36,7 @@ export interface RecommendationV2Candidate {
   startDate?: string | null;
   endDate?: string | null;
   activeDays?: string[];
+  /** Today's session start/end time-of-day, e.g. "14:00" — used for the 1hr starting-soon/just-ended scoring window. */
+  startTime?: string | null;
+  endTime?: string | null;
 }

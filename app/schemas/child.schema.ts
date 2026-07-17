@@ -7,6 +7,7 @@ export const createChildSchema = yup.object({
   skillIds:               yup.array(yup.string().required()).default([]),
   interestCategoryIds:    yup.array(yup.string().required()).default([]),
   interestSubCategoryIds: yup.array(yup.string().required()).default([]),
+  interestTags:           yup.array(yup.string().required()).default([]),
 }).required();
 
 export const updateChildSchema = yup.object({
@@ -18,4 +19,8 @@ export const updateChildSchema = yup.object({
 export const updateChildInterestsSchema = yup.object({
   interestCategoryIds:    yup.array(yup.string().required()).required().default([]),
   interestSubCategoryIds: yup.array(yup.string().required()).required().default([]),
+}).required();
+
+export const updateChildInterestTagsSchema = yup.object({
+  interestTags: yup.array(yup.string().required()).required().default([]),
 }).required();

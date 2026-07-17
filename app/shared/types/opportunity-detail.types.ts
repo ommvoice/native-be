@@ -6,6 +6,17 @@ export interface PricingTier {
   description?: string;
 }
 
+export interface LiveStatus {
+  variant: 'open' | 'soon' | 'closed';
+  message: string;
+}
+
+export interface SeasonalHighlight {
+  season: 'Spring' | 'Summer' | 'Autumn' | 'Winter';
+  highlight: string;
+  tags: string[];
+}
+
 export interface OpportunityDetail {
   // ── Core ──────────────────────────────────────────────
   id:          string;
@@ -104,4 +115,8 @@ export interface OpportunityDetail {
   is_online:            boolean | null;
   special_interest_tags:string[] | null;
   info_list:  any[] | null;
+
+  // ── Computed ──────────────────────────────────────────
+  liveStatus:        LiveStatus;
+  seasonalHighlight: SeasonalHighlight | null;
 }

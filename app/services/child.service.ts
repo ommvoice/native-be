@@ -28,6 +28,7 @@ export class ChildService {
       skillIds:               dto.skillIds ?? [],
       interestCategoryIds:    dto.interestCategoryIds ?? [],
       interestSubCategoryIds: dto.interestSubCategoryIds ?? [],
+      interestTags:           dto.interestTags ?? [],
     });
   }
 
@@ -48,6 +49,13 @@ export class ChildService {
     const child = await this.childRepo.getById(id);
     if (!child) throw new AppError(404, 'Child not found');
     await this.childRepo.updateInterests(id, categoryIds, subCategoryIds);
+    return this.getById(id);
+  }
+
+  async updateInterestTags(id: string, tags: string[]) {
+    const child = await this.childRepo.getById(id);
+    if (!child) throw new AppError(404, 'Child not found');
+    await this.childRepo.updateInterestTags(id, tags);
     return this.getById(id);
   }
 }

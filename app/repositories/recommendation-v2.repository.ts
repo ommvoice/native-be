@@ -10,6 +10,39 @@ function b(v: unknown): boolean | null {
   return typeof v === 'boolean' ? v : null;
 }
 
+const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+function capitalize(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+/** Today's scheduled start/end time-of-day for an event, e.g. { startTime: "14:00", endTime: "16:00" }. */
+function getEventTodayTimes(e: Record<string, unknown>): { startTime: string | null; endTime: string | null } {
+  if (e.eventDailyFixedTimings === true) {
+    return {
+      startTime: (e.eventDailyFixedStartTime as string | null) ?? null,
+      endTime:   (e.eventDailyFixedEndTime   as string | null) ?? null,
+    };
+  }
+  const day = DAY_NAMES[new Date().getDay()]!;
+  return {
+    startTime: (e[`eventMixedTimings${capitalize(day)}Start`] as string | null) ?? null,
+    endTime:   (e[`eventMixedTimings${capitalize(day)}End`]   as string | null) ?? null,
+  };
+}
+
+/** Today's scheduled start/end time-of-day for a club, e.g. { startTime: "16:30", endTime: "17:30" }. */
+function getClubTodayTimes(c: Record<string, unknown>): { startTime: string | null; endTime: string | null } {
+  if (c.clubFixedDailyTimings === true) {
+    return {
+      startTime: (c.clubDailyStartTime as string | null) ?? null,
+      endTime:   (c.clubDailyEndTime   as string | null) ?? null,
+    };
+  }
+  const day = DAY_NAMES[new Date().getDay()]!;
+  return {
+    startTime: (c[`clubMixedTimings${capitalize(day)}StartTime`] as string | null) ?? null,
+    endTime:   (c[`clubMixedTimings${capitalize(day)}EndTime`]   as string | null) ?? null,
+  };
+}
+
 function getClubActiveDays(c: Record<string, unknown>): string[] {
   if (c.clubFixedDailyTimings === true && c.clubDailySchedule) {
     return (c.clubDailySchedule as string)
@@ -157,6 +190,7 @@ export class RecommendationV2Repository {
       skillAreaVariant: (e.eventSkillAreaVariant   as string | null) ?? null,
       startDate:        (e.eventStartDate as string | null) ?? null,
       endDate:          (e.eventEndDate   as string | null) ?? null,
+      ...getEventTodayTimes(e),
     }));
 
     const clubRows: RecommendationV2Candidate[] = clubs.map((c) => ({
@@ -183,6 +217,7 @@ export class RecommendationV2Repository {
       startDate:        (c.clubStartDate as string | null) ?? null,
       endDate:          (c.clubEndDate   as string | null) ?? null,
       activeDays:       getClubActiveDays(c),
+      ...getClubTodayTimes(c),
     }));
 
     const routeRows: RecommendationV2Candidate[] = routes.map((r) => ({

@@ -11,6 +11,7 @@ export interface ChildRecord {
   skillIds: string[];
   interestCategoryIds: string[];
   interestSubCategoryIds: string[];
+  interestTags: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -67,6 +68,18 @@ export class ChildRepository {
         Key: { id },
         UpdateExpression: 'SET interestCategoryIds = :cats, interestSubCategoryIds = :subs, updatedAt = :ua',
         ExpressionAttributeValues: { ':cats': categoryIds, ':subs': subCategoryIds, ':ua': now },
+      }),
+    );
+  }
+
+  async updateInterestTags(id: string, tags: string[]): Promise<void> {
+    const now = new Date().toISOString();
+    await db.send(
+      new UpdateCommand({
+        TableName: TABLES.children,
+        Key: { id },
+        UpdateExpression: 'SET interestTags = :tags, updatedAt = :ua',
+        ExpressionAttributeValues: { ':tags': tags, ':ua': now },
       }),
     );
   }

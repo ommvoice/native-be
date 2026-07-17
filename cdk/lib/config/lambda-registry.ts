@@ -134,6 +134,12 @@ const childrenLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['children', '{id}', 'interests'], method: 'PUT', auth: true }],
   },
+  {
+    key: 'childrenUpdateInterestTags', name: 'children-update-interest-tags', entry: 'children/update-interest-tags.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['children', '{id}', 'interest-tags'], method: 'PUT', auth: true }],
+  },
 ];
 
 // ── Interests ─────────────────────────────────────────────────────────────────
@@ -148,6 +154,11 @@ const interestsLambdas: LambdaDefinition[] = [
     key: 'interestsListSubCategories', name: 'interests-list-sub-categories', entry: 'interests/list-sub-categories.ts',
     permissions: { dynamodb: 'read', cognito: false },
     routes: [{ path: ['interests', 'sub-categories'], method: 'GET', auth: false }],
+  },
+  {
+    key: 'interestsListTags', name: 'interests-tags-list', entry: 'interests/list-tags.ts',
+    permissions: { dynamodb: 'read', cognito: false },
+    routes: [{ path: ['interests', 'tags'], method: 'GET', auth: false }],
   },
 ];
 

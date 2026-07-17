@@ -3,6 +3,8 @@ import type {
   OpportunityEventV2,
   OpportunityClubV2,
   OpportunityRouteV2,
+  ThemeRef,
+  ThemeVariantRef,
 } from "../../types/opportunity-v2.types";
 import type { OppType } from "../../types/opportunity-detail.types";
 import { buildImageUrl } from "./image-url";
@@ -20,6 +22,29 @@ export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> 
   distanceMiles?:        number | null;
   drivingDistanceMiles?: number | null;
   drivingDurationSeconds?: number | null;
+  themeSlug?:            string;
+  themeVariantSlug?:     string;
+}
+
+// A single line of card text, plus whether it's the journey/travel-time line
+// (frontend prefixes those with a Navigation icon).
+export interface CardDisplayLines {
+  line1?: string;
+  line2?: string;
+  line3?: string;
+  line2IsJourney?: boolean;
+  line3IsJourney?: boolean;
+  routeDurationInline?: string; // route only — rendered after line1 with a footprints icon
+}
+
+// Pre-composed card text per size class, so the frontend just picks
+// `compact` (small cards) or `full` (medium/large) and renders — it does not
+// re-derive which fields go where. Mirrors nativeapp-main-loveable's
+// src/components/cards/OpportunityCard.tsx getCardDetails() exactly, but
+// computed once here instead of duplicated client-side.
+export interface CardDisplay {
+  compact: CardDisplayLines;
+  full: CardDisplayLines;
 }
 
 export interface Opportunity {
@@ -29,6 +54,9 @@ export interface Opportunity {
   image:       string;
   duration:    string;
   tags:        string[];
+  activityGroup: string[] | null;
+  theme:       ThemeRef | null;
+  themeVariant: ThemeVariantRef | null;
   price:       string;
   travelTime:  string;
   isFavorite?: boolean;
@@ -40,6 +68,12 @@ export interface Opportunity {
   amenitiesForThem?: { icon: string; label: string }[];
   amenitiesForYou?:  { icon: string; label: string }[];
   location?: { latitude: string | null; longitude: string | null } | null;
+  // Pre-composed per-size card text (see CardDisplay above).
+  cardDisplay: CardDisplay;
+  // Suitability icon keys (Buggies/Dogs/Scooters/Bikes/Wheelchairs/Carriers)
+  // — kept raw (not composed into cardDisplay) because the frontend maps
+  // these to actual icon components; route only, see resolveRouteSuitability().
+  routeSuitability?: string[];
 }
 
 
@@ -130,8 +164,36 @@ function resolveTags(rec: EnrichedScoredRecommendationV2): string[] {
     case "club":  raw = (rec as unknown as OpportunityClubV2).clubInterestTags; break;
     case "route": raw = (rec as unknown as OpportunityRouteV2).routeInterestTags; break;
   }
+    if (!raw) return [];
+    return raw.split(",").map((t) => t.trim()).filter(Boolean);
+}
+
+function resolveActivityGroup(rec: EnrichedScoredRecommendationV2): string[] | null {
+  let raw: string | null = null;
+  switch (rec.opportunityType) {
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueActivityGroup; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventActivityGroup; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubActivityGroup; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeActivityGrouping; break;
+    default:      raw = null;
+  }
   if (!raw) return [];
   return raw.split(",").map((t) => t.trim()).filter(Boolean);
+}
+
+// Raw recommendation rows only carry flat `themeSlug`/`themeVariantSlug` strings
+// (no DB join for a display name exists yet) — mirrors the same shim used by
+// opportunity-v2.enrichers.ts's themeRef() for the /opportunity/* endpoints.
+function resolveTheme(rec: EnrichedScoredRecommendationV2): ThemeRef | null {
+  const slug = rec.themeSlug;
+  if (!slug) return null;
+  return { id: slug, slug, name: slug, recordType: rec.opportunityType };
+}
+
+function resolveThemeVariant(rec: EnrichedScoredRecommendationV2): ThemeVariantRef | null {
+  const slug = rec.themeVariantSlug;
+  if (!slug) return null;
+  return { id: slug, slug, name: slug };
 }
 
 function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
@@ -194,6 +256,186 @@ function resolveAdultFacilities(rec: EnrichedScoredRecommendationV2): string | n
   }
 }
 
+// ── Card-display field resolvers (nativeapp-main-loveable OpportunityCard.tsx parity) ──
+
+function resolveBookingType(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "venue") return null;
+  return (rec as unknown as OpportunityVenueV2).venueBookingType ?? null;
+}
+
+function resolveRouteType(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "route") return null;
+  return (rec as unknown as OpportunityRouteV2).routeType ?? null;
+}
+
+// Route suitability (Buggies/Dogs/Scooters/Bikes/Wheelchairs/Carriers, matching
+// Lovable's SuitabilityIcons keys exactly) has no dedicated backend field —
+// OpportunityRouteV2 only has free-text facility/kit/attraction fields. Derive
+// a best-effort signal via keyword matching over the fields that actually
+// mention this (routeExtraKit, routeAttractions, routeGeneralFacilities,
+// routeDogFacilities) rather than leaving it permanently empty.
+const ROUTE_SUITABILITY_KEYWORDS: Record<string, string[]> = {
+  Buggies: ["buggy", "pushchair", "stroller"],
+  Dogs: ["dog"],
+  Scooters: ["scooter"],
+  Bikes: ["bike", "cycl"],
+  Wheelchairs: ["wheelchair"],
+  Carriers: ["carrier", "sling"],
+};
+
+function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): string[] {
+  if (rec.opportunityType !== "route") return [];
+  const route = rec as unknown as OpportunityRouteV2;
+  const haystack = [
+    route.routeExtraKit,
+    route.routeAttractions,
+    route.routeGeneralFacilities,
+    route.routeDogFacilities,
+    route.routeChildFacilities,
+    route.routeAdultFacilities,
+  ].filter(Boolean).join(", ").toLowerCase();
+  if (!haystack) return [];
+  return Object.entries(ROUTE_SUITABILITY_KEYWORDS)
+    .filter(([, keywords]) => keywords.some((kw) => haystack.includes(kw)))
+    .map(([key]) => key);
+}
+
+function resolveClubFrequency(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "club") return null;
+  return (rec as unknown as OpportunityClubV2).clubFrequency ?? null;
+}
+
+function resolveClubCommitment(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "club") return null;
+  return (rec as unknown as OpportunityClubV2).clubCommittment ?? null;
+}
+
+function resolveClubFormat(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "club") return null;
+  return (rec as unknown as OpportunityClubV2).clubFormat ?? null;
+}
+
+function resolveClubSkillArea(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "club") return null;
+  return (rec as unknown as OpportunityClubV2).clubSkillArea ?? null;
+}
+
+function resolveRequiresBooking(rec: EnrichedScoredRecommendationV2): boolean {
+  if (rec.opportunityType === "club") return (rec as unknown as OpportunityClubV2).ticketingRequirement === true;
+  if (rec.opportunityType === "event") return (rec as unknown as OpportunityEventV2).ticketingRequirement === true;
+  return false;
+}
+
+function resolveEventType(rec: EnrichedScoredRecommendationV2): string | null {
+  if (rec.opportunityType !== "event") return null;
+  return (rec as unknown as OpportunityEventV2).eventType ?? null;
+}
+
+// ── Card display composition (nativeapp-main-loveable OpportunityCard.tsx parity) ──
+//
+// Ported from getCardDetails()/compactDuration() in
+// nativeapp-main-loveable/src/components/cards/OpportunityCard.tsx. This is
+// presentation-layer decision logic (which field goes on which line, in what
+// order, with what formatting) — computed once here so every client renders
+// identical card text instead of each frontend re-implementing the same
+// per-type/per-size switch statement.
+
+const CARD_LINE_SEPARATOR = "  •  ";
+
+/**
+ * Compact duration strings like "30 min - 1 hour" → "30-60 mins",
+ * "1-2 hours" → "1-2 hrs".
+ */
+function compactDuration(duration?: string | null): string | undefined {
+  if (!duration) return undefined;
+  const rangeMatch = duration.match(/^(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)$/i);
+  if (rangeMatch) {
+    const toMins = (val: number, unit: string) => (/hour|hr/i.test(unit) ? val * 60 : val);
+    const low = toMins(parseFloat(rangeMatch[1]), rangeMatch[2]);
+    const high = toMins(parseFloat(rangeMatch[3]), rangeMatch[4]);
+    if (high <= 90) return `${Math.round(low)}-${Math.round(high)} mins`;
+    const toHrs = (m: number) => (m % 60 === 0 ? `${m / 60}` : `${(m / 60).toFixed(1)}`);
+    return `${toHrs(low)}-${toHrs(high)} hrs`;
+  }
+  return duration.replace(/\bhours?\b/gi, "hrs").replace(/\bminutes?\b/gi, "mins");
+}
+
+/** snake_case / kebab-case → Title Case. */
+function formatCardLabel(raw?: string | null): string | undefined {
+  if (!raw) return undefined;
+  return raw.replace(/[_-]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+interface CardDisplayInputs {
+  bookingType: string | null;
+  routeType: string | null;
+  clubFrequency: string | null;
+  clubCommitment: string | null;
+  clubFormat: string | null;
+  clubSkillArea: string | null;
+  requiresBooking: boolean;
+  eventType: string | null;
+}
+
+function resolveCardDisplay(
+  type: OppType,
+  duration: string,
+  price: string,
+  travelTime: string,
+  fields: CardDisplayInputs,
+): CardDisplay {
+  const cost = price || "Price TBC";
+  const journey = travelTime ? `~${travelTime} journey` : undefined;
+
+  switch (type) {
+    case "venue": {
+      const costBooking = fields.bookingType ? `${cost} (${fields.bookingType})` : cost;
+      const timeLine = duration ? `Allow ${compactDuration(duration)}` : undefined;
+      return {
+        compact: { line1: costBooking, line2: journey, line2IsJourney: true },
+        full: { line1: timeLine, line2: costBooking, line3: journey, line3IsJourney: true },
+      };
+    }
+
+    case "route": {
+      let routeTypeLabel = formatCardLabel(fields.routeType);
+      if (routeTypeLabel === "Out And Back") routeTypeLabel = "Out-Back";
+      const durationPart = duration || undefined;
+      const typeDurationCompact = [routeTypeLabel, durationPart ? `(${durationPart})` : undefined].filter(Boolean).join(" ");
+      return {
+        compact: { line1: typeDurationCompact || undefined, line2: journey, line2IsJourney: true },
+        full: {
+          line1: routeTypeLabel || undefined,
+          routeDurationInline: durationPart,
+          line3: journey,
+          line3IsJourney: true,
+        },
+      };
+    }
+
+    case "club": {
+      const sessionSkillCompact = [duration, fields.clubSkillArea].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      const timeFreq = [duration, fields.clubFrequency].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      const bookingLabel = fields.requiresBooking ? "Book Ahead" : (fields.clubCommitment || fields.clubFormat);
+      const costBooking = bookingLabel ? `${cost} (${bookingLabel})` : cost;
+      return {
+        compact: { line1: sessionSkillCompact || undefined, line2: journey, line2IsJourney: true },
+        full: { line1: timeFreq || undefined, line2: costBooking, line3: journey, line3IsJourney: true },
+      };
+    }
+
+    case "event": {
+      const costStatusCompact = [cost, duration].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      const formattedEventType = formatCardLabel(fields.eventType);
+      const costType = [cost, formattedEventType].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      return {
+        compact: { line1: costStatusCompact || undefined, line2: journey, line2IsJourney: true },
+        full: { line1: duration || undefined, line2: costType || undefined, line3: journey, line3IsJourney: true },
+      };
+    }
+  }
+}
+
 function parseAmenities(raw: string | null): { icon: string; label: string }[] {
   if (!raw) return [];
   return raw
@@ -226,17 +468,33 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
     : undefined;
 
   const description = resolveDescription(rec);
+  const type = rec.opportunityType as OppType;
+  const duration = resolveDuration(rec);
+  const travelTime = formatTravelTime(rec.drivingDurationSeconds ?? null);
+
+  const cardDisplay = resolveCardDisplay(type, duration, price, travelTime, {
+    bookingType: resolveBookingType(rec),
+    routeType: resolveRouteType(rec),
+    clubFrequency: resolveClubFrequency(rec),
+    clubCommitment: resolveClubCommitment(rec),
+    clubFormat: resolveClubFormat(rec),
+    clubSkillArea: resolveClubSkillArea(rec),
+    requiresBooking: resolveRequiresBooking(rec),
+    eventType: resolveEventType(rec),
+  });
 
   return {
     id: rec.id,
-    type: rec.opportunityType as OppType,
+    type,
     title: resolveName(rec),
     image: buildImageUrl(rec.image, rec.opportunityType) ,
-    // duration: resolveDuration(rec),
-    duration: "",
+    duration,
     tags: resolveTags(rec),
+    activityGroup: resolveActivityGroup(rec),
+    theme: resolveTheme(rec),
+    themeVariant: resolveThemeVariant(rec),
     price,
-    travelTime: formatTravelTime(rec.drivingDurationSeconds ?? null),
+    travelTime,
     isFavorite: false,
     ...(priceValue !== undefined && { priceValue }),
     ...(distanceKm !== undefined && { distanceKm }),
@@ -247,6 +505,8 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
     location: rec.latitude !== undefined && rec.longitude !== undefined
       ? { latitude: rec.latitude, longitude: rec.longitude }
       : null,
+    cardDisplay,
+    routeSuitability: resolveRouteSuitability(rec),
   };
 }
 

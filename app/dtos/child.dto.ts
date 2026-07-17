@@ -5,6 +5,7 @@ export interface CreateChildDto {
   skillIds?: string[];
   interestCategoryIds?: string[];
   interestSubCategoryIds?: string[];
+  interestTags?: string[];
 }
 
 export interface UpdateChildDto {
@@ -16,4 +17,8 @@ export interface UpdateChildDto {
 export interface UpdateChildInterestsDto {
   interestCategoryIds: string[];
   interestSubCategoryIds: string[];
+}
+
+export interface UpdateChildInterestTagsDto {
+  interestTags: string[];
 }

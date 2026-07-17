@@ -37,6 +37,7 @@ export class OnboardParentService {
           skillIds:               [],
           interestCategoryIds:    [],
           interestSubCategoryIds: [],
+          interestTags:           [],
         }),
       ),
     );

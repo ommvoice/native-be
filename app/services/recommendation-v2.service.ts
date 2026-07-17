@@ -83,11 +83,11 @@ export class RecommendationV2Service {
         const interestScore  = Math.round(scoreInterestOverlap(familySlugs, c.themeSlug, c.themeVariantSlug));
         const ageScore       = Math.round(scoreAge(childAges, c.ageBands));
         const distanceScore  = Math.round(scoreDistance(distMiles, maxMiles));
-        const scheduleScore  = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays);
-        if (scheduleScore === 0) return null;
+        const openingTimeScore  = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime); //openningScore
+        if (openingTimeScore === 0) return null;
         const total          = combineWeighted(interestScore, ageScore, distanceScore);
         if (total === 0) return null;
-        const adjusted       = Math.round(total * (scheduleScore / 100));
+        const adjusted       = Math.round(total * (openingTimeScore / 100));
 
         const driving = drivingMap.get(legKey(c.type, c.id));
         return {
@@ -97,7 +97,7 @@ export class RecommendationV2Service {
           drivingDistanceMiles:   driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters)  : null,
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
           score: adjusted,
-          scoreBreakdown: { interestScore, ageScore, distanceScore, scheduleScore, total: adjusted },
+          scoreBreakdown: { interestScore, ageScore, distanceScore, openingTimeScore, total: adjusted },
         };
       })
       .filter(Boolean)
@@ -147,7 +147,7 @@ export class RecommendationV2Service {
         if (distMiles > maxMiles) return null;
         const ageScore      = Math.round(scoreAge(childAges, c.ageBands));
         const distScore     = Math.round(scoreDistance(distMiles, maxMiles));
-        const scheduleScore = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays);
+        const scheduleScore = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime);
         if (scheduleScore === 0) return null;
         const total         = combineNearby(ageScore, distScore);
         if (total === 0) return null;

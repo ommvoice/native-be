@@ -1,6 +1,12 @@
 import { scanAll, batchGetItems } from '../shared/db/dynamo-helpers';
 import { TABLES } from '../shared/db/tables';
 
+export interface InterestTagRecord {
+  id: string;
+  slug: string;
+  name: string;
+}
+
 export interface InterestCategoryRecord {
   id: string;
   slug: string;
@@ -40,5 +46,22 @@ export class InterestRepository {
   async getSubCategoriesByIds(ids: string[]): Promise<InterestSubCategoryRecord[]> {
     const items = await batchGetItems(TABLES.opportunityThemes, ids);
     return items as InterestSubCategoryRecord[];
+  }
+
+  async listInterestTags(): Promise<InterestTagRecord[]> {
+    const items = [{
+      id: '1',
+      slug: 'dogs',
+      name: 'Dogs'
+    }, {
+      id: '2',
+      slug: 'cats',
+      name: 'Cats'
+    }, {
+      id: '3',
+      slug: 'birds',
+      name: 'Birds'
+    }];
+    return items as InterestTagRecord[];
   }
 }

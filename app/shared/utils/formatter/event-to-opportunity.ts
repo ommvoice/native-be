@@ -2,12 +2,16 @@ import type { OpportunityEventV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
+import { resolveLiveStatus } from "./opportunity-status";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function splitList(raw: string | null): string[] | null {
   if (!raw) return null;
-  const parts = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  const parts = raw
+    .split(",")
+    .map((s) => s.trim().replace(/^["']+|["']+$/g, "").trim())
+    .filter(Boolean);
   return parts.length > 0 ? parts : null;
 }
 
@@ -297,7 +301,12 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     is_online: null,
     special_interest_tags: null,
     info_list: buildInfoData(data),
+
+    // ── Computed ──────────────────────────────────────────
+    liveStatus: { variant: "closed", message: "" },
+    seasonalHighlight: null,
   };
   opp.pricingTiers = buildPricingTiers(opp);
+  opp.liveStatus = resolveLiveStatus(opp);
   return opp;
 };

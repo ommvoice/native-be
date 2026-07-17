@@ -84,17 +84,50 @@ export function combineNearby(ageScore: number, distanceScore: number): number {
   return Math.round(ageScore * 0.5 + distanceScore * 0.5);
 }
 
+const ONE_HOUR_MS = 60 * 60 * 1000;
+
+/** Combines an "HH:mm" time-of-day string with `date`'s calendar day. Returns null on unparseable input. */
+function parseTimeOnDate(date: Date, time: string): Date | null {
+  const match = time.match(/^(\d{1,2}):(\d{2})/);
+  if (!match) return null;
+  const result = new Date(date);
+  result.setHours(Number(match[1]), Number(match[2]), 0, 0);
+  return result;
+}
+
+function isStartingWithinAnHour(now: Date, startTime?: string | null): boolean {
+  if (!startTime) return false;
+  const start = parseTimeOnDate(now, startTime);
+  if (!start) return false;
+  const diff = start.getTime() - now.getTime();
+  return diff >= 0 && diff <= ONE_HOUR_MS;
+}
+
+function endedWithinAnHour(now: Date, endTime?: string | null): boolean {
+  if (!endTime) return false;
+  const end = parseTimeOnDate(now, endTime);
+  if (!end) return false;
+  const diff = now.getTime() - end.getTime();
+  return diff >= 0 && diff <= ONE_HOUR_MS;
+}
+
 export function scoreSchedule(
   type: string,
   startDate?: string | null,
   endDate?: string | null,
   activeDays?: string[],
+  startTime?: string | null,
+  endTime?: string | null,
 ): number {
   if (type === 'venue' || type === 'route') return 100;
 
   const now   = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const MS_PER_DAY = 86_400_000;
+
+  // Starting inside the next hour, or ended inside the last hour — surface
+  // these as maximally relevant regardless of the day-level score below.
+  if (isStartingWithinAnHour(now, startTime) || endedWithinAnHour(now, endTime)) return 100;
 
   if (type === 'event') {
     if (!startDate && !endDate) return 50;

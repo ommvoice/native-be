@@ -2,12 +2,16 @@ import type { OpportunityClubV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
+import { resolveLiveStatus } from "./opportunity-status";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function splitList(raw: string | null): string[] | null {
   if (!raw) return null;
-  const parts = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  const parts = raw
+    .split(",")
+    .map((s) => s.trim().replace(/^["']+|["']+$/g, "").trim())
+    .filter(Boolean);
   return parts.length > 0 ? parts : null;
 }
 
@@ -188,6 +192,18 @@ export function buildScheduleInfo(data: OpportunityClubV2): { title: string; sub
   return { title, subtitle };
 }
 
+const CLUB_COMMITMENT_LABELS: Record<string, string> = {
+  pay_and_go: "Pay & Go",
+  monthly: "Monthly Commitment",
+  termly: "Termly Commitment",
+  annually: "Annual Commitment",
+};
+
+function resolveClubCommitmentLabel(commitment: string | null): string {
+  if (!commitment) return "—";
+  return CLUB_COMMITMENT_LABELS[commitment] ?? commitment;
+}
+
 function buildInfoData(data: OpportunityClubV2): any[] | null {
   const infoList: { icon: string; title: string; subtitle: string; label: string }[] = [];
 
@@ -202,7 +218,7 @@ function buildInfoData(data: OpportunityClubV2): any[] | null {
 
   const bookingTitle = data.ticketingRequirement ? "Book Ahead" : "Drop In";
   if (data.ticketingRequirement !== null || data.clubCommittment) {
-    infoList.push({ icon: "booking", title: bookingTitle, subtitle: data.clubCommittment ?? "—", label: "Booking" });
+    infoList.push({ icon: "booking", title: bookingTitle, subtitle: resolveClubCommitmentLabel(data.clubCommittment), label: "Booking" });
   }
 
   return infoList.length > 0 ? infoList : null;
@@ -341,7 +357,12 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     is_online: null,
     special_interest_tags: null,
     info_list: buildInfoData(data),
+
+    // ── Computed ──────────────────────────────────────────
+    liveStatus: { variant: "closed", message: "" },
+    seasonalHighlight: null,
   };
   opp.pricingTiers = buildPricingTiers(opp);
+  opp.liveStatus = resolveLiveStatus(opp);
   return opp;
 };

@@ -283,7 +283,7 @@ const ROUTE_SUITABILITY_KEYWORDS: Record<string, string[]> = {
   Carriers: ["carrier", "sling"],
 };
 
-function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): string[] {
+export function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): string[] {
   if (rec.opportunityType !== "route") return [];
   const route = rec as unknown as OpportunityRouteV2;
   const haystack = [

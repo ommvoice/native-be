@@ -56,5 +56,5 @@ export const clipNClimbExeterQuayVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "Early access introduction, Skill progression, Confidence building, Coordination & balance, Strength & agility, Structured coaching, Mixed-ability sessions, Non-competitive options, Purpose-built facilities, Safe enclosed spaces, All-weather options, Climbing",
   venueExtraKit: null,
-  image: "Clip'n'climb Exeter Quay.JPG",
+  image: "Clip_n_climb Exeter Quay.jpg",
 };

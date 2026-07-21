@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /**
- * Generates app/shared/enums/*.enum.ts from the "Enums" sheet in newData.xlsx.
+ * Generates seed/data/uat/enums/*.enum.ts from the "Enums" sheet in newData.xlsx.
  *
  * The sheet is a manually-maintained spreadsheet with merged cells (only the
  * first row of a repeating group carries enum_name/group_label, the rest are
@@ -15,11 +15,13 @@ import XLSX from "xlsx";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import { type EnumEntry, slugify, normalizeForMatch, matchByName } from "./lib/enum-matching.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WORKBOOK_PATH = path.join(__dirname, "..", "newData.xlsx");
-const OUTPUT_DIR = path.join(__dirname, "..", "app", "shared", "enums");
+const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "enums");
 const SHEET_NAME = "Enums";
+const OVERLAY_PATH = path.join(OUTPUT_DIR, "data-discovered-additions.json");
 
 const COL = {
   ENUM_NAME: 0,
@@ -45,13 +47,6 @@ interface AttractionRow {
   groupLabel: string;
   valueKey: string | null;
   valueLabel: string;
-}
-
-interface EnumEntry {
-  name: string;
-  slug: string;
-  relatedEnumNameSlugs?: string[];
-  active: boolean;
 }
 
 interface EnumFile {
@@ -98,34 +93,6 @@ function isSectionHeader(row: Cell[]): boolean {
 }
 
 // ── Slugging ──────────────────────────────────────────────────────────────────
-
-function slugify(input: string): string {
-  return input
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/['’"]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "_")
-    .replace(/^_+|_+$/g, "");
-}
-
-function normalizeForMatch(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-}
-
-function wordSet(s: string): string {
-  return normalizeForMatch(s).split(" ").filter(Boolean).sort().join(" ");
-}
-
-/** Exact match first, then word-order-independent match (sheet has cases like "Green Open Spaces" vs "Open Green Spaces"). */
-function matchByName(candidates: EnumEntry[], name: string): EnumEntry | undefined {
-  const target = normalizeForMatch(name);
-  const exact = candidates.find((c) => normalizeForMatch(c.name) === target);
-  if (exact) return exact;
-  const targetWords = wordSet(name);
-  return candidates.find((c) => wordSet(c.name) === targetWords);
-}
 
 /** Known label mismatches between a relation-table's free text and the canonical enum entry it refers to (keys are pre-normalized via normalizeForMatch). */
 const NAME_ALIASES: Record<string, string> = {
@@ -418,6 +385,27 @@ function emitIndex(files: EnumFile[]): void {
   fs.writeFileSync(path.join(OUTPUT_DIR, "index.ts"), lines.join("\n") + "\n");
 }
 
+/**
+ * Merges in enum values discovered while parsing real opportunity data (e.g.
+ * scripts/parse-events-data.ts) that don't exist in the "Enums" sheet yet.
+ * Keeps additions durable across re-runs of this script, since the generated
+ * .enum.ts files themselves get fully overwritten every time.
+ */
+function mergeOverlay(files: EnumFile[]): void {
+  if (!fs.existsSync(OVERLAY_PATH)) return;
+  const overlay = JSON.parse(fs.readFileSync(OVERLAY_PATH, "utf8")) as Record<string, { name: string; slug: string }[]>;
+  for (const file of files) {
+    const additions = overlay[file.exportName];
+    if (!additions?.length) continue;
+    const existingSlugs = new Set(file.entries.map((e) => e.slug));
+    for (const addition of additions) {
+      if (existingSlugs.has(addition.slug)) continue;
+      file.entries.push({ name: addition.name, slug: addition.slug, active: true });
+      existingSlugs.add(addition.slug);
+    }
+  }
+}
+
 function validateRelations(files: EnumFile[]): void {
   const allSlugs = new Set<string>();
   const slugOwners = new Map<string, string[]>();
@@ -503,6 +491,8 @@ function main(): void {
     typeName: "ThemeAttraction",
     entries: buildThemeAttractionEntries(attractionRows, opportunityThemeEntries),
   });
+
+  mergeOverlay(files);
 
   validateRelations(files);
 

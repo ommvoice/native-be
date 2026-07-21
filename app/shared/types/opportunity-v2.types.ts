@@ -48,6 +48,8 @@ export interface OpportunityVenueV2 {
   venueMixedTimingsSaturdayEnd:     string | null;
   venueMixedTimingsSundayStart:     string | null;
   venueMixedTimingsSundayEnd:       string | null;
+  venueOpeningExclusions:           string | null;
+  venueBankHolidays:                string | null;
   venueEntryCost:                   boolean | null;
   ticketingRequirement:             boolean | null;
   venueBookingType:                 string | null;
@@ -112,6 +114,10 @@ export interface OpportunityEventV2 {
   longitude:                        string | null;
   eventPhysicalSetting:             string | null;
   eventDetailedWeatherSuitability:  string | null;
+  eventVenueDogFacilities:               string | null;
+  eventVenuePhysicalSetting:             string | null;
+  eventVenueDetailedWeatherSuitability:  string | null;
+  eventVenueEstimatedDuration:           string | null;
   eventStartDate:                   Date | null;
   eventEndDate:                     Date | null;
   eventDaysTotal:                   number | null;
@@ -296,6 +302,7 @@ export interface OpportunityRouteV2 {
   routeActivityGrouping:            string | null;
   routeDescription:                 string | null;
   routeType:                        string | null;
+  routeSuitability:                 string | null;
   routeDistance:                    string | null;
   routeTerrainType:                 string | null;
   routeDifficulty:                  string | null;

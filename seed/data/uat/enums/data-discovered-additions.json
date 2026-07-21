@@ -1,0 +1,56 @@
+{
+  "PARKING_PROVISION_ENUM": [
+    {
+      "name": "Members Car Park",
+      "slug": "members_car_park"
+    }
+  ],
+  "THEME_ATTRACTION_ENUM": [
+    {
+      "name": "Slides (particularly tall or long)",
+      "slug": "slides_particularly_tall_or_long"
+    },
+    {
+      "name": "Bowling",
+      "slug": "bowling"
+    },
+    {
+      "name": "Escape Room",
+      "slug": "escape_room"
+    }
+  ],
+  "OPPORTUNITY_THEME_VARIANT_ENUM": [
+    {
+      "name": "Rockpooling Hotspot",
+      "slug": "rockpooling_hotspot"
+    },
+    {
+      "name": "Library or Reading Nook",
+      "slug": "library_or_reading_nook"
+    },
+    {
+      "name": "Lido",
+      "slug": "lido"
+    },
+    {
+      "name": "Gallery",
+      "slug": "gallery"
+    }
+  ],
+  "EXTRA_KIT_ENUM": [
+    {
+      "name": "Warm change of clothes",
+      "slug": "warm_change_of_clothes"
+    },
+    {
+      "name": "Grip socks",
+      "slug": "grip_socks"
+    }
+  ],
+  "TICKET_VARIANT_ENUM": [
+    {
+      "name": "Advance Book",
+      "slug": "advance_book"
+    }
+  ]
+}

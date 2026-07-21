@@ -197,6 +197,16 @@ const facilitiesLambdas: LambdaDefinition[] = [
   },
 ];
 
+// ── Enums ─────────────────────────────────────────────────────────────────────
+
+const enumsLambdas: LambdaDefinition[] = [
+  {
+    key: 'enumsList', name: 'enums-list', entry: 'enums/list.ts',
+    permissions: { dynamodb: 'none', cognito: false },
+    routes: [{ path: ['enums'], method: 'GET', auth: false }],
+  },
+];
+
 // ── Opportunity V2 ────────────────────────────────────────────────────────────
 
 const opportunityLambdas: LambdaDefinition[] = [
@@ -334,6 +344,7 @@ export const allLambdas: LambdaDefinition[] = [
   ...skillsLambdas,
   ...themesLambdas,
   ...facilitiesLambdas,
+  ...enumsLambdas,
   ...opportunityLambdas,
   ...recommendationsLambdas,
   ...wishlistsLambdas,

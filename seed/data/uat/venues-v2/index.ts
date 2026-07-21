@@ -11,11 +11,11 @@ import { longParkPlayAreaVenueV2 } from "./long_park_play_area.js";
 import { manstoneBasketballCourtsVenueV2 } from "./manstone_basketball_courts.js";
 import { donkeySanctuaryVenueV2 } from "./donkey_sanctuary.js";
 import { wildwoodEscotWildlifeParkVenueV2 } from "./wildwood_escot_wildlife_park.js";
-import { clipNClimbExeterQuayVenueV2 } from "./clipnclimb_exeter_quay.js";
+import { clipnclimbExeterQuayVenueV2 } from "./clipnclimb_exeter_quay.js";
 import { coldHarbourFieldKitchenVenueV2 } from "./cold_harbour_field_kitchen.js";
-import { ullacombeFarmCafeVenueV2 } from "./ullacombe_farm_and_cafe.js";
+import { ullacombeFarmCafeVenueV2 } from "./ullacombe_farm_cafe.js";
 import { otterValleyFieldKitchenVenueV2 } from "./otter_valley_field_kitchen.js";
-import { ameliaSFlowerFarmCafeVenueV2 } from "./amelias_flower_farm_cafe.js";
+import { ameliasFlowerFarmCafeVenueV2 } from "./amelias_flower_farm_cafe.js";
 import { lowerHalsdonFarmCafeVenueV2 } from "./lower_halsdon_farm_cafe.js";
 import { chudleighPumpTrackVenueV2 } from "./chudleigh_pump_track.js";
 import { budleighSkateParkVenueV2 } from "./budleigh_skate_park.js";
@@ -64,6 +64,60 @@ import { funderParkVenueV2 } from "./funder_park.js";
 import { bystockPoolsVenueV2 } from "./bystock_pools.js";
 import { riverOtterRiverBeachVenueV2 } from "./river_otter_river_beach.js";
 import { parkeEstateRiverBeachVenueV2 } from "./parke_estate_river_beach.js";
+import { rammExeterVenueV2 } from "./ramm_exeter.js";
+import { thornesFarmCafeVenueV2 } from "./thornes_farm_cafe.js";
+import { paigntonZooVenueV2 } from "./paignton_zoo.js";
+import { babacombeModelVillageVenueV2 } from "./babacombe_model_village.js";
+import { dartmoorZooVenueV2 } from "./dartmoor_zoo.js";
+import { plymouthAquariumVenueV2 } from "./plymouth_aquarium.js";
+import { exeterUndergroundPassagesVenueV2 } from "./exeter_underground_passages.js";
+import { okehamptonCastleVenueV2 } from "./okehampton_castle.js";
+import { exminsterDrivingRangeVenueV2 } from "./exminster_driving_range.js";
+import { tenpinEscapeRoomsVenueV2 } from "./tenpin_escape_rooms.js";
+import { otteryStMaryParkLandOfCanaanVenueV2 } from "./ottery_st_mary_park_land_of_canaan.js";
+import { shellyBeachVenueV2 } from "./shelly_beach.js";
+import { putsboroughBeachVenueV2 } from "./putsborough_beach.js";
+import { jacobsLadderBeachSidmouthVenueV2 } from "./jacobs_ladder_beach_sidmouth.js";
+import { theMaerVenueV2 } from "./the_maer.js";
+import { woolacombeBeachVenueV2 } from "./woolacombe_beach.js";
+import { riseBakeryVenueV2 } from "./rise_bakery.js";
+import { heydaysVenueV2 } from "./heydays.js";
+import { phearParkBasketballCourt2VenueV2 } from "./phear_park_basketball_court_2.js";
+import { ibounceExeterVenueV2 } from "./ibounce_exeter.js";
+import { bumbleAndBeeManorGardensVenueV2 } from "./bumble_and_bee_manor_gardens.js";
+import { manorGardensExmouthVenueV2 } from "./manor_gardens_exmouth.js";
+import { bumbleSeaVenueV2 } from "./bumble_sea.js";
+import { seaShoreIceCreameryVenueV2 } from "./sea_shore_ice_creamery.js";
+import { brixhamMarinaVenueV2 } from "./brixham_marina.js";
+import { summerleazeBeachBudeVenueV2 } from "./summerleaze_beach_bude.js";
+import { budeSeaPoolVenueV2 } from "./bude_sea_pool.js";
+import { decoyParkSplashpadVenueV2 } from "./decoy_park_splashpad.js";
+import { ladramBayVenueV2 } from "./ladram_bay.js";
+import { sandyBayParkVenueV2 } from "./sandy_bay_park.js";
+import { stoverParkInformationHutVenueV2 } from "./stover_park_information_hut.js";
+import { makeSouthwestGalleryVenueV2 } from "./make_southwest_gallery.js";
+import { theCoffeeBankVenueV2 } from "./the_coffee_bank.js";
+import { tenpinSoftPlayVenueV2 } from "./tenpin_soft_play.js";
+import { iplaySoftplayVenueV2 } from "./iplay_softplay.js";
+import { topshamRecreationGroundVenueV2 } from "./topsham_recreation_ground.js";
+import { killertonEstateNtVenueV2 } from "./killerton_estate_nt.js";
+import { exeterArenaSkateParkVenueV2 } from "./exeter_arena_skate_park.js";
+import { whimplePumpTrackVenueV2 } from "./whimple_pump_track.js";
+import { whimplePlayParkVenueV2 } from "./whimple_play_park.js";
+import { wavesSwimmingRiveriaCentreVenueV2 } from "./waves_swimming_riveria_centre.js";
+import { belmontParkVenueV2 } from "./belmont_park.js";
+import { heavitreePleasureGroundsVenueV2 } from "./heavitree_pleasure_grounds.js";
+import { mincingLakeValleyParkDwtVenueV2 } from "./mincing_lake_valley_park_dwt.js";
+import { decoyParkVenueV2 } from "./decoy_park.js";
+import { finlakeFallsHolidayParkKidsSwimmingPoolVenueV2 } from "./finlake_falls_holiday_park_kids_swimming_pool.js";
+import { finlakeFallsHolidayParkFlumesRidesVenueV2 } from "./finlake_falls_holiday_park_flumes_rides.js";
+import { buryMeadowVenueV2 } from "./bury_meadow.js";
+import { mouthwellSandsVenueV2 } from "./mouthwell_sands.js";
+import { mansandsBeachNationalTrustVenueV2 } from "./mansands_beach_national_trust.js";
+import { greenwayNationalTrustVenueV2 } from "./greenway_national_trust.js";
+import { hangtimeVenueV2 } from "./hangtime.js";
+import { castleDrogoMuseumVenueV2 } from "./castle_drogo_museum.js";
+import { imaginationAvenuePlayCafeVenueV2 } from "./imagination_avenue_play_cafe.js";
 
 export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   haldonForestParkVenueV2,
@@ -78,11 +132,11 @@ export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   manstoneBasketballCourtsVenueV2,
   donkeySanctuaryVenueV2,
   wildwoodEscotWildlifeParkVenueV2,
-  clipNClimbExeterQuayVenueV2,
+  clipnclimbExeterQuayVenueV2,
   coldHarbourFieldKitchenVenueV2,
   ullacombeFarmCafeVenueV2,
   otterValleyFieldKitchenVenueV2,
-  ameliaSFlowerFarmCafeVenueV2,
+  ameliasFlowerFarmCafeVenueV2,
   lowerHalsdonFarmCafeVenueV2,
   chudleighPumpTrackVenueV2,
   budleighSkateParkVenueV2,
@@ -131,4 +185,58 @@ export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   bystockPoolsVenueV2,
   riverOtterRiverBeachVenueV2,
   parkeEstateRiverBeachVenueV2,
+  rammExeterVenueV2,
+  thornesFarmCafeVenueV2,
+  paigntonZooVenueV2,
+  babacombeModelVillageVenueV2,
+  dartmoorZooVenueV2,
+  plymouthAquariumVenueV2,
+  exeterUndergroundPassagesVenueV2,
+  okehamptonCastleVenueV2,
+  exminsterDrivingRangeVenueV2,
+  tenpinEscapeRoomsVenueV2,
+  otteryStMaryParkLandOfCanaanVenueV2,
+  shellyBeachVenueV2,
+  putsboroughBeachVenueV2,
+  jacobsLadderBeachSidmouthVenueV2,
+  theMaerVenueV2,
+  woolacombeBeachVenueV2,
+  riseBakeryVenueV2,
+  heydaysVenueV2,
+  phearParkBasketballCourt2VenueV2,
+  ibounceExeterVenueV2,
+  bumbleAndBeeManorGardensVenueV2,
+  manorGardensExmouthVenueV2,
+  bumbleSeaVenueV2,
+  seaShoreIceCreameryVenueV2,
+  brixhamMarinaVenueV2,
+  summerleazeBeachBudeVenueV2,
+  budeSeaPoolVenueV2,
+  decoyParkSplashpadVenueV2,
+  ladramBayVenueV2,
+  sandyBayParkVenueV2,
+  stoverParkInformationHutVenueV2,
+  makeSouthwestGalleryVenueV2,
+  theCoffeeBankVenueV2,
+  tenpinSoftPlayVenueV2,
+  iplaySoftplayVenueV2,
+  topshamRecreationGroundVenueV2,
+  killertonEstateNtVenueV2,
+  exeterArenaSkateParkVenueV2,
+  whimplePumpTrackVenueV2,
+  whimplePlayParkVenueV2,
+  wavesSwimmingRiveriaCentreVenueV2,
+  belmontParkVenueV2,
+  heavitreePleasureGroundsVenueV2,
+  mincingLakeValleyParkDwtVenueV2,
+  decoyParkVenueV2,
+  finlakeFallsHolidayParkKidsSwimmingPoolVenueV2,
+  finlakeFallsHolidayParkFlumesRidesVenueV2,
+  buryMeadowVenueV2,
+  mouthwellSandsVenueV2,
+  mansandsBeachNationalTrustVenueV2,
+  greenwayNationalTrustVenueV2,
+  hangtimeVenueV2,
+  castleDrogoMuseumVenueV2,
+  imaginationAvenuePlayCafeVenueV2,
 ];

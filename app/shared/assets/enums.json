@@ -1,0 +1,7049 @@
+{
+  "opportunityType": [
+    {
+      "name": "Activity Venue",
+      "slug": "venue",
+      "active": true
+    },
+    {
+      "name": "Route",
+      "slug": "route",
+      "active": true
+    },
+    {
+      "name": "Club",
+      "slug": "club",
+      "active": true
+    },
+    {
+      "name": "Event",
+      "slug": "event",
+      "active": true
+    },
+    {
+      "name": "Experience",
+      "slug": "experience",
+      "active": false
+    },
+    {
+      "name": "Community",
+      "slug": "community",
+      "active": false
+    },
+    {
+      "name": "Support",
+      "slug": "support",
+      "active": false
+    }
+  ],
+  "activityGroup": [
+    {
+      "name": "Simple Reset",
+      "slug": "simple_reset",
+      "active": true
+    },
+    {
+      "name": "Energy Burner",
+      "slug": "energy_burner",
+      "active": true
+    },
+    {
+      "name": "Low Effort",
+      "slug": "low_effort",
+      "active": true
+    },
+    {
+      "name": "Special Day Out",
+      "slug": "special_day_out",
+      "active": true
+    },
+    {
+      "name": "Moment of Peace",
+      "slug": "moment_of_peace",
+      "active": true
+    }
+  ],
+  "interestCategory": [
+    {
+      "name": "Nature & Exploration",
+      "slug": "nature_exploration",
+      "active": true
+    },
+    {
+      "name": "Movement & Energy",
+      "slug": "movement_energy",
+      "active": true
+    },
+    {
+      "name": "Creativity & Imagination",
+      "slug": "creativity_imagination",
+      "active": true
+    },
+    {
+      "name": "Learning & Curiosity",
+      "slug": "learning_curiosity",
+      "active": true
+    },
+    {
+      "name": "Slowing Down",
+      "slug": "slowing_down",
+      "active": true
+    },
+    {
+      "name": "Family Resets",
+      "slug": "together_time",
+      "active": true
+    },
+    {
+      "name": "Special & Memorable Days Out",
+      "slug": "special_memorable",
+      "active": true
+    }
+  ],
+  "generalSkill": [
+    {
+      "name": "Balance Biking",
+      "slug": "balance_biking",
+      "active": true
+    },
+    {
+      "name": "Cycling",
+      "slug": "cycling",
+      "active": true
+    },
+    {
+      "name": "Scootering",
+      "slug": "scootering",
+      "active": true
+    },
+    {
+      "name": "Hiking",
+      "slug": "hiking",
+      "active": true
+    },
+    {
+      "name": "Swimming",
+      "slug": "swimming",
+      "active": true
+    }
+  ],
+  "weatherSuitability": [
+    {
+      "name": "Raining / wet",
+      "slug": "wet_rain",
+      "active": true
+    },
+    {
+      "name": "Windy (> X mph)",
+      "slug": "windy",
+      "active": true
+    },
+    {
+      "name": "Sunshine",
+      "slug": "sunshine",
+      "active": true
+    },
+    {
+      "name": "Snow / sleet / ice",
+      "slug": "snow_ice",
+      "active": true
+    },
+    {
+      "name": "Overcast / cloudy",
+      "slug": "overcast",
+      "active": true
+    },
+    {
+      "name": "Stormy / heavy rain / thunderstorms",
+      "slug": "storm_heavy_rain",
+      "active": true
+    },
+    {
+      "name": "Dry & mild",
+      "slug": "dry_mild",
+      "active": true
+    },
+    {
+      "name": "Dry & cold",
+      "slug": "dry_cold",
+      "active": true
+    },
+    {
+      "name": "Dry & warm",
+      "slug": "dry_warm",
+      "active": true
+    },
+    {
+      "name": "Dry & hot",
+      "slug": "dry_hot",
+      "active": true
+    }
+  ],
+  "physicalSetting": [
+    {
+      "name": "Inside",
+      "slug": "inside",
+      "active": true
+    },
+    {
+      "name": "Outside",
+      "slug": "outside",
+      "active": true
+    },
+    {
+      "name": "Mixed",
+      "slug": "mixed_covering",
+      "active": true
+    }
+  ],
+  "ageSuitability": [
+    {
+      "name": "Under 1's",
+      "slug": "under_one",
+      "active": true
+    },
+    {
+      "name": "1",
+      "slug": "1_years",
+      "active": true
+    },
+    {
+      "name": "2",
+      "slug": "2_years",
+      "active": true
+    },
+    {
+      "name": "3",
+      "slug": "3_years",
+      "active": true
+    },
+    {
+      "name": "4",
+      "slug": "4_years",
+      "active": true
+    },
+    {
+      "name": "5",
+      "slug": "5_years",
+      "active": true
+    },
+    {
+      "name": "6",
+      "slug": "6_years",
+      "active": true
+    },
+    {
+      "name": "7",
+      "slug": "7_years",
+      "active": true
+    },
+    {
+      "name": "8",
+      "slug": "8_years",
+      "active": true
+    },
+    {
+      "name": "9",
+      "slug": "9_years",
+      "active": true
+    },
+    {
+      "name": "10",
+      "slug": "10_years",
+      "active": true
+    },
+    {
+      "name": "11",
+      "slug": "11_years",
+      "active": true
+    },
+    {
+      "name": "12",
+      "slug": "12_years",
+      "active": true
+    },
+    {
+      "name": "13+",
+      "slug": "13_years",
+      "active": true
+    },
+    {
+      "name": "16+",
+      "slug": "16_years",
+      "active": true
+    }
+  ],
+  "estimatedDuration": [
+    {
+      "name": "Under 30mins",
+      "slug": "under_thirty_mins",
+      "active": true
+    },
+    {
+      "name": "30-60mins",
+      "slug": "thirty_sixty_mins",
+      "active": true
+    },
+    {
+      "name": "1-2hrs",
+      "slug": "one_two_hours",
+      "active": true
+    },
+    {
+      "name": "2-3hrs",
+      "slug": "two_three_hours",
+      "active": true
+    },
+    {
+      "name": "4+ hours",
+      "slug": "four_plus",
+      "active": true
+    },
+    {
+      "name": "Whole Day",
+      "slug": "whole_day",
+      "active": true
+    }
+  ],
+  "functionalFacility": [
+    {
+      "name": "Toilets",
+      "slug": "toilets",
+      "active": true
+    },
+    {
+      "name": "Disabled toilets",
+      "slug": "disabled_toilets",
+      "active": true
+    },
+    {
+      "name": "Baby changing",
+      "slug": "baby_changing",
+      "active": true
+    },
+    {
+      "name": "Showers / changing facilities",
+      "slug": "showers_changing",
+      "active": true
+    },
+    {
+      "name": "Bench Seating",
+      "slug": "benches",
+      "active": true
+    },
+    {
+      "name": "Picnic Benches",
+      "slug": "picnic_benches",
+      "active": true
+    },
+    {
+      "name": "Highchairs",
+      "slug": "highchairs",
+      "active": true
+    },
+    {
+      "name": "Indoor Seating",
+      "slug": "indoor_seating",
+      "active": true
+    },
+    {
+      "name": "Dogs Allowed",
+      "slug": "dogs_allowed",
+      "active": true
+    },
+    {
+      "name": "Guided Tour",
+      "slug": "guided_tour",
+      "active": true
+    },
+    {
+      "name": "Service Dogs Only",
+      "slug": "service_dogs_only",
+      "active": true
+    },
+    {
+      "name": "Buggy Loan",
+      "slug": "buggy_loan",
+      "active": true
+    },
+    {
+      "name": "Baby Carrier Loan",
+      "slug": "carrier_loan",
+      "active": true
+    },
+    {
+      "name": "Outdoor Seating",
+      "slug": "outdoor_seating",
+      "active": true
+    }
+  ],
+  "parentFacility": [
+    {
+      "name": "Hot Drinks",
+      "slug": "hot_drinks",
+      "active": true
+    },
+    {
+      "name": "Comfy Seating / Sofas",
+      "slug": "comfy_seating",
+      "active": true
+    },
+    {
+      "name": "Sunloungers",
+      "slug": "sunloungers",
+      "active": true
+    },
+    {
+      "name": "WiFi",
+      "slug": "wifi",
+      "active": true
+    },
+    {
+      "name": "Hot & Cold food",
+      "slug": "hot_cold_food",
+      "active": true
+    },
+    {
+      "name": "Clear Sightlines",
+      "slug": "clear_sightlines",
+      "active": true
+    },
+    {
+      "name": "Snacks",
+      "slug": "snacks",
+      "active": true
+    },
+    {
+      "name": "Drinks stand",
+      "slug": "drinks_stand",
+      "active": true
+    },
+    {
+      "name": "Sweet treats",
+      "slug": "sweet_treats",
+      "active": true
+    },
+    {
+      "name": "Log burner",
+      "slug": "log_burner",
+      "active": true
+    },
+    {
+      "name": "Bookshop",
+      "slug": "book_shop",
+      "active": true
+    },
+    {
+      "name": "Giftshop",
+      "slug": "gift_shop",
+      "active": true
+    },
+    {
+      "name": "Outdoor terrace",
+      "slug": "outdoor_terrace",
+      "active": true
+    }
+  ],
+  "kidsFacility": [
+    {
+      "name": "Colouring",
+      "slug": "colouring",
+      "active": true
+    },
+    {
+      "name": "Ice creams",
+      "slug": "ice_creams",
+      "active": true
+    },
+    {
+      "name": "Activity Sheets or Signs",
+      "slug": "activity_sheets",
+      "active": true
+    },
+    {
+      "name": "Activity trail",
+      "slug": "activity_trail",
+      "active": true
+    },
+    {
+      "name": "Treasure hunt",
+      "slug": "treasure_hunt",
+      "active": true
+    },
+    {
+      "name": "Children’s trail",
+      "slug": "childrens_trail",
+      "active": true
+    },
+    {
+      "name": "Clues / games",
+      "slug": "clues_games",
+      "active": true
+    },
+    {
+      "name": "Indoor games (puzzles, boards)",
+      "slug": "indoor_games",
+      "active": true
+    },
+    {
+      "name": "Sandpit",
+      "slug": "sandpit",
+      "active": true
+    },
+    {
+      "name": "Zip Line",
+      "slug": "zip_line",
+      "active": true
+    },
+    {
+      "name": "Rope Swings",
+      "slug": "rope_swings",
+      "active": true
+    },
+    {
+      "name": "Ride on Vehicles",
+      "slug": "ride_on_vehicles",
+      "active": true
+    },
+    {
+      "name": "Tractor Rides",
+      "slug": "tractor_rides",
+      "active": true
+    },
+    {
+      "name": "Children's Menu",
+      "slug": "childrens_menu",
+      "active": true
+    },
+    {
+      "name": "Swings, Slides, Climbing Frames",
+      "slug": "swings_slides",
+      "active": true
+    },
+    {
+      "name": "Indoor Play Space",
+      "slug": "soft_play_space",
+      "active": true
+    },
+    {
+      "name": "Outdoor play equipment",
+      "slug": "play_equipment",
+      "active": true
+    }
+  ],
+  "dogFacility": [
+    {
+      "name": "Poo Bins",
+      "slug": "dog_bins",
+      "active": true
+    },
+    {
+      "name": "Dog Wash",
+      "slug": "dog_wash",
+      "active": true
+    },
+    {
+      "name": "(Free) Dog Kennels",
+      "slug": "dog_kennels",
+      "active": true
+    },
+    {
+      "name": "Dogs On Leads",
+      "slug": "lead_only",
+      "active": true
+    }
+  ],
+  "parkingProvision": [
+    {
+      "name": "Paid Car Park",
+      "slug": "car_parking_paid",
+      "active": true
+    },
+    {
+      "name": "Free Car Park",
+      "slug": "car_parking_free",
+      "active": true
+    },
+    {
+      "name": "Members Only Car Park",
+      "slug": "car_parking_members_only",
+      "active": true
+    },
+    {
+      "name": "On-street / nearby parking",
+      "slug": "on_street_nearby",
+      "active": true
+    },
+    {
+      "name": "Disabled parking bays",
+      "slug": "disabled_bays",
+      "active": true
+    },
+    {
+      "name": "Horse “parking”",
+      "slug": "horse_parking",
+      "active": true
+    },
+    {
+      "name": "Bike racks / bays",
+      "slug": "bike_racks",
+      "active": true
+    },
+    {
+      "name": "Members Car Park",
+      "slug": "members_car_park",
+      "active": true
+    }
+  ],
+  "extraKit": [
+    {
+      "name": "Pram / buggy (road surfaces)",
+      "slug": "pram_buggy_road",
+      "active": true
+    },
+    {
+      "name": "XC Buggy",
+      "slug": "xcountry_buggy",
+      "active": true
+    },
+    {
+      "name": "Sling / baby carrier",
+      "slug": "sling_carrier",
+      "active": true
+    },
+    {
+      "name": "Infant / toddler carrier",
+      "slug": "toddler_carrier",
+      "active": true
+    },
+    {
+      "name": "Swimming kit",
+      "slug": "swimming_kit",
+      "active": true
+    },
+    {
+      "name": "Towels",
+      "slug": "towels",
+      "active": true
+    },
+    {
+      "name": "Water shoes",
+      "slug": "water_shoes",
+      "active": true
+    },
+    {
+      "name": "Beach toys",
+      "slug": "beach_toys",
+      "active": true
+    },
+    {
+      "name": "Sand toys",
+      "slug": "sand_toys",
+      "active": true
+    },
+    {
+      "name": "Tide timetable",
+      "slug": "tide_times",
+      "active": true
+    },
+    {
+      "name": "Dry bags",
+      "slug": "dry_bags",
+      "active": true
+    },
+    {
+      "name": "Buckets & nets",
+      "slug": "fishing_nets",
+      "active": true
+    },
+    {
+      "name": "Fishing rods & bait",
+      "slug": "fishing_rods_bait",
+      "active": true
+    },
+    {
+      "name": "Wetsuits",
+      "slug": "wetsuits",
+      "active": true
+    },
+    {
+      "name": "Wetsuit Boots",
+      "slug": "wetsuit_boots",
+      "active": true
+    },
+    {
+      "name": "Snorkel & Mask",
+      "slug": "snorkel_mask",
+      "active": true
+    },
+    {
+      "name": "Sun kit (SPF, hats, sunglasses)",
+      "slug": "sunshine_kit",
+      "active": true
+    },
+    {
+      "name": "Waterproof clothing",
+      "slug": "waterproofs",
+      "active": true
+    },
+    {
+      "name": "Wellies",
+      "slug": "wellies",
+      "active": true
+    },
+    {
+      "name": "Change of clothes",
+      "slug": "warm_clothes",
+      "active": true
+    },
+    {
+      "name": "Sturdy footwear",
+      "slug": "sturdy_footwear",
+      "active": true
+    },
+    {
+      "name": "Torch",
+      "slug": "torch",
+      "active": true
+    },
+    {
+      "name": "Headtorch",
+      "slug": "headtorch",
+      "active": true
+    },
+    {
+      "name": "Binoculars",
+      "slug": "binoculars",
+      "active": true
+    },
+    {
+      "name": "Activity-specific clothing",
+      "slug": "activity_specific_clothing",
+      "active": true
+    },
+    {
+      "name": "Chalk Bag",
+      "slug": "chalk_bag",
+      "active": true
+    },
+    {
+      "name": "Kite",
+      "slug": "kite_play",
+      "active": true
+    },
+    {
+      "name": "Indoor activities (colouring, puzzles)",
+      "slug": "indoor_activities_kit",
+      "active": true
+    },
+    {
+      "name": "Cash - no card payments",
+      "slug": "cash_payments",
+      "active": true
+    },
+    {
+      "name": "Cashless - bring a bank card",
+      "slug": "cashless_payments_only",
+      "active": true
+    },
+    {
+      "name": "Camping Gear",
+      "slug": "camping_gear",
+      "active": true
+    },
+    {
+      "name": "Warm change of clothes",
+      "slug": "warm_change_of_clothes",
+      "active": true
+    },
+    {
+      "name": "Grip socks",
+      "slug": "grip_socks",
+      "active": true
+    }
+  ],
+  "seasonalTag": [
+    {
+      "name": "Christmas",
+      "slug": "christmas",
+      "active": true
+    },
+    {
+      "name": "Advent",
+      "slug": "advent",
+      "active": true
+    },
+    {
+      "name": "Winter",
+      "slug": "winter",
+      "active": true
+    },
+    {
+      "name": "Valentine’s",
+      "slug": "valentines",
+      "active": true
+    },
+    {
+      "name": "Winter solstice",
+      "slug": "winter_solstice",
+      "active": true
+    },
+    {
+      "name": "Springtime",
+      "slug": "spring_flowers",
+      "active": true
+    },
+    {
+      "name": "Easter",
+      "slug": "easter",
+      "active": true
+    },
+    {
+      "name": "Lent",
+      "slug": "lent",
+      "active": true
+    },
+    {
+      "name": "Autumn",
+      "slug": "autumn",
+      "active": true
+    },
+    {
+      "name": "Summer",
+      "slug": "summer",
+      "active": true
+    },
+    {
+      "name": "Summer solstice",
+      "slug": "summer_solstice",
+      "active": true
+    },
+    {
+      "name": "Autumn colours",
+      "slug": "autumn_colours",
+      "active": true
+    },
+    {
+      "name": "Halloween",
+      "slug": "halloween",
+      "active": true
+    },
+    {
+      "name": "Guy Fawkes",
+      "slug": "guy_fawkes",
+      "active": true
+    },
+    {
+      "name": "Summer holiday clubs",
+      "slug": "summer_holiday_clubs",
+      "active": true
+    },
+    {
+      "name": "Half term clubs",
+      "slug": "half_term_clubs",
+      "active": true
+    }
+  ],
+  "routeType": [
+    {
+      "name": "Circular",
+      "slug": "circular",
+      "active": true
+    },
+    {
+      "name": "Out-and-back",
+      "slug": "out_and_back",
+      "active": true
+    },
+    {
+      "name": "Point to point",
+      "slug": "point_to_point",
+      "active": true
+    },
+    {
+      "name": "Loop with variations",
+      "slug": "loop_with_variations",
+      "active": true
+    },
+    {
+      "name": "Trail network",
+      "slug": "trail_network",
+      "active": true
+    }
+  ],
+  "routeSuitability": [
+    {
+      "name": "Buggy friendly",
+      "slug": "buggy_friendly",
+      "active": true
+    },
+    {
+      "name": "Dog friendly",
+      "slug": "dog_friendly",
+      "active": true
+    },
+    {
+      "name": "Scooter route",
+      "slug": "scooter_route",
+      "active": true
+    },
+    {
+      "name": "Cycle route",
+      "slug": "cycle_route",
+      "active": true
+    },
+    {
+      "name": "Mountain Bikes Only",
+      "slug": "bike_route",
+      "active": true
+    },
+    {
+      "name": "Wheelchair friendly",
+      "slug": "wheelchair_friendly",
+      "active": true
+    },
+    {
+      "name": "Carrier Only",
+      "slug": "carrier_only",
+      "active": true
+    },
+    {
+      "name": "Off-road Buggies only",
+      "slug": "offroad_buggy_only",
+      "active": true
+    }
+  ],
+  "terrainType": [
+    {
+      "name": "Steep",
+      "slug": "steep",
+      "active": true
+    },
+    {
+      "name": "Undulating",
+      "slug": "undulating",
+      "active": true
+    },
+    {
+      "name": "Flat",
+      "slug": "flat",
+      "active": true
+    },
+    {
+      "name": "Mixed terrain",
+      "slug": "mixed",
+      "active": true
+    },
+    {
+      "name": "Steps",
+      "slug": "steps",
+      "active": true
+    },
+    {
+      "name": "Rocky",
+      "slug": "rocky",
+      "active": true
+    },
+    {
+      "name": "Gravel",
+      "slug": "gravel",
+      "active": true
+    },
+    {
+      "name": "Uneven",
+      "slug": "uneven",
+      "active": true
+    },
+    {
+      "name": "Surfaced / smooth",
+      "slug": "surfaced_smooth",
+      "active": true
+    },
+    {
+      "name": "Sand",
+      "slug": "sand",
+      "active": true
+    },
+    {
+      "name": "Woodland track",
+      "slug": "woodland_track",
+      "active": true
+    }
+  ],
+  "routeDifficulty": [
+    {
+      "name": "Easy",
+      "slug": "easy",
+      "active": true
+    },
+    {
+      "name": "Moderate",
+      "slug": "moderate",
+      "active": true
+    },
+    {
+      "name": "Challenging",
+      "slug": "challenging",
+      "active": true
+    }
+  ],
+  "clubFormat": [
+    {
+      "name": "Workshop",
+      "slug": "workshop",
+      "active": true
+    },
+    {
+      "name": "Stay-and-play (supervised)",
+      "slug": "stay_and_play_supervised",
+      "active": true
+    },
+    {
+      "name": "Lesson",
+      "slug": "lesson",
+      "active": true
+    },
+    {
+      "name": "Free play (unsupervised)",
+      "slug": "free_play_unsupervised",
+      "active": true
+    },
+    {
+      "name": "Training / Skill Development",
+      "slug": "training",
+      "active": true
+    }
+  ],
+  "clubFrequency": [
+    {
+      "name": "One-off",
+      "slug": "one_off",
+      "active": true
+    },
+    {
+      "name": "Daily",
+      "slug": "daily",
+      "active": true
+    },
+    {
+      "name": "Weekly",
+      "slug": "weekly",
+      "active": true
+    },
+    {
+      "name": "Monthly",
+      "slug": "monthly",
+      "active": true
+    },
+    {
+      "name": "Term-time only",
+      "slug": "term_time_only",
+      "active": true
+    },
+    {
+      "name": "All year (with exceptions)",
+      "slug": "all_year_with_exceptions",
+      "active": true
+    }
+  ],
+  "clubCommitment": [
+    {
+      "name": "One-off (pay as you go)",
+      "slug": "payg_one_off",
+      "active": true
+    },
+    {
+      "name": "Monthly",
+      "slug": "monthly",
+      "active": true
+    },
+    {
+      "name": "Termly blocks",
+      "slug": "termly_blocks",
+      "active": true
+    },
+    {
+      "name": "Annually",
+      "slug": "annually",
+      "active": true
+    },
+    {
+      "name": "Membership",
+      "slug": "membership",
+      "active": true
+    }
+  ],
+  "skillArea": [
+    {
+      "name": "Sport",
+      "slug": "sport",
+      "active": true
+    },
+    {
+      "name": "Creative Arts",
+      "slug": "creative_arts",
+      "active": true
+    },
+    {
+      "name": "Academic",
+      "slug": "academic",
+      "active": true
+    },
+    {
+      "name": "Social & emotional",
+      "slug": "social_emotional",
+      "active": true
+    },
+    {
+      "name": "Life Skills",
+      "slug": "life_skills",
+      "active": true
+    },
+    {
+      "name": "Technical Skills",
+      "slug": "technical_skills",
+      "active": true
+    },
+    {
+      "name": "Outdoors & Nature",
+      "slug": "outdoor_nature",
+      "active": true
+    },
+    {
+      "name": "Global Awareness",
+      "slug": "global_awareness",
+      "active": true
+    },
+    {
+      "name": "Digital, media & modern",
+      "slug": "digital_media_modern",
+      "active": true
+    },
+    {
+      "name": "Crafting & Art",
+      "slug": "crafting_art",
+      "active": true
+    },
+    {
+      "name": "Sensory or SEND",
+      "slug": "sensory_play",
+      "active": true
+    }
+  ],
+  "abilityLevel": [
+    {
+      "name": "None / Novice",
+      "slug": "novice",
+      "active": true
+    },
+    {
+      "name": "Beginner",
+      "slug": "beginner",
+      "active": true
+    },
+    {
+      "name": "Intermediate",
+      "slug": "intermediate",
+      "active": true
+    },
+    {
+      "name": "Expert",
+      "slug": "expert",
+      "active": true
+    }
+  ],
+  "eventType": [
+    {
+      "name": "Social Gathering",
+      "slug": "social_gathering",
+      "active": true
+    },
+    {
+      "name": "Shared Meal",
+      "slug": "shared_meal",
+      "active": true
+    },
+    {
+      "name": "Workshop or talk",
+      "slug": "workshop_or_talk",
+      "active": true
+    },
+    {
+      "name": "Craft- or Skills-based",
+      "slug": "crafty_making",
+      "active": true
+    },
+    {
+      "name": "Festive",
+      "slug": "festive",
+      "active": true
+    },
+    {
+      "name": "Nature-based",
+      "slug": "nature_based",
+      "active": true
+    },
+    {
+      "name": "Formal Event or Dinner",
+      "slug": "formal_event",
+      "active": true
+    },
+    {
+      "name": "Agricultural or County Show",
+      "slug": "country_show",
+      "active": true
+    },
+    {
+      "name": "Festival",
+      "slug": "festival",
+      "active": true
+    },
+    {
+      "name": "Music",
+      "slug": "music_event",
+      "active": true
+    },
+    {
+      "name": "Performance",
+      "slug": "performance",
+      "active": true
+    },
+    {
+      "name": "Entertainment",
+      "slug": "entertainment",
+      "active": true
+    },
+    {
+      "name": "Sporting",
+      "slug": "sport_based",
+      "active": true
+    },
+    {
+      "name": "Foraging, Fruit Picking",
+      "slug": "foraging",
+      "active": true
+    },
+    {
+      "name": "Tasting Event",
+      "slug": "tasting_event",
+      "active": true
+    },
+    {
+      "name": "Themed",
+      "slug": "themed",
+      "active": true
+    },
+    {
+      "name": "PYO",
+      "slug": "pick_your_own",
+      "active": true
+    },
+    {
+      "name": "Family Funday",
+      "slug": "family_fun_day",
+      "active": true
+    }
+  ],
+  "bookingType": [
+    {
+      "name": "Advance Book",
+      "slug": "advance_book",
+      "active": true
+    },
+    {
+      "name": "Pay On Arrival",
+      "slug": "pay_on_arrival",
+      "active": true
+    },
+    {
+      "name": "Open (Free) Access",
+      "slug": "open_access",
+      "active": true
+    },
+    {
+      "name": "Pre-Register",
+      "slug": "pre_register",
+      "active": true
+    },
+    {
+      "name": "Memberships",
+      "slug": "members_only",
+      "active": true
+    }
+  ],
+  "ticketVariant": [
+    {
+      "name": "Baby",
+      "slug": "baby",
+      "active": true
+    },
+    {
+      "name": "(Fixed) Child",
+      "slug": "fixed_child",
+      "active": true
+    },
+    {
+      "name": "Young Child",
+      "slug": "young_child",
+      "active": true
+    },
+    {
+      "name": "Older Child",
+      "slug": "older_child",
+      "active": true
+    },
+    {
+      "name": "Adult",
+      "slug": "adult",
+      "active": true
+    },
+    {
+      "name": "Concession",
+      "slug": "concession",
+      "active": true
+    },
+    {
+      "name": "Group",
+      "slug": "group",
+      "active": true
+    },
+    {
+      "name": "Advance Book",
+      "slug": "advance_book",
+      "active": true
+    }
+  ],
+  "opportunityTheme": [
+    {
+      "name": "Scenic Walks & Trails",
+      "slug": "scenic_walks",
+      "relatedEnumNameSlugs": [
+        "route",
+        "event",
+        "club",
+        "nature_exploration"
+      ],
+      "active": true
+    },
+    {
+      "name": "Green Open Spaces",
+      "slug": "green_spaces",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "nature_exploration"
+      ],
+      "active": true
+    },
+    {
+      "name": "Nature & Wildlife Exploration",
+      "slug": "nature_wildlife",
+      "relatedEnumNameSlugs": [
+        "route",
+        "venue",
+        "event",
+        "club",
+        "nature_exploration"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coastal Adventures",
+      "slug": "coastal_adventures",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "nature_exploration"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gardens & Curated Outdoor Spaces",
+      "slug": "gardens_outdoor",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "nature_exploration"
+      ],
+      "active": true
+    },
+    {
+      "name": "Playgrounds & Adventure Parks",
+      "slug": "active_play",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "movement_energy"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sporty Activities",
+      "slug": "sporty_activities",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "movement_energy"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rideable Routes",
+      "slug": "wheels_routes",
+      "relatedEnumNameSlugs": [
+        "route",
+        "event",
+        "club",
+        "venue",
+        "movement_energy"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water Activities",
+      "slug": "water_fun",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "nature_exploration",
+        "movement_energy"
+      ],
+      "active": true
+    },
+    {
+      "name": "Creative Activities",
+      "slug": "creative_play",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "creativity_imagination"
+      ],
+      "active": true
+    },
+    {
+      "name": "Imaginative & Role Play",
+      "slug": "imaginative_play",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "creativity_imagination"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sensory or Calming Experiences",
+      "slug": "sensory_soothing",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "slowing_down"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hands-On Learning",
+      "slug": "hands_on_learning",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "movement_energy",
+        "learning_curiosity"
+      ],
+      "active": true
+    },
+    {
+      "name": "Museums & Discovery",
+      "slug": "interactive_museums",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "creativity_imagination",
+        "learning_curiosity"
+      ],
+      "active": true
+    },
+    {
+      "name": "History & Culture",
+      "slug": "historical_cultural",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "creativity_imagination",
+        "learning_curiosity"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal Encounters",
+      "slug": "animal_encounters",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "learning_curiosity"
+      ],
+      "active": true
+    },
+    {
+      "name": "Soft Play & Indoor Active Play",
+      "slug": "soft_play",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "movement_energy"
+      ],
+      "active": true
+    },
+    {
+      "name": "Indoor Entertainment",
+      "slug": "indoor_entertainment",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "club",
+        "event",
+        "creativity_imagination",
+        "together_time",
+        "special_memorable"
+      ],
+      "active": true
+    },
+    {
+      "name": "Transport & Engineering",
+      "slug": "vehicles_transport",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club",
+        "learning_curiosity"
+      ],
+      "active": true
+    },
+    {
+      "name": "A Big Day Out",
+      "slug": "big_day_out",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "together_time",
+        "special_memorable"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cafés & Coffee Stops",
+      "slug": "relaxed_cafe",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "slowing_down",
+        "together_time"
+      ],
+      "active": true
+    },
+    {
+      "name": "Family Dining",
+      "slug": "family_dining",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "together_time"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal",
+      "slug": "seasonal",
+      "relatedEnumNameSlugs": [
+        "venue",
+        "event",
+        "club"
+      ],
+      "active": true
+    }
+  ],
+  "opportunityThemeVariant": [
+    {
+      "name": "Country Park",
+      "slug": "country_parks",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Parkland or Meadow",
+      "slug": "open_parkland",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Village Green",
+      "slug": "village_greens",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Village Park",
+      "slug": "village_parks",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Urban Green Space",
+      "slug": "urban_green_spaces",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Castle Grounds",
+      "slug": "castle_grounds",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Estate Grounds",
+      "slug": "estate_grounds",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Nature Reserve",
+      "slug": "nature_reserves",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildlife Hotspot",
+      "slug": "wildlife_spotting",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hydes or Cabins",
+      "slug": "hydes_cabins",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Information Hut or Learning Centre",
+      "slug": "learning_hut",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Forest School",
+      "slug": "forest_school",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural Play Area",
+      "slug": "natural_play_areas",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Den-Building & Nature Craft",
+      "slug": "den_building",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Discovery Trail",
+      "slug": "nature_trails",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sandy Beach",
+      "slug": "sandy_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pebble or Shingle Beach",
+      "slug": "pebble_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "RNLI Beach",
+      "slug": "rnli_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rocky Cove",
+      "slug": "coves_exploration",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coasteering Beach",
+      "slug": "coasteering_adventure",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wild or Remote Beach",
+      "slug": "wild_open_beaches",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dog-Friendly Beach",
+      "slug": "dog_friendly_beaches",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mixed Sand & Shingle Beach",
+      "slug": "mixed_sand_shingle",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sheltered Cove or Bay",
+      "slug": "cove_or_bay",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Surf Beach",
+      "slug": "surf_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Harbour or Village Beach",
+      "slug": "harbour_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Estuary Beach",
+      "slug": "estuary_beach",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Botanical Garden",
+      "slug": "botanical_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Arboretum",
+      "slug": "arboretum",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Historic Estate Garden",
+      "slug": "historic_estate_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Landscaped Garden",
+      "slug": "formal_landscape_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Community Garden",
+      "slug": "community_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themed Garden",
+      "slug": "themed_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Enclosed Garden",
+      "slug": "enclosed_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Destination Playground",
+      "slug": "large_playgrounds",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Local park",
+      "slug": "local_playgrouns",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Adventure Playground",
+      "slug": "adventure_playgrounds",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural Obstacle Course",
+      "slug": "natural_play",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Skate Park",
+      "slug": "skate_park",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Orienteering Course",
+      "slug": "orienteering_course",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Letterboxing Site",
+      "slug": "letterboxing_course",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Leisure Centre",
+      "slug": "leisure_centre",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Adventure / Assault Course",
+      "slug": "assault_course",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing Centre",
+      "slug": "climbing_centre",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Multisports Centre",
+      "slug": "multisports_activity_centre",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sport Stadium",
+      "slug": "sports_stadium",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sport Arena",
+      "slug": "sports_arena",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Swimming Pool",
+      "slug": "swimming_pool",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Community Centre",
+      "slug": "community_centre",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Range",
+      "slug": "range",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sports Track",
+      "slug": "sports_track",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Indoor Court",
+      "slug": "indoor_courts",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor Court",
+      "slug": "outdoor_courts",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Specialist Facility",
+      "slug": "specialist_sports_facility",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor Pitch",
+      "slug": "outdoor_pitch",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gym",
+      "slug": "gym",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coached Sessions",
+      "slug": "coached_sessions",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Structured Lessons",
+      "slug": "structured_lessons",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Club or Team",
+      "slug": "clubs_and_teams",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Training or Skills Focus",
+      "slug": "training_and_drills",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Kit & Equipment Hire",
+      "slug": "kit_hire",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hireable Court/Pitch",
+      "slug": "hire_and_free_practice",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Winter Wonderland",
+      "slug": "winter_wonderland",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ice-skating Rink",
+      "slug": "ice_rink",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Festival Park",
+      "slug": "festival_park",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Arena",
+      "slug": "arena",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stadium",
+      "slug": "statium",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Showground",
+      "slug": "showground",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fairground",
+      "slug": "fairground",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "PYO Farm",
+      "slug": "pick_your_own",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lights Trail",
+      "slug": "light_trail",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Patch or Field",
+      "slug": "patch",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Paddle Spot",
+      "slug": "paddle_spot",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water play",
+      "slug": "water_play",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "River Beach",
+      "slug": "river_beach",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Waterparks",
+      "slug": "water_park",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "On The Water",
+      "slug": "water_rides",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water Adventure",
+      "slug": "water_adventure",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Creative Artwork",
+      "slug": "making_and_creating",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Music & Movement",
+      "slug": "expressive_movement_and_music",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Creative Expression",
+      "slug": "creative_expression",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Performative Arts",
+      "slug": "performing_and_putting_on_a_show",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Film or Media",
+      "slug": "film_photography",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Character-Led Play",
+      "slug": "role_play_and_characters",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Immersive Worlds",
+      "slug": "immersive_worlds",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scenario & World play",
+      "slug": "scenario_and_world_play",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Narrative-led experiences",
+      "slug": "narrative_led_experiences",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sensory garden",
+      "slug": "sensory_garden",
+      "relatedEnumNameSlugs": [
+        "sensory_soothing"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sensory Space",
+      "slug": "sensory_room_or_space",
+      "relatedEnumNameSlugs": [
+        "sensory_soothing"
+      ],
+      "active": true
+    },
+    {
+      "name": "Soothing Environment",
+      "slug": "calming_designed_environment",
+      "relatedEnumNameSlugs": [
+        "sensory_soothing"
+      ],
+      "active": true
+    },
+    {
+      "name": "Light-touch Sensory",
+      "slug": "light_touch_sensory_experience",
+      "relatedEnumNameSlugs": [
+        "sensory_soothing"
+      ],
+      "active": true
+    },
+    {
+      "name": "Experiments",
+      "slug": "experiments",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Discovery-Based Challenges",
+      "slug": "discovery_challenges",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Learning Through Play",
+      "slug": "learning_through_play",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Interactive Exhibits",
+      "slug": "interactive_exhibits",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Problem-Solving",
+      "slug": "problem_solving",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Construction Activities",
+      "slug": "construction_activity",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Science & Discovery",
+      "slug": "science_and_discovery",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Technology & Innovation",
+      "slug": "technology_and_innovation",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "History & Pastimes",
+      "slug": "history_made_interactive",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "World & Cultures",
+      "slug": "world_and_cultures",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Child-Focused Discovery",
+      "slug": "children_focused_discovery",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Farm or Smallholding",
+      "slug": "farm_and_smallholding",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildlife Reserve",
+      "slug": "wildlife_reserve",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal Parks & Zoos",
+      "slug": "animal_parks",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Conservation Project",
+      "slug": "conservation_project",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal Sanctuary",
+      "slug": "animal_sanctuary",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marine Aquarium",
+      "slug": "sealife_aquarium",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Reptiles & Exotics",
+      "slug": "reptiles_and_exotics",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bird of Prey Centre",
+      "slug": "birds_of_prey",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stables or Yard",
+      "slug": "stables_yard",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ancient Site",
+      "slug": "ancient_sites",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Historic Estate",
+      "slug": "historic_houses",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Living History",
+      "slug": "living_history",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open-Air Museum",
+      "slug": "open_museum",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Industrial & Working History",
+      "slug": "industrial_history",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Archaeological",
+      "slug": "archaeological_sites",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cultural Heritage Site",
+      "slug": "cultural_heritage",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Historic Religious Building",
+      "slug": "historic_religious",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Soft Play Centre",
+      "slug": "large_soft_play",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Toddler Play Space",
+      "slug": "toddler_soft_play",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Indoor Climbing",
+      "slug": "indoor_climbing",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Inside Course",
+      "slug": "indoor_course",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Trampoline Park",
+      "slug": "trampoline_park",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Multi-Activity Centre",
+      "slug": "indoor_multi_activity",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cinema",
+      "slug": "cinema",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stage-Show",
+      "slug": "theature_panto",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Live Events",
+      "slug": "live_events",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gaming & VR",
+      "slug": "gaming",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Escape Room",
+      "slug": "escape_room",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Improvised Performance",
+      "slug": "improvised_performance",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Comedy",
+      "slug": "comedy_club",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Karaoke",
+      "slug": "karaoke_club",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Arcade / Amusements",
+      "slug": "arcade_hall",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Laser Tag",
+      "slug": "laser_tag",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bowling",
+      "slug": "bowling_alley",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Trains & Railways",
+      "slug": "trains_and_rail",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Boat Trips & Ferries",
+      "slug": "boat_trips",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Harbours & Marinas",
+      "slug": "harbours_and_marinas",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Aircraft & Aviation",
+      "slug": "aviation_experiences",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Transport Museum",
+      "slug": "transport_museums",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Working Transport Hubs",
+      "slug": "working_transport_hubs",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themepark",
+      "slug": "themepark",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Amusement Park",
+      "slug": "amusement_park",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Major Animal Attractions",
+      "slug": "major_animal_attractions",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Large-Scale Outdoor Attractions",
+      "slug": "large_scale_outdoor",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Major Indoor Attractions",
+      "slug": "major_indoor",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal & Themed Events",
+      "slug": "seasonal_and_themed",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Family-Friendly Cafés",
+      "slug": "family_friendly_cafes",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Quiet Cafés",
+      "slug": "cafe_with_play",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cafés with Outdoor Space",
+      "slug": "cafe_with_outdoor_space",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coffee Cabin / Truck",
+      "slug": "coffee_cabin",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Easy Pit-Stops",
+      "slug": "pit_stop_cafes",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Family Eateries",
+      "slug": "casual_family_restaurants",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor Family Dining",
+      "slug": "dining_with_space",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Destination Family Dining",
+      "slug": "destination_dining",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Food Festivals",
+      "slug": "food_festival",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Woodland Walk",
+      "slug": "woodland_walk",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coastal or Clifftop Walk",
+      "slug": "coastal_walk",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "River or Lakeside Ramble",
+      "slug": "riverside_walk",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Nature Trail",
+      "slug": "nature_trail",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "National Park",
+      "slug": "national_park",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Waymarked Trail",
+      "slug": "waymarked_trail",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Estate Grounds",
+      "slug": "estate_grounds_scenic_walks_trails",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Heathland",
+      "slug": "heathland",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Feature Walk",
+      "slug": "feature_walk",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Local Wander",
+      "slug": "gentle_wander",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Challenging Hike",
+      "slug": "hilly_hike",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "City Circuit",
+      "slug": "city_circuit",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Towpath",
+      "slug": "towpaths",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Quick spin",
+      "slug": "quick_spin",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Longer ride",
+      "slug": "longer_ride",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Practise Space",
+      "slug": "practise_route",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Skills & Stunts Space",
+      "slug": "skills_and_stunts",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rockpooling Hotspot",
+      "slug": "rockpooling_hotspot",
+      "active": true
+    },
+    {
+      "name": "Library or Reading Nook",
+      "slug": "library_or_reading_nook",
+      "active": true
+    },
+    {
+      "name": "Lido",
+      "slug": "lido",
+      "active": true
+    },
+    {
+      "name": "Gallery",
+      "slug": "gallery",
+      "active": true
+    }
+  ],
+  "skillAreaVariant": [
+    {
+      "name": "Team Sports",
+      "slug": "team_sports",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Racquet Sports",
+      "slug": "racquet_sports",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Swimming & Water Sports",
+      "slug": "swimming_water_sports",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gymnastics & Martial Arts",
+      "slug": "gymnastics_martial_arts",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Athletics & Running",
+      "slug": "athletics_running",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cycling & Skating",
+      "slug": "cycling_skating",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing",
+      "slug": "climbing",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Multi-Sport",
+      "slug": "multi_sport",
+      "relatedEnumNameSlugs": [
+        "sport"
+      ],
+      "active": true
+    }
+  ],
+  "seasonalHighlight": [
+    {
+      "name": "Birdsong",
+      "slug": "birdsong",
+      "active": true
+    },
+    {
+      "name": "Bluebells",
+      "slug": "bluebells",
+      "active": true
+    },
+    {
+      "name": "Daffodills",
+      "slug": "daffodills",
+      "active": true
+    },
+    {
+      "name": "Foals",
+      "slug": "foals",
+      "active": true
+    },
+    {
+      "name": "Baby Lambs",
+      "slug": "baby_lambs",
+      "active": true
+    },
+    {
+      "name": "Seasonal Flowers",
+      "slug": "seasonal_flowers",
+      "active": true
+    },
+    {
+      "name": "Returning swallows, swifts (birds)",
+      "slug": "returning_swallows_swifts_birds",
+      "active": true
+    },
+    {
+      "name": "New Ponies",
+      "slug": "new_ponies",
+      "active": true
+    },
+    {
+      "name": "Wildflower Meadows",
+      "slug": "wildflower_meadows",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Butterflies",
+      "slug": "butterflies",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seabird Colonies",
+      "slug": "seabird_colonies",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "PYO Flowers",
+      "slug": "pyo_flowers",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "PYO Fruit",
+      "slug": "pyo_fruit",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "PYO Vegetables",
+      "slug": "pyo_vegetables",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Maize Maze",
+      "slug": "maize_maze",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Kingfisher Spotting",
+      "slug": "kingfisher_spotting",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "River wildlife spotting",
+      "slug": "river_wildlife_spotting",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Glow worms",
+      "slug": "glow_worms",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildflowers",
+      "slug": "wildflowers",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marine Wildlife Spotting",
+      "slug": "marine_wildlife_spotting",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal Flowers",
+      "slug": "seasonal_flowers_seasonal_highlights",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal water fun",
+      "slug": "seasonal_water_fun",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Watersports Hire",
+      "slug": "watersports_hire",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ice Creams",
+      "slug": "ice_creams",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Garden games",
+      "slug": "garden_games",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marine Life",
+      "slug": "marine_life",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fruit Picking",
+      "slug": "fruit_picking",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dragonflies & Damselflies",
+      "slug": "dragonflies_damselflies",
+      "relatedEnumNameSlugs": [
+        "summer"
+      ],
+      "active": true
+    },
+    {
+      "name": "Autumn pony \"drifts\"",
+      "slug": "autumn_pony_drifts",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Truffling Pigs",
+      "slug": "truffling_pigs",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Red Deer Ruts",
+      "slug": "red_deer_ruts",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fungi",
+      "slug": "fungi",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pumpkin Patch",
+      "slug": "pumpkin_patch",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Apple Picking",
+      "slug": "apple_picking",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Blackberry Picking",
+      "slug": "blackberry_picking",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Autumnal Drinks",
+      "slug": "autumnal_drinks",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Migrating Birds",
+      "slug": "migrating_birds",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Autumn Leaves",
+      "slug": "autumn_leaves",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Berries, Nuts, Conkers",
+      "slug": "berries_nuts_conkers",
+      "relatedEnumNameSlugs": [
+        "autumn"
+      ],
+      "active": true
+    },
+    {
+      "name": "Snowdrops",
+      "slug": "snowdrops",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Crocus Lawn",
+      "slug": "crocus_lawn",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Migrating Birds",
+      "slug": "migrating_birds_seasonal_highlights",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Starling Murmurations",
+      "slug": "starling_murmurations",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal Flowers",
+      "slug": "seasonal_flowers_43",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Festive Displays",
+      "slug": "festive_displays",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Barn Owl Spotting",
+      "slug": "barn_owl_spotting",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sledging Spot",
+      "slug": "sledging_spot",
+      "relatedEnumNameSlugs": [
+        "winter"
+      ],
+      "active": true
+    }
+  ],
+  "themeAttraction": [
+    {
+      "name": "Waterfalls",
+      "slug": "waterfalls",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rivers & streams",
+      "slug": "rivers_and_streams",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural paddling spots",
+      "slug": "natural_paddling",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lakes & reservoirs",
+      "slug": "lakes_reservoirs",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Beaches or coves",
+      "slug": "beaches_coves",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rockpools",
+      "slug": "rockpools",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cliffs & headlands",
+      "slug": "cliffs_headlands",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ancient trees",
+      "slug": "ancient_trees",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bridges (wooden, stone, suspension)",
+      "slug": "bridges",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stepping stones",
+      "slug": "stepping_stones",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Caves or rock formations",
+      "slug": "rock_formations",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Panoramic views",
+      "slug": "panoramic_views",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coastal views",
+      "slug": "coastal_views",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Countryside views",
+      "slug": "countryside_views",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Elevated viewpoints",
+      "slug": "elevated_viewpoints",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scenic valleys",
+      "slug": "scenic_valleys",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildlife spotting",
+      "slug": "wildlife_spotting",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ruins or historic features",
+      "slug": "historic_ruins",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Waymarked features (e.g. sculpture trail)",
+      "slug": "waymarked_features",
+      "relatedEnumNameSlugs": [
+        "scenic_walks"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meadows or wild grass",
+      "slug": "meadows_or_wild_grass",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ponds or lakes",
+      "slug": "ponds_or_lakes",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Duck Ponds",
+      "slug": "duck_ponds",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water Features or Fountains",
+      "slug": "water_features_or_fountains",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Streams or ditches",
+      "slug": "streams_or_ditches",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural paddling spots",
+      "slug": "natural_paddling_spots",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Room to run freely",
+      "slug": "room_to_run_freely",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open sightlines",
+      "slug": "open_sightlines",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Countryside views",
+      "slug": "countryside_views_green_open_spaces",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scenic backdrops",
+      "slug": "scenic_backdrops",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rolling landscapes",
+      "slug": "rolling_landscapes",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bridges (wooden, stone, suspension)",
+      "slug": "bridges_wooden_stone_suspension",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural play features (logs, slopes, rocks)",
+      "slug": "natural_play_features_logs_slopes_rocks",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbable trees",
+      "slug": "climbable_trees",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Grassy banks",
+      "slug": "grassy_banks",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Small hills / mounds",
+      "slug": "small_hills_mounds",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Play equipment",
+      "slug": "play_equipment",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Football or Rugby Posts",
+      "slug": "football_or_rugby_posts",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marked Trails",
+      "slug": "marked_trails",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Children’s Activity Trails",
+      "slug": "childrens_activity_trails",
+      "relatedEnumNameSlugs": [
+        "green_spaces"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing Logs or balance beams",
+      "slug": "climbing_logs_or_balance_beams",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mud kitchens",
+      "slug": "mud_kitchens",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sand, soil, and loose materials",
+      "slug": "sand_soil_and_loose_materials",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Den-building materials",
+      "slug": "den_building_materials",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural construction zones",
+      "slug": "natural_construction_zones",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mud and puddles",
+      "slug": "mud_and_puddles",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shallow water play (streams, channels)",
+      "slug": "shallow_water_play_streams_channels",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Forest school activities",
+      "slug": "forest_school_activities",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Guided outdoor learning prompts",
+      "slug": "guided_outdoor_learning_prompts",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marked Trails",
+      "slug": "marked_trails_nature_wildlife_exploration_attractions",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Children’s Activity Trails",
+      "slug": "childrens_activity_trails_nature_wildlife_exploration_attractions",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Letterboxing",
+      "slug": "letterboxing",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fossil Hunting",
+      "slug": "fossil_hunting",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Farming school activities",
+      "slug": "farming_school_activities",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Simple tool use (supervised)",
+      "slug": "simple_tool_use_supervised",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fire pits (when part of structured sessions)",
+      "slug": "fire_pits_when_part_of_structured_sessions",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Immersive natural surroundings",
+      "slug": "immersive_natural_surroundings",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Quiet or low-intervention spaces",
+      "slug": "quiet_or_low_intervention_spaces",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Enclosed or defined play zones",
+      "slug": "enclosed_or_defined_play_zones",
+      "relatedEnumNameSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rockpools",
+      "slug": "rockpools_coastal_adventures_attractions",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seaweed beds",
+      "slug": "seaweed_beds",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shell or seaglass collecting",
+      "slug": "shell_or_seaglass_collecting",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fossil Hunting",
+      "slug": "fossil_hunting_coastal_adventures_attractions",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Crabbing",
+      "slug": "crabbing",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Diggable sand (Sandcastles)",
+      "slug": "diggable_sand_sandcastles",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Smooth pebbles",
+      "slug": "smooth_pebbles",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shallow paddling",
+      "slug": "shallow_paddling",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Streams or channels",
+      "slug": "streams_or_channels",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coves & inlets",
+      "slug": "coves_inlets",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rock formations",
+      "slug": "rock_formations_coastal_adventures_attractions",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cliffs Or Headlands",
+      "slug": "cliffs_or_headlands",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Caves",
+      "slug": "caves",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sand dunes",
+      "slug": "sand_dunes",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Estuary edges",
+      "slug": "estuary_edges",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coastal Wildlife",
+      "slug": "coastal_wildlife",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Equipment Hire",
+      "slug": "equipment_hire",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Watersports Lessons",
+      "slug": "watersports_lessons",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Surfing",
+      "slug": "surfing",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bodyboarding",
+      "slug": "bodyboarding",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Swimming",
+      "slug": "swimming",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Kayaking / SUP",
+      "slug": "kayaking_sup",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Slipway",
+      "slug": "slipway",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Harbour",
+      "slug": "harbour",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonally Lifeguarded",
+      "slug": "seasonally_lifeguarded",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dog Friendly - seasonal leads",
+      "slug": "dog_friendly_seasonal_leads",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dog Friendly - off lead all year",
+      "slug": "dog_friendly_off_lead_all_year",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Boat trips nearby",
+      "slug": "boat_trips_nearby",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Toilets nearby",
+      "slug": "toilets_nearby",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Beach Cafe",
+      "slug": "beach_cafe",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Promenade",
+      "slug": "promenade",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Large tidal range",
+      "slug": "large_tidal_range",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural channels",
+      "slug": "natural_channels",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Calm water at low tide",
+      "slug": "calm_water_at_low_tide",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rock formations",
+      "slug": "rock_formations_92",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Driftwood",
+      "slug": "driftwood",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Crabs & small marine life",
+      "slug": "crabs_small_marine_life",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural splash zones",
+      "slug": "natural_splash_zones",
+      "relatedEnumNameSlugs": [
+        "coastal_adventures"
+      ],
+      "active": true
+    },
+    {
+      "name": "Designed or sculpted landscapes",
+      "slug": "designed_or_sculpted_landscapes",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal foliage",
+      "slug": "seasonal_foliage",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal or curated displays",
+      "slug": "seasonal_or_curated_displays",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water Features or Fountains",
+      "slug": "water_features_or_fountains_gardens_curated_outdoor_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meadows & wild grass",
+      "slug": "meadows_wild_grass",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lakes or wildlife ponds",
+      "slug": "lakes_or_wildlife_ponds",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Room to run freely",
+      "slug": "room_to_run_freely_gardens_curated_outdoor_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open sightlines",
+      "slug": "open_sightlines_gardens_curated_outdoor_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Vegetable gardens & growing spaces",
+      "slug": "vegetable_gardens_growing_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meandering paths",
+      "slug": "meandering_paths",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hidden corners, passageways, gates & gardens",
+      "slug": "hidden_corners_passageways_gates_gardens",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Garden “rooms”",
+      "slug": "garden_rooms",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bug hotels, discovery boards",
+      "slug": "bug_hotels_discovery_boards",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bird Hydes & Viewing Platforms",
+      "slug": "bird_hydes_viewing_platforms",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marked Trails",
+      "slug": "marked_trails_gardens_curated_outdoor_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Children’s Activity Trails",
+      "slug": "childrens_activity_trails_gardens_curated_outdoor_spaces",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Historic features",
+      "slug": "historic_features",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Statues & sculptures",
+      "slug": "statues_sculptures",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Maze",
+      "slug": "maze",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Greenhouses & tropical plants",
+      "slug": "greenhouses_tropical_plants",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Biomes & unusual environments",
+      "slug": "biomes_unusual_environments",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Conservation displays or learning",
+      "slug": "conservation_displays_or_learning",
+      "relatedEnumNameSlugs": [
+        "gardens_outdoor"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rope bridges",
+      "slug": "rope_bridges",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing frames",
+      "slug": "climbing_frames",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Balance elements",
+      "slug": "balance_elements",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scramble nets",
+      "slug": "scramble_nets",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stepping obstacles",
+      "slug": "stepping_obstacles",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Towers and platforms",
+      "slug": "towers_and_platforms",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Slides",
+      "slug": "slides",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Zip wires",
+      "slug": "zip_wires",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fireman's poles",
+      "slug": "firemans_poles",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ropes & aerial adventures",
+      "slug": "ropes_aerial_adventures",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing rocks or bouldering",
+      "slug": "climbing_rocks_or_bouldering",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing wall",
+      "slug": "climbing_wall",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rope swings",
+      "slug": "rope_swings",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Abseiling or high ropes",
+      "slug": "abseiling_or_high_ropes",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fort-style structures",
+      "slug": "fort_style_structures",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lookout points",
+      "slug": "lookout_points",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Tunnels and crawl spaces",
+      "slug": "tunnels_and_crawl_spaces",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Obstacle courses",
+      "slug": "obstacle_courses",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mixed-difficulty zones",
+      "slug": "mixed_difficulty_zones",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Enclosed adventure zones",
+      "slug": "enclosed_adventure_zones",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Clear sightlines for adults",
+      "slug": "clear_sightlines_for_adults",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Orienteering",
+      "slug": "orienteering",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water play features",
+      "slug": "water_play_features",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Swings",
+      "slug": "swings",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Basket / nest swings",
+      "slug": "basket_nest_swings",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Roundabouts",
+      "slug": "roundabouts",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seesaws",
+      "slug": "seesaws",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Springers / rockers",
+      "slug": "springers_rockers",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ground trampolines",
+      "slug": "ground_trampolines",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sand play area",
+      "slug": "sand_play_area",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mud kitchen",
+      "slug": "mud_kitchen",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Den building area",
+      "slug": "den_building_area",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Log balance trail",
+      "slug": "log_balance_trail",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural boulders",
+      "slug": "natural_boulders",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stream or water channel",
+      "slug": "stream_or_water_channel",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wooded setting",
+      "slug": "wooded_setting",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open grass / running space",
+      "slug": "open_grass_running_space",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bowl",
+      "slug": "bowl",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Quarter pipes",
+      "slug": "quarter_pipes",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Street skating features",
+      "slug": "street_skating_features",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pump track",
+      "slug": "pump_track",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "BMX track",
+      "slug": "bmx_track",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dirt jumps",
+      "slug": "dirt_jumps",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wheelchair accessible equipment",
+      "slug": "wheelchair_accessible_equipment",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Inclusive swings",
+      "slug": "inclusive_swings",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sensory play features",
+      "slug": "sensory_play_features",
+      "relatedEnumNameSlugs": [
+        "active_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Early access introduction",
+      "slug": "early_access_introduction",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Skill progression",
+      "slug": "skill_progression",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Confidence building",
+      "slug": "confidence_building",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coordination & balance",
+      "slug": "coordination_balance",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Strength & agility",
+      "slug": "strength_agility",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Structured coaching",
+      "slug": "structured_coaching",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mixed-ability sessions",
+      "slug": "mixed_ability_sessions",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Team-based",
+      "slug": "team_based",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Friendly competition",
+      "slug": "friendly_competition",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Non-competitive options",
+      "slug": "non_competitive_options",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Indoor sports halls",
+      "slug": "indoor_sports_halls",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor pitches",
+      "slug": "outdoor_pitches",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Purpose-built facilities",
+      "slug": "purpose_built_facilities",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Safe enclosed spaces",
+      "slug": "safe_enclosed_spaces",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "All-weather options",
+      "slug": "all_weather_options",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Swimming",
+      "slug": "swimming_sporty_activities",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sea-sports",
+      "slug": "sea_sports",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Climbing",
+      "slug": "climbing",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Athletics & Running",
+      "slug": "athletics_running",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gymnastics",
+      "slug": "gymnastics",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Parkour & freerunning",
+      "slug": "parkour_freerunning",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Racquet sports",
+      "slug": "racquet_sports",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ninja warrior style courses",
+      "slug": "ninja_warrior_style_courses",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Assault courses",
+      "slug": "assault_courses",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Obstacle courses",
+      "slug": "obstacle_courses_sporty_activities",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Aerial / high ropes (indoor)",
+      "slug": "aerial_high_ropes_indoor",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ball Sports",
+      "slug": "ball_sports",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor Fitness",
+      "slug": "outdoor_fitness",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Martial Arts",
+      "slug": "martial_arts",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dance & Movement",
+      "slug": "dance_movement",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Skateboarding",
+      "slug": "skateboarding",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Movement skills training",
+      "slug": "movement_skills_training",
+      "relatedEnumNameSlugs": [
+        "sporty_activities"
+      ],
+      "active": true
+    },
+    {
+      "name": "Traffic-free sections",
+      "slug": "traffic_free_sections",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wide pathways",
+      "slug": "wide_pathways",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Clear sightlines",
+      "slug": "clear_sightlines",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Riverside stretches",
+      "slug": "riverside_stretches",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Canal views",
+      "slug": "canal_views",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Parkland surroundings",
+      "slug": "parkland_surroundings",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coastal promenades",
+      "slug": "coastal_promenades",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bridges and landmarks",
+      "slug": "bridges_and_landmarks",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural jumps, ramps or fun features",
+      "slug": "natural_jumps_ramps_or_fun_features",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scooter-friendly",
+      "slug": "scooter_friendly",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "High-adrenaline routes, jumps or terrain",
+      "slug": "high_adrenaline_routes_jumps_or_terrain",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Points of interest along the way",
+      "slug": "points_of_interest_along_the_way",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Play areas en route",
+      "slug": "play_areas_en_route",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Stops for snacks or picnics",
+      "slug": "stops_for_snacks_or_picnics",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Short loops",
+      "slug": "short_loops",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Multiple access points",
+      "slug": "multiple_access_points",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Easy parking nearby",
+      "slug": "easy_parking_nearby",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cafés or facilities along the route",
+      "slug": "cafes_or_facilities_along_the_route",
+      "relatedEnumNameSlugs": [
+        "wheels_routes"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shallow water",
+      "slug": "shallow_water",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Deep water or plunge pools",
+      "slug": "deep_water_or_plunge_pools",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Paddling spots",
+      "slug": "paddling_spots",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Natural Swimming Spots",
+      "slug": "natural_swimming_spots",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sheltered or shaded options",
+      "slug": "sheltered_or_shaded_options",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Predictable tides or flow",
+      "slug": "predictable_tides_or_flow",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lifeguarded areas (where applicable)",
+      "slug": "lifeguarded_areas_where_applicable",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Instructor support",
+      "slug": "instructor_support",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Splash-friendly areas",
+      "slug": "splash_friendly_areas",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Opportunities to explore",
+      "slug": "opportunities_to_explore",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildlife spotting",
+      "slug": "wildlife_spotting_water_activities",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fishing licenses; fishing spot",
+      "slug": "fishing_licenses_fishing_spot",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Jetty",
+      "slug": "jetty",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "River access for small boats or paddleboards",
+      "slug": "river_access_for_small_boats_or_paddleboards",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "White water for experienced kayaking",
+      "slug": "white_water_for_experienced_kayaking",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Kayaking",
+      "slug": "kayaking",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rowing boats or small crafts",
+      "slug": "rowing_boats_or_small_crafts",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Paddleboarding",
+      "slug": "paddleboarding",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Lakes or reservoirs",
+      "slug": "lakes_or_reservoirs",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rivers or estuaries",
+      "slug": "rivers_or_estuaries",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "River Beach",
+      "slug": "river_beach",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Beaches or coves",
+      "slug": "beaches_or_coves",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "National Park",
+      "slug": "national_park",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Blue Flag Beach",
+      "slug": "blue_flag_beach",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Coasteering",
+      "slug": "coasteering",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Raft Building",
+      "slug": "raft_building",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Splash Pads / Sprinklers",
+      "slug": "splash_pads_sprinklers",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water slides",
+      "slug": "water_slides",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Inflatables",
+      "slug": "inflatables",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wave machines",
+      "slug": "wave_machines",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water rides",
+      "slug": "water_rides",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Woodland or countryside setting",
+      "slug": "woodland_or_countryside_setting",
+      "relatedEnumNameSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Messy, hands-on crafts",
+      "slug": "messy_hands_on_crafts",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dance",
+      "slug": "dance",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Music or singing",
+      "slug": "music_or_singing",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Take-home creations",
+      "slug": "take_home_creations",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Drawing or sketching",
+      "slug": "drawing_or_sketching",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Guided creative sessions",
+      "slug": "guided_creative_sessions",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Drama & Theatre",
+      "slug": "drama_theatre",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open-ended creativity",
+      "slug": "open_ended_creativity",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Small group workshops",
+      "slug": "small_group_workshops",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Drop-in creative tables",
+      "slug": "drop_in_creative_tables",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pottery, ceramics or clay",
+      "slug": "pottery_ceramics_or_clay",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Painting or brushwork",
+      "slug": "painting_or_brushwork",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Needlecraft instruction, lessons or talks",
+      "slug": "needlecraft_instruction_lessons_or_talks",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Storytelling or Creative Writing",
+      "slug": "storytelling_or_creative_writing",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Photography opportunities",
+      "slug": "photography_opportunities",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Performance opportunities",
+      "slug": "performance_opportunities",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Imaginative freedom",
+      "slug": "imaginative_freedom",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Confidence-building environments",
+      "slug": "confidence_building_environments",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Supportive facilitators",
+      "slug": "supportive_facilitators",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Calm, focused spaces",
+      "slug": "calm_focused_spaces",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Creative studios",
+      "slug": "creative_studios",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Informal, welcoming environments",
+      "slug": "informal_welcoming_environments",
+      "relatedEnumNameSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themed environments",
+      "slug": "themed_environments",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Immersive settings",
+      "slug": "immersive_settings",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dressing Up Clothes",
+      "slug": "dressing_up_clothes",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ride-on vehicles or toys",
+      "slug": "ride_on_vehicles_or_toys",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Narrative backdrops",
+      "slug": "narrative_backdrops",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Role-based scenarios",
+      "slug": "role_based_scenarios",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Character-led play",
+      "slug": "character_led_play",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Story-led experiences",
+      "slug": "story_led_experiences",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mission or quest elements",
+      "slug": "mission_or_quest_elements",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Problem-solving within a storyline",
+      "slug": "problem_solving_within_a_storyline",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cooperative scenarios",
+      "slug": "cooperative_scenarios",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Group problem-solving",
+      "slug": "group_problem_solving",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shared imaginative spaces",
+      "slug": "shared_imaginative_spaces",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Social role negotiation",
+      "slug": "social_role_negotiation",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open-ended play structure",
+      "slug": "open_ended_play_structure",
+      "relatedEnumNameSlugs": [
+        "imaginative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Arcade games",
+      "slug": "arcade_games",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "VR goggles",
+      "slug": "vr_goggles",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pool or snooker table",
+      "slug": "pool_or_snooker_table",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bowling lanes",
+      "slug": "bowling_lanes",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Laser tag",
+      "slug": "laser_tag",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Trampolining",
+      "slug": "trampolining",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Karaoke",
+      "slug": "karaoke",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bar / licensed venue",
+      "slug": "bar_licensed_venue",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Café or restaurant",
+      "slug": "cafe_or_restaurant",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Private hire / party packages",
+      "slug": "private_hire_party_packages",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meet and greet",
+      "slug": "meet_and_greet",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "VIP / premier experience",
+      "slug": "vip_premier_experience",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Live music",
+      "slug": "live_music",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Comedy / stand-up",
+      "slug": "comedy_stand_up",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Theatre / stage performance",
+      "slug": "theatre_stage_performance",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Pantomime",
+      "slug": "pantomime",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Musical theatre",
+      "slug": "musical_theatre",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Open mic",
+      "slug": "open_mic",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Q&A / live interview",
+      "slug": "q_a_live_interview",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cinema screen",
+      "slug": "cinema_screen",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Immersive experience",
+      "slug": "immersive_experience",
+      "relatedEnumNameSlugs": [
+        "indoor_entertainment"
+      ],
+      "active": true
+    },
+    {
+      "name": "Touch-and-try exhibits",
+      "slug": "touch_and_try_exhibits",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Interactive displays",
+      "slug": "interactive_displays",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Engineering & Building",
+      "slug": "engineering_building",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Navigation & Map Reading",
+      "slug": "navigation_map_reading",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Orienteering",
+      "slug": "orienteering_hands_on_learning",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Buttons, levers, and mechanisms",
+      "slug": "buttons_levers_and_mechanisms",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Build-and-test stations",
+      "slug": "build_and_test_stations",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bushcraft & Forest Skills",
+      "slug": "bushcraft_forest_skills",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Survival Skills",
+      "slug": "survival_skills",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cause-and-effect activities",
+      "slug": "cause_and_effect_activities",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Problem-solving challenges",
+      "slug": "problem_solving_challenges",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Experimentation",
+      "slug": "experimentation",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Mix of calm and energetic zones",
+      "slug": "mix_of_calm_and_energetic_zones",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Facilitated demo sessions (optional)",
+      "slug": "facilitated_demo_sessions_optional",
+      "relatedEnumNameSlugs": [
+        "hands_on_learning"
+      ],
+      "active": true
+    },
+    {
+      "name": "Science and engineering themes",
+      "slug": "science_and_engineering_themes",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Technology and robotics",
+      "slug": "technology_and_robotics",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Nature and the environment",
+      "slug": "nature_and_the_environment",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "History brought to life",
+      "slug": "history_brought_to_life",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Space and exploration",
+      "slug": "space_and_exploration",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rotating or seasonal exhibits",
+      "slug": "rotating_or_seasonal_exhibits",
+      "relatedEnumNameSlugs": [
+        "interactive_museums"
+      ],
+      "active": true
+    },
+    {
+      "name": "Historic buildings",
+      "slug": "historic_buildings",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Costumed interpretation",
+      "slug": "costumed_interpretation",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Recreated environments",
+      "slug": "recreated_environments",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Period features",
+      "slug": "period_features",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ruins to explore",
+      "slug": "ruins_to_explore",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dungeons",
+      "slug": "dungeons",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Towers, walls, and tunnels",
+      "slug": "towers_walls_and_tunnels",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fossils",
+      "slug": "fossils",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Castles or Fortresses",
+      "slug": "castles_or_fortresses",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hidden rooms or passages",
+      "slug": "hidden_rooms_or_passages",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor grounds",
+      "slug": "outdoor_grounds",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Story-led interpretation",
+      "slug": "story_led_interpretation",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Audio guides or trails",
+      "slug": "audio_guides_or_trails",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Visual displays",
+      "slug": "visual_displays",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Interactive elements",
+      "slug": "interactive_elements",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Discovery trails",
+      "slug": "discovery_trails",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hands-on exhibits",
+      "slug": "hands_on_exhibits",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dress-up areas",
+      "slug": "dress_up_areas",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Re-enactment days",
+      "slug": "re_enactment_days",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Craft or heritage activities",
+      "slug": "craft_or_heritage_activities",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Demonstrations",
+      "slug": "demonstrations",
+      "relatedEnumNameSlugs": [
+        "historical_cultural"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hands-on Petting",
+      "slug": "hands_on_petting",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal feeding",
+      "slug": "animal_feeding",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Close-up viewing",
+      "slug": "close_up_viewing",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Keeper talks",
+      "slug": "keeper_talks",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal Experience Day",
+      "slug": "animal_experience_day",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Trekking, rides or hacking",
+      "slug": "trekking_rides_or_hacking",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Guided walks",
+      "slug": "guided_walks",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal husbandry",
+      "slug": "animal_husbandry",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Tractor rides",
+      "slug": "tractor_rides",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal races",
+      "slug": "animal_races",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal displays or shows",
+      "slug": "animal_displays_or_shows",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Drive-through Safari",
+      "slug": "drive_through_safari",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Litter Farmer Experiences",
+      "slug": "litter_farmer_experiences",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Multiple species",
+      "slug": "multiple_species",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rare or exotic animals",
+      "slug": "rare_or_exotic_animals",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animal Sanctuary",
+      "slug": "animal_sanctuary",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Conservation",
+      "slug": "conservation",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Baby animals (seasonal)",
+      "slug": "baby_animals_seasonal",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Walk-through enclosures",
+      "slug": "walk_through_enclosures",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rides or Treks",
+      "slug": "rides_or_treks",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor animal areas",
+      "slug": "outdoor_animal_areas",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Marked Trails",
+      "slug": "marked_trails_animal_encounters",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Children’s Activity Trails",
+      "slug": "childrens_activity_trails_animal_encounters",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Farm-based activities (e.g. egg collecting)",
+      "slug": "farm_based_activities_e_g_egg_collecting",
+      "relatedEnumNameSlugs": [
+        "animal_encounters"
+      ],
+      "active": true
+    },
+    {
+      "name": "Soft climbing structures",
+      "slug": "soft_climbing_structures",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Slides",
+      "slug": "slides_soft_play_indoor_active_play",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Tunnels and crawl spaces",
+      "slug": "tunnels_and_crawl_spaces_soft_play_indoor_active_play",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Ball pools",
+      "slug": "ball_pools",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Enclosed space",
+      "slug": "enclosed_space",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Clear sightlines",
+      "slug": "clear_sightlines_soft_play_indoor_active_play",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seating for adults",
+      "slug": "seating_for_adults",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Café or refreshment area",
+      "slug": "cafe_or_refreshment_area",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Separate toddler area",
+      "slug": "separate_toddler_area",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Age-zoned play areas",
+      "slug": "age_zoned_play_areas",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Calm or quieter zones",
+      "slug": "calm_or_quieter_zones",
+      "relatedEnumNameSlugs": [
+        "soft_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Trains and locomotives",
+      "slug": "trains_and_locomotives",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Boats and ships",
+      "slug": "boats_and_ships",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Aircraft and helicopters",
+      "slug": "aircraft_and_helicopters",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Vintage vehicles",
+      "slug": "vintage_vehicles",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Working machinery",
+      "slug": "working_machinery",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rides or journeys",
+      "slug": "rides_or_journeys",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Vehicles in operation",
+      "slug": "vehicles_in_operation",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Demonstrations or displays",
+      "slug": "demonstrations_or_displays",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Cab or cockpit viewing",
+      "slug": "cab_or_cockpit_viewing",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Engineering features",
+      "slug": "engineering_features",
+      "relatedEnumNameSlugs": [
+        "vehicles_transport"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rides & attractions",
+      "slug": "rides_attractions",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Animals or animal experiences",
+      "slug": "animals_or_animal_experiences",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Live shows or performances",
+      "slug": "live_shows_or_performances",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Large interactive exhibits",
+      "slug": "large_interactive_exhibits",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Immersive or themed environments",
+      "slug": "immersive_or_themed_environments",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meet & greet characters or people",
+      "slug": "meet_greet_characters_or_people",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Hands-on activities",
+      "slug": "hands_on_activities",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Discovery trails",
+      "slug": "discovery_trails_a_big_day_out",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Challenges or missions",
+      "slug": "challenges_or_missions",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Play or activity zones",
+      "slug": "play_or_activity_zones",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Landmark features",
+      "slug": "landmark_features",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Iconic structures or rides",
+      "slug": "iconic_structures_or_rides",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Water features",
+      "slug": "water_features",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Scenic or dramatic settings",
+      "slug": "scenic_or_dramatic_settings",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themed trails (e.g. Halloween, Christmas, Easter)",
+      "slug": "themed_trails_e_g_halloween_christmas_easter",
+      "relatedEnumNameSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Dedicated play area",
+      "slug": "dedicated_play_area",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Toy corner or play table",
+      "slug": "toy_corner_or_play_table",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Puzzles or games",
+      "slug": "puzzles_or_games",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Colouring",
+      "slug": "colouring",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Space to run around",
+      "slug": "space_to_run_around",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor play area nearby",
+      "slug": "outdoor_play_area_nearby",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Farm animals nearby",
+      "slug": "farm_animals_nearby",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Shop or browsing area (e.g. farm shop, garden centre)",
+      "slug": "shop_or_browsing_area_e_g_farm_shop_garden_centre",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Combined with a walk or attraction",
+      "slug": "combined_with_a_walk_or_attraction",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Book swap or exchange library",
+      "slug": "book_swap_or_exchange_library",
+      "relatedEnumNameSlugs": [
+        "relaxed_cafe"
+      ],
+      "active": true
+    },
+    {
+      "name": "Children’s menu",
+      "slug": "childrens_menu",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Flexible seating for families",
+      "slug": "flexible_seating_for_families",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Space for children to move a little",
+      "slug": "space_for_children_to_move_a_little",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Play area or outdoor play space",
+      "slug": "play_area_or_outdoor_play_space",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Relaxed, family-welcoming feel",
+      "slug": "relaxed_family_welcoming_feel",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Outdoor seating or garden",
+      "slug": "outdoor_seating_or_garden",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Rural or scenic setting",
+      "slug": "rural_or_scenic_setting",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "On-site grounds to explore",
+      "slug": "on_site_grounds_to_explore",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Farm animals or gardens",
+      "slug": "farm_animals_or_gardens",
+      "relatedEnumNameSlugs": [
+        "family_dining"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meet Father Christmas",
+      "slug": "meet_father_christmas",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Festive Shows",
+      "slug": "festive_shows",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Singing figures or characters",
+      "slug": "singing_figures_or_characters",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal Hot Chocolates",
+      "slug": "seasonal_hot_chocolates",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Festive Displays",
+      "slug": "festive_displays",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Winter Wonderland",
+      "slug": "winter_wonderland",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themed Areas",
+      "slug": "themed_areas",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Themed Food",
+      "slug": "themed_food",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Easter Egg Hunts",
+      "slug": "easter_egg_hunts",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Clues or Treasure Hunts",
+      "slug": "clues_or_treasure_hunts",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meet the Easter Bunny",
+      "slug": "meet_the_easter_bunny",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Costumes or Fancy Dress-up",
+      "slug": "costumes_or_fancy_dress_up",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Firework Displays",
+      "slug": "firework_displays",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Roasting Marshmallows",
+      "slug": "roasting_marshmallows",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Bonfires",
+      "slug": "bonfires",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Solstice Rituals",
+      "slug": "solstice_rituals",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Seasonal Fruit Picking",
+      "slug": "seasonal_fruit_picking",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Maize Mazes",
+      "slug": "maize_mazes",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Flower collecting or displays",
+      "slug": "flower_collecting_or_displays",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Splash Parks",
+      "slug": "splash_parks",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Inflatables Sessions",
+      "slug": "inflatables_sessions",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "BBQs",
+      "slug": "bbqs",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Surf & Turf",
+      "slug": "surf_turf",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Wildlife Spotting",
+      "slug": "wildlife_spotting_seasonal",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Sea Safari",
+      "slug": "sea_safari",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Airshows or displays",
+      "slug": "airshows_or_displays",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Food stands & stalls",
+      "slug": "food_stands_stalls",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Live Performance",
+      "slug": "live_performance",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Live Music",
+      "slug": "live_music_seasonal",
+      "relatedEnumNameSlugs": [
+        "seasonal"
+      ],
+      "active": true
+    },
+    {
+      "name": "Slides (particularly tall or long)",
+      "slug": "slides_particularly_tall_or_long",
+      "active": true
+    },
+    {
+      "name": "Bowling",
+      "slug": "bowling",
+      "active": true
+    },
+    {
+      "name": "Escape Room",
+      "slug": "escape_room",
+      "active": true
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const mincingLakeValleyParkRouteV2: OpportunityRouteV2SeedInput = {
+  id: "mincing_lake_valley_park",
+  slug: "mincing_lake_valley_park",
   themeSlug: "scenic_walks",
   themeVariantSlug: "nature_trail",
   opportunityType: "route",

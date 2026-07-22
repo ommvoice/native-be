@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const exeterUndergroundPassagesVenueV2: OpportunityVenueV2SeedInput = {
+  id: "exeter_underground_passages",
+  slug: "exeter_underground_passages",
   themeSlug: "historical_cultural",
   themeVariantSlug: "ancient_sites, living_history",
   venueName: "Exeter Underground Passages",

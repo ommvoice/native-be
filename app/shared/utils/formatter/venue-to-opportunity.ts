@@ -131,7 +131,7 @@ function resolvePriceInfo(data: OpportunityVenueV2): string | null {
 
 function buildForThem(data: OpportunityVenueV2): string[] | null {
   const childFacilities = splitList(data.venueChildFacilities) ?? [];
-  
+
   if (childFacilities.length === 0) {
     const seasonalHighlights = data.venueSeasonalHighlights ? splitList(data.venueSeasonalHighlights) ?? [] : [];
     const seasonalTag = data.venueSeasonalTag ? splitList(data.venueSeasonalTag) ?? [] : [];

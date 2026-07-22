@@ -1,6 +1,8 @@
 import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2/create_opportunity_event_v2_row.js";
 
 export const kiaOraFarmGardensEventV2: OpportunityEventV2SeedInput = {
+  id: "kia_ora_farm_gardens",
+  slug: "kia_ora_farm_gardens",
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "formal_landscape_gardens",
   opportunityType: "event",

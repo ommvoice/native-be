@@ -13,8 +13,8 @@ export class ChildService {
 
   private async enrich(child: ChildRecord) {
     const [interestCategories, interestSubCategories, parent] = await Promise.all([
-      this.interestRepo.getCategoriesByIds(child.interestCategoryIds),
-      this.interestRepo.getSubCategoriesByIds(child.interestSubCategoryIds),
+      this.interestRepo.getCategoriesBySlugs(child.interestCategoryIds),
+      this.interestRepo.getSubCategoriesBySlugs(child.interestSubCategoryIds),
       this.parentRepo.getById(child.parentId),
     ]);
     return { ...child, parent, interestCategories, interestSubCategories };

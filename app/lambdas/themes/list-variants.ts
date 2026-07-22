@@ -5,8 +5,8 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { ok } from '../../shared/utils/response';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const themeId = event.queryStringParameters?.['themeId'];
-  return ok(await new ThemeRepository().listVariants(themeId));
+  const themeSlug = event.queryStringParameters?.['themeSlug'];
+  return ok(await new ThemeRepository().listVariants(themeSlug));
 };
 
 export const handler = middy(baseHandler)

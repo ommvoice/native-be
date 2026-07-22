@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const climbingCentreExeterQuayVenueV2: OpportunityVenueV2SeedInput = {
+  id: "climbing_centre_exeter_quay",
+  slug: "climbing_centre_exeter_quay",
   themeSlug: "sporty_activities",
   themeVariantSlug: "climbing_centre",
   venueName: "Climbing Centre Exeter Quay",

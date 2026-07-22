@@ -168,10 +168,10 @@ function resolvePriceInfo(data: OpportunityEventV2): string | null {
 
 function buildForThem(data: OpportunityEventV2): string[] | null {
   const childFacilities = splitList(data.eventChildFacilities) ?? [];
-  
+
   if (childFacilities.length === 0) {
     const seasonalHighlights = data.eventSeasonalHighlights ? splitList(data.eventSeasonalHighlights) ?? [] : [];
-    
+
     const combined = [...seasonalHighlights];
     return combined.length > 0 ? combined : null;
   }
@@ -182,7 +182,7 @@ function buildForThem(data: OpportunityEventV2): string[] | null {
 function buildPerfectFor(data: OpportunityEventV2) : any[] | null {
 
   let perfectFor = [];
-  
+
 
   const abilityLevel = data.eventAbilityLevel;
   const suitableAges = resolveSuitableFor(data)?.join(", ");

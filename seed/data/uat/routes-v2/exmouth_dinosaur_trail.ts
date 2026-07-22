@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const exmouthDinosaurTrailRouteV2: OpportunityRouteV2SeedInput = {
+  id: "exmouth_dinosaur_trail",
+  slug: "exmouth_dinosaur_trail",
   themeSlug: "scenic_walks",
   themeVariantSlug: "feature_walk",
   opportunityType: "route",

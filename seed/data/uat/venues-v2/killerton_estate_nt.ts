@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const killertonEstateNtVenueV2: OpportunityVenueV2SeedInput = {
+  id: "killerton_estate_nt",
+  slug: "killerton_estate_nt",
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Killerton Estate (NT)",

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const finlakeFallsHolidayParkKidsSwimmingPoolVenueV2: OpportunityVenueV2SeedInput = {
+  id: "finlake_falls_holiday_park_kids_swimming_pool",
+  slug: "finlake_falls_holiday_park_kids_swimming_pool",
   themeSlug: "water_fun",
   themeVariantSlug: "swimming_pool",
   venueName: "Finlake Falls Holiday Park Kids Swimming Pool",

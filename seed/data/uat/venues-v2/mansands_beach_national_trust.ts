@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const mansandsBeachNationalTrustVenueV2: OpportunityVenueV2SeedInput = {
+  id: "mansands_beach_national_trust",
+  slug: "mansands_beach_national_trust",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "coves_exploration, wild_open_beaches, pebble_beach",
   venueName: "Mansands Beach - National Trust",

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const theGoatTrailTopshamRouteV2: OpportunityRouteV2SeedInput = {
+  id: "the_goat_trail_topsham",
+  slug: "the_goat_trail_topsham",
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

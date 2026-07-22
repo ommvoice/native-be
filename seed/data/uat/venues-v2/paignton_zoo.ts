@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const paigntonZooVenueV2: OpportunityVenueV2SeedInput = {
+  id: "paignton_zoo",
+  slug: "paignton_zoo",
   themeSlug: "animal_encounters",
   themeVariantSlug: "animal_parks",
   venueName: "Paignton Zoo",

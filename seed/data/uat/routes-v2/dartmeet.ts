@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const dartmeetRouteV2: OpportunityRouteV2SeedInput = {
+  id: "dartmeet",
+  slug: "dartmeet",
   themeSlug: "scenic_walks",
   themeVariantSlug: "national_park, riverside_walk",
   opportunityType: "route",

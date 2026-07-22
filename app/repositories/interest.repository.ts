@@ -1,5 +1,4 @@
-import { scanAll, batchGetItems } from '../shared/db/dynamo-helpers';
-import { TABLES } from '../shared/db/tables';
+import { AssetsService } from '../services/assets.service';
 
 export interface InterestTagRecord {
   id: string;
@@ -27,25 +26,24 @@ export interface InterestSubCategoryRecord {
 }
 
 export class InterestRepository {
+  private readonly assets = new AssetsService();
+
   async listCategories(): Promise<InterestCategoryRecord[]> {
-    const items = await scanAll(TABLES.interestCategories);
-    return items as InterestCategoryRecord[];
+    return this.assets.getInterestCategories();
   }
 
-  async listSubCategories(categoryId?: string): Promise<InterestSubCategoryRecord[]> {
-    const items = await scanAll(TABLES.opportunityThemes);
-    const all = items as InterestSubCategoryRecord[];
-    return categoryId ? all.filter((i) => i.interestId === categoryId) : all;
+  async listSubCategories(categorySlug?: string): Promise<InterestSubCategoryRecord[]> {
+    return this.assets.getInterestSubCategories(categorySlug);
   }
 
-  async getCategoriesByIds(ids: string[]): Promise<InterestCategoryRecord[]> {
-    const items = await batchGetItems(TABLES.interestCategories, ids);
-    return items as InterestCategoryRecord[];
+  async getCategoriesBySlugs(slugs: string[]): Promise<InterestCategoryRecord[]> {
+    const set = new Set(slugs);
+    return this.assets.getInterestCategories().filter((c) => set.has(c.slug));
   }
 
-  async getSubCategoriesByIds(ids: string[]): Promise<InterestSubCategoryRecord[]> {
-    const items = await batchGetItems(TABLES.opportunityThemes, ids);
-    return items as InterestSubCategoryRecord[];
+  async getSubCategoriesBySlugs(slugs: string[]): Promise<InterestSubCategoryRecord[]> {
+    const set = new Set(slugs);
+    return this.assets.getInterestSubCategories().filter((s) => set.has(s.slug));
   }
 
   async listInterestTags(): Promise<InterestTagRecord[]> {

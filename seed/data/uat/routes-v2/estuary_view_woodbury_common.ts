@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const estuaryViewWoodburyCommonRouteV2: OpportunityRouteV2SeedInput = {
+  id: "estuary_view_woodbury_common",
+  slug: "estuary_view_woodbury_common",
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk",
   opportunityType: "route",

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const sidmouthTownBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "sidmouth_town_beach",
+  slug: "sidmouth_town_beach",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach, mixed_sand_shingle",
   venueName: "Sidmouth Town Beach",

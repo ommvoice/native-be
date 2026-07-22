@@ -1,7 +1,6 @@
 export interface DogFacilityEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

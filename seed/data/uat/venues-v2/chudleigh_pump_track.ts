@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const chudleighPumpTrackVenueV2: OpportunityVenueV2SeedInput = {
+  id: "chudleigh_pump_track",
+  slug: "chudleigh_pump_track",
   themeSlug: "wheels_routes",
   themeVariantSlug: "skills_and_stunts",
   venueName: "Chudleigh Pump Track",

@@ -1,7 +1,6 @@
 export interface RouteTypeEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

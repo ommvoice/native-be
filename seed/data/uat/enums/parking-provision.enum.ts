@@ -1,7 +1,6 @@
 export interface ParkingProvisionEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

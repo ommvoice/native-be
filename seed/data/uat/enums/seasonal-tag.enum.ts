@@ -1,7 +1,6 @@
 export interface SeasonalTagEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

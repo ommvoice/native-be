@@ -1,7 +1,4 @@
-import { scanAll, batchGetItems } from '../shared/db/dynamo-helpers';
-import { QueryCommand } from '@aws-sdk/lib-dynamodb';
-import db from '../shared/db/dynamo-client';
-import { TABLES } from '../shared/db/tables';
+import { AssetsService } from '../services/assets.service';
 
 export interface FacilityRecord {
   id: string;
@@ -13,26 +10,13 @@ export interface FacilityRecord {
 }
 
 export class FacilityRepository {
+  private readonly assets = new AssetsService();
+
   async list(): Promise<FacilityRecord[]> {
-    const items = await scanAll(TABLES.facilities);
-    return items as FacilityRecord[];
+    return this.assets.getFacilities();
   }
 
   async getBySlug(slug: string): Promise<FacilityRecord | null> {
-    const res = await db.send(
-      new QueryCommand({
-        TableName: TABLES.facilities,
-        IndexName: 'slug-index',
-        KeyConditionExpression: 'slug = :slug',
-        ExpressionAttributeValues: { ':slug': slug },
-        Limit: 1,
-      }),
-    );
-    return (res.Items?.[0] as FacilityRecord) ?? null;
-  }
-
-  async getByIds(ids: string[]): Promise<FacilityRecord[]> {
-    const items = await batchGetItems(TABLES.facilities, ids);
-    return items as FacilityRecord[];
+    return this.assets.getFacilityBySlug(slug);
   }
 }

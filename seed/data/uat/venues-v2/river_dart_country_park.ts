@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const riverDartCountryParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "river_dart_country_park",
+  slug: "river_dart_country_park",
   themeSlug: "active_play",
   themeVariantSlug: "adventure_playgrounds",
   venueName: "River Dart Country Park",

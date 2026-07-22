@@ -1,7 +1,7 @@
 import { GetCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import db from '../shared/db/dynamo-client';
 import { TABLES } from '../shared/db/tables';
-import { batchGetItems, scanAll } from '../shared/db/dynamo-helpers';
+import { AssetsService } from '../services/assets.service';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { OpportunityRecordType } from './driving-leg.repository';
 import { legKey } from './driving-leg.repository';
@@ -62,19 +62,19 @@ function getClubActiveDays(c: Record<string, unknown>): string[] {
 }
 
 export class RecommendationV2Repository {
+  private readonly assets = new AssetsService();
+
   async getParentForRecommendations(parentId: string, childId?: string) {
     const res = await db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: parentId } }));
     if (!res.Item) return null;
     const item = res.Item as Record<string, unknown>;
 
-    const categoryIds    = (item.interestCategoryIds    as string[]) ?? [];
-    const subCategoryIds = (item.interestSubCategoryIds as string[]) ?? [];
+    // Parent.interestCategoryIds/interestSubCategoryIds now store asset slugs
+    // directly (not DynamoDB ids), so no lookup against any table/asset is needed.
+    const categorySlugs    = (item.interestCategoryIds    as string[]) ?? [];
+    const subCategorySlugs = (item.interestSubCategoryIds as string[]) ?? [];
 
-    const [catItems, subItems, children] = await Promise.all([
-      categoryIds.length    > 0 ? batchGetItems(TABLES.opportunityThemes,        categoryIds)    : [],
-      subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds) : [],
-      this.getChildrenForParent(parentId, childId),
-    ]);
+    const children = await this.getChildrenForParent(parentId, childId);
 
     return {
       id:                     item.id as string,
@@ -82,8 +82,8 @@ export class RecommendationV2Repository {
       latitude:               item.latitude as string,
       longitude:              item.longitude as string,
       searchRadius:           item.searchRadius as number,
-      interestCategories:     catItems.map((c) => ({ slug: c.slug as string })),
-      interestSubCategories:  subItems.map((s) => ({ slug: s.slug as string })),
+      interestCategories:     categorySlugs.map((slug) => ({ slug })),
+      interestSubCategories:  subCategorySlugs.map((slug) => ({ slug })),
       children,
     };
   }
@@ -100,49 +100,33 @@ export class RecommendationV2Repository {
     const items    = (res.Items ?? []) as Record<string, unknown>[];
     const filtered = childId ? items.filter((i) => i.id === childId) : items;
 
-    return Promise.all(
-      filtered.map(async (item) => {
-        const categoryIds    = (item.interestCategoryIds    as string[]) ?? [];
-        const subCategoryIds = (item.interestSubCategoryIds as string[]) ?? [];
-        const skillIds       = (item.skillIds               as string[]) ?? [];
+    // Child.interestCategoryIds/interestSubCategoryIds/skillIds now store asset
+    // slugs directly — build the response shape from the stored slugs, no lookup needed.
+    return filtered.map((item) => {
+      const categorySlugs    = (item.interestCategoryIds    as string[]) ?? [];
+      const subCategorySlugs = (item.interestSubCategoryIds as string[]) ?? [];
+      const skillSlugs       = (item.skillIds               as string[]) ?? [];
 
-        const [catItems, subItems, skillItems] = await Promise.all([
-          categoryIds.length    > 0 ? batchGetItems(TABLES.opportunityThemes,        categoryIds)    : [],
-          subCategoryIds.length > 0 ? batchGetItems(TABLES.opportunityThemeVariants, subCategoryIds) : [],
-          skillIds.length       > 0 ? batchGetItems(TABLES.skills,                   skillIds)       : [],
-        ]);
-
-        const subCategoryIdSet  = new Set(skillItems.map((s) => s.subCategoryId as string).filter(Boolean));
-        const subCatItems       = subCategoryIdSet.size > 0
-          ? await batchGetItems(TABLES.opportunityThemes, [...subCategoryIdSet])
-          : [];
-        const subCatSlugMap     = new Map(subCatItems.map((s) => [s.id as string, s.slug as string]));
-
-        return {
-          id:                    item.id as string,
-          dateOfBirth:           new Date(item.dateOfBirth as string),
-          interestCategories:    catItems.map((c) => ({ slug: c.slug as string })),
-          interestSubCategories: subItems.map((s) => ({ slug: s.slug as string })),
-          skills: skillItems.map((s) => ({
-            slug:        s.slug as string,
-            minAge:      (s.minAge as number | null) ?? null,
-            maxAge:      (s.maxAge as number | null) ?? null,
-            subCategory: s.subCategoryId
-              ? { slug: subCatSlugMap.get(s.subCategoryId as string) ?? '' }
-              : null,
-          })),
-        };
-      }),
-    );
+      return {
+        id:                    item.id as string,
+        dateOfBirth:           new Date(item.dateOfBirth as string),
+        interestCategories:    categorySlugs.map((slug) => ({ slug })),
+        interestSubCategories: subCategorySlugs.map((slug) => ({ slug })),
+        skills: skillSlugs.map((slug) => ({
+          slug,
+          minAge: null,
+          maxAge: null,
+          subCategory: null,
+        })),
+      };
+    });
   }
 
   async getOpportunityCandidatesV2(): Promise<RecommendationV2Candidate[]> {
-    const [venues, events, clubs, routes] = await Promise.all([
-      scanAll(TABLES.opportunityVenuesV2),
-      scanAll(TABLES.opportunityEventsV2),
-      scanAll(TABLES.opportunityClubsV2),
-      scanAll(TABLES.opportunityRoutesV2),
-    ]);
+    const venues = this.assets.getAllVenues() as unknown as Record<string, unknown>[];
+    const events = this.assets.getAllEvents() as unknown as Record<string, unknown>[];
+    const clubs  = this.assets.getAllClubs()  as unknown as Record<string, unknown>[];
+    const routes = this.assets.getAllRoutes() as unknown as Record<string, unknown>[];
 
     const venueRows: RecommendationV2Candidate[] = venues.map((v) => ({
       type: 'venue' as const,
@@ -247,25 +231,37 @@ export class RecommendationV2Repository {
   }
 
   async getEnrichedPayloads(refs: { type: OpportunityRecordType; id: string }[]) {
-    if (refs.length === 0) return new Map<string, Record<string, unknown>>();
-
-    const venueIds = [...new Set(refs.filter((r) => r.type === 'venue').map((r) => r.id))];
-    const eventIds = [...new Set(refs.filter((r) => r.type === 'event').map((r) => r.id))];
-    const clubIds  = [...new Set(refs.filter((r) => r.type === 'club').map((r)  => r.id))];
-    const routeIds = [...new Set(refs.filter((r) => r.type === 'route').map((r) => r.id))];
-
-    const [venueItems, eventItems, clubItems, routeItems] = await Promise.all([
-      venueIds.length > 0 ? batchGetItems(TABLES.opportunityVenuesV2, venueIds) : [],
-      eventIds.length > 0 ? batchGetItems(TABLES.opportunityEventsV2, eventIds) : [],
-      clubIds.length  > 0 ? batchGetItems(TABLES.opportunityClubsV2,  clubIds)  : [],
-      routeIds.length > 0 ? batchGetItems(TABLES.opportunityRoutesV2, routeIds) : [],
-    ]);
-
     const map = new Map<string, Record<string, unknown>>();
-    for (const item of venueItems) map.set(legKey('venue', item.id as string), item);
-    for (const item of eventItems) map.set(legKey('event', item.id as string), item);
-    for (const item of clubItems)  map.set(legKey('club',  item.id as string), item);
-    for (const item of routeItems) map.set(legKey('route', item.id as string), item);
+    if (refs.length === 0) return map;
+
+    const venueIds = new Set(refs.filter((r) => r.type === 'venue').map((r) => r.id));
+    const eventIds = new Set(refs.filter((r) => r.type === 'event').map((r) => r.id));
+    const clubIds  = new Set(refs.filter((r) => r.type === 'club').map((r)  => r.id));
+    const routeIds = new Set(refs.filter((r) => r.type === 'route').map((r) => r.id));
+
+    // Asset JSON doesn't consistently carry `opportunityType` per item (e.g. venues
+    // never have it) — the old DynamoDB seed rows always had it hardcoded per type,
+    // and the response formatter switches on this field, so force it here.
+    if (venueIds.size > 0) {
+      for (const item of this.assets.getAllVenues() as unknown as Record<string, unknown>[]) {
+        if (venueIds.has(item.id as string)) map.set(legKey('venue', item.id as string), { ...item, opportunityType: 'venue' });
+      }
+    }
+    if (eventIds.size > 0) {
+      for (const item of this.assets.getAllEvents() as unknown as Record<string, unknown>[]) {
+        if (eventIds.has(item.id as string)) map.set(legKey('event', item.id as string), { ...item, opportunityType: 'event' });
+      }
+    }
+    if (clubIds.size > 0) {
+      for (const item of this.assets.getAllClubs() as unknown as Record<string, unknown>[]) {
+        if (clubIds.has(item.id as string)) map.set(legKey('club', item.id as string), { ...item, opportunityType: 'club' });
+      }
+    }
+    if (routeIds.size > 0) {
+      for (const item of this.assets.getAllRoutes() as unknown as Record<string, unknown>[]) {
+        if (routeIds.has(item.id as string)) map.set(legKey('route', item.id as string), { ...item, opportunityType: 'route' });
+      }
+    }
     return map;
   }
 }

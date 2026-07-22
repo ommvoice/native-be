@@ -10,6 +10,11 @@ const b = (v: unknown): boolean | null => (typeof v === 'boolean' ? v : null);
 const n = (v: unknown): number | null  => (typeof v === 'number'  ? v : null);
 const d = (v: unknown): Date | null    => (v != null ? new Date(v as string) : null);
 
+// Asset-sourced items never carry createdAt/updatedAt (they don't come from DynamoDB) —
+// fall back to a fixed placeholder instead of producing an Invalid Date.
+const FALLBACK_TIMESTAMP = new Date('2025-01-01T00:00:00.000Z');
+const timestamp = (v: unknown): Date => (typeof v === 'string' && v !== '' ? new Date(v) : FALLBACK_TIMESTAMP);
+
 function themeRef(item: Record<string, unknown>, defaultType: string) {
   const slug    = (item['themeSlug']        as string) ?? '';
   const varSlug = (item['themeVariantSlug'] as string) ?? '';
@@ -98,8 +103,8 @@ export function enrichVenue(item: Record<string, unknown>): OpportunityVenueV2 {
     venueAttractions:                 s(item['venueAttractions']),
     venueExtraKit:                    s(item['venueExtraKit']),
     image:                            s(item['image']),
-    createdAt:                        new Date(item['createdAt'] as string),
-    updatedAt:                        new Date(item['updatedAt'] as string),
+    createdAt:                        timestamp(item['createdAt']),
+    updatedAt:                        timestamp(item['updatedAt']),
   };
 }
 
@@ -191,8 +196,8 @@ export function enrichEvent(item: Record<string, unknown>): OpportunityEventV2 {
     eventSkillAreaVariant:            s(item['eventSkillAreaVariant']),
     eventAbilityLevel:                s(item['eventAbilityLevel']),
     image:                            s(item['image']),
-    createdAt:                        new Date(item['createdAt'] as string),
-    updatedAt:                        new Date(item['updatedAt'] as string),
+    createdAt:                        timestamp(item['createdAt']),
+    updatedAt:                        timestamp(item['updatedAt']),
   };
 }
 
@@ -298,8 +303,8 @@ export function enrichClub(item: Record<string, unknown>): OpportunityClubV2 {
     clubAttractions:                      s(item['clubAttractions']),
     clubExtraKit:                         s(item['clubExtraKit']),
     image:                                s(item['image']),
-    createdAt:                            new Date(item['createdAt'] as string),
-    updatedAt:                            new Date(item['updatedAt'] as string),
+    createdAt:                            timestamp(item['createdAt']),
+    updatedAt:                            timestamp(item['updatedAt']),
   };
 }
 
@@ -347,7 +352,7 @@ export function enrichRoute(item: Record<string, unknown>): OpportunityRouteV2 {
     routeAttractions:                s(item['routeAttractions']),
     routeExtraKit:                   s(item['routeExtraKit']),
     image:                           s(item['image']),
-    createdAt:                       new Date(item['createdAt'] as string),
-    updatedAt:                       new Date(item['updatedAt'] as string),
+    createdAt:                       timestamp(item['createdAt']),
+    updatedAt:                       timestamp(item['updatedAt']),
   };
 }

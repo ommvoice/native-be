@@ -1,7 +1,6 @@
 export interface PhysicalSettingEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

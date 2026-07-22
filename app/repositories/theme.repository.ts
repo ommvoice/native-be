@@ -1,10 +1,10 @@
-import { scanAll, batchGetItems } from '../shared/db/dynamo-helpers';
-import { TABLES } from '../shared/db/tables';
+import { AssetsService } from '../services/assets.service';
 
 export interface ThemeRecord {
   id: string;
   slug: string;
   name: string;
+  interestId: string;
   description: string | null;
   imageUrl: string | null;
   createdAt: string;
@@ -23,24 +23,23 @@ export interface ThemeVariantRecord {
 }
 
 export class ThemeRepository {
+  private readonly assets = new AssetsService();
+
   async listThemes(): Promise<ThemeRecord[]> {
-    const items = await scanAll(TABLES.opportunityThemes);
-    return items as ThemeRecord[];
+    return this.assets.getThemes();
   }
 
-  async listVariants(themeId?: string): Promise<ThemeVariantRecord[]> {
-    const items = await scanAll(TABLES.opportunityThemeVariants);
-    const all = items as ThemeVariantRecord[];
-    return themeId ? all.filter((v) => v.themeId === themeId) : all;
+  async listVariants(themeSlug?: string): Promise<ThemeVariantRecord[]> {
+    return this.assets.getThemeVariants(themeSlug);
   }
 
-  async getThemesByIds(ids: string[]): Promise<ThemeRecord[]> {
-    const items = await batchGetItems(TABLES.opportunityThemes, ids);
-    return items as ThemeRecord[];
+  async getThemesBySlugs(slugs: string[]): Promise<ThemeRecord[]> {
+    const set = new Set(slugs);
+    return this.assets.getThemes().filter((t) => set.has(t.slug));
   }
 
-  async getVariantsByIds(ids: string[]): Promise<ThemeVariantRecord[]> {
-    const items = await batchGetItems(TABLES.opportunityThemeVariants, ids);
-    return items as ThemeVariantRecord[];
+  async getVariantsBySlugs(slugs: string[]): Promise<ThemeVariantRecord[]> {
+    const set = new Set(slugs);
+    return this.assets.getThemeVariants().filter((v) => set.has(v.slug));
   }
 }

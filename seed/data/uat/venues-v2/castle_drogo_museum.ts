@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const castleDrogoMuseumVenueV2: OpportunityVenueV2SeedInput = {
+  id: "castle_drogo_museum",
+  slug: "castle_drogo_museum",
   themeSlug: "historical_cultural",
   themeVariantSlug: "historic_houses",
   venueName: "Castle Drogo Museum",

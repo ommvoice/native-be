@@ -1,6 +1,8 @@
 import type { OpportunityClubV2SeedInput } from "../../../opportunity/clubs-v2/create_opportunity_club_v2_row.js";
 
 export const oceanSoftplayClubV2: OpportunityClubV2SeedInput = {
+  id: "ocean_softplay",
+  slug: "ocean_softplay",
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   opportunityType: "club",

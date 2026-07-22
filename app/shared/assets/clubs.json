@@ -1,5 +1,7 @@
 [
   {
+    "id": "ocean_softplay_afterschool_club",
+    "slug": "ocean_softplay_afterschool_club",
     "themeSlug": "soft_play",
     "themeVariantSlug": "large_soft_play",
     "opportunityType": "club",
@@ -98,6 +100,8 @@
     "image": "Ocean softplay.jpg"
   },
   {
+    "id": "ocean_softplay",
+    "slug": "ocean_softplay",
     "themeSlug": "soft_play",
     "themeVariantSlug": "large_soft_play",
     "opportunityType": "club",
@@ -196,6 +200,8 @@
     "image": "Ocean softplay.jpg"
   },
   {
+    "id": "ocean_softplay_2",
+    "slug": "ocean_softplay_2",
     "themeSlug": "soft_play",
     "themeVariantSlug": "large_soft_play",
     "opportunityType": "club",
@@ -294,6 +300,8 @@
     "image": "Ocean softplay.jpg"
   },
   {
+    "id": "ocean_softplay_new_parents_club",
+    "slug": "ocean_softplay_new_parents_club",
     "themeSlug": "soft_play",
     "themeVariantSlug": "large_soft_play",
     "opportunityType": "club",

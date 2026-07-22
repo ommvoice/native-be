@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const woodburyVillagePlayAreaVenueV2: OpportunityVenueV2SeedInput = {
+  id: "woodbury_village_play_area",
+  slug: "woodbury_village_play_area",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Woodbury Village Play Area",

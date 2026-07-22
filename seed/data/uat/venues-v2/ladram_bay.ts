@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const ladramBayVenueV2: OpportunityVenueV2SeedInput = {
+  id: "ladram_bay",
+  slug: "ladram_bay",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach",
   venueName: "Ladram Bay",

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const haldonForestDiscoveryRouteRouteV2: OpportunityRouteV2SeedInput = {
+  id: "haldon_forest_discovery_route",
+  slug: "haldon_forest_discovery_route",
   themeSlug: "wheels_routes",
   themeVariantSlug: "quick_spin",
   opportunityType: "route",

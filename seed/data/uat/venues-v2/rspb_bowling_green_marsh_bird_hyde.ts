@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const rspbBowlingGreenMarshBirdHydeVenueV2: OpportunityVenueV2SeedInput = {
+  id: "rspb_bowling_green_marsh_bird_hyde",
+  slug: "rspb_bowling_green_marsh_bird_hyde",
   themeSlug: "nature_wildlife",
   themeVariantSlug: "hydes_cabins",
   venueName: "RSPB Bowling Green Marsh Bird Hyde",

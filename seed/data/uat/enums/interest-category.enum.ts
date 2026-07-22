@@ -1,7 +1,6 @@
 export interface InterestCategoryEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

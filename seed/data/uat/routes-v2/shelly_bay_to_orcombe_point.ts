@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const shellyBayToOrcombePointRouteV2: OpportunityRouteV2SeedInput = {
+  id: "shelly_bay_to_orcombe_point",
+  slug: "shelly_bay_to_orcombe_point",
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

@@ -1,7 +1,6 @@
 export interface EventTypeEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

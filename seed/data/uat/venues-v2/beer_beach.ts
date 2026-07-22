@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const beerBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "beer_beach",
+  slug: "beer_beach",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach",
   venueName: "Beer Beach",

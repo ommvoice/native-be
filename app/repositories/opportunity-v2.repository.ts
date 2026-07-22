@@ -1,7 +1,4 @@
-import { GetCommand } from '@aws-sdk/lib-dynamodb';
-import db from '../shared/db/dynamo-client';
-import { TABLES } from '../shared/db/tables';
-import { scanAll } from '../shared/db/dynamo-helpers';
+import { AssetsService } from '../services/assets.service';
 import {
   enrichVenue,
   enrichEvent,
@@ -16,51 +13,49 @@ import type {
 } from '../shared/types/opportunity-v2.types';
 
 export class OpportunityV2Repository {
+  private readonly assets = new AssetsService();
+
   // ── Venues ─────────────────────────────────────────────────────────────────
 
   async listVenues(): Promise<OpportunityVenueV2[]> {
-    const items = await scanAll(TABLES.opportunityVenuesV2);
-    return items.map(enrichVenue);
+    return this.assets.getAllVenues().map((v) => enrichVenue(v as unknown as Record<string, unknown>));
   }
 
-  async getVenue(id: string): Promise<OpportunityVenueV2 | null> {
-    const res = await db.send(new GetCommand({ TableName: TABLES.opportunityVenuesV2, Key: { id } }));
-    return res.Item ? enrichVenue(res.Item as Record<string, unknown>) : null;
+  async getVenue(slug: string): Promise<OpportunityVenueV2 | null> {
+    const item = this.assets.getVenueBySlug(slug);
+    return item ? enrichVenue(item as unknown as Record<string, unknown>) : null;
   }
 
   // ── Events ─────────────────────────────────────────────────────────────────
 
   async listEvents(): Promise<OpportunityEventV2[]> {
-    const items = await scanAll(TABLES.opportunityEventsV2);
-    return items.map(enrichEvent);
+    return this.assets.getAllEvents().map((e) => enrichEvent(e as unknown as Record<string, unknown>));
   }
 
-  async getEvent(id: string): Promise<OpportunityEventV2 | null> {
-    const res = await db.send(new GetCommand({ TableName: TABLES.opportunityEventsV2, Key: { id } }));
-    return res.Item ? enrichEvent(res.Item as Record<string, unknown>) : null;
+  async getEvent(slug: string): Promise<OpportunityEventV2 | null> {
+    const item = this.assets.getEventBySlug(slug);
+    return item ? enrichEvent(item as unknown as Record<string, unknown>) : null;
   }
 
   // ── Clubs ──────────────────────────────────────────────────────────────────
 
   async listClubs(): Promise<OpportunityClubV2[]> {
-    const items = await scanAll(TABLES.opportunityClubsV2);
-    return items.map(enrichClub);
+    return this.assets.getAllClubs().map((c) => enrichClub(c as unknown as Record<string, unknown>));
   }
 
-  async getClub(id: string): Promise<OpportunityClubV2 | null> {
-    const res = await db.send(new GetCommand({ TableName: TABLES.opportunityClubsV2, Key: { id } }));
-    return res.Item ? enrichClub(res.Item as Record<string, unknown>) : null;
+  async getClub(slug: string): Promise<OpportunityClubV2 | null> {
+    const item = this.assets.getClubBySlug(slug);
+    return item ? enrichClub(item as unknown as Record<string, unknown>) : null;
   }
 
   // ── Routes ─────────────────────────────────────────────────────────────────
 
   async listRoutes(): Promise<OpportunityRouteV2[]> {
-    const items = await scanAll(TABLES.opportunityRoutesV2);
-    return items.map(enrichRoute);
+    return this.assets.getAllRoutes().map((r) => enrichRoute(r as unknown as Record<string, unknown>));
   }
 
-  async getRoute(id: string): Promise<OpportunityRouteV2 | null> {
-    const res = await db.send(new GetCommand({ TableName: TABLES.opportunityRoutesV2, Key: { id } }));
-    return res.Item ? enrichRoute(res.Item as Record<string, unknown>) : null;
+  async getRoute(slug: string): Promise<OpportunityRouteV2 | null> {
+    const item = this.assets.getRouteBySlug(slug);
+    return item ? enrichRoute(item as unknown as Record<string, unknown>) : null;
   }
 }

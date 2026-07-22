@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const whimplePlayParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "whimple_play_park",
+  slug: "whimple_play_park",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Whimple Play Park",

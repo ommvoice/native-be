@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const danesWoodRouteV2: OpportunityRouteV2SeedInput = {
+  id: "danes_wood",
+  slug: "danes_wood",
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk",
   opportunityType: "route",

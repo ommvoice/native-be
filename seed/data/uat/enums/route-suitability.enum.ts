@@ -1,7 +1,6 @@
 export interface RouteSuitabilityEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

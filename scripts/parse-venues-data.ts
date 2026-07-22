@@ -26,6 +26,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { type EnumEntry, slugify, matchEnumValue } from "./lib/enum-matching.js";
+import { emitTypeFile, type TypeField } from "./lib/emit-type.js";
 import * as ENUMS from "../seed/data/uat/enums/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,7 @@ const WORKBOOK_PATH = path.join(__dirname, "..", "newData.xlsx");
 const SHEET_NAME = "Venues";
 const OVERLAY_PATH = path.join(__dirname, "..", "seed", "data", "uat", "enums", "data-discovered-additions.json");
 const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "venues-v2");
+const TYPE_OUTPUT_PATH = path.join(__dirname, "..", "app", "shared", "assets", "types", "venue.ts");
 
 const HEADER_ROW = 3; // 0-indexed grid row (Excel row 4): the snake_case field-name row
 const FIRST_DATA_ROW = 4; // 0-indexed grid row (Excel row 5): first real data row
@@ -175,6 +177,17 @@ interface ColumnConfig {
 
 const enumSingle = (enumKey: string): FieldKind => ({ kind: "enumSingle", enumKey });
 const enumMulti = (enumKey: string): FieldKind => ({ kind: "enumMulti", enumKey });
+
+function kindToTsType(kind: FieldKind): string {
+  switch (kind.kind) {
+    case "scalar": return "string | null";
+    case "numberString": return "string | null";
+    case "bool": return "boolean | null";
+    case "time": return "string | null";
+    case "enumSingle": return "string | null";
+    case "enumMulti": return "string | null";
+  }
+}
 
 const DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
 const DAY_LABELS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const;
@@ -359,8 +372,9 @@ function main(): void {
     usedSlugs.set(baseSlug, count);
     const fileSlug = count === 1 ? baseSlug : `${baseSlug}_${count}`;
     const exportName = `${toCamelCase(fileSlug)}VenueV2`;
+    const recordWithId = { id: fileSlug, slug: fileSlug, ...record };
 
-    fs.writeFileSync(path.join(OUTPUT_DIR, `${fileSlug}.ts`), emitVenueFile(exportName, record));
+    fs.writeFileSync(path.join(OUTPUT_DIR, `${fileSlug}.ts`), emitVenueFile(exportName, recordWithId));
     generated.push({ fileName: fileSlug, exportName });
   });
 
@@ -377,6 +391,17 @@ function main(): void {
   fs.writeFileSync(path.join(OUTPUT_DIR, "index.ts"), indexLines.join("\n"));
 
   fs.writeFileSync(OVERLAY_PATH, JSON.stringify(overlay, null, 2) + "\n");
+
+  const typeFields: TypeField[] = [
+    { name: "id", tsType: "string" },
+    { name: "slug", tsType: "string" },
+    { name: "themeSlug", tsType: "string" },
+    { name: "themeVariantSlug", tsType: "string" },
+    { name: "venueName", tsType: "string" },
+    ...COLUMNS.map((c) => ({ name: c.outputField, tsType: kindToTsType(c.kind) })),
+    { name: "venueBankHolidays", tsType: "string | null" },
+  ];
+  emitTypeFile(TYPE_OUTPUT_PATH, "Venue", "scripts/parse-venues-data.ts", typeFields);
 
   console.log(`Generated ${generated.length} venue files in ${path.relative(process.cwd(), OUTPUT_DIR)}`);
   const newEnumCount = Object.values(overlay).reduce((sum, arr) => sum + arr.length, 0);

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const dartmoorZooVenueV2: OpportunityVenueV2SeedInput = {
+  id: "dartmoor_zoo",
+  slug: "dartmoor_zoo",
   themeSlug: "animal_encounters",
   themeVariantSlug: "animal_parks",
   venueName: "Dartmoor Zoo",

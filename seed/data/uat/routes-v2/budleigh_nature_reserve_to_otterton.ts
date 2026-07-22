@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const budleighNatureReserveToOttertonRouteV2: OpportunityRouteV2SeedInput = {
+  id: "budleigh_nature_reserve_to_otterton",
+  slug: "budleigh_nature_reserve_to_otterton",
   themeSlug: "scenic_walks",
   themeVariantSlug: "nature_trail",
   opportunityType: "route",

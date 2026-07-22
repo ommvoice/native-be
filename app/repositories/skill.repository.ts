@@ -1,5 +1,4 @@
-import { scanAll, batchGetItems } from '../shared/db/dynamo-helpers';
-import { TABLES } from '../shared/db/tables';
+import { AssetsService } from '../services/assets.service';
 
 export interface SkillRecord {
   id: string;
@@ -15,13 +14,9 @@ export interface SkillRecord {
 }
 
 export class SkillRepository {
-  async list(): Promise<SkillRecord[]> {
-    const items = await scanAll(TABLES.skills);
-    return items as SkillRecord[];
-  }
+  private readonly assets = new AssetsService();
 
-  async getByIds(ids: string[]): Promise<SkillRecord[]> {
-    const items = await batchGetItems(TABLES.skills, ids);
-    return items as SkillRecord[];
+  async list(): Promise<SkillRecord[]> {
+    return this.assets.getSkills();
   }
 }

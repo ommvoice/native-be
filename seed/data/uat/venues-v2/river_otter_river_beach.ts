@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const riverOtterRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "river_otter_river_beach",
+  slug: "river_otter_river_beach",
   themeSlug: "water_fun",
   themeVariantSlug: "river_beach",
   venueName: "River Otter River Beach",

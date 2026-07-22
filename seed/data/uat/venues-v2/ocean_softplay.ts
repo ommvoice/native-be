@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const oceanSoftplayVenueV2: OpportunityVenueV2SeedInput = {
+  id: "ocean_softplay",
+  slug: "ocean_softplay",
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   venueName: "Ocean Softplay",

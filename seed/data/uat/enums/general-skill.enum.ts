@@ -1,7 +1,6 @@
 export interface GeneralSkillEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const killertonEstateRouteV2: OpportunityRouteV2SeedInput = {
+  id: "killerton_estate",
+  slug: "killerton_estate",
   themeSlug: "scenic_walks",
   themeVariantSlug: "estate_grounds",
   opportunityType: "route",

@@ -5,8 +5,8 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { ok } from '../../shared/utils/response';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const categoryId = event.queryStringParameters?.['categoryId'];
-  const subCats    = await new InterestRepository().listSubCategories(categoryId);
+  const categorySlug = event.queryStringParameters?.['categorySlug'];
+  const subCats      = await new InterestRepository().listSubCategories(categorySlug);
   return ok(subCats);
 };
 

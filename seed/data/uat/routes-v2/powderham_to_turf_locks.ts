@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const powderhamToTurfLocksRouteV2: OpportunityRouteV2SeedInput = {
+  id: "powderham_to_turf_locks",
+  slug: "powderham_to_turf_locks",
   themeSlug: "scenic_walks",
   themeVariantSlug: "towpaths",
   opportunityType: "route",

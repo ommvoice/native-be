@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const greenwayNationalTrustVenueV2: OpportunityVenueV2SeedInput = {
+  id: "greenway_national_trust",
+  slug: "greenway_national_trust",
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Greenway - National Trust",

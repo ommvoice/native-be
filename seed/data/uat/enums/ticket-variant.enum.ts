@@ -1,7 +1,6 @@
 export interface TicketVariantEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

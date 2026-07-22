@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const wildwoodEscotWildlifeParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "wildwood_escot_wildlife_park",
+  slug: "wildwood_escot_wildlife_park",
   themeSlug: "animal_encounters",
   themeVariantSlug: "animal_parks",
   venueName: "Wildwood Escot Wildlife Park",

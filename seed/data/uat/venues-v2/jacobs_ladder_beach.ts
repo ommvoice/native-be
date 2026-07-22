@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const jacobsLadderBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "jacobs_ladder_beach",
+  slug: "jacobs_ladder_beach",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach, mixed_sand_shingle",
   venueName: "Jacobs Ladder Beach",

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const geoplaySeafrontParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "geoplay_seafront_park",
+  slug: "geoplay_seafront_park",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Geoplay Seafront Park",

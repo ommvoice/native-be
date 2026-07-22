@@ -1,7 +1,6 @@
 export interface OpportunityTypeEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

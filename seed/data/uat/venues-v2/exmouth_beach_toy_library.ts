@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const exmouthBeachToyLibraryVenueV2: OpportunityVenueV2SeedInput = {
+  id: "exmouth_beach_toy_library",
+  slug: "exmouth_beach_toy_library",
   themeSlug: "nature_wildlife",
   themeVariantSlug: "learning_hut",
   venueName: "Exmouth Beach Toy Library",

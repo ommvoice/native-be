@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const belmontParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "belmont_park",
+  slug: "belmont_park",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Belmont Park",

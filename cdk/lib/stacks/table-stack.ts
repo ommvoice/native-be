@@ -64,37 +64,11 @@ export class TableStack extends cdk.Stack {
     const children = t('Children', tableNames.children, 'id');
     gsi(children, 'parentId-index', 'parentId');
 
-    const interestCategories = t('InterestCategories', tableNames.interestCategories, 'id');
-    gsi(interestCategories, 'slug-index', 'slug');
-
-    const skills = t('Skills', tableNames.skills, 'id');
-    const skillLevels = t('SkillLevels', tableNames.skillLevels, 'id');
-    const facilities = t('Facilities', tableNames.facilities, 'id');
-    gsi(facilities, 'slug-index', 'slug');
-
-    // ── Legacy opportunity tables ────────────────────────────────────────────
-
-    const opportunityVenues = t('OpportunityVenues', tableNames.opportunityVenues, 'id');
-    const opportunityEvents  = t('OpportunityEvents',  tableNames.opportunityEvents,  'id');
-    const opportunityClubs   = t('OpportunityClubs',   tableNames.opportunityClubs,   'id');
-    const opportunityRoutes  = t('OpportunityRoutes',  tableNames.opportunityRoutes,  'id');
-
-    // ── V2 opportunity tables ─────────────────────────────────────────────────
-
-    const opportunityVenuesV2 = t('OpportunityVenuesV2', tableNames.opportunityVenuesV2, 'id');
-    const opportunityEventsV2 = t('OpportunityEventsV2', tableNames.opportunityEventsV2, 'id');
-    const opportunityClubsV2  = t('OpportunityClubsV2',  tableNames.opportunityClubsV2,  'id');
-    const opportunityRoutesV2 = t('OpportunityRoutesV2', tableNames.opportunityRoutesV2, 'id');
-
-    // ── Taxonomy tables ───────────────────────────────────────────────────────
-
-    const opportunityThemes = t('OpportunityThemes', tableNames.opportunityThemes, 'id');
-    gsi(opportunityThemes, 'slug-index', 'slug');
-    gsi(opportunityThemes, 'interestId-index', 'interestId');
-
-    const opportunityThemeVariants = t('OpportunityThemeVariants', tableNames.opportunityThemeVariants, 'id');
-    gsi(opportunityThemeVariants, 'slug-index', 'slug');
-    gsi(opportunityThemeVariants, 'themeId-index', 'themeId');
+    // NOTE: interestCategories, skills, skillLevels, facilities, the legacy
+    // opportunityVenues/Events/Clubs/Routes tables, their V2 counterparts, and
+    // opportunityThemes/opportunityThemeVariants have all been migrated to
+    // static assets (app/shared/assets/*.json) — see AssetsService. Their
+    // tables are intentionally no longer provisioned here.
 
     // ── Driving legs ──────────────────────────────────────────────────────────
 
@@ -113,20 +87,6 @@ export class TableStack extends cdk.Stack {
       users,
       parents,
       children,
-      interestCategories,
-      skills,
-      skillLevels,
-      facilities,
-      opportunityVenues,
-      opportunityEvents,
-      opportunityClubs,
-      opportunityRoutes,
-      opportunityVenuesV2,
-      opportunityEventsV2,
-      opportunityClubsV2,
-      opportunityRoutesV2,
-      opportunityThemes,
-      opportunityThemeVariants,
       drivingLegs,
       wishlists,
       wishlistItems,

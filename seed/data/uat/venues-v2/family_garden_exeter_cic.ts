@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const familyGardenExeterCicVenueV2: OpportunityVenueV2SeedInput = {
+  id: "family_garden_exeter_cic",
+  slug: "family_garden_exeter_cic",
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "family_friendly_cafes",
   venueName: "Family Garden Exeter CIC",

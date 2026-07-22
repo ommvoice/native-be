@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const okehamptonCastleVenueV2: OpportunityVenueV2SeedInput = {
+  id: "okehampton_castle",
+  slug: "okehampton_castle",
   themeSlug: "historical_cultural",
   themeVariantSlug: "archaeological_sites, cultural_heritage",
   venueName: "Okehampton Castle",

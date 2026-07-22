@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const otteryStMaryParkLandOfCanaanVenueV2: OpportunityVenueV2SeedInput = {
+  id: "ottery_st_mary_park_land_of_canaan",
+  slug: "ottery_st_mary_park_land_of_canaan",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Ottery St Mary Park (Land of Canaan)",

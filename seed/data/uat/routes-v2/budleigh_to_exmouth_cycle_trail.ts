@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const budleighToExmouthCycleTrailRouteV2: OpportunityRouteV2SeedInput = {
+  id: "budleigh_to_exmouth_cycle_trail",
+  slug: "budleigh_to_exmouth_cycle_trail",
   themeSlug: "wheels_routes",
   themeVariantSlug: "longer_ride",
   opportunityType: "route",

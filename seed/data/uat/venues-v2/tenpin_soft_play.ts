@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const tenpinSoftPlayVenueV2: OpportunityVenueV2SeedInput = {
+  id: "tenpin_soft_play",
+  slug: "tenpin_soft_play",
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play, toddler_soft_play",
   venueName: "Tenpin Soft Play",

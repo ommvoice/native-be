@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const orccombePointVenueV2: OpportunityVenueV2SeedInput = {
+  id: "orccombe_point",
+  slug: "orccombe_point",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach, dog_friendly_beaches, rockpooling_hotspot",
   venueName: "Orccombe Point",

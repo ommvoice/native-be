@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const cranbrookCountryParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "cranbrook_country_park",
+  slug: "cranbrook_country_park",
   themeSlug: "green_spaces",
   themeVariantSlug: "country_parks",
   venueName: "Cranbrook Country Park",

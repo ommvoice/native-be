@@ -1,7 +1,6 @@
 export interface RouteDifficultyEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

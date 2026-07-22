@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const iplaySoftplayVenueV2: OpportunityVenueV2SeedInput = {
+  id: "iplay_softplay",
+  slug: "iplay_softplay",
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   venueName: "iPlay Softplay",

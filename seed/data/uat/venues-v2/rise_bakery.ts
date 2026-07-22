@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const riseBakeryVenueV2: OpportunityVenueV2SeedInput = {
+  id: "rise_bakery",
+  slug: "rise_bakery",
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "pit_stop_cafes",
   venueName: "Rise Bakery",

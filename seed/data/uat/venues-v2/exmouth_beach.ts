@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const exmouthBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "exmouth_beach",
+  slug: "exmouth_beach",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach, rnli_beach, dog_friendly_beaches",
   venueName: "Exmouth Beach",

@@ -1,5 +1,7 @@
 [
   {
+    "id": "ashridge_court",
+    "slug": "ashridge_court",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -88,6 +90,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens",
+    "slug": "kia_ora_farm_gardens",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -176,6 +180,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_2",
+    "slug": "kia_ora_farm_gardens_2",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -264,6 +270,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_3",
+    "slug": "kia_ora_farm_gardens_3",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -352,6 +360,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_4",
+    "slug": "kia_ora_farm_gardens_4",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -440,6 +450,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_5",
+    "slug": "kia_ora_farm_gardens_5",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -528,6 +540,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_6",
+    "slug": "kia_ora_farm_gardens_6",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -616,6 +630,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "kia_ora_farm_gardens_7",
+    "slug": "kia_ora_farm_gardens_7",
     "themeSlug": "gardens_outdoor",
     "themeVariantSlug": "formal_landscape_gardens",
     "opportunityType": "event",
@@ -704,6 +720,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "goren_farm",
+    "slug": "goren_farm",
     "themeSlug": "green_spaces",
     "themeVariantSlug": "open_parkland",
     "opportunityType": "event",
@@ -792,6 +810,8 @@
     "ticketingRequirement": false
   },
   {
+    "id": "goren_farm_2",
+    "slug": "goren_farm_2",
     "themeSlug": "green_spaces",
     "themeVariantSlug": "open_parkland",
     "opportunityType": "event",
@@ -880,6 +900,8 @@
     "ticketingRequirement": true
   },
   {
+    "id": "thornes_farm_pyo",
+    "slug": "thornes_farm_pyo",
     "themeSlug": "seasonal",
     "themeVariantSlug": "pick_your_own",
     "opportunityType": "event",
@@ -968,6 +990,8 @@
     "ticketingRequirement": false
   },
   {
+    "id": "amelias_flower_farm_pyo",
+    "slug": "amelias_flower_farm_pyo",
     "themeSlug": "seasonal",
     "themeVariantSlug": "pick_your_own",
     "opportunityType": "event",
@@ -1056,6 +1080,8 @@
     "ticketingRequirement": false
   },
   {
+    "id": "little_wildlings",
+    "slug": "little_wildlings",
     "themeSlug": "nature_wildlife",
     "themeVariantSlug": "den_building, natural_play_areas, forest_school",
     "opportunityType": "event",

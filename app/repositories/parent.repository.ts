@@ -1,7 +1,7 @@
 import { GetCommand, PutCommand, QueryCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import db from '../shared/db/dynamo-client';
 import { TABLES } from '../shared/db/tables';
-import { batchGetItems } from '../shared/db/dynamo-helpers';
+import { AssetsService } from '../services/assets.service';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface ParentRecord {
@@ -20,6 +20,8 @@ export interface ParentRecord {
 }
 
 export class ParentRepository {
+  private readonly assets = new AssetsService();
+
   async getById(id: string): Promise<ParentRecord | null> {
     const res = await db.send(new GetCommand({ TableName: TABLES.parents, Key: { id } }));
     return (res.Item as ParentRecord) ?? null;
@@ -76,15 +78,9 @@ export class ParentRepository {
     );
   }
 
-  async interestCategoryIdsExist(ids: string[]): Promise<boolean> {
-    if (ids.length === 0) return true;
-    const items = await batchGetItems(TABLES.interestCategories, ids);
-    return items.length === new Set(ids).size;
-  }
-
-  async getThemesByIds(ids: string[]): Promise<{ id: string; categoryId: string }[]> {
-    if (ids.length === 0) return [];
-    const items = await batchGetItems(TABLES.opportunityThemes, ids);
-    return items.map((i) => ({ id: i.id as string, categoryId: i.interestId as string }));
+  async interestCategorySlugsExist(slugs: string[]): Promise<boolean> {
+    if (slugs.length === 0) return true;
+    const known = new Set(this.assets.getInterestCategories().map((c) => c.slug));
+    return slugs.every((slug) => known.has(slug));
   }
 }

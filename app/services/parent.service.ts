@@ -15,8 +15,8 @@ export class ParentService {
     if (!parent) throw new AppError(404, 'Parent not found');
 
     const [categories, subCategories,  children] = await Promise.all([
-      this.interestRepo.getCategoriesByIds(parent.interestCategoryIds),
-      this.interestRepo.getSubCategoriesByIds(parent.interestSubCategoryIds),
+      this.interestRepo.getCategoriesBySlugs(parent.interestCategoryIds),
+      this.interestRepo.getSubCategoriesBySlugs(parent.interestSubCategoryIds),
       this.childRepo.listByParentId(parent.id),
     ]);
 
@@ -34,8 +34,8 @@ export class ParentService {
     const parent = await this.parentRepo.getById(id);
     if (!parent) throw new AppError(404, 'Parent not found');
 
-    const valid = await this.parentRepo.interestCategoryIdsExist(categoryIds);
-    if (!valid) throw new AppError(400, 'One or more interest category IDs are invalid');
+    const valid = await this.parentRepo.interestCategorySlugsExist(categoryIds);
+    if (!valid) throw new AppError(400, 'One or more interest category slugs are invalid');
 
     await this.parentRepo.updateInterests(id, categoryIds, subCategoryIds);
     return this.getById(id);

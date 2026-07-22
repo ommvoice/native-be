@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const fingleBridgeRiversideRouteV2: OpportunityRouteV2SeedInput = {
+  id: "fingle_bridge_riverside",
+  slug: "fingle_bridge_riverside",
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk, riverside_walk",
   opportunityType: "route",

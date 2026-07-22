@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const sandyBayParkVenueV2: OpportunityVenueV2SeedInput = {
+  id: "sandy_bay_park",
+  slug: "sandy_bay_park",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Sandy Bay Park",

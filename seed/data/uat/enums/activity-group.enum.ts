@@ -1,7 +1,6 @@
 export interface ActivityGroupEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const stoverCountryParkRouteV2: OpportunityRouteV2SeedInput = {
+  id: "stover_country_park",
+  slug: "stover_country_park",
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk, riverside_walk",
   opportunityType: "route",

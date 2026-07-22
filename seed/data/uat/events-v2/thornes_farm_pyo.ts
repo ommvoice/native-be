@@ -1,6 +1,8 @@
 import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2/create_opportunity_event_v2_row.js";
 
 export const thornesFarmPyoEventV2: OpportunityEventV2SeedInput = {
+  id: "thornes_farm_pyo",
+  slug: "thornes_farm_pyo",
   themeSlug: "seasonal",
   themeVariantSlug: "pick_your_own",
   opportunityType: "event",

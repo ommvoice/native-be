@@ -1317,10 +1317,12 @@
     {
       "name": "Scenic Walks & Trails",
       "slug": "scenic_walks",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "route",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration"
       ],
       "active": true
@@ -1328,10 +1330,12 @@
     {
       "name": "Green Open Spaces",
       "slug": "green_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration"
       ],
       "active": true
@@ -1339,11 +1343,13 @@
     {
       "name": "Nature & Wildlife Exploration",
       "slug": "nature_wildlife",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "route",
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration"
       ],
       "active": true
@@ -1351,10 +1357,12 @@
     {
       "name": "Coastal Adventures",
       "slug": "coastal_adventures",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration"
       ],
       "active": true
@@ -1362,10 +1370,12 @@
     {
       "name": "Gardens & Curated Outdoor Spaces",
       "slug": "gardens_outdoor",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration"
       ],
       "active": true
@@ -1373,10 +1383,12 @@
     {
       "name": "Playgrounds & Adventure Parks",
       "slug": "active_play",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "movement_energy"
       ],
       "active": true
@@ -1384,10 +1396,12 @@
     {
       "name": "Sporty Activities",
       "slug": "sporty_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "movement_energy"
       ],
       "active": true
@@ -1395,11 +1409,13 @@
     {
       "name": "Rideable Routes",
       "slug": "wheels_routes",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "route",
         "event",
         "club",
-        "venue",
+        "venue"
+      ],
+      "interestCategorySlugs": [
         "movement_energy"
       ],
       "active": true
@@ -1407,10 +1423,12 @@
     {
       "name": "Water Activities",
       "slug": "water_fun",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "nature_exploration",
         "movement_energy"
       ],
@@ -1419,10 +1437,12 @@
     {
       "name": "Creative Activities",
       "slug": "creative_play",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "creativity_imagination"
       ],
       "active": true
@@ -1430,10 +1450,12 @@
     {
       "name": "Imaginative & Role Play",
       "slug": "imaginative_play",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "creativity_imagination"
       ],
       "active": true
@@ -1441,10 +1463,12 @@
     {
       "name": "Sensory or Calming Experiences",
       "slug": "sensory_soothing",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "slowing_down"
       ],
       "active": true
@@ -1452,10 +1476,12 @@
     {
       "name": "Hands-On Learning",
       "slug": "hands_on_learning",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "movement_energy",
         "learning_curiosity"
       ],
@@ -1464,10 +1490,12 @@
     {
       "name": "Museums & Discovery",
       "slug": "interactive_museums",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "creativity_imagination",
         "learning_curiosity"
       ],
@@ -1476,10 +1504,12 @@
     {
       "name": "History & Culture",
       "slug": "historical_cultural",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "creativity_imagination",
         "learning_curiosity"
       ],
@@ -1488,10 +1518,12 @@
     {
       "name": "Animal Encounters",
       "slug": "animal_encounters",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "learning_curiosity"
       ],
       "active": true
@@ -1499,9 +1531,11 @@
     {
       "name": "Soft Play & Indoor Active Play",
       "slug": "soft_play",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
-        "event",
+        "event"
+      ],
+      "interestCategorySlugs": [
         "movement_energy"
       ],
       "active": true
@@ -1509,10 +1543,12 @@
     {
       "name": "Indoor Entertainment",
       "slug": "indoor_entertainment",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "club",
-        "event",
+        "event"
+      ],
+      "interestCategorySlugs": [
         "creativity_imagination",
         "together_time",
         "special_memorable"
@@ -1522,10 +1558,12 @@
     {
       "name": "Transport & Engineering",
       "slug": "vehicles_transport",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
-        "club",
+        "club"
+      ],
+      "interestCategorySlugs": [
         "learning_curiosity"
       ],
       "active": true
@@ -1533,9 +1571,11 @@
     {
       "name": "A Big Day Out",
       "slug": "big_day_out",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
-        "event",
+        "event"
+      ],
+      "interestCategorySlugs": [
         "together_time",
         "special_memorable"
       ],
@@ -1544,8 +1584,10 @@
     {
       "name": "Cafés & Coffee Stops",
       "slug": "relaxed_cafe",
-      "relatedEnumNameSlugs": [
-        "venue",
+      "opportunityTypeSlugs": [
+        "venue"
+      ],
+      "interestCategorySlugs": [
         "slowing_down",
         "together_time"
       ],
@@ -1554,8 +1596,10 @@
     {
       "name": "Family Dining",
       "slug": "family_dining",
-      "relatedEnumNameSlugs": [
-        "venue",
+      "opportunityTypeSlugs": [
+        "venue"
+      ],
+      "interestCategorySlugs": [
         "together_time"
       ],
       "active": true
@@ -1563,7 +1607,7 @@
     {
       "name": "Seasonal",
       "slug": "seasonal",
-      "relatedEnumNameSlugs": [
+      "opportunityTypeSlugs": [
         "venue",
         "event",
         "club"
@@ -1575,7 +1619,7 @@
     {
       "name": "Country Park",
       "slug": "country_parks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1583,7 +1627,7 @@
     {
       "name": "Parkland or Meadow",
       "slug": "open_parkland",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1591,7 +1635,7 @@
     {
       "name": "Village Green",
       "slug": "village_greens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1599,7 +1643,7 @@
     {
       "name": "Village Park",
       "slug": "village_parks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1607,7 +1651,7 @@
     {
       "name": "Urban Green Space",
       "slug": "urban_green_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1615,7 +1659,7 @@
     {
       "name": "Castle Grounds",
       "slug": "castle_grounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1623,7 +1667,7 @@
     {
       "name": "Estate Grounds",
       "slug": "estate_grounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -1631,7 +1675,7 @@
     {
       "name": "Nature Reserve",
       "slug": "nature_reserves",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1639,7 +1683,7 @@
     {
       "name": "Wildlife Hotspot",
       "slug": "wildlife_spotting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1647,7 +1691,7 @@
     {
       "name": "Hydes or Cabins",
       "slug": "hydes_cabins",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1655,7 +1699,7 @@
     {
       "name": "Information Hut or Learning Centre",
       "slug": "learning_hut",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1663,7 +1707,7 @@
     {
       "name": "Forest School",
       "slug": "forest_school",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1671,7 +1715,7 @@
     {
       "name": "Natural Play Area",
       "slug": "natural_play_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1679,7 +1723,7 @@
     {
       "name": "Den-Building & Nature Craft",
       "slug": "den_building",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1687,7 +1731,7 @@
     {
       "name": "Discovery Trail",
       "slug": "nature_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -1695,7 +1739,7 @@
     {
       "name": "Sandy Beach",
       "slug": "sandy_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1703,7 +1747,7 @@
     {
       "name": "Pebble or Shingle Beach",
       "slug": "pebble_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1711,7 +1755,7 @@
     {
       "name": "RNLI Beach",
       "slug": "rnli_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1719,7 +1763,7 @@
     {
       "name": "Rocky Cove",
       "slug": "coves_exploration",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1727,7 +1771,7 @@
     {
       "name": "Coasteering Beach",
       "slug": "coasteering_adventure",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1735,7 +1779,7 @@
     {
       "name": "Wild or Remote Beach",
       "slug": "wild_open_beaches",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1743,7 +1787,7 @@
     {
       "name": "Dog-Friendly Beach",
       "slug": "dog_friendly_beaches",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1751,7 +1795,7 @@
     {
       "name": "Mixed Sand & Shingle Beach",
       "slug": "mixed_sand_shingle",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1759,7 +1803,7 @@
     {
       "name": "Sheltered Cove or Bay",
       "slug": "cove_or_bay",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1767,7 +1811,7 @@
     {
       "name": "Surf Beach",
       "slug": "surf_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1775,7 +1819,7 @@
     {
       "name": "Harbour or Village Beach",
       "slug": "harbour_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1783,7 +1827,7 @@
     {
       "name": "Estuary Beach",
       "slug": "estuary_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -1791,7 +1835,7 @@
     {
       "name": "Botanical Garden",
       "slug": "botanical_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1799,7 +1843,7 @@
     {
       "name": "Arboretum",
       "slug": "arboretum",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1807,7 +1851,7 @@
     {
       "name": "Historic Estate Garden",
       "slug": "historic_estate_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1815,7 +1859,7 @@
     {
       "name": "Landscaped Garden",
       "slug": "formal_landscape_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1823,7 +1867,7 @@
     {
       "name": "Community Garden",
       "slug": "community_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1831,7 +1875,7 @@
     {
       "name": "Themed Garden",
       "slug": "themed_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1839,7 +1883,7 @@
     {
       "name": "Enclosed Garden",
       "slug": "enclosed_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -1847,7 +1891,7 @@
     {
       "name": "Destination Playground",
       "slug": "large_playgrounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1855,7 +1899,7 @@
     {
       "name": "Local park",
       "slug": "local_playgrouns",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1863,7 +1907,7 @@
     {
       "name": "Adventure Playground",
       "slug": "adventure_playgrounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1871,7 +1915,7 @@
     {
       "name": "Natural Obstacle Course",
       "slug": "natural_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1879,7 +1923,7 @@
     {
       "name": "Skate Park",
       "slug": "skate_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1887,7 +1931,7 @@
     {
       "name": "Orienteering Course",
       "slug": "orienteering_course",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1895,7 +1939,7 @@
     {
       "name": "Letterboxing Site",
       "slug": "letterboxing_course",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -1903,7 +1947,7 @@
     {
       "name": "Leisure Centre",
       "slug": "leisure_centre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1911,7 +1955,7 @@
     {
       "name": "Adventure / Assault Course",
       "slug": "assault_course",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1919,7 +1963,7 @@
     {
       "name": "Climbing Centre",
       "slug": "climbing_centre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1927,7 +1971,7 @@
     {
       "name": "Multisports Centre",
       "slug": "multisports_activity_centre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1935,7 +1979,7 @@
     {
       "name": "Sport Stadium",
       "slug": "sports_stadium",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1943,7 +1987,7 @@
     {
       "name": "Sport Arena",
       "slug": "sports_arena",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1951,7 +1995,7 @@
     {
       "name": "Swimming Pool",
       "slug": "swimming_pool",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1959,7 +2003,7 @@
     {
       "name": "Community Centre",
       "slug": "community_centre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1967,7 +2011,7 @@
     {
       "name": "Range",
       "slug": "range",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1975,7 +2019,7 @@
     {
       "name": "Sports Track",
       "slug": "sports_track",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1983,7 +2027,7 @@
     {
       "name": "Indoor Court",
       "slug": "indoor_courts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1991,7 +2035,7 @@
     {
       "name": "Outdoor Court",
       "slug": "outdoor_courts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -1999,7 +2043,7 @@
     {
       "name": "Specialist Facility",
       "slug": "specialist_sports_facility",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2007,7 +2051,7 @@
     {
       "name": "Outdoor Pitch",
       "slug": "outdoor_pitch",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2015,7 +2059,7 @@
     {
       "name": "Gym",
       "slug": "gym",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2023,7 +2067,7 @@
     {
       "name": "Coached Sessions",
       "slug": "coached_sessions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2031,7 +2075,7 @@
     {
       "name": "Structured Lessons",
       "slug": "structured_lessons",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2039,7 +2083,7 @@
     {
       "name": "Club or Team",
       "slug": "clubs_and_teams",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2047,7 +2091,7 @@
     {
       "name": "Training or Skills Focus",
       "slug": "training_and_drills",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2055,7 +2099,7 @@
     {
       "name": "Kit & Equipment Hire",
       "slug": "kit_hire",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2063,7 +2107,7 @@
     {
       "name": "Hireable Court/Pitch",
       "slug": "hire_and_free_practice",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -2071,7 +2115,7 @@
     {
       "name": "Winter Wonderland",
       "slug": "winter_wonderland",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2079,7 +2123,7 @@
     {
       "name": "Ice-skating Rink",
       "slug": "ice_rink",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2087,7 +2131,7 @@
     {
       "name": "Festival Park",
       "slug": "festival_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2095,7 +2139,7 @@
     {
       "name": "Arena",
       "slug": "arena",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2103,7 +2147,7 @@
     {
       "name": "Stadium",
       "slug": "statium",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2111,7 +2155,7 @@
     {
       "name": "Showground",
       "slug": "showground",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2119,7 +2163,7 @@
     {
       "name": "Fairground",
       "slug": "fairground",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2127,7 +2171,7 @@
     {
       "name": "PYO Farm",
       "slug": "pick_your_own",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2135,7 +2179,7 @@
     {
       "name": "Lights Trail",
       "slug": "light_trail",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2143,7 +2187,7 @@
     {
       "name": "Patch or Field",
       "slug": "patch",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -2151,7 +2195,7 @@
     {
       "name": "Paddle Spot",
       "slug": "paddle_spot",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2159,7 +2203,7 @@
     {
       "name": "Water play",
       "slug": "water_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2167,7 +2211,7 @@
     {
       "name": "River Beach",
       "slug": "river_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2175,7 +2219,7 @@
     {
       "name": "Waterparks",
       "slug": "water_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2183,7 +2227,7 @@
     {
       "name": "On The Water",
       "slug": "water_rides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2191,7 +2235,7 @@
     {
       "name": "Water Adventure",
       "slug": "water_adventure",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -2199,7 +2243,7 @@
     {
       "name": "Creative Artwork",
       "slug": "making_and_creating",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -2207,7 +2251,7 @@
     {
       "name": "Music & Movement",
       "slug": "expressive_movement_and_music",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -2215,7 +2259,7 @@
     {
       "name": "Creative Expression",
       "slug": "creative_expression",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -2223,7 +2267,7 @@
     {
       "name": "Performative Arts",
       "slug": "performing_and_putting_on_a_show",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -2231,7 +2275,7 @@
     {
       "name": "Film or Media",
       "slug": "film_photography",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -2239,7 +2283,7 @@
     {
       "name": "Character-Led Play",
       "slug": "role_play_and_characters",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -2247,7 +2291,7 @@
     {
       "name": "Immersive Worlds",
       "slug": "immersive_worlds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -2255,7 +2299,7 @@
     {
       "name": "Scenario & World play",
       "slug": "scenario_and_world_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -2263,7 +2307,7 @@
     {
       "name": "Narrative-led experiences",
       "slug": "narrative_led_experiences",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -2271,7 +2315,7 @@
     {
       "name": "Sensory garden",
       "slug": "sensory_garden",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sensory_soothing"
       ],
       "active": true
@@ -2279,7 +2323,7 @@
     {
       "name": "Sensory Space",
       "slug": "sensory_room_or_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sensory_soothing"
       ],
       "active": true
@@ -2287,7 +2331,7 @@
     {
       "name": "Soothing Environment",
       "slug": "calming_designed_environment",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sensory_soothing"
       ],
       "active": true
@@ -2295,7 +2339,7 @@
     {
       "name": "Light-touch Sensory",
       "slug": "light_touch_sensory_experience",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sensory_soothing"
       ],
       "active": true
@@ -2303,7 +2347,7 @@
     {
       "name": "Experiments",
       "slug": "experiments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2311,7 +2355,7 @@
     {
       "name": "Discovery-Based Challenges",
       "slug": "discovery_challenges",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2319,7 +2363,7 @@
     {
       "name": "Learning Through Play",
       "slug": "learning_through_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2327,7 +2371,7 @@
     {
       "name": "Interactive Exhibits",
       "slug": "interactive_exhibits",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2335,7 +2379,7 @@
     {
       "name": "Problem-Solving",
       "slug": "problem_solving",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2343,7 +2387,7 @@
     {
       "name": "Construction Activities",
       "slug": "construction_activity",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -2351,7 +2395,7 @@
     {
       "name": "Science & Discovery",
       "slug": "science_and_discovery",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -2359,7 +2403,7 @@
     {
       "name": "Technology & Innovation",
       "slug": "technology_and_innovation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -2367,7 +2411,7 @@
     {
       "name": "History & Pastimes",
       "slug": "history_made_interactive",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -2375,7 +2419,7 @@
     {
       "name": "World & Cultures",
       "slug": "world_and_cultures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -2383,7 +2427,7 @@
     {
       "name": "Child-Focused Discovery",
       "slug": "children_focused_discovery",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -2391,7 +2435,7 @@
     {
       "name": "Farm or Smallholding",
       "slug": "farm_and_smallholding",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2399,7 +2443,7 @@
     {
       "name": "Wildlife Reserve",
       "slug": "wildlife_reserve",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2407,7 +2451,7 @@
     {
       "name": "Animal Parks & Zoos",
       "slug": "animal_parks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2415,7 +2459,7 @@
     {
       "name": "Conservation Project",
       "slug": "conservation_project",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2423,7 +2467,7 @@
     {
       "name": "Animal Sanctuary",
       "slug": "animal_sanctuary",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2431,7 +2475,7 @@
     {
       "name": "Marine Aquarium",
       "slug": "sealife_aquarium",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2439,7 +2483,7 @@
     {
       "name": "Reptiles & Exotics",
       "slug": "reptiles_and_exotics",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2447,7 +2491,7 @@
     {
       "name": "Bird of Prey Centre",
       "slug": "birds_of_prey",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2455,7 +2499,7 @@
     {
       "name": "Stables or Yard",
       "slug": "stables_yard",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -2463,7 +2507,7 @@
     {
       "name": "Ancient Site",
       "slug": "ancient_sites",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2471,7 +2515,7 @@
     {
       "name": "Historic Estate",
       "slug": "historic_houses",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2479,7 +2523,7 @@
     {
       "name": "Living History",
       "slug": "living_history",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2487,7 +2531,7 @@
     {
       "name": "Open-Air Museum",
       "slug": "open_museum",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2495,7 +2539,7 @@
     {
       "name": "Industrial & Working History",
       "slug": "industrial_history",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2503,7 +2547,7 @@
     {
       "name": "Archaeological",
       "slug": "archaeological_sites",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2511,7 +2555,7 @@
     {
       "name": "Cultural Heritage Site",
       "slug": "cultural_heritage",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2519,7 +2563,7 @@
     {
       "name": "Historic Religious Building",
       "slug": "historic_religious",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -2527,7 +2571,7 @@
     {
       "name": "Soft Play Centre",
       "slug": "large_soft_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2535,7 +2579,7 @@
     {
       "name": "Toddler Play Space",
       "slug": "toddler_soft_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2543,7 +2587,7 @@
     {
       "name": "Indoor Climbing",
       "slug": "indoor_climbing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2551,7 +2595,7 @@
     {
       "name": "Inside Course",
       "slug": "indoor_course",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2559,7 +2603,7 @@
     {
       "name": "Trampoline Park",
       "slug": "trampoline_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2567,7 +2611,7 @@
     {
       "name": "Multi-Activity Centre",
       "slug": "indoor_multi_activity",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -2575,7 +2619,7 @@
     {
       "name": "Cinema",
       "slug": "cinema",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2583,7 +2627,7 @@
     {
       "name": "Stage-Show",
       "slug": "theature_panto",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2591,7 +2635,7 @@
     {
       "name": "Live Events",
       "slug": "live_events",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2599,7 +2643,7 @@
     {
       "name": "Gaming & VR",
       "slug": "gaming",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2607,7 +2651,7 @@
     {
       "name": "Escape Room",
       "slug": "escape_room",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2615,7 +2659,7 @@
     {
       "name": "Improvised Performance",
       "slug": "improvised_performance",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2623,7 +2667,7 @@
     {
       "name": "Comedy",
       "slug": "comedy_club",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2631,7 +2675,7 @@
     {
       "name": "Karaoke",
       "slug": "karaoke_club",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2639,7 +2683,7 @@
     {
       "name": "Arcade / Amusements",
       "slug": "arcade_hall",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2647,7 +2691,7 @@
     {
       "name": "Laser Tag",
       "slug": "laser_tag",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2655,7 +2699,7 @@
     {
       "name": "Bowling",
       "slug": "bowling_alley",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -2663,7 +2707,7 @@
     {
       "name": "Trains & Railways",
       "slug": "trains_and_rail",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2671,7 +2715,7 @@
     {
       "name": "Boat Trips & Ferries",
       "slug": "boat_trips",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2679,7 +2723,7 @@
     {
       "name": "Harbours & Marinas",
       "slug": "harbours_and_marinas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2687,7 +2731,7 @@
     {
       "name": "Aircraft & Aviation",
       "slug": "aviation_experiences",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2695,7 +2739,7 @@
     {
       "name": "Transport Museum",
       "slug": "transport_museums",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2703,7 +2747,7 @@
     {
       "name": "Working Transport Hubs",
       "slug": "working_transport_hubs",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -2711,7 +2755,7 @@
     {
       "name": "Themepark",
       "slug": "themepark",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2719,7 +2763,7 @@
     {
       "name": "Amusement Park",
       "slug": "amusement_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2727,7 +2771,7 @@
     {
       "name": "Major Animal Attractions",
       "slug": "major_animal_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2735,7 +2779,7 @@
     {
       "name": "Large-Scale Outdoor Attractions",
       "slug": "large_scale_outdoor",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2743,7 +2787,7 @@
     {
       "name": "Major Indoor Attractions",
       "slug": "major_indoor",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2751,7 +2795,7 @@
     {
       "name": "Seasonal & Themed Events",
       "slug": "seasonal_and_themed",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -2759,7 +2803,7 @@
     {
       "name": "Family-Friendly Cafés",
       "slug": "family_friendly_cafes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -2767,7 +2811,7 @@
     {
       "name": "Quiet Cafés",
       "slug": "cafe_with_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -2775,7 +2819,7 @@
     {
       "name": "Cafés with Outdoor Space",
       "slug": "cafe_with_outdoor_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -2783,7 +2827,7 @@
     {
       "name": "Coffee Cabin / Truck",
       "slug": "coffee_cabin",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -2791,7 +2835,7 @@
     {
       "name": "Easy Pit-Stops",
       "slug": "pit_stop_cafes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -2799,7 +2843,7 @@
     {
       "name": "Family Eateries",
       "slug": "casual_family_restaurants",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -2807,7 +2851,7 @@
     {
       "name": "Outdoor Family Dining",
       "slug": "dining_with_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -2815,7 +2859,7 @@
     {
       "name": "Destination Family Dining",
       "slug": "destination_dining",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -2823,7 +2867,7 @@
     {
       "name": "Food Festivals",
       "slug": "food_festival",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -2831,7 +2875,7 @@
     {
       "name": "Woodland Walk",
       "slug": "woodland_walk",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2839,7 +2883,7 @@
     {
       "name": "Coastal or Clifftop Walk",
       "slug": "coastal_walk",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2847,7 +2891,7 @@
     {
       "name": "River or Lakeside Ramble",
       "slug": "riverside_walk",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2855,7 +2899,7 @@
     {
       "name": "Nature Trail",
       "slug": "nature_trail",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2863,7 +2907,7 @@
     {
       "name": "National Park",
       "slug": "national_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2871,7 +2915,7 @@
     {
       "name": "Waymarked Trail",
       "slug": "waymarked_trail",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2879,7 +2923,7 @@
     {
       "name": "Estate Grounds",
       "slug": "estate_grounds_scenic_walks_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2887,7 +2931,7 @@
     {
       "name": "Heathland",
       "slug": "heathland",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2895,7 +2939,7 @@
     {
       "name": "Feature Walk",
       "slug": "feature_walk",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2903,7 +2947,7 @@
     {
       "name": "Local Wander",
       "slug": "gentle_wander",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2911,7 +2955,7 @@
     {
       "name": "Challenging Hike",
       "slug": "hilly_hike",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2919,7 +2963,7 @@
     {
       "name": "City Circuit",
       "slug": "city_circuit",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2927,7 +2971,7 @@
     {
       "name": "Towpath",
       "slug": "towpaths",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -2935,7 +2979,7 @@
     {
       "name": "Quick spin",
       "slug": "quick_spin",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -2943,7 +2987,7 @@
     {
       "name": "Longer ride",
       "slug": "longer_ride",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -2951,7 +2995,7 @@
     {
       "name": "Practise Space",
       "slug": "practise_route",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -2959,7 +3003,7 @@
     {
       "name": "Skills & Stunts Space",
       "slug": "skills_and_stunts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -2989,7 +3033,7 @@
     {
       "name": "Team Sports",
       "slug": "team_sports",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -2997,7 +3041,7 @@
     {
       "name": "Racquet Sports",
       "slug": "racquet_sports",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3005,7 +3049,7 @@
     {
       "name": "Swimming & Water Sports",
       "slug": "swimming_water_sports",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3013,7 +3057,7 @@
     {
       "name": "Gymnastics & Martial Arts",
       "slug": "gymnastics_martial_arts",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3021,7 +3065,7 @@
     {
       "name": "Athletics & Running",
       "slug": "athletics_running",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3029,7 +3073,7 @@
     {
       "name": "Cycling & Skating",
       "slug": "cycling_skating",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3037,7 +3081,7 @@
     {
       "name": "Climbing",
       "slug": "climbing",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3045,7 +3089,7 @@
     {
       "name": "Multi-Sport",
       "slug": "multi_sport",
-      "relatedEnumNameSlugs": [
+      "skillAreaSlugs": [
         "sport"
       ],
       "active": true
@@ -3095,7 +3139,7 @@
     {
       "name": "Wildflower Meadows",
       "slug": "wildflower_meadows",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3103,7 +3147,7 @@
     {
       "name": "Butterflies",
       "slug": "butterflies",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3111,7 +3155,7 @@
     {
       "name": "Seabird Colonies",
       "slug": "seabird_colonies",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3119,7 +3163,7 @@
     {
       "name": "PYO Flowers",
       "slug": "pyo_flowers",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3127,7 +3171,7 @@
     {
       "name": "PYO Fruit",
       "slug": "pyo_fruit",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3135,7 +3179,7 @@
     {
       "name": "PYO Vegetables",
       "slug": "pyo_vegetables",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3143,7 +3187,7 @@
     {
       "name": "Maize Maze",
       "slug": "maize_maze",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3151,7 +3195,7 @@
     {
       "name": "Kingfisher Spotting",
       "slug": "kingfisher_spotting",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3159,7 +3203,7 @@
     {
       "name": "River wildlife spotting",
       "slug": "river_wildlife_spotting",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3167,7 +3211,7 @@
     {
       "name": "Glow worms",
       "slug": "glow_worms",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3175,7 +3219,7 @@
     {
       "name": "Wildflowers",
       "slug": "wildflowers",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3183,7 +3227,7 @@
     {
       "name": "Marine Wildlife Spotting",
       "slug": "marine_wildlife_spotting",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3191,7 +3235,7 @@
     {
       "name": "Seasonal Flowers",
       "slug": "seasonal_flowers_seasonal_highlights",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3199,7 +3243,7 @@
     {
       "name": "Seasonal water fun",
       "slug": "seasonal_water_fun",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3207,7 +3251,7 @@
     {
       "name": "Watersports Hire",
       "slug": "watersports_hire",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3215,7 +3259,7 @@
     {
       "name": "Ice Creams",
       "slug": "ice_creams",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3223,7 +3267,7 @@
     {
       "name": "Garden games",
       "slug": "garden_games",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3231,7 +3275,7 @@
     {
       "name": "Marine Life",
       "slug": "marine_life",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3239,7 +3283,7 @@
     {
       "name": "Fruit Picking",
       "slug": "fruit_picking",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3247,7 +3291,7 @@
     {
       "name": "Dragonflies & Damselflies",
       "slug": "dragonflies_damselflies",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "summer"
       ],
       "active": true
@@ -3255,7 +3299,7 @@
     {
       "name": "Autumn pony \"drifts\"",
       "slug": "autumn_pony_drifts",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3263,7 +3307,7 @@
     {
       "name": "Truffling Pigs",
       "slug": "truffling_pigs",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3271,7 +3315,7 @@
     {
       "name": "Red Deer Ruts",
       "slug": "red_deer_ruts",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3279,7 +3323,7 @@
     {
       "name": "Fungi",
       "slug": "fungi",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3287,7 +3331,7 @@
     {
       "name": "Pumpkin Patch",
       "slug": "pumpkin_patch",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3295,7 +3339,7 @@
     {
       "name": "Apple Picking",
       "slug": "apple_picking",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3303,7 +3347,7 @@
     {
       "name": "Blackberry Picking",
       "slug": "blackberry_picking",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3311,7 +3355,7 @@
     {
       "name": "Autumnal Drinks",
       "slug": "autumnal_drinks",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3319,7 +3363,7 @@
     {
       "name": "Migrating Birds",
       "slug": "migrating_birds",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3327,7 +3371,7 @@
     {
       "name": "Autumn Leaves",
       "slug": "autumn_leaves",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3335,7 +3379,7 @@
     {
       "name": "Berries, Nuts, Conkers",
       "slug": "berries_nuts_conkers",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "autumn"
       ],
       "active": true
@@ -3343,7 +3387,7 @@
     {
       "name": "Snowdrops",
       "slug": "snowdrops",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3351,7 +3395,7 @@
     {
       "name": "Crocus Lawn",
       "slug": "crocus_lawn",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3359,7 +3403,7 @@
     {
       "name": "Migrating Birds",
       "slug": "migrating_birds_seasonal_highlights",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3367,7 +3411,7 @@
     {
       "name": "Starling Murmurations",
       "slug": "starling_murmurations",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3375,7 +3419,7 @@
     {
       "name": "Seasonal Flowers",
       "slug": "seasonal_flowers_43",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3383,7 +3427,7 @@
     {
       "name": "Festive Displays",
       "slug": "festive_displays",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3391,7 +3435,7 @@
     {
       "name": "Barn Owl Spotting",
       "slug": "barn_owl_spotting",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3399,7 +3443,7 @@
     {
       "name": "Sledging Spot",
       "slug": "sledging_spot",
-      "relatedEnumNameSlugs": [
+      "seasonalTagSlugs": [
         "winter"
       ],
       "active": true
@@ -3409,7 +3453,7 @@
     {
       "name": "Waterfalls",
       "slug": "waterfalls",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3417,7 +3461,7 @@
     {
       "name": "Rivers & streams",
       "slug": "rivers_and_streams",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3425,7 +3469,7 @@
     {
       "name": "Natural paddling spots",
       "slug": "natural_paddling",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3433,7 +3477,7 @@
     {
       "name": "Lakes & reservoirs",
       "slug": "lakes_reservoirs",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3441,7 +3485,7 @@
     {
       "name": "Beaches or coves",
       "slug": "beaches_coves",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3449,7 +3493,7 @@
     {
       "name": "Rockpools",
       "slug": "rockpools",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3457,7 +3501,7 @@
     {
       "name": "Cliffs & headlands",
       "slug": "cliffs_headlands",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3465,7 +3509,7 @@
     {
       "name": "Ancient trees",
       "slug": "ancient_trees",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3473,7 +3517,7 @@
     {
       "name": "Bridges (wooden, stone, suspension)",
       "slug": "bridges",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3481,7 +3525,7 @@
     {
       "name": "Stepping stones",
       "slug": "stepping_stones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3489,7 +3533,7 @@
     {
       "name": "Caves or rock formations",
       "slug": "rock_formations",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3497,7 +3541,7 @@
     {
       "name": "Panoramic views",
       "slug": "panoramic_views",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3505,7 +3549,7 @@
     {
       "name": "Coastal views",
       "slug": "coastal_views",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3513,7 +3557,7 @@
     {
       "name": "Countryside views",
       "slug": "countryside_views",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3521,7 +3565,7 @@
     {
       "name": "Elevated viewpoints",
       "slug": "elevated_viewpoints",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3529,7 +3573,7 @@
     {
       "name": "Scenic valleys",
       "slug": "scenic_valleys",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3537,7 +3581,7 @@
     {
       "name": "Wildlife spotting",
       "slug": "wildlife_spotting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3545,7 +3589,7 @@
     {
       "name": "Ruins or historic features",
       "slug": "historic_ruins",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3553,7 +3597,7 @@
     {
       "name": "Waymarked features (e.g. sculpture trail)",
       "slug": "waymarked_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "scenic_walks"
       ],
       "active": true
@@ -3561,7 +3605,7 @@
     {
       "name": "Meadows or wild grass",
       "slug": "meadows_or_wild_grass",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3569,7 +3613,7 @@
     {
       "name": "Ponds or lakes",
       "slug": "ponds_or_lakes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3577,7 +3621,7 @@
     {
       "name": "Duck Ponds",
       "slug": "duck_ponds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3585,7 +3629,7 @@
     {
       "name": "Water Features or Fountains",
       "slug": "water_features_or_fountains",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3593,7 +3637,7 @@
     {
       "name": "Streams or ditches",
       "slug": "streams_or_ditches",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3601,7 +3645,7 @@
     {
       "name": "Natural paddling spots",
       "slug": "natural_paddling_spots",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3609,7 +3653,7 @@
     {
       "name": "Room to run freely",
       "slug": "room_to_run_freely",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3617,7 +3661,7 @@
     {
       "name": "Open sightlines",
       "slug": "open_sightlines",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3625,7 +3669,7 @@
     {
       "name": "Countryside views",
       "slug": "countryside_views_green_open_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3633,7 +3677,7 @@
     {
       "name": "Scenic backdrops",
       "slug": "scenic_backdrops",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3641,7 +3685,7 @@
     {
       "name": "Rolling landscapes",
       "slug": "rolling_landscapes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3649,7 +3693,7 @@
     {
       "name": "Bridges (wooden, stone, suspension)",
       "slug": "bridges_wooden_stone_suspension",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3657,7 +3701,7 @@
     {
       "name": "Natural play features (logs, slopes, rocks)",
       "slug": "natural_play_features_logs_slopes_rocks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3665,7 +3709,7 @@
     {
       "name": "Climbable trees",
       "slug": "climbable_trees",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3673,7 +3717,7 @@
     {
       "name": "Grassy banks",
       "slug": "grassy_banks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3681,7 +3725,7 @@
     {
       "name": "Small hills / mounds",
       "slug": "small_hills_mounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3689,7 +3733,7 @@
     {
       "name": "Play equipment",
       "slug": "play_equipment",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3697,7 +3741,7 @@
     {
       "name": "Football or Rugby Posts",
       "slug": "football_or_rugby_posts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3705,7 +3749,7 @@
     {
       "name": "Marked Trails",
       "slug": "marked_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3713,7 +3757,7 @@
     {
       "name": "Children’s Activity Trails",
       "slug": "childrens_activity_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "green_spaces"
       ],
       "active": true
@@ -3721,7 +3765,7 @@
     {
       "name": "Climbing Logs or balance beams",
       "slug": "climbing_logs_or_balance_beams",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3729,7 +3773,7 @@
     {
       "name": "Mud kitchens",
       "slug": "mud_kitchens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3737,7 +3781,7 @@
     {
       "name": "Sand, soil, and loose materials",
       "slug": "sand_soil_and_loose_materials",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3745,7 +3789,7 @@
     {
       "name": "Den-building materials",
       "slug": "den_building_materials",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3753,7 +3797,7 @@
     {
       "name": "Natural construction zones",
       "slug": "natural_construction_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3761,7 +3805,7 @@
     {
       "name": "Mud and puddles",
       "slug": "mud_and_puddles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3769,7 +3813,7 @@
     {
       "name": "Shallow water play (streams, channels)",
       "slug": "shallow_water_play_streams_channels",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3777,7 +3821,7 @@
     {
       "name": "Forest school activities",
       "slug": "forest_school_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3785,7 +3829,7 @@
     {
       "name": "Guided outdoor learning prompts",
       "slug": "guided_outdoor_learning_prompts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3793,7 +3837,7 @@
     {
       "name": "Marked Trails",
       "slug": "marked_trails_nature_wildlife_exploration_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3801,7 +3845,7 @@
     {
       "name": "Children’s Activity Trails",
       "slug": "childrens_activity_trails_nature_wildlife_exploration_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3809,7 +3853,7 @@
     {
       "name": "Letterboxing",
       "slug": "letterboxing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3817,7 +3861,7 @@
     {
       "name": "Fossil Hunting",
       "slug": "fossil_hunting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3825,7 +3869,7 @@
     {
       "name": "Farming school activities",
       "slug": "farming_school_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3833,7 +3877,7 @@
     {
       "name": "Simple tool use (supervised)",
       "slug": "simple_tool_use_supervised",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3841,7 +3885,7 @@
     {
       "name": "Fire pits (when part of structured sessions)",
       "slug": "fire_pits_when_part_of_structured_sessions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3849,7 +3893,7 @@
     {
       "name": "Immersive natural surroundings",
       "slug": "immersive_natural_surroundings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3857,7 +3901,7 @@
     {
       "name": "Quiet or low-intervention spaces",
       "slug": "quiet_or_low_intervention_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3865,7 +3909,7 @@
     {
       "name": "Enclosed or defined play zones",
       "slug": "enclosed_or_defined_play_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "nature_wildlife"
       ],
       "active": true
@@ -3873,7 +3917,7 @@
     {
       "name": "Rockpools",
       "slug": "rockpools_coastal_adventures_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3881,7 +3925,7 @@
     {
       "name": "Seaweed beds",
       "slug": "seaweed_beds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3889,7 +3933,7 @@
     {
       "name": "Shell or seaglass collecting",
       "slug": "shell_or_seaglass_collecting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3897,7 +3941,7 @@
     {
       "name": "Fossil Hunting",
       "slug": "fossil_hunting_coastal_adventures_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3905,7 +3949,7 @@
     {
       "name": "Crabbing",
       "slug": "crabbing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3913,7 +3957,7 @@
     {
       "name": "Diggable sand (Sandcastles)",
       "slug": "diggable_sand_sandcastles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3921,7 +3965,7 @@
     {
       "name": "Smooth pebbles",
       "slug": "smooth_pebbles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3929,7 +3973,7 @@
     {
       "name": "Shallow paddling",
       "slug": "shallow_paddling",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3937,7 +3981,7 @@
     {
       "name": "Streams or channels",
       "slug": "streams_or_channels",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3945,7 +3989,7 @@
     {
       "name": "Coves & inlets",
       "slug": "coves_inlets",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3953,7 +3997,7 @@
     {
       "name": "Rock formations",
       "slug": "rock_formations_coastal_adventures_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3961,7 +4005,7 @@
     {
       "name": "Cliffs Or Headlands",
       "slug": "cliffs_or_headlands",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3969,7 +4013,7 @@
     {
       "name": "Caves",
       "slug": "caves",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3977,7 +4021,7 @@
     {
       "name": "Sand dunes",
       "slug": "sand_dunes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3985,7 +4029,7 @@
     {
       "name": "Estuary edges",
       "slug": "estuary_edges",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -3993,7 +4037,7 @@
     {
       "name": "Coastal Wildlife",
       "slug": "coastal_wildlife",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4001,7 +4045,7 @@
     {
       "name": "Equipment Hire",
       "slug": "equipment_hire",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4009,7 +4053,7 @@
     {
       "name": "Watersports Lessons",
       "slug": "watersports_lessons",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4017,7 +4061,7 @@
     {
       "name": "Surfing",
       "slug": "surfing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4025,7 +4069,7 @@
     {
       "name": "Bodyboarding",
       "slug": "bodyboarding",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4033,7 +4077,7 @@
     {
       "name": "Swimming",
       "slug": "swimming",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4041,7 +4085,7 @@
     {
       "name": "Kayaking / SUP",
       "slug": "kayaking_sup",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4049,7 +4093,7 @@
     {
       "name": "Slipway",
       "slug": "slipway",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4057,7 +4101,7 @@
     {
       "name": "Harbour",
       "slug": "harbour",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4065,7 +4109,7 @@
     {
       "name": "Seasonally Lifeguarded",
       "slug": "seasonally_lifeguarded",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4073,7 +4117,7 @@
     {
       "name": "Dog Friendly - seasonal leads",
       "slug": "dog_friendly_seasonal_leads",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4081,7 +4125,7 @@
     {
       "name": "Dog Friendly - off lead all year",
       "slug": "dog_friendly_off_lead_all_year",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4089,7 +4133,7 @@
     {
       "name": "Boat trips nearby",
       "slug": "boat_trips_nearby",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4097,7 +4141,7 @@
     {
       "name": "Toilets nearby",
       "slug": "toilets_nearby",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4105,7 +4149,7 @@
     {
       "name": "Beach Cafe",
       "slug": "beach_cafe",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4113,7 +4157,7 @@
     {
       "name": "Promenade",
       "slug": "promenade",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4121,7 +4165,7 @@
     {
       "name": "Large tidal range",
       "slug": "large_tidal_range",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4129,7 +4173,7 @@
     {
       "name": "Natural channels",
       "slug": "natural_channels",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4137,7 +4181,7 @@
     {
       "name": "Calm water at low tide",
       "slug": "calm_water_at_low_tide",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4145,7 +4189,7 @@
     {
       "name": "Rock formations",
       "slug": "rock_formations_92",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4153,7 +4197,7 @@
     {
       "name": "Driftwood",
       "slug": "driftwood",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4161,7 +4205,7 @@
     {
       "name": "Crabs & small marine life",
       "slug": "crabs_small_marine_life",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4169,7 +4213,7 @@
     {
       "name": "Natural splash zones",
       "slug": "natural_splash_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "coastal_adventures"
       ],
       "active": true
@@ -4177,7 +4221,7 @@
     {
       "name": "Designed or sculpted landscapes",
       "slug": "designed_or_sculpted_landscapes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4185,7 +4229,7 @@
     {
       "name": "Seasonal foliage",
       "slug": "seasonal_foliage",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4193,7 +4237,7 @@
     {
       "name": "Seasonal or curated displays",
       "slug": "seasonal_or_curated_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4201,7 +4245,7 @@
     {
       "name": "Water Features or Fountains",
       "slug": "water_features_or_fountains_gardens_curated_outdoor_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4209,7 +4253,7 @@
     {
       "name": "Meadows & wild grass",
       "slug": "meadows_wild_grass",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4217,7 +4261,7 @@
     {
       "name": "Lakes or wildlife ponds",
       "slug": "lakes_or_wildlife_ponds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4225,7 +4269,7 @@
     {
       "name": "Room to run freely",
       "slug": "room_to_run_freely_gardens_curated_outdoor_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4233,7 +4277,7 @@
     {
       "name": "Open sightlines",
       "slug": "open_sightlines_gardens_curated_outdoor_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4241,7 +4285,7 @@
     {
       "name": "Vegetable gardens & growing spaces",
       "slug": "vegetable_gardens_growing_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4249,7 +4293,7 @@
     {
       "name": "Meandering paths",
       "slug": "meandering_paths",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4257,7 +4301,7 @@
     {
       "name": "Hidden corners, passageways, gates & gardens",
       "slug": "hidden_corners_passageways_gates_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4265,7 +4309,7 @@
     {
       "name": "Garden “rooms”",
       "slug": "garden_rooms",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4273,7 +4317,7 @@
     {
       "name": "Bug hotels, discovery boards",
       "slug": "bug_hotels_discovery_boards",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4281,7 +4325,7 @@
     {
       "name": "Bird Hydes & Viewing Platforms",
       "slug": "bird_hydes_viewing_platforms",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4289,7 +4333,7 @@
     {
       "name": "Marked Trails",
       "slug": "marked_trails_gardens_curated_outdoor_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4297,7 +4341,7 @@
     {
       "name": "Children’s Activity Trails",
       "slug": "childrens_activity_trails_gardens_curated_outdoor_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4305,7 +4349,7 @@
     {
       "name": "Historic features",
       "slug": "historic_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4313,7 +4357,7 @@
     {
       "name": "Statues & sculptures",
       "slug": "statues_sculptures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4321,7 +4365,7 @@
     {
       "name": "Maze",
       "slug": "maze",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4329,7 +4373,7 @@
     {
       "name": "Greenhouses & tropical plants",
       "slug": "greenhouses_tropical_plants",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4337,7 +4381,7 @@
     {
       "name": "Biomes & unusual environments",
       "slug": "biomes_unusual_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4345,7 +4389,7 @@
     {
       "name": "Conservation displays or learning",
       "slug": "conservation_displays_or_learning",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "gardens_outdoor"
       ],
       "active": true
@@ -4353,7 +4397,7 @@
     {
       "name": "Rope bridges",
       "slug": "rope_bridges",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4361,7 +4405,7 @@
     {
       "name": "Climbing frames",
       "slug": "climbing_frames",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4369,7 +4413,7 @@
     {
       "name": "Balance elements",
       "slug": "balance_elements",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4377,7 +4421,7 @@
     {
       "name": "Scramble nets",
       "slug": "scramble_nets",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4385,7 +4429,7 @@
     {
       "name": "Stepping obstacles",
       "slug": "stepping_obstacles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4393,7 +4437,7 @@
     {
       "name": "Towers and platforms",
       "slug": "towers_and_platforms",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4401,7 +4445,7 @@
     {
       "name": "Slides",
       "slug": "slides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4409,7 +4453,7 @@
     {
       "name": "Zip wires",
       "slug": "zip_wires",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4417,7 +4461,7 @@
     {
       "name": "Fireman's poles",
       "slug": "firemans_poles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4425,7 +4469,7 @@
     {
       "name": "Ropes & aerial adventures",
       "slug": "ropes_aerial_adventures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4433,7 +4477,7 @@
     {
       "name": "Climbing rocks or bouldering",
       "slug": "climbing_rocks_or_bouldering",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4441,7 +4485,7 @@
     {
       "name": "Climbing wall",
       "slug": "climbing_wall",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4449,7 +4493,7 @@
     {
       "name": "Rope swings",
       "slug": "rope_swings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4457,7 +4501,7 @@
     {
       "name": "Abseiling or high ropes",
       "slug": "abseiling_or_high_ropes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4465,7 +4509,7 @@
     {
       "name": "Fort-style structures",
       "slug": "fort_style_structures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4473,7 +4517,7 @@
     {
       "name": "Lookout points",
       "slug": "lookout_points",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4481,7 +4525,7 @@
     {
       "name": "Tunnels and crawl spaces",
       "slug": "tunnels_and_crawl_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4489,7 +4533,7 @@
     {
       "name": "Obstacle courses",
       "slug": "obstacle_courses",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4497,7 +4541,7 @@
     {
       "name": "Mixed-difficulty zones",
       "slug": "mixed_difficulty_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4505,7 +4549,7 @@
     {
       "name": "Enclosed adventure zones",
       "slug": "enclosed_adventure_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4513,7 +4557,7 @@
     {
       "name": "Clear sightlines for adults",
       "slug": "clear_sightlines_for_adults",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4521,7 +4565,7 @@
     {
       "name": "Orienteering",
       "slug": "orienteering",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4529,7 +4573,7 @@
     {
       "name": "Water play features",
       "slug": "water_play_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4537,7 +4581,7 @@
     {
       "name": "Swings",
       "slug": "swings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4545,7 +4589,7 @@
     {
       "name": "Basket / nest swings",
       "slug": "basket_nest_swings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4553,7 +4597,7 @@
     {
       "name": "Roundabouts",
       "slug": "roundabouts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4561,7 +4605,7 @@
     {
       "name": "Seesaws",
       "slug": "seesaws",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4569,7 +4613,7 @@
     {
       "name": "Springers / rockers",
       "slug": "springers_rockers",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4577,7 +4621,7 @@
     {
       "name": "Ground trampolines",
       "slug": "ground_trampolines",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4585,7 +4629,7 @@
     {
       "name": "Sand play area",
       "slug": "sand_play_area",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4593,7 +4637,7 @@
     {
       "name": "Mud kitchen",
       "slug": "mud_kitchen",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4601,7 +4645,7 @@
     {
       "name": "Den building area",
       "slug": "den_building_area",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4609,7 +4653,7 @@
     {
       "name": "Log balance trail",
       "slug": "log_balance_trail",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4617,7 +4661,7 @@
     {
       "name": "Natural boulders",
       "slug": "natural_boulders",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4625,7 +4669,7 @@
     {
       "name": "Stream or water channel",
       "slug": "stream_or_water_channel",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4633,7 +4677,7 @@
     {
       "name": "Wooded setting",
       "slug": "wooded_setting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4641,7 +4685,7 @@
     {
       "name": "Open grass / running space",
       "slug": "open_grass_running_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4649,7 +4693,7 @@
     {
       "name": "Bowl",
       "slug": "bowl",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4657,7 +4701,7 @@
     {
       "name": "Quarter pipes",
       "slug": "quarter_pipes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4665,7 +4709,7 @@
     {
       "name": "Street skating features",
       "slug": "street_skating_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4673,7 +4717,7 @@
     {
       "name": "Pump track",
       "slug": "pump_track",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4681,7 +4725,7 @@
     {
       "name": "BMX track",
       "slug": "bmx_track",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4689,7 +4733,7 @@
     {
       "name": "Dirt jumps",
       "slug": "dirt_jumps",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4697,7 +4741,7 @@
     {
       "name": "Wheelchair accessible equipment",
       "slug": "wheelchair_accessible_equipment",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4705,7 +4749,7 @@
     {
       "name": "Inclusive swings",
       "slug": "inclusive_swings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4713,7 +4757,7 @@
     {
       "name": "Sensory play features",
       "slug": "sensory_play_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "active_play"
       ],
       "active": true
@@ -4721,7 +4765,7 @@
     {
       "name": "Early access introduction",
       "slug": "early_access_introduction",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4729,7 +4773,7 @@
     {
       "name": "Skill progression",
       "slug": "skill_progression",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4737,7 +4781,7 @@
     {
       "name": "Confidence building",
       "slug": "confidence_building",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4745,7 +4789,7 @@
     {
       "name": "Coordination & balance",
       "slug": "coordination_balance",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4753,7 +4797,7 @@
     {
       "name": "Strength & agility",
       "slug": "strength_agility",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4761,7 +4805,7 @@
     {
       "name": "Structured coaching",
       "slug": "structured_coaching",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4769,7 +4813,7 @@
     {
       "name": "Mixed-ability sessions",
       "slug": "mixed_ability_sessions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4777,7 +4821,7 @@
     {
       "name": "Team-based",
       "slug": "team_based",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4785,7 +4829,7 @@
     {
       "name": "Friendly competition",
       "slug": "friendly_competition",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4793,7 +4837,7 @@
     {
       "name": "Non-competitive options",
       "slug": "non_competitive_options",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4801,7 +4845,7 @@
     {
       "name": "Indoor sports halls",
       "slug": "indoor_sports_halls",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4809,7 +4853,7 @@
     {
       "name": "Outdoor pitches",
       "slug": "outdoor_pitches",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4817,7 +4861,7 @@
     {
       "name": "Purpose-built facilities",
       "slug": "purpose_built_facilities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4825,7 +4869,7 @@
     {
       "name": "Safe enclosed spaces",
       "slug": "safe_enclosed_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4833,7 +4877,7 @@
     {
       "name": "All-weather options",
       "slug": "all_weather_options",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4841,7 +4885,7 @@
     {
       "name": "Swimming",
       "slug": "swimming_sporty_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4849,7 +4893,7 @@
     {
       "name": "Sea-sports",
       "slug": "sea_sports",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4857,7 +4901,7 @@
     {
       "name": "Climbing",
       "slug": "climbing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4865,7 +4909,7 @@
     {
       "name": "Athletics & Running",
       "slug": "athletics_running",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4873,7 +4917,7 @@
     {
       "name": "Gymnastics",
       "slug": "gymnastics",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4881,7 +4925,7 @@
     {
       "name": "Parkour & freerunning",
       "slug": "parkour_freerunning",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4889,7 +4933,7 @@
     {
       "name": "Racquet sports",
       "slug": "racquet_sports",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4897,7 +4941,7 @@
     {
       "name": "Ninja warrior style courses",
       "slug": "ninja_warrior_style_courses",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4905,7 +4949,7 @@
     {
       "name": "Assault courses",
       "slug": "assault_courses",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4913,7 +4957,7 @@
     {
       "name": "Obstacle courses",
       "slug": "obstacle_courses_sporty_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4921,7 +4965,7 @@
     {
       "name": "Aerial / high ropes (indoor)",
       "slug": "aerial_high_ropes_indoor",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4929,7 +4973,7 @@
     {
       "name": "Ball Sports",
       "slug": "ball_sports",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4937,7 +4981,7 @@
     {
       "name": "Outdoor Fitness",
       "slug": "outdoor_fitness",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4945,7 +4989,7 @@
     {
       "name": "Martial Arts",
       "slug": "martial_arts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4953,7 +4997,7 @@
     {
       "name": "Dance & Movement",
       "slug": "dance_movement",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4961,7 +5005,7 @@
     {
       "name": "Skateboarding",
       "slug": "skateboarding",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4969,7 +5013,7 @@
     {
       "name": "Movement skills training",
       "slug": "movement_skills_training",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "sporty_activities"
       ],
       "active": true
@@ -4977,7 +5021,7 @@
     {
       "name": "Traffic-free sections",
       "slug": "traffic_free_sections",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -4985,7 +5029,7 @@
     {
       "name": "Wide pathways",
       "slug": "wide_pathways",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -4993,7 +5037,7 @@
     {
       "name": "Clear sightlines",
       "slug": "clear_sightlines",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5001,7 +5045,7 @@
     {
       "name": "Riverside stretches",
       "slug": "riverside_stretches",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5009,7 +5053,7 @@
     {
       "name": "Canal views",
       "slug": "canal_views",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5017,7 +5061,7 @@
     {
       "name": "Parkland surroundings",
       "slug": "parkland_surroundings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5025,7 +5069,7 @@
     {
       "name": "Coastal promenades",
       "slug": "coastal_promenades",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5033,7 +5077,7 @@
     {
       "name": "Bridges and landmarks",
       "slug": "bridges_and_landmarks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5041,7 +5085,7 @@
     {
       "name": "Natural jumps, ramps or fun features",
       "slug": "natural_jumps_ramps_or_fun_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5049,7 +5093,7 @@
     {
       "name": "Scooter-friendly",
       "slug": "scooter_friendly",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5057,7 +5101,7 @@
     {
       "name": "High-adrenaline routes, jumps or terrain",
       "slug": "high_adrenaline_routes_jumps_or_terrain",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5065,7 +5109,7 @@
     {
       "name": "Points of interest along the way",
       "slug": "points_of_interest_along_the_way",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5073,7 +5117,7 @@
     {
       "name": "Play areas en route",
       "slug": "play_areas_en_route",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5081,7 +5125,7 @@
     {
       "name": "Stops for snacks or picnics",
       "slug": "stops_for_snacks_or_picnics",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5089,7 +5133,7 @@
     {
       "name": "Short loops",
       "slug": "short_loops",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5097,7 +5141,7 @@
     {
       "name": "Multiple access points",
       "slug": "multiple_access_points",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5105,7 +5149,7 @@
     {
       "name": "Easy parking nearby",
       "slug": "easy_parking_nearby",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5113,7 +5157,7 @@
     {
       "name": "Cafés or facilities along the route",
       "slug": "cafes_or_facilities_along_the_route",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "wheels_routes"
       ],
       "active": true
@@ -5121,7 +5165,7 @@
     {
       "name": "Shallow water",
       "slug": "shallow_water",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5129,7 +5173,7 @@
     {
       "name": "Deep water or plunge pools",
       "slug": "deep_water_or_plunge_pools",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5137,7 +5181,7 @@
     {
       "name": "Paddling spots",
       "slug": "paddling_spots",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5145,7 +5189,7 @@
     {
       "name": "Natural Swimming Spots",
       "slug": "natural_swimming_spots",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5153,7 +5197,7 @@
     {
       "name": "Sheltered or shaded options",
       "slug": "sheltered_or_shaded_options",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5161,7 +5205,7 @@
     {
       "name": "Predictable tides or flow",
       "slug": "predictable_tides_or_flow",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5169,7 +5213,7 @@
     {
       "name": "Lifeguarded areas (where applicable)",
       "slug": "lifeguarded_areas_where_applicable",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5177,7 +5221,7 @@
     {
       "name": "Instructor support",
       "slug": "instructor_support",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5185,7 +5229,7 @@
     {
       "name": "Splash-friendly areas",
       "slug": "splash_friendly_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5193,7 +5237,7 @@
     {
       "name": "Opportunities to explore",
       "slug": "opportunities_to_explore",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5201,7 +5245,7 @@
     {
       "name": "Wildlife spotting",
       "slug": "wildlife_spotting_water_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5209,7 +5253,7 @@
     {
       "name": "Fishing licenses; fishing spot",
       "slug": "fishing_licenses_fishing_spot",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5217,7 +5261,7 @@
     {
       "name": "Jetty",
       "slug": "jetty",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5225,7 +5269,7 @@
     {
       "name": "River access for small boats or paddleboards",
       "slug": "river_access_for_small_boats_or_paddleboards",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5233,7 +5277,7 @@
     {
       "name": "White water for experienced kayaking",
       "slug": "white_water_for_experienced_kayaking",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5241,7 +5285,7 @@
     {
       "name": "Kayaking",
       "slug": "kayaking",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5249,7 +5293,7 @@
     {
       "name": "Rowing boats or small crafts",
       "slug": "rowing_boats_or_small_crafts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5257,7 +5301,7 @@
     {
       "name": "Paddleboarding",
       "slug": "paddleboarding",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5265,7 +5309,7 @@
     {
       "name": "Lakes or reservoirs",
       "slug": "lakes_or_reservoirs",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5273,7 +5317,7 @@
     {
       "name": "Rivers or estuaries",
       "slug": "rivers_or_estuaries",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5281,7 +5325,7 @@
     {
       "name": "River Beach",
       "slug": "river_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5289,7 +5333,7 @@
     {
       "name": "Beaches or coves",
       "slug": "beaches_or_coves",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5297,7 +5341,7 @@
     {
       "name": "National Park",
       "slug": "national_park",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5305,7 +5349,7 @@
     {
       "name": "Blue Flag Beach",
       "slug": "blue_flag_beach",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5313,7 +5357,7 @@
     {
       "name": "Coasteering",
       "slug": "coasteering",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5321,7 +5365,7 @@
     {
       "name": "Raft Building",
       "slug": "raft_building",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5329,7 +5373,7 @@
     {
       "name": "Splash Pads / Sprinklers",
       "slug": "splash_pads_sprinklers",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5337,7 +5381,7 @@
     {
       "name": "Water slides",
       "slug": "water_slides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5345,7 +5389,7 @@
     {
       "name": "Inflatables",
       "slug": "inflatables",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5353,7 +5397,7 @@
     {
       "name": "Wave machines",
       "slug": "wave_machines",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5361,7 +5405,7 @@
     {
       "name": "Water rides",
       "slug": "water_rides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5369,7 +5413,7 @@
     {
       "name": "Woodland or countryside setting",
       "slug": "woodland_or_countryside_setting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "water_fun"
       ],
       "active": true
@@ -5377,7 +5421,7 @@
     {
       "name": "Messy, hands-on crafts",
       "slug": "messy_hands_on_crafts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5385,7 +5429,7 @@
     {
       "name": "Dance",
       "slug": "dance",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5393,7 +5437,7 @@
     {
       "name": "Music or singing",
       "slug": "music_or_singing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5401,7 +5445,7 @@
     {
       "name": "Take-home creations",
       "slug": "take_home_creations",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5409,7 +5453,7 @@
     {
       "name": "Drawing or sketching",
       "slug": "drawing_or_sketching",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5417,7 +5461,7 @@
     {
       "name": "Guided creative sessions",
       "slug": "guided_creative_sessions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5425,7 +5469,7 @@
     {
       "name": "Drama & Theatre",
       "slug": "drama_theatre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5433,7 +5477,7 @@
     {
       "name": "Open-ended creativity",
       "slug": "open_ended_creativity",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5441,7 +5485,7 @@
     {
       "name": "Small group workshops",
       "slug": "small_group_workshops",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5449,7 +5493,7 @@
     {
       "name": "Drop-in creative tables",
       "slug": "drop_in_creative_tables",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5457,7 +5501,7 @@
     {
       "name": "Pottery, ceramics or clay",
       "slug": "pottery_ceramics_or_clay",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5465,7 +5509,7 @@
     {
       "name": "Painting or brushwork",
       "slug": "painting_or_brushwork",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5473,7 +5517,7 @@
     {
       "name": "Needlecraft instruction, lessons or talks",
       "slug": "needlecraft_instruction_lessons_or_talks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5481,7 +5525,7 @@
     {
       "name": "Storytelling or Creative Writing",
       "slug": "storytelling_or_creative_writing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5489,7 +5533,7 @@
     {
       "name": "Photography opportunities",
       "slug": "photography_opportunities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5497,7 +5541,7 @@
     {
       "name": "Performance opportunities",
       "slug": "performance_opportunities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5505,7 +5549,7 @@
     {
       "name": "Imaginative freedom",
       "slug": "imaginative_freedom",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5513,7 +5557,7 @@
     {
       "name": "Confidence-building environments",
       "slug": "confidence_building_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5521,7 +5565,7 @@
     {
       "name": "Supportive facilitators",
       "slug": "supportive_facilitators",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5529,7 +5573,7 @@
     {
       "name": "Calm, focused spaces",
       "slug": "calm_focused_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5537,7 +5581,7 @@
     {
       "name": "Creative studios",
       "slug": "creative_studios",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5545,7 +5589,7 @@
     {
       "name": "Informal, welcoming environments",
       "slug": "informal_welcoming_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "creative_play"
       ],
       "active": true
@@ -5553,7 +5597,7 @@
     {
       "name": "Themed environments",
       "slug": "themed_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5561,7 +5605,7 @@
     {
       "name": "Immersive settings",
       "slug": "immersive_settings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5569,7 +5613,7 @@
     {
       "name": "Dressing Up Clothes",
       "slug": "dressing_up_clothes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5577,7 +5621,7 @@
     {
       "name": "Ride-on vehicles or toys",
       "slug": "ride_on_vehicles_or_toys",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5585,7 +5629,7 @@
     {
       "name": "Narrative backdrops",
       "slug": "narrative_backdrops",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5593,7 +5637,7 @@
     {
       "name": "Role-based scenarios",
       "slug": "role_based_scenarios",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5601,7 +5645,7 @@
     {
       "name": "Character-led play",
       "slug": "character_led_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5609,7 +5653,7 @@
     {
       "name": "Story-led experiences",
       "slug": "story_led_experiences",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5617,7 +5661,7 @@
     {
       "name": "Mission or quest elements",
       "slug": "mission_or_quest_elements",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5625,7 +5669,7 @@
     {
       "name": "Problem-solving within a storyline",
       "slug": "problem_solving_within_a_storyline",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5633,7 +5677,7 @@
     {
       "name": "Cooperative scenarios",
       "slug": "cooperative_scenarios",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5641,7 +5685,7 @@
     {
       "name": "Group problem-solving",
       "slug": "group_problem_solving",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5649,7 +5693,7 @@
     {
       "name": "Shared imaginative spaces",
       "slug": "shared_imaginative_spaces",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5657,7 +5701,7 @@
     {
       "name": "Social role negotiation",
       "slug": "social_role_negotiation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5665,7 +5709,7 @@
     {
       "name": "Open-ended play structure",
       "slug": "open_ended_play_structure",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "imaginative_play"
       ],
       "active": true
@@ -5673,7 +5717,7 @@
     {
       "name": "Arcade games",
       "slug": "arcade_games",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5681,7 +5725,7 @@
     {
       "name": "VR goggles",
       "slug": "vr_goggles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5689,7 +5733,7 @@
     {
       "name": "Pool or snooker table",
       "slug": "pool_or_snooker_table",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5697,7 +5741,7 @@
     {
       "name": "Bowling lanes",
       "slug": "bowling_lanes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5705,7 +5749,7 @@
     {
       "name": "Laser tag",
       "slug": "laser_tag",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5713,7 +5757,7 @@
     {
       "name": "Trampolining",
       "slug": "trampolining",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5721,7 +5765,7 @@
     {
       "name": "Karaoke",
       "slug": "karaoke",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5729,7 +5773,7 @@
     {
       "name": "Bar / licensed venue",
       "slug": "bar_licensed_venue",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5737,7 +5781,7 @@
     {
       "name": "Café or restaurant",
       "slug": "cafe_or_restaurant",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5745,7 +5789,7 @@
     {
       "name": "Private hire / party packages",
       "slug": "private_hire_party_packages",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5753,7 +5797,7 @@
     {
       "name": "Meet and greet",
       "slug": "meet_and_greet",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5761,7 +5805,7 @@
     {
       "name": "VIP / premier experience",
       "slug": "vip_premier_experience",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5769,7 +5813,7 @@
     {
       "name": "Live music",
       "slug": "live_music",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5777,7 +5821,7 @@
     {
       "name": "Comedy / stand-up",
       "slug": "comedy_stand_up",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5785,7 +5829,7 @@
     {
       "name": "Theatre / stage performance",
       "slug": "theatre_stage_performance",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5793,7 +5837,7 @@
     {
       "name": "Pantomime",
       "slug": "pantomime",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5801,7 +5845,7 @@
     {
       "name": "Musical theatre",
       "slug": "musical_theatre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5809,7 +5853,7 @@
     {
       "name": "Open mic",
       "slug": "open_mic",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5817,7 +5861,7 @@
     {
       "name": "Q&A / live interview",
       "slug": "q_a_live_interview",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5825,7 +5869,7 @@
     {
       "name": "Cinema screen",
       "slug": "cinema_screen",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5833,7 +5877,7 @@
     {
       "name": "Immersive experience",
       "slug": "immersive_experience",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "indoor_entertainment"
       ],
       "active": true
@@ -5841,7 +5885,7 @@
     {
       "name": "Touch-and-try exhibits",
       "slug": "touch_and_try_exhibits",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5849,7 +5893,7 @@
     {
       "name": "Interactive displays",
       "slug": "interactive_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5857,7 +5901,7 @@
     {
       "name": "Engineering & Building",
       "slug": "engineering_building",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5865,7 +5909,7 @@
     {
       "name": "Navigation & Map Reading",
       "slug": "navigation_map_reading",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5873,7 +5917,7 @@
     {
       "name": "Orienteering",
       "slug": "orienteering_hands_on_learning",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5881,7 +5925,7 @@
     {
       "name": "Buttons, levers, and mechanisms",
       "slug": "buttons_levers_and_mechanisms",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5889,7 +5933,7 @@
     {
       "name": "Build-and-test stations",
       "slug": "build_and_test_stations",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5897,7 +5941,7 @@
     {
       "name": "Bushcraft & Forest Skills",
       "slug": "bushcraft_forest_skills",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5905,7 +5949,7 @@
     {
       "name": "Survival Skills",
       "slug": "survival_skills",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5913,7 +5957,7 @@
     {
       "name": "Cause-and-effect activities",
       "slug": "cause_and_effect_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5921,7 +5965,7 @@
     {
       "name": "Problem-solving challenges",
       "slug": "problem_solving_challenges",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5929,7 +5973,7 @@
     {
       "name": "Experimentation",
       "slug": "experimentation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5937,7 +5981,7 @@
     {
       "name": "Mix of calm and energetic zones",
       "slug": "mix_of_calm_and_energetic_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5945,7 +5989,7 @@
     {
       "name": "Facilitated demo sessions (optional)",
       "slug": "facilitated_demo_sessions_optional",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "hands_on_learning"
       ],
       "active": true
@@ -5953,7 +5997,7 @@
     {
       "name": "Science and engineering themes",
       "slug": "science_and_engineering_themes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -5961,7 +6005,7 @@
     {
       "name": "Technology and robotics",
       "slug": "technology_and_robotics",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -5969,7 +6013,7 @@
     {
       "name": "Nature and the environment",
       "slug": "nature_and_the_environment",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -5977,7 +6021,7 @@
     {
       "name": "History brought to life",
       "slug": "history_brought_to_life",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -5985,7 +6029,7 @@
     {
       "name": "Space and exploration",
       "slug": "space_and_exploration",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -5993,7 +6037,7 @@
     {
       "name": "Rotating or seasonal exhibits",
       "slug": "rotating_or_seasonal_exhibits",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "interactive_museums"
       ],
       "active": true
@@ -6001,7 +6045,7 @@
     {
       "name": "Historic buildings",
       "slug": "historic_buildings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6009,7 +6053,7 @@
     {
       "name": "Costumed interpretation",
       "slug": "costumed_interpretation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6017,7 +6061,7 @@
     {
       "name": "Recreated environments",
       "slug": "recreated_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6025,7 +6069,7 @@
     {
       "name": "Period features",
       "slug": "period_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6033,7 +6077,7 @@
     {
       "name": "Ruins to explore",
       "slug": "ruins_to_explore",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6041,7 +6085,7 @@
     {
       "name": "Dungeons",
       "slug": "dungeons",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6049,7 +6093,7 @@
     {
       "name": "Towers, walls, and tunnels",
       "slug": "towers_walls_and_tunnels",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6057,7 +6101,7 @@
     {
       "name": "Fossils",
       "slug": "fossils",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6065,7 +6109,7 @@
     {
       "name": "Castles or Fortresses",
       "slug": "castles_or_fortresses",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6073,7 +6117,7 @@
     {
       "name": "Hidden rooms or passages",
       "slug": "hidden_rooms_or_passages",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6081,7 +6125,7 @@
     {
       "name": "Outdoor grounds",
       "slug": "outdoor_grounds",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6089,7 +6133,7 @@
     {
       "name": "Story-led interpretation",
       "slug": "story_led_interpretation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6097,7 +6141,7 @@
     {
       "name": "Audio guides or trails",
       "slug": "audio_guides_or_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6105,7 +6149,7 @@
     {
       "name": "Visual displays",
       "slug": "visual_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6113,7 +6157,7 @@
     {
       "name": "Interactive elements",
       "slug": "interactive_elements",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6121,7 +6165,7 @@
     {
       "name": "Discovery trails",
       "slug": "discovery_trails",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6129,7 +6173,7 @@
     {
       "name": "Hands-on exhibits",
       "slug": "hands_on_exhibits",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6137,7 +6181,7 @@
     {
       "name": "Dress-up areas",
       "slug": "dress_up_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6145,7 +6189,7 @@
     {
       "name": "Re-enactment days",
       "slug": "re_enactment_days",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6153,7 +6197,7 @@
     {
       "name": "Craft or heritage activities",
       "slug": "craft_or_heritage_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6161,7 +6205,7 @@
     {
       "name": "Demonstrations",
       "slug": "demonstrations",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "historical_cultural"
       ],
       "active": true
@@ -6169,7 +6213,7 @@
     {
       "name": "Hands-on Petting",
       "slug": "hands_on_petting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6177,7 +6221,7 @@
     {
       "name": "Animal feeding",
       "slug": "animal_feeding",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6185,7 +6229,7 @@
     {
       "name": "Close-up viewing",
       "slug": "close_up_viewing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6193,7 +6237,7 @@
     {
       "name": "Keeper talks",
       "slug": "keeper_talks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6201,7 +6245,7 @@
     {
       "name": "Animal Experience Day",
       "slug": "animal_experience_day",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6209,7 +6253,7 @@
     {
       "name": "Trekking, rides or hacking",
       "slug": "trekking_rides_or_hacking",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6217,7 +6261,7 @@
     {
       "name": "Guided walks",
       "slug": "guided_walks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6225,7 +6269,7 @@
     {
       "name": "Animal husbandry",
       "slug": "animal_husbandry",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6233,7 +6277,7 @@
     {
       "name": "Tractor rides",
       "slug": "tractor_rides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6241,7 +6285,7 @@
     {
       "name": "Animal races",
       "slug": "animal_races",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6249,7 +6293,7 @@
     {
       "name": "Animal displays or shows",
       "slug": "animal_displays_or_shows",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6257,7 +6301,7 @@
     {
       "name": "Drive-through Safari",
       "slug": "drive_through_safari",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6265,7 +6309,7 @@
     {
       "name": "Litter Farmer Experiences",
       "slug": "litter_farmer_experiences",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6273,7 +6317,7 @@
     {
       "name": "Multiple species",
       "slug": "multiple_species",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6281,7 +6325,7 @@
     {
       "name": "Rare or exotic animals",
       "slug": "rare_or_exotic_animals",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6289,7 +6333,7 @@
     {
       "name": "Animal Sanctuary",
       "slug": "animal_sanctuary",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6297,7 +6341,7 @@
     {
       "name": "Conservation",
       "slug": "conservation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6305,7 +6349,7 @@
     {
       "name": "Baby animals (seasonal)",
       "slug": "baby_animals_seasonal",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6313,7 +6357,7 @@
     {
       "name": "Walk-through enclosures",
       "slug": "walk_through_enclosures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6321,7 +6365,7 @@
     {
       "name": "Rides or Treks",
       "slug": "rides_or_treks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6329,7 +6373,7 @@
     {
       "name": "Outdoor animal areas",
       "slug": "outdoor_animal_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6337,7 +6381,7 @@
     {
       "name": "Marked Trails",
       "slug": "marked_trails_animal_encounters",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6345,7 +6389,7 @@
     {
       "name": "Children’s Activity Trails",
       "slug": "childrens_activity_trails_animal_encounters",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6353,7 +6397,7 @@
     {
       "name": "Farm-based activities (e.g. egg collecting)",
       "slug": "farm_based_activities_e_g_egg_collecting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "animal_encounters"
       ],
       "active": true
@@ -6361,7 +6405,7 @@
     {
       "name": "Soft climbing structures",
       "slug": "soft_climbing_structures",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6369,7 +6413,7 @@
     {
       "name": "Slides",
       "slug": "slides_soft_play_indoor_active_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6377,7 +6421,7 @@
     {
       "name": "Tunnels and crawl spaces",
       "slug": "tunnels_and_crawl_spaces_soft_play_indoor_active_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6385,7 +6429,7 @@
     {
       "name": "Ball pools",
       "slug": "ball_pools",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6393,7 +6437,7 @@
     {
       "name": "Enclosed space",
       "slug": "enclosed_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6401,7 +6445,7 @@
     {
       "name": "Clear sightlines",
       "slug": "clear_sightlines_soft_play_indoor_active_play",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6409,7 +6453,7 @@
     {
       "name": "Seating for adults",
       "slug": "seating_for_adults",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6417,7 +6461,7 @@
     {
       "name": "Café or refreshment area",
       "slug": "cafe_or_refreshment_area",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6425,7 +6469,7 @@
     {
       "name": "Separate toddler area",
       "slug": "separate_toddler_area",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6433,7 +6477,7 @@
     {
       "name": "Age-zoned play areas",
       "slug": "age_zoned_play_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6441,7 +6485,7 @@
     {
       "name": "Calm or quieter zones",
       "slug": "calm_or_quieter_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "soft_play"
       ],
       "active": true
@@ -6449,7 +6493,7 @@
     {
       "name": "Trains and locomotives",
       "slug": "trains_and_locomotives",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6457,7 +6501,7 @@
     {
       "name": "Boats and ships",
       "slug": "boats_and_ships",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6465,7 +6509,7 @@
     {
       "name": "Aircraft and helicopters",
       "slug": "aircraft_and_helicopters",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6473,7 +6517,7 @@
     {
       "name": "Vintage vehicles",
       "slug": "vintage_vehicles",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6481,7 +6525,7 @@
     {
       "name": "Working machinery",
       "slug": "working_machinery",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6489,7 +6533,7 @@
     {
       "name": "Rides or journeys",
       "slug": "rides_or_journeys",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6497,7 +6541,7 @@
     {
       "name": "Vehicles in operation",
       "slug": "vehicles_in_operation",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6505,7 +6549,7 @@
     {
       "name": "Demonstrations or displays",
       "slug": "demonstrations_or_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6513,7 +6557,7 @@
     {
       "name": "Cab or cockpit viewing",
       "slug": "cab_or_cockpit_viewing",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6521,7 +6565,7 @@
     {
       "name": "Engineering features",
       "slug": "engineering_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "vehicles_transport"
       ],
       "active": true
@@ -6529,7 +6573,7 @@
     {
       "name": "Rides & attractions",
       "slug": "rides_attractions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6537,7 +6581,7 @@
     {
       "name": "Animals or animal experiences",
       "slug": "animals_or_animal_experiences",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6545,7 +6589,7 @@
     {
       "name": "Live shows or performances",
       "slug": "live_shows_or_performances",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6553,7 +6597,7 @@
     {
       "name": "Large interactive exhibits",
       "slug": "large_interactive_exhibits",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6561,7 +6605,7 @@
     {
       "name": "Immersive or themed environments",
       "slug": "immersive_or_themed_environments",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6569,7 +6613,7 @@
     {
       "name": "Meet & greet characters or people",
       "slug": "meet_greet_characters_or_people",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6577,7 +6621,7 @@
     {
       "name": "Hands-on activities",
       "slug": "hands_on_activities",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6585,7 +6629,7 @@
     {
       "name": "Discovery trails",
       "slug": "discovery_trails_a_big_day_out",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6593,7 +6637,7 @@
     {
       "name": "Challenges or missions",
       "slug": "challenges_or_missions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6601,7 +6645,7 @@
     {
       "name": "Play or activity zones",
       "slug": "play_or_activity_zones",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6609,7 +6653,7 @@
     {
       "name": "Landmark features",
       "slug": "landmark_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6617,7 +6661,7 @@
     {
       "name": "Iconic structures or rides",
       "slug": "iconic_structures_or_rides",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6625,7 +6669,7 @@
     {
       "name": "Water features",
       "slug": "water_features",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6633,7 +6677,7 @@
     {
       "name": "Scenic or dramatic settings",
       "slug": "scenic_or_dramatic_settings",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6641,7 +6685,7 @@
     {
       "name": "Themed trails (e.g. Halloween, Christmas, Easter)",
       "slug": "themed_trails_e_g_halloween_christmas_easter",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "big_day_out"
       ],
       "active": true
@@ -6649,7 +6693,7 @@
     {
       "name": "Dedicated play area",
       "slug": "dedicated_play_area",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6657,7 +6701,7 @@
     {
       "name": "Toy corner or play table",
       "slug": "toy_corner_or_play_table",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6665,7 +6709,7 @@
     {
       "name": "Puzzles or games",
       "slug": "puzzles_or_games",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6673,7 +6717,7 @@
     {
       "name": "Colouring",
       "slug": "colouring",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6681,7 +6725,7 @@
     {
       "name": "Space to run around",
       "slug": "space_to_run_around",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6689,7 +6733,7 @@
     {
       "name": "Outdoor play area nearby",
       "slug": "outdoor_play_area_nearby",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6697,7 +6741,7 @@
     {
       "name": "Farm animals nearby",
       "slug": "farm_animals_nearby",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6705,7 +6749,7 @@
     {
       "name": "Shop or browsing area (e.g. farm shop, garden centre)",
       "slug": "shop_or_browsing_area_e_g_farm_shop_garden_centre",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6713,7 +6757,7 @@
     {
       "name": "Combined with a walk or attraction",
       "slug": "combined_with_a_walk_or_attraction",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6721,7 +6765,7 @@
     {
       "name": "Book swap or exchange library",
       "slug": "book_swap_or_exchange_library",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "relaxed_cafe"
       ],
       "active": true
@@ -6729,7 +6773,7 @@
     {
       "name": "Children’s menu",
       "slug": "childrens_menu",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6737,7 +6781,7 @@
     {
       "name": "Flexible seating for families",
       "slug": "flexible_seating_for_families",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6745,7 +6789,7 @@
     {
       "name": "Space for children to move a little",
       "slug": "space_for_children_to_move_a_little",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6753,7 +6797,7 @@
     {
       "name": "Play area or outdoor play space",
       "slug": "play_area_or_outdoor_play_space",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6761,7 +6805,7 @@
     {
       "name": "Relaxed, family-welcoming feel",
       "slug": "relaxed_family_welcoming_feel",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6769,7 +6813,7 @@
     {
       "name": "Outdoor seating or garden",
       "slug": "outdoor_seating_or_garden",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6777,7 +6821,7 @@
     {
       "name": "Rural or scenic setting",
       "slug": "rural_or_scenic_setting",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6785,7 +6829,7 @@
     {
       "name": "On-site grounds to explore",
       "slug": "on_site_grounds_to_explore",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6793,7 +6837,7 @@
     {
       "name": "Farm animals or gardens",
       "slug": "farm_animals_or_gardens",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "family_dining"
       ],
       "active": true
@@ -6801,7 +6845,7 @@
     {
       "name": "Meet Father Christmas",
       "slug": "meet_father_christmas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6809,7 +6853,7 @@
     {
       "name": "Festive Shows",
       "slug": "festive_shows",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6817,7 +6861,7 @@
     {
       "name": "Singing figures or characters",
       "slug": "singing_figures_or_characters",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6825,7 +6869,7 @@
     {
       "name": "Seasonal Hot Chocolates",
       "slug": "seasonal_hot_chocolates",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6833,7 +6877,7 @@
     {
       "name": "Festive Displays",
       "slug": "festive_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6841,7 +6885,7 @@
     {
       "name": "Winter Wonderland",
       "slug": "winter_wonderland",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6849,7 +6893,7 @@
     {
       "name": "Themed Areas",
       "slug": "themed_areas",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6857,7 +6901,7 @@
     {
       "name": "Themed Food",
       "slug": "themed_food",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6865,7 +6909,7 @@
     {
       "name": "Easter Egg Hunts",
       "slug": "easter_egg_hunts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6873,7 +6917,7 @@
     {
       "name": "Clues or Treasure Hunts",
       "slug": "clues_or_treasure_hunts",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6881,7 +6925,7 @@
     {
       "name": "Meet the Easter Bunny",
       "slug": "meet_the_easter_bunny",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6889,7 +6933,7 @@
     {
       "name": "Costumes or Fancy Dress-up",
       "slug": "costumes_or_fancy_dress_up",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6897,7 +6941,7 @@
     {
       "name": "Firework Displays",
       "slug": "firework_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6905,7 +6949,7 @@
     {
       "name": "Roasting Marshmallows",
       "slug": "roasting_marshmallows",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6913,7 +6957,7 @@
     {
       "name": "Bonfires",
       "slug": "bonfires",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6921,7 +6965,7 @@
     {
       "name": "Solstice Rituals",
       "slug": "solstice_rituals",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6929,7 +6973,7 @@
     {
       "name": "Seasonal Fruit Picking",
       "slug": "seasonal_fruit_picking",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6937,7 +6981,7 @@
     {
       "name": "Maize Mazes",
       "slug": "maize_mazes",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6945,7 +6989,7 @@
     {
       "name": "Flower collecting or displays",
       "slug": "flower_collecting_or_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6953,7 +6997,7 @@
     {
       "name": "Splash Parks",
       "slug": "splash_parks",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6961,7 +7005,7 @@
     {
       "name": "Inflatables Sessions",
       "slug": "inflatables_sessions",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6969,7 +7013,7 @@
     {
       "name": "BBQs",
       "slug": "bbqs",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6977,7 +7021,7 @@
     {
       "name": "Surf & Turf",
       "slug": "surf_turf",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6985,7 +7029,7 @@
     {
       "name": "Wildlife Spotting",
       "slug": "wildlife_spotting_seasonal",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -6993,7 +7037,7 @@
     {
       "name": "Sea Safari",
       "slug": "sea_safari",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -7001,7 +7045,7 @@
     {
       "name": "Airshows or displays",
       "slug": "airshows_or_displays",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -7009,7 +7053,7 @@
     {
       "name": "Food stands & stalls",
       "slug": "food_stands_stalls",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -7017,7 +7061,7 @@
     {
       "name": "Live Performance",
       "slug": "live_performance",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true
@@ -7025,7 +7069,7 @@
     {
       "name": "Live Music",
       "slug": "live_music_seasonal",
-      "relatedEnumNameSlugs": [
+      "opportunityThemeSlugs": [
         "seasonal"
       ],
       "active": true

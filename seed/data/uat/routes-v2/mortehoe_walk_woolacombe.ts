@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const mortehoeWalkWoolacombeRouteV2: OpportunityRouteV2SeedInput = {
+  id: "mortehoe_walk_woolacombe",
+  slug: "mortehoe_walk_woolacombe",
   themeSlug: "scenic_walks",
   themeVariantSlug: "coastal_walk",
   opportunityType: "route",

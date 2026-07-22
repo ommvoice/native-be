@@ -1,7 +1,6 @@
 export interface ExtraKitEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

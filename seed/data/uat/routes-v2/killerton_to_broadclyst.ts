@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const killertonToBroadclystRouteV2: OpportunityRouteV2SeedInput = {
+  id: "killerton_to_broadclyst",
+  slug: "killerton_to_broadclyst",
   themeSlug: "wheels_routes",
   themeVariantSlug: "longer_ride",
   opportunityType: "route",

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const mouthwellSandsVenueV2: OpportunityVenueV2SeedInput = {
+  id: "mouthwell_sands",
+  slug: "mouthwell_sands",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach",
   venueName: "Mouthwell Sands",

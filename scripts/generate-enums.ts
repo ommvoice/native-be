@@ -17,6 +17,15 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { type EnumEntry, slugify, normalizeForMatch, matchByName } from "./lib/enum-matching.js";
 
+/**
+ * An entry while this script is building it up. Same base fields as the
+ * shared EnumEntry, plus whatever specifically-named relation-slug arrays
+ * get added along the way (e.g. `opportunityThemeSlugs`, `skillAreaSlugs`) —
+ * which field names apply depends on which enum concept this is, so it's an
+ * index signature rather than a fixed set of optional properties.
+ */
+type WorkingEntry = EnumEntry & Record<string, unknown>;
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WORKBOOK_PATH = path.join(__dirname, "..", "newData.xlsx");
 const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "enums");
@@ -53,7 +62,7 @@ interface EnumFile {
   fileName: string;
   exportName: string;
   typeName: string;
-  entries: EnumEntry[];
+  entries: WorkingEntry[];
 }
 
 // ── Cell / grid helpers ──────────────────────────────────────────────────────
@@ -111,9 +120,20 @@ function resolveActive(status: string | null): boolean {
   return true;
 }
 
-function addRelation(entry: EnumEntry, slug: string): void {
-  if (!entry.relatedEnumNameSlugs) entry.relatedEnumNameSlugs = [];
-  if (!entry.relatedEnumNameSlugs.includes(slug)) entry.relatedEnumNameSlugs.push(slug);
+/**
+ * Adds `slug` to entry[field] (creating the array on first use), where `field`
+ * is a specific relation name like "opportunityThemeSlugs" or
+ * "interestCategorySlugs" — not a single generic "relatedEnumNameSlugs" bucket.
+ * A variant related to more than one parent (e.g. more than one opportunity
+ * theme) just ends up with more than one slug in that same array.
+ */
+function addRelation(entry: WorkingEntry, field: string, slug: string): void {
+  const existing = entry[field] as string[] | undefined;
+  if (!existing) {
+    entry[field] = [slug];
+    return;
+  }
+  if (!existing.includes(slug)) existing.push(slug);
 }
 
 // ── Sheet parsing: forward-fill merges, split into generic + attraction rows ──
@@ -175,9 +195,9 @@ function parseSheet(grid: Cell[][]): {
 // ── Entry builders ────────────────────────────────────────────────────────────
 
 /** slug from value_key when present (normalized), else slugified value_label. Dedupes within a file. */
-function buildEntries(records: GenericRecord[]): EnumEntry[] {
+function buildEntries(records: GenericRecord[]): WorkingEntry[] {
   const seen = new Set<string>();
-  const entries: EnumEntry[] = [];
+  const entries: WorkingEntry[] = [];
   for (const r of records) {
     const base = slugify(r.valueKey ?? r.valueLabel);
     entries.push({ name: r.valueLabel, slug: dedupeSlug(base, r.groupLabel, seen), active: resolveActive(r.status) });
@@ -186,9 +206,9 @@ function buildEntries(records: GenericRecord[]): EnumEntry[] {
 }
 
 /** Same as buildEntries but always slugs from value_label — for sections where value_key is repurposed (e.g. seasonal_highlights group markers). */
-function buildEntriesFromLabelOnly(records: GenericRecord[]): EnumEntry[] {
+function buildEntriesFromLabelOnly(records: GenericRecord[]): WorkingEntry[] {
   const seen = new Set<string>();
-  const entries: EnumEntry[] = [];
+  const entries: WorkingEntry[] = [];
   for (const r of records) {
     const base = slugify(r.valueLabel);
     entries.push({ name: r.valueLabel, slug: dedupeSlug(base, r.groupLabel, seen), active: resolveActive(r.status) });
@@ -206,7 +226,7 @@ function dedupeSlug(base: string, groupLabel: string | null, seen: Set<string>):
   return slug;
 }
 
-function matchInterestCategoryByGroupLabel(groupLabel: string | null, categories: EnumEntry[]): EnumEntry | undefined {
+function matchInterestCategoryByGroupLabel(groupLabel: string | null, categories: WorkingEntry[]): WorkingEntry | undefined {
   if (!groupLabel) return undefined;
   const stripped = groupLabel.replace(/\s+(Themes|Options)$/i, "");
   return matchByName(categories, stripped) ?? matchByName(categories, groupLabel);
@@ -214,9 +234,9 @@ function matchInterestCategoryByGroupLabel(groupLabel: string | null, categories
 
 function buildOpportunityThemeEntries(
   generic: Map<string, GenericRecord[]>,
-  opportunityTypeEntries: EnumEntry[],
-  interestCategoryEntries: EnumEntry[],
-): EnumEntry[] {
+  opportunityTypeEntries: WorkingEntry[],
+  interestCategoryEntries: WorkingEntry[],
+): WorkingEntry[] {
   const themeRecords = generic.get("opportunity_theme") ?? [];
   const entries = buildEntries(themeRecords);
   const bySlug = new Map(entries.map((e) => [e.slug, e]));
@@ -228,7 +248,7 @@ function buildOpportunityThemeEntries(
     const tokens = r.appliesTo.split(",").map((t) => t.trim().toLowerCase()).filter((t) => t && t !== "all" && t !== "-");
     for (const t of tokens) {
       const typeEntry = opportunityTypeEntries.find((e) => e.slug === t);
-      if (typeEntry) addRelation(entry, typeEntry.slug);
+      if (typeEntry) addRelation(entry, "opportunityTypeSlugs", typeEntry.slug);
     }
   }
 
@@ -237,7 +257,7 @@ function buildOpportunityThemeEntries(
     const themeEntry = matchByName(entries, r.valueLabel);
     if (!themeEntry || !r.appliesTo) continue;
     const typeEntry = opportunityTypeEntries.find((e) => e.slug === r.appliesTo!.trim().toLowerCase());
-    if (typeEntry) addRelation(themeEntry, typeEntry.slug);
+    if (typeEntry) addRelation(themeEntry, "opportunityTypeSlugs", typeEntry.slug);
     else console.warn(`[opportunity-theme] no opportunity_type match for applies_to "${r.appliesTo}" (theme "${r.valueLabel}")`);
   }
 
@@ -252,14 +272,14 @@ function buildOpportunityThemeEntries(
       continue;
     }
     const categoryEntry = matchInterestCategoryByGroupLabel(r.groupLabel, interestCategoryEntries);
-    if (categoryEntry) addRelation(themeEntry, categoryEntry.slug);
+    if (categoryEntry) addRelation(themeEntry, "interestCategorySlugs", categoryEntry.slug);
     else console.warn(`[opportunity-theme] no interest_category match for group "${r.groupLabel}"`);
   }
 
   return entries;
 }
 
-function buildThemeVariantEntries(generic: Map<string, GenericRecord[]>, themeEntries: EnumEntry[]): EnumEntry[] {
+function buildThemeVariantEntries(generic: Map<string, GenericRecord[]>, themeEntries: WorkingEntry[]): WorkingEntry[] {
   const records = [
     ...(generic.get("opportunity_theme_variant") ?? []),
     ...(generic.get("opportunity_theme_variant_walks") ?? []),
@@ -270,26 +290,26 @@ function buildThemeVariantEntries(generic: Map<string, GenericRecord[]>, themeEn
     const entry = entries[i];
     if (!entry) return;
     const theme = matchByName(themeEntries, r.groupLabel ?? "");
-    if (theme) addRelation(entry, theme.slug);
+    if (theme) addRelation(entry, "opportunityThemeSlugs", theme.slug);
     else console.warn(`[opportunity-theme-variant] no theme match for group "${r.groupLabel}" (variant "${r.valueLabel}")`);
   });
   return entries;
 }
 
-function buildSkillAreaVariantEntries(generic: Map<string, GenericRecord[]>, skillAreaEntries: EnumEntry[]): EnumEntry[] {
+function buildSkillAreaVariantEntries(generic: Map<string, GenericRecord[]>, skillAreaEntries: WorkingEntry[]): WorkingEntry[] {
   const records = generic.get("skill_area_variant") ?? [];
   const entries = buildEntries(records);
   records.forEach((r, i) => {
     const entry = entries[i];
     if (!entry) return;
     const area = matchByName(skillAreaEntries, r.groupLabel ?? "");
-    if (area) addRelation(entry, area.slug);
+    if (area) addRelation(entry, "skillAreaSlugs", area.slug);
     else console.warn(`[skill-area-variant] no skill_area match for group "${r.groupLabel}"`);
   });
   return entries;
 }
 
-function buildSeasonalHighlightEntries(generic: Map<string, GenericRecord[]>, seasonalTagEntries: EnumEntry[]): EnumEntry[] {
+function buildSeasonalHighlightEntries(generic: Map<string, GenericRecord[]>, seasonalTagEntries: WorkingEntry[]): WorkingEntry[] {
   const records = generic.get("seasonal_highlights") ?? [];
   const entries = buildEntriesFromLabelOnly(records);
   let currentSeason: string | null = null;
@@ -300,21 +320,21 @@ function buildSeasonalHighlightEntries(generic: Map<string, GenericRecord[]>, se
     const entry = entries[i];
     if (!entry || !currentSeason) return;
     const tag = seasonalTagEntries.find((e) => e.slug === currentSeason);
-    if (tag) addRelation(entry, tag.slug);
+    if (tag) addRelation(entry, "seasonalTagSlugs", tag.slug);
   });
   return entries;
 }
 
-function buildThemeAttractionEntries(attractionRows: AttractionRow[], themeEntries: EnumEntry[]): EnumEntry[] {
+function buildThemeAttractionEntries(attractionRows: AttractionRow[], themeEntries: WorkingEntry[]): WorkingEntry[] {
   const seen = new Set<string>();
-  const entries: EnumEntry[] = [];
+  const entries: WorkingEntry[] = [];
   for (const r of attractionRows) {
     const base = slugify(r.valueKey ?? r.valueLabel);
     const slug = dedupeSlug(base, r.groupLabel, seen);
     const themeName = resolveAlias(r.groupLabel.replace(/\s+Attractions$/i, ""));
     const theme = matchByName(themeEntries, themeName);
-    const entry: EnumEntry = { name: r.valueLabel, slug, active: true };
-    if (theme) entry.relatedEnumNameSlugs = [theme.slug];
+    const entry: WorkingEntry = { name: r.valueLabel, slug, active: true };
+    if (theme) addRelation(entry, "opportunityThemeSlugs", theme.slug);
     else console.warn(`[theme-attraction] no theme match for "${themeName}" (from group "${r.groupLabel}")`);
     entries.push(entry);
   }
@@ -355,20 +375,39 @@ const SIMPLE_ENUM_FILES: { enumName: string; fileName: string; exportName: strin
 
 // ── Emission ──────────────────────────────────────────────────────────────────
 
+const BASE_FIELDS = new Set(["name", "slug", "active"]);
+
+/** Union of relation field names (e.g. "opportunityThemeSlugs") across a file's entries, in first-seen order. */
+function relationFieldNames(entries: WorkingEntry[]): string[] {
+  const seen = new Set<string>();
+  const order: string[] = [];
+  for (const e of entries) {
+    for (const key of Object.keys(e)) {
+      if (BASE_FIELDS.has(key) || seen.has(key)) continue;
+      seen.add(key);
+      order.push(key);
+    }
+  }
+  return order;
+}
+
 function emitEnumFile(file: EnumFile): void {
+  const relationFields = relationFieldNames(file.entries);
+
   const lines: string[] = [];
   lines.push(`export interface ${file.typeName}Entry {`);
   lines.push(`  name: string;`);
   lines.push(`  slug: string;`);
-  lines.push(`  relatedEnumNameSlugs?: string[];`);
+  for (const field of relationFields) lines.push(`  ${field}?: string[];`);
   lines.push(`  active: boolean;`);
   lines.push(`}`);
   lines.push(``);
   lines.push(`export const ${file.exportName}: ${file.typeName}Entry[] = [`);
   for (const e of file.entries) {
     const parts = [`name: ${JSON.stringify(e.name)}`, `slug: ${JSON.stringify(e.slug)}`];
-    if (e.relatedEnumNameSlugs?.length) {
-      parts.push(`relatedEnumNameSlugs: [${e.relatedEnumNameSlugs.map((s) => JSON.stringify(s)).join(", ")}]`);
+    for (const field of relationFields) {
+      const values = e[field] as string[] | undefined;
+      if (values?.length) parts.push(`${field}: [${values.map((s) => JSON.stringify(s)).join(", ")}]`);
     }
     parts.push(`active: ${e.active}`);
     lines.push(`  { ${parts.join(", ")} },`);
@@ -425,10 +464,12 @@ function validateRelations(files: EnumFile[]): void {
   let hasError = false;
   for (const f of files) {
     for (const e of f.entries) {
-      for (const rel of e.relatedEnumNameSlugs ?? []) {
-        if (!allSlugs.has(rel)) {
-          hasError = true;
-          console.error(`[validate] ${f.fileName}.enum.ts: entry "${e.slug}" references unknown related slug "${rel}"`);
+      for (const field of relationFieldNames([e])) {
+        for (const rel of (e[field] as string[] | undefined) ?? []) {
+          if (!allSlugs.has(rel)) {
+            hasError = true;
+            console.error(`[validate] ${f.fileName}.enum.ts: entry "${e.slug}" references unknown ${field} "${rel}"`);
+          }
         }
       }
     }

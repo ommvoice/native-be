@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const canonteignFallsVenueV2: OpportunityVenueV2SeedInput = {
+  id: "canonteign_falls",
+  slug: "canonteign_falls",
   themeSlug: "big_day_out",
   themeVariantSlug: "large_scale_outdoor",
   venueName: "Canonteign Falls",

@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const rspbNatureReserveAylesbereCommonRouteV2: OpportunityRouteV2SeedInput = {
+  id: "rspb_nature_reserve_aylesbere_common",
+  slug: "rspb_nature_reserve_aylesbere_common",
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

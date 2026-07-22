@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const summerleazeBeachBudeVenueV2: OpportunityVenueV2SeedInput = {
+  id: "summerleaze_beach_bude",
+  slug: "summerleaze_beach_bude",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "mixed_sand_shingle, surf_beach, wild_open_beaches",
   venueName: "Summerleaze Beach, Bude",

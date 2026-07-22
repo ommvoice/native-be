@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const limeKilnPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
+  id: "lime_kiln_play_area",
+  slug: "lime_kiln_play_area",
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Lime Kiln Play Area",

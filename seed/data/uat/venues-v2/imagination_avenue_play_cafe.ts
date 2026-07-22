@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const imaginationAvenuePlayCafeVenueV2: OpportunityVenueV2SeedInput = {
+  id: "imagination_avenue_play_cafe",
+  slug: "imagination_avenue_play_cafe",
   themeSlug: "imaginative_play",
   themeVariantSlug: "immersive_worlds, scenario_and_world_play",
   venueName: "Imagination Avenue Play Cafe",

@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const tenpinEscapeRoomsVenueV2: OpportunityVenueV2SeedInput = {
+  id: "tenpin_escape_rooms",
+  slug: "tenpin_escape_rooms",
   themeSlug: "indoor_entertainment",
   themeVariantSlug: "escape_room",
   venueName: "Tenpin Escape Rooms",

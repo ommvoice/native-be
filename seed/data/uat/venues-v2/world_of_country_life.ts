@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const worldOfCountryLifeVenueV2: OpportunityVenueV2SeedInput = {
+  id: "world_of_country_life",
+  slug: "world_of_country_life",
   themeSlug: "big_day_out",
   themeVariantSlug: "large_scale_outdoor",
   venueName: "World of Country Life",

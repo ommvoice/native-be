@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const greendaleFarmAnimalTrailVenueV2: OpportunityVenueV2SeedInput = {
+  id: "greendale_farm_animal_trail",
+  slug: "greendale_farm_animal_trail",
   themeSlug: "animal_encounters",
   themeVariantSlug: "farm_and_smallholding",
   venueName: "Greendale Farm Animal Trail",

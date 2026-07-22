@@ -68,7 +68,7 @@ function buildFacilities(data: OpportunityRouteV2): string[] | null {
 
 function buildForThem(data: OpportunityRouteV2): string[] | null {
   const childFacilities = splitList(data.routeChildFacilities) ?? [];
-  
+
   if (childFacilities.length === 0) {
     const seasonalHighlights = data.routeSeasonalHighlights ? splitList(data.routeSeasonalHighlights) ?? [] : [];
     const seasonalTag = data.routeSeasonalTag ? splitList(data.routeSeasonalTag) ?? [] : [];

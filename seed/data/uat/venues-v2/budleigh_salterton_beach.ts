@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const budleighSaltertonBeachVenueV2: OpportunityVenueV2SeedInput = {
+  id: "budleigh_salterton_beach",
+  slug: "budleigh_salterton_beach",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach",
   venueName: "Budleigh Salterton beach",

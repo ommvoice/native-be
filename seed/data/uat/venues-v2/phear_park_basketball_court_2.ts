@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const phearParkBasketballCourt2VenueV2: OpportunityVenueV2SeedInput = {
+  id: "phear_park_basketball_court_2",
+  slug: "phear_park_basketball_court_2",
   themeSlug: "sporty_activities",
   themeVariantSlug: "outdoor_courts",
   venueName: "Phear Park Basketball Court",

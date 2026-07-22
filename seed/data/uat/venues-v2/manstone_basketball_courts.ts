@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const manstoneBasketballCourtsVenueV2: OpportunityVenueV2SeedInput = {
+  id: "manstone_basketball_courts",
+  slug: "manstone_basketball_courts",
   themeSlug: "sporty_activities",
   themeVariantSlug: "outdoor_courts",
   venueName: "Manstone Basketball Courts",

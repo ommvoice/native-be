@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const rammExeterVenueV2: OpportunityVenueV2SeedInput = {
+  id: "ramm_exeter",
+  slug: "ramm_exeter",
   themeSlug: "interactive_museums",
   themeVariantSlug: "world_and_cultures, history_made_interactive",
   venueName: "RAMM Exeter",

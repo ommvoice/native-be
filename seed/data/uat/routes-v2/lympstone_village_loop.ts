@@ -1,6 +1,8 @@
 import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2/create_opportunity_route_v2_row.js";
 
 export const lympstoneVillageLoopRouteV2: OpportunityRouteV2SeedInput = {
+  id: "lympstone_village_loop",
+  slug: "lympstone_village_loop",
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

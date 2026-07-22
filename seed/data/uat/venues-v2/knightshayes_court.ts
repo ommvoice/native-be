@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const knightshayesCourtVenueV2: OpportunityVenueV2SeedInput = {
+  id: "knightshayes_court",
+  slug: "knightshayes_court",
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Knightshayes Court",

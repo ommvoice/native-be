@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const makeSouthwestGalleryVenueV2: OpportunityVenueV2SeedInput = {
+  id: "make_southwest_gallery",
+  slug: "make_southwest_gallery",
   themeSlug: "historical_cultural",
   themeVariantSlug: "gallery",
   venueName: "Make Southwest Gallery",

@@ -1,7 +1,6 @@
 export interface FunctionalFacilityEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

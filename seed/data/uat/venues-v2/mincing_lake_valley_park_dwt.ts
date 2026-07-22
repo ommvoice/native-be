@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const mincingLakeValleyParkDwtVenueV2: OpportunityVenueV2SeedInput = {
+  id: "mincing_lake_valley_park_dwt",
+  slug: "mincing_lake_valley_park_dwt",
   themeSlug: "green_spaces",
   themeVariantSlug: "country_parks",
   venueName: "Mincing Lake Valley Park - DWT",

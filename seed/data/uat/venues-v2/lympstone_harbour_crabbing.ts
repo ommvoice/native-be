@@ -1,6 +1,8 @@
 import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2/create_opportunity_venue_v2.js";
 
 export const lympstoneHarbourCrabbingVenueV2: OpportunityVenueV2SeedInput = {
+  id: "lympstone_harbour_crabbing",
+  slug: "lympstone_harbour_crabbing",
   themeSlug: "coastal_adventures",
   themeVariantSlug: "harbour_beach",
   venueName: "Lympstone Harbour Crabbing",

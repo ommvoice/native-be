@@ -1,5 +1,7 @@
 [
   {
+    "id": "fingle_bridge_river_walk_5_mile_loop",
+    "slug": "fingle_bridge_river_walk_5_mile_loop",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk, riverside_walk",
     "opportunityType": "route",
@@ -41,6 +43,8 @@
     "routeCountry": null
   },
   {
+    "id": "fingle_bridge_riverside",
+    "slug": "fingle_bridge_riverside",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk, riverside_walk",
     "opportunityType": "route",
@@ -82,6 +86,8 @@
     "routeCountry": null
   },
   {
+    "id": "river_otter_walk_tipton_st_john",
+    "slug": "river_otter_walk_tipton_st_john",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "riverside_walk, woodland_walk",
     "opportunityType": "route",
@@ -123,6 +129,8 @@
     "routeCountry": null
   },
   {
+    "id": "rspb_nature_reserve_aylesbere_common",
+    "slug": "rspb_nature_reserve_aylesbere_common",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -164,6 +172,8 @@
     "routeCountry": null
   },
   {
+    "id": "the_goat_trail_topsham",
+    "slug": "the_goat_trail_topsham",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -205,6 +215,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_exmouth_to_lower_halsdon_farm",
+    "slug": "exe_estuary_trail_exmouth_to_lower_halsdon_farm",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -246,6 +258,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_lympstone_to_exmouth",
+    "slug": "exe_estuary_trail_lympstone_to_exmouth",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -287,6 +301,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_exmouth_to_lympstone",
+    "slug": "exe_estuary_trail_exmouth_to_lympstone",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -328,6 +344,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_lympstone_to_lower_halsdon_farm",
+    "slug": "exe_estuary_trail_lympstone_to_lower_halsdon_farm",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "quick_spin",
     "opportunityType": "route",
@@ -369,6 +387,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_lympstone_to_exton",
+    "slug": "exe_estuary_trail_lympstone_to_exton",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "quick_spin",
     "opportunityType": "route",
@@ -410,6 +430,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_exton_to_lympstone",
+    "slug": "exe_estuary_trail_exton_to_lympstone",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "quick_spin",
     "opportunityType": "route",
@@ -451,6 +473,8 @@
     "routeCountry": null
   },
   {
+    "id": "exe_estuary_trail_exmouth_to_exton",
+    "slug": "exe_estuary_trail_exmouth_to_exton",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -492,6 +516,8 @@
     "routeCountry": null
   },
   {
+    "id": "shelly_bay_to_orcombe_point",
+    "slug": "shelly_bay_to_orcombe_point",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -533,6 +559,8 @@
     "routeCountry": null
   },
   {
+    "id": "the_byes",
+    "slug": "the_byes",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -574,6 +602,8 @@
     "routeCountry": null
   },
   {
+    "id": "bellever_forest",
+    "slug": "bellever_forest",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -615,6 +645,8 @@
     "routeCountry": null
   },
   {
+    "id": "parke_estate_riverside_walk",
+    "slug": "parke_estate_riverside_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "riverside_walk",
     "opportunityType": "route",
@@ -656,6 +688,8 @@
     "routeCountry": null
   },
   {
+    "id": "bystock_pools_lake_walk",
+    "slug": "bystock_pools_lake_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "riverside_walk, woodland_walk",
     "opportunityType": "route",
@@ -697,6 +731,8 @@
     "routeCountry": null
   },
   {
+    "id": "powderham_castle_grounds",
+    "slug": "powderham_castle_grounds",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "estate_grounds",
     "opportunityType": "route",
@@ -738,6 +774,8 @@
     "routeCountry": null
   },
   {
+    "id": "blackbury_camp_bluebell_walk",
+    "slug": "blackbury_camp_bluebell_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -779,6 +817,8 @@
     "routeCountry": null
   },
   {
+    "id": "orccombe_point_beach_clifftop_walk",
+    "slug": "orccombe_point_beach_clifftop_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "coastal_walk",
     "opportunityType": "route",
@@ -820,6 +860,8 @@
     "routeCountry": null
   },
   {
+    "id": "mortehoe_walk_woolacombe",
+    "slug": "mortehoe_walk_woolacombe",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "coastal_walk",
     "opportunityType": "route",
@@ -861,6 +903,8 @@
     "routeCountry": null
   },
   {
+    "id": "mortehoe_coastal_path",
+    "slug": "mortehoe_coastal_path",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "coastal_walk",
     "opportunityType": "route",
@@ -902,6 +946,8 @@
     "routeCountry": null
   },
   {
+    "id": "budleigh_to_exmouth_cycle_trail",
+    "slug": "budleigh_to_exmouth_cycle_trail",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -943,6 +989,8 @@
     "routeCountry": null
   },
   {
+    "id": "exmouth_to_budleigh_cycle_trail",
+    "slug": "exmouth_to_budleigh_cycle_trail",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -984,6 +1032,8 @@
     "routeCountry": null
   },
   {
+    "id": "exeter_quay_loop",
+    "slug": "exeter_quay_loop",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "towpaths",
     "opportunityType": "route",
@@ -1025,6 +1075,8 @@
     "routeCountry": null
   },
   {
+    "id": "exmouth_dinosaur_trail",
+    "slug": "exmouth_dinosaur_trail",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "feature_walk",
     "opportunityType": "route",
@@ -1066,6 +1118,8 @@
     "routeCountry": null
   },
   {
+    "id": "haldon_forest_discovery_trail",
+    "slug": "haldon_forest_discovery_trail",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1107,6 +1161,8 @@
     "routeCountry": null
   },
   {
+    "id": "haldon_forest_butterfly_trail",
+    "slug": "haldon_forest_butterfly_trail",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1148,6 +1204,8 @@
     "routeCountry": null
   },
   {
+    "id": "haldon_forest_discovery_route",
+    "slug": "haldon_forest_discovery_route",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "quick_spin",
     "opportunityType": "route",
@@ -1189,6 +1247,8 @@
     "routeCountry": null
   },
   {
+    "id": "danes_wood",
+    "slug": "danes_wood",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1230,6 +1290,8 @@
     "routeCountry": null
   },
   {
+    "id": "killerton_estate",
+    "slug": "killerton_estate",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "estate_grounds",
     "opportunityType": "route",
@@ -1271,6 +1333,8 @@
     "routeCountry": null
   },
   {
+    "id": "ellerhayes_walk",
+    "slug": "ellerhayes_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1312,6 +1376,8 @@
     "routeCountry": null
   },
   {
+    "id": "columbjohn_walk",
+    "slug": "columbjohn_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1353,6 +1419,8 @@
     "routeCountry": null
   },
   {
+    "id": "killerton_to_broadclyst",
+    "slug": "killerton_to_broadclyst",
     "themeSlug": "wheels_routes",
     "themeVariantSlug": "longer_ride",
     "opportunityType": "route",
@@ -1394,6 +1462,8 @@
     "routeCountry": null
   },
   {
+    "id": "beer_to_branscombe",
+    "slug": "beer_to_branscombe",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "coastal_walk",
     "opportunityType": "route",
@@ -1435,6 +1505,8 @@
     "routeCountry": null
   },
   {
+    "id": "powderham_to_turf_locks",
+    "slug": "powderham_to_turf_locks",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "towpaths",
     "opportunityType": "route",
@@ -1476,6 +1548,8 @@
     "routeCountry": null
   },
   {
+    "id": "turf_locks_riverside_walk",
+    "slug": "turf_locks_riverside_walk",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "towpaths",
     "opportunityType": "route",
@@ -1517,6 +1591,8 @@
     "routeCountry": null
   },
   {
+    "id": "budleigh_nature_reserve_to_otterton",
+    "slug": "budleigh_nature_reserve_to_otterton",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "nature_trail",
     "opportunityType": "route",
@@ -1558,6 +1634,8 @@
     "routeCountry": null
   },
   {
+    "id": "woodbury_castle",
+    "slug": "woodbury_castle",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "heathland",
     "opportunityType": "route",
@@ -1599,6 +1677,8 @@
     "routeCountry": null
   },
   {
+    "id": "woodbury_common",
+    "slug": "woodbury_common",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "heathland",
     "opportunityType": "route",
@@ -1640,6 +1720,8 @@
     "routeCountry": null
   },
   {
+    "id": "estuary_view_woodbury_common",
+    "slug": "estuary_view_woodbury_common",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1681,6 +1763,8 @@
     "routeCountry": null
   },
   {
+    "id": "stover_country_park",
+    "slug": "stover_country_park",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk, riverside_walk",
     "opportunityType": "route",
@@ -1722,6 +1806,8 @@
     "routeCountry": null
   },
   {
+    "id": "decoy_park",
+    "slug": "decoy_park",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk, riverside_walk",
     "opportunityType": "route",
@@ -1763,6 +1849,8 @@
     "routeCountry": null
   },
   {
+    "id": "lympstone_village_loop",
+    "slug": "lympstone_village_loop",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",
@@ -1804,6 +1892,8 @@
     "routeCountry": null
   },
   {
+    "id": "mincing_lake_valley_park",
+    "slug": "mincing_lake_valley_park",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "nature_trail",
     "opportunityType": "route",
@@ -1845,6 +1935,8 @@
     "routeCountry": null
   },
   {
+    "id": "dartmeet",
+    "slug": "dartmeet",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "national_park, riverside_walk",
     "opportunityType": "route",
@@ -1886,6 +1978,8 @@
     "routeCountry": null
   },
   {
+    "id": "castle_feature_woodbury_common",
+    "slug": "castle_feature_woodbury_common",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1927,6 +2021,8 @@
     "routeCountry": null
   },
   {
+    "id": "denbury_hillfort_monument",
+    "slug": "denbury_hillfort_monument",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "woodland_walk",
     "opportunityType": "route",
@@ -1968,6 +2064,8 @@
     "routeCountry": null
   },
   {
+    "id": "phear_park",
+    "slug": "phear_park",
     "themeSlug": "scenic_walks",
     "themeVariantSlug": "gentle_wander",
     "opportunityType": "route",

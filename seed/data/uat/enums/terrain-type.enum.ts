@@ -1,7 +1,6 @@
 export interface TerrainTypeEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

@@ -1,7 +1,6 @@
 export interface AgeSuitabilityEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

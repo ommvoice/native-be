@@ -1,7 +1,6 @@
 export interface ParentFacilityEntry {
   name: string;
   slug: string;
-  relatedEnumNameSlugs?: string[];
   active: boolean;
 }
 

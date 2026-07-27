@@ -165,4 +165,51 @@ export class AssetsService {
   getAllEnums(): typeof enums {
     return enums;
   }
+
+  // ── Slug -> human-readable name (combined across every enum group) ─────────
+
+  private slugLabelMap: Map<string, string> | null = null;
+
+  /** Every enum entry across all groups (opportunityTheme, skillArea, bookingType, ...), flattened into one array — the slug is unique across groups, so one combined lookup works regardless of which group a given field's slug came from. */
+  getAllEnumEntries(): { slug: string; name: string }[] {
+    return (Object.values(enums) as EnumEntry[][]).flat().map((e) => ({ slug: e.slug, name: e.name }));
+  }
+
+  /** Resolve a single slug to its human-readable name. Returns undefined if the slug isn't a known enum value (e.g. the field is genuinely free text, not enum-backed). */
+  getEnumLabel(slug: string): string | undefined {
+    if (!this.slugLabelMap) {
+      this.slugLabelMap = new Map(this.getAllEnumEntries().map((e) => [e.slug, e.name]));
+    }
+    return this.slugLabelMap.get(slug);
+  }
+
+  getIntrestTags() : any{
+
+   const interests = [
+  { id: "birds", slug: "birds", name: "Birds" },
+  { id: "craft", slug: "craft", name: "Craft" },
+  { id: "dancing", slug: "dancing", name: "Dancing" },
+  { id: "dinosaurs", slug: "dinosaurs", name: "Dinosaurs" },
+  { id: "drawing", slug: "drawing", name: "Drawing" },
+  { id: "music", slug: "music", name: "Music" },
+  { id: "animals", slug: "animals", name: "Animals" },
+  { id: "nature", slug: "nature", name: "Nature" },
+  { id: "swimming", slug: "swimming", name: "Swimming" },
+  { id: "reading", slug: "reading", name: "Reading" },
+  { id: "gaming", slug: "gaming", name: "Gaming" },
+  { id: "flowers", slug: "flowers", name: "Flowers" },
+  { id: "fish", slug: "fish", name: "Fish" },
+  { id: "cats", slug: "cats", name: "Cats" },
+  { id: "dogs", slug: "dogs", name: "Dogs" },
+  { id: "drama", slug: "drama", name: "Drama" },
+  { id: "sports", slug: "sports", name: "Sports" },
+  { id: "art", slug: "art", name: "Art" },
+  { id: "cooking", slug: "cooking", name: "Cooking" },
+  { id: "trucks", slug: "trucks", name: "Trucks" },
+  { id: "lego", slug: "lego", name: "Lego" },
+  { id: "superheroes", slug: "superheroes", name: "Superheroes" },
+] as const;
+
+    return interests
+  }
 }

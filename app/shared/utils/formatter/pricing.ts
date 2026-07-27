@@ -57,5 +57,5 @@ export function resolveCardPrice(
   if (!anyPrice) return { price: "Free", priceValue: 0 };
   const num = parseNumeric(anyPrice);
   if (num !== null && num === 0) return { price: "Free", priceValue: 0 };
-  return { price: `From ${anyPrice}`, priceValue: num ?? undefined };
+  return { price: `From £${anyPrice.replace("£", "")}`, priceValue: num ?? undefined };
 }

@@ -3,6 +3,7 @@ import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
+import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -60,21 +61,27 @@ function resolveSuitableFor(data: OpportunityRouteV2): string[] | null {
   return bands.length > 0 ? bands : null;
 }
 
-function buildFacilities(data: OpportunityRouteV2): string[] | null {
+function buildFacilities(data: OpportunityRouteV2): SlugName[] | null {
   const all = [data.routeGeneralFacilities, data.routeChildFacilities, data.routeAdultFacilities]
-    .flatMap((raw) => splitList(raw) ?? []);
+    .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }
 
-function buildForThem(data: OpportunityRouteV2): string[] | null {
-  const childFacilities = splitList(data.routeChildFacilities) ?? [];
+function buildForThem(data: OpportunityRouteV2): SlugName[] | null {
+  const childFacilities = toSlugNameList(data.routeChildFacilities) ?? [];
+
+  // if (childFacilities.length === 0) {
+  //   const seasonalHighlights = data.routeSeasonalHighlights ? toSlugNameList(data.routeSeasonalHighlights) ?? [] : [];
+  //   const seasonalTag = data.routeSeasonalTag ? toSlugNameList(data.routeSeasonalTag) ?? [] : [];
+
+  //   const combined = [...seasonalHighlights, ...seasonalTag];
+  //   return combined.length > 0 ? combined : null;
+  // }
 
   if (childFacilities.length === 0) {
-    const seasonalHighlights = data.routeSeasonalHighlights ? splitList(data.routeSeasonalHighlights) ?? [] : [];
-    const seasonalTag = data.routeSeasonalTag ? splitList(data.routeSeasonalTag) ?? [] : [];
+    const attractions = data.routeAttractions ? toSlugNameList(data.routeAttractions) ?? [] : [];
 
-    const combined = [...seasonalHighlights, ...seasonalTag];
-    return combined.length > 0 ? combined : null;
+    return attractions.length > 0 ? attractions : null;
   }
 
   return childFacilities
@@ -102,28 +109,28 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     interest_category: data.theme.name,
     opp_category: data.theme.slug,
     subcategory: data.themeVariant.name,
-    activity_effort_tag: data.routeActivityGrouping,
+    activity_effort_tag: toSlugNameList(data.routeActivityGrouping),
     opportunity_theme_variant: data.themeVariant.slug,
 
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
     // suitable_for: resolveSuitableFor(data),
-    suitable_for: splitList(data.routeChildFacilities),
+    suitable_for: toSlugNameList(data.routeSuitability),
     interest_tags: splitList(data.routeInterestTags),
     accessibility_features: null,
 
     // Facilities
     facilities: buildFacilities(data),
-    parking_provision: splitList(data.routeParkingProvision),
-    required_kit: splitList(data.routeExtraKit),
-    weather_suitability: splitList(data.routeDetailedWeatherSuitability),
-    seasonal_tag: splitList(data.routeSeasonalTag),
-    seasonal_highlights: data.routeSeasonalHighlights,
-    terrain: splitList(data.routeTerrainType),
+    parking_provision: toSlugNameList(data.routeParkingProvision),
+    required_kit: toSlugNameList(data.routeExtraKit),
+    weather_suitability: toSlugNameList(data.routeDetailedWeatherSuitability),
+    seasonal_tag: toSlugNameList(data.routeSeasonalTag),
+    seasonal_highlights: toSlugNameList(data.routeSeasonalHighlights),
+    terrain: toSlugNameList(data.routeTerrainType),
     forThem:buildForThem(data),
-    forYou: splitList(data.routeAdultFacilities),
-    highlights: splitList(data.routeAttractions),
+    forYou: toSlugNameList(data.routeAdultFacilities),
+    highlights: toSlugNameList(data.routeSeasonalHighlights),
     perfectFor: null,
 
     // Pricing (routes are typically free)
@@ -148,17 +155,17 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
 
     // ── Venue only (n/a for route) ────────────────────────
     opening_hours: null,
-    estimated_visit_duration: data.routeEstimatedDuration,
+    estimated_visit_duration: toSlugNameList(data.routeEstimatedDuration),
 
     // ── Route only ────────────────────────────────────────
-    route_type: data.routeType,
+    route_type: toSlugNameList(data.routeType),
     route_distance: data.routeDistance,
     route_start_point: data.routeAddressLine1,
     route_estimate_u5: null,
     route_estimate_510: null,
     route_estimate_10: null,
-    difficulty_rating: data.routeDifficulty,
-    dog_facilities: splitList(data.routeDogFacilities),
+    difficulty_rating: data.routeDifficulty ? toSlugName(data.routeDifficulty) : null,
+    dog_facilities: toSlugNameList(data.routeDogFacilities),
     bike_route: null,
     scooter_route: null,
 

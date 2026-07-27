@@ -101,8 +101,8 @@ export class RecommendationV2Service {
         };
       })
       .filter(Boolean)
-      .sort((a, b) => b!.score - a!.score)
-      .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      .sort((a, b) => b!.score - a!.score) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      // .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
     return this.attachPayloads(scored);
   }

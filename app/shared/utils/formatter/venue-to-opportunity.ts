@@ -3,6 +3,7 @@ import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
+import { toSlugNameList, type SlugName } from "../slug-name";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -66,9 +67,9 @@ function resolveSuitableFor(data: OpportunityVenueV2): string[] | null {
   return bands.length > 0 ? bands : null;
 }
 
-function buildFacilities(data: OpportunityVenueV2): string[] | null {
+function buildFacilities(data: OpportunityVenueV2): SlugName[] | null {
   const all = [data.venueGeneralFacilities, data.venueChildFacilities, data.venueAdultFacilities]
-    .flatMap((raw) => splitList(raw) ?? []);
+    .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }
 
@@ -102,7 +103,7 @@ function buildOpeningHours(data: OpportunityVenueV2): Record<string, { open?: st
     const entry: { open?: string; close?: string } = { open: data.venueFixedTimingsStartTime };
     if (data.venueFixedTimingsEndTime) entry.close = data.venueFixedTimingsEndTime;
     const out: Record<string, { open?: string; close?: string }> = {};
-    for (const day of days) out[day] = entry;
+    for (const day of days) out[day.toLowerCase()] = entry;
     return out;
   }
 
@@ -129,15 +130,20 @@ function resolvePriceInfo(data: OpportunityVenueV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-function buildForThem(data: OpportunityVenueV2): string[] | null {
-  const childFacilities = splitList(data.venueChildFacilities) ?? [];
+function buildForThem(data: OpportunityVenueV2): SlugName[] | null {
+  const childFacilities = toSlugNameList(data.venueChildFacilities) ?? [];
 
+  // if (childFacilities.length === 0) {
+  //   const seasonalHighlights = data.venueSeasonalHighlights ? toSlugNameList(data.venueSeasonalHighlights) ?? [] : [];
+  //   const seasonalTag = data.venueSeasonalTag ? toSlugNameList(data.venueSeasonalTag) ?? [] : [];
+
+  //   const combined = [...seasonalHighlights, ...seasonalTag];
+  //   return combined.length > 0 ? combined : null;
+  // }
   if (childFacilities.length === 0) {
-    const seasonalHighlights = data.venueSeasonalHighlights ? splitList(data.venueSeasonalHighlights) ?? [] : [];
-    const seasonalTag = data.venueSeasonalTag ? splitList(data.venueSeasonalTag) ?? [] : [];
+    const attractions = data.venueAttractions ? toSlugNameList(data.venueAttractions) ?? [] : [];
 
-    const combined = [...seasonalHighlights, ...seasonalTag];
-    return combined.length > 0 ? combined : null;
+    return attractions.length > 0 ? attractions : null;
   }
 
   return childFacilities
@@ -168,28 +174,28 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     interest_category: data.theme.name,
     opp_category: data.theme.slug,
     subcategory: data.themeVariant.name,
-    activity_effort_tag: data.venueActivityGroup,
+    activity_effort_tag: toSlugNameList(data.venueActivityGroup),
     opportunity_theme_variant: data.themeVariant.slug,
 
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
-    // suitable_for: resolveSuitableFor(data),
-    suitable_for: splitList(data.venueChildFacilities),
+    // suitable_for: toSlugNameList(data.venueChildFacilities),
+    suitable_for: null,
     interest_tags: splitList(data.venueInterestTags),
     accessibility_features: null,
 
     // Facilities
     facilities: buildFacilities(data),
-    parking_provision: splitList(data.venueParkingProvision),
-    required_kit: splitList(data.venueExtraKit),
-    weather_suitability: splitList(data.venueDetailedWeatherSuitability),
-    seasonal_tag: splitList(data.venueSeasonalTag),
-    seasonal_highlights: data.venueSeasonalHighlights,
+    parking_provision: toSlugNameList(data.venueParkingProvision),
+    required_kit: toSlugNameList(data.venueExtraKit),
+    weather_suitability: toSlugNameList(data.venueDetailedWeatherSuitability),
+    seasonal_tag: toSlugNameList(data.venueSeasonalTag),
+    seasonal_highlights: toSlugNameList(data.venueSeasonalHighlights),
     terrain: null,
     forThem:buildForThem(data),
-    forYou: splitList(data.venueAdultFacilities),
-    highlights: splitList(data.venueAttractions),
+    forYou: toSlugNameList(data.venueAdultFacilities),
+    highlights: toSlugNameList(data.venueSeasonalHighlights),
     perfectFor: null,
 
     // Pricing
@@ -214,7 +220,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
 
     // ── Venue only ────────────────────────────────────────
     opening_hours: buildOpeningHours(data),
-    estimated_visit_duration: data.venueEstimatedDuration,
+    estimated_visit_duration: toSlugNameList(data.venueEstimatedDuration),
 
     // ── Route only (n/a for venue) ────────────────────────
     route_type: null,
@@ -224,7 +230,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     route_estimate_510: null,
     route_estimate_10: null,
     difficulty_rating: null,
-    dog_facilities: splitList(data.venueDogFacilities),
+    dog_facilities: toSlugNameList(data.venueDogFacilities),
     bike_route: null,
     scooter_route: null,
 

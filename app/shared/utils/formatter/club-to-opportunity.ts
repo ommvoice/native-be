@@ -3,6 +3,7 @@ import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
 import { resolveLiveStatus } from "./opportunity-status";
+import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -68,21 +69,27 @@ function resolveSuitableFor(data: OpportunityClubV2): string[] | null {
   return bands.length > 0 ? bands : null;
 }
 
-function buildFacilities(data: OpportunityClubV2): string[] | null {
+function buildFacilities(data: OpportunityClubV2): SlugName[] | null {
   const all = [data.clubGeneralFacilities, data.clubChildFacilities, data.clubAdultFacilities]
-    .flatMap((raw) => splitList(raw) ?? []);
+    .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }
 
-function buildForThem(data: OpportunityClubV2): string[] | null {
-  const childFacilities = splitList(data.clubChildFacilities) ?? [];
+function buildForThem(data: OpportunityClubV2): SlugName[] | null {
+  const childFacilities = toSlugNameList(data.clubChildFacilities) ?? [];
+
+  // if (childFacilities.length === 0) {
+  //   const seasonalTag = data.clubSeasonalTag ? toSlugNameList(data.clubSeasonalTag) ?? [] : [];
+  //   const seasonalHighlights = data.clubSeasonalHighlights ? toSlugNameList(data.clubSeasonalHighlights) ?? [] : [];
+
+  //   const combined = [...seasonalTag, ...seasonalHighlights];
+  //   return combined.length > 0 ? combined : null;
+  // }
 
   if (childFacilities.length === 0) {
-    const seasonalTag = data.clubSeasonalTag ? splitList(data.clubSeasonalTag) ?? [] : [];
-    const seasonalHighlights = data.clubSeasonalHighlights ? splitList(data.clubSeasonalHighlights) ?? [] : [];
+    const attractions = data.clubAttractions ? toSlugNameList(data.clubAttractions) ?? [] : [];
 
-    const combined = [...seasonalTag, ...seasonalHighlights];
-    return combined.length > 0 ? combined : null;
+    return attractions.length > 0 ? attractions : null;
   }
 
   return childFacilities
@@ -201,7 +208,7 @@ const CLUB_COMMITMENT_LABELS: Record<string, string> = {
 
 function resolveClubCommitmentLabel(commitment: string | null): string {
   if (!commitment) return "—";
-  return CLUB_COMMITMENT_LABELS[commitment] ?? commitment;
+  return CLUB_COMMITMENT_LABELS[commitment] ?? toSlugName(commitment).name;
 }
 
 function buildInfoData(data: OpportunityClubV2): any[] | null {
@@ -213,7 +220,12 @@ function buildInfoData(data: OpportunityClubV2): any[] | null {
   }
 
   if (data.clubFormat || data.clubFrequency) {
-    infoList.push({ icon: "format", title: data.clubFormat ?? "—", subtitle: data.clubFrequency ?? "—", label: "Format" });
+    infoList.push({
+      icon: "format",
+      title: data.clubFormat ? toSlugName(data.clubFormat).name : "—",
+      subtitle: data.clubFrequency ? toSlugName(data.clubFrequency).name : "—",
+      label: "Format",
+    });
   }
 
   const bookingTitle = data.ticketingRequirement ? "Book Ahead" : "Drop In";
@@ -241,9 +253,9 @@ function buildPerfectFor(data: OpportunityClubV2) : any[] | null {
 
   let perfectFor = [];
 
-  const abilityLevel = data.clubAbilityLevel;
+  const abilityLevel = toSlugNameList(data.clubAbilityLevel)?.map((e) => e.name).join(", ");
   const suitableAges = resolveSuitableFor(data)?.join(", ");
-  const skillArea = data.clubSkillArea;
+  const skillArea = toSlugNameList(data.clubSkillArea)?.map((e) => e.name).join(", ");
 
  if(abilityLevel) perfectFor.push({title: abilityLevel, label: 'ability'});
   if(suitableAges) perfectFor.push({title: suitableAges, label:  'ages'})
@@ -277,27 +289,27 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     interest_category: data.theme.name,
     opp_category: data.theme.slug,
     subcategory: data.themeVariant.name,
-    activity_effort_tag: data.clubActivityGroup,
+    activity_effort_tag: toSlugNameList(data.clubActivityGroup),
 
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
     // suitable_for: resolveSuitableFor(data),
-    suitable_for: splitList(data.clubChildFacilities),
+    suitable_for: toSlugNameList(data.clubChildFacilities),
     interest_tags: splitList(data.clubInterestTags),
     accessibility_features: null,
 
     // Facilities
     facilities: buildFacilities(data),
-    parking_provision: splitList(data.clubParkingProvision),
-    required_kit: splitList(data.clubExtraKit),
+    parking_provision: toSlugNameList(data.clubParkingProvision),
+    required_kit: toSlugNameList(data.clubExtraKit),
     weather_suitability: null,
-    seasonal_tag: splitList(data.clubSeasonalTag),
-    seasonal_highlights: data.clubSeasonalHighlights,
+    seasonal_tag: toSlugNameList(data.clubSeasonalTag),
+    seasonal_highlights: toSlugNameList(data.clubSeasonalHighlights),
     terrain: null,
     forThem: buildForThem(data),
-    forYou: splitList(data.clubAdultFacilities),
-    highlights: splitList(data.clubAttractions),
+    forYou: toSlugNameList(data.clubAdultFacilities),
+    highlights: toSlugNameList(data.clubSeasonalHighlights),
     perfectFor: buildPerfectFor(data),
 
     // Pricing
@@ -338,8 +350,8 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     opportunity_theme_variant: data.themeVariant.slug,
 
     // ── Club only ─────────────────────────────────────────
-    club_type: data.clubFormat,
-    club_commitment: data.clubCommittment,
+    club_type: data.clubFormat ? toSlugName(data.clubFormat) : null,
+    club_commitment: data.clubCommittment ? toSlugName(data.clubCommittment) : null,
     club_session_cost: data.ticketVariantOlderChildPrice ?? data.ticketVariantAdultPrice,
     club_total_cost: null,
     club_session_total: data.clubDailyFixedSessionTotal,

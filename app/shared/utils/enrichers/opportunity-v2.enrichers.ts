@@ -4,6 +4,7 @@ import type {
   OpportunityClubV2,
   OpportunityRouteV2,
 } from '../../types/opportunity-v2.types';
+import { toSlugNameList } from '../slug-name';
 
 const s = (v: unknown): string | null => (typeof v === 'string' && v !== '' ? v : null);
 const b = (v: unknown): boolean | null => (typeof v === 'boolean' ? v : null);
@@ -15,13 +16,18 @@ const d = (v: unknown): Date | null    => (v != null ? new Date(v as string) : n
 const FALLBACK_TIMESTAMP = new Date('2025-01-01T00:00:00.000Z');
 const timestamp = (v: unknown): Date => (typeof v === 'string' && v !== '' ? new Date(v) : FALLBACK_TIMESTAMP);
 
+/** themeSlug/themeVariantSlug can be comma-joined for multi-value themes — resolve every slug to its name and join for display. */
+function slugName(raw: string): string {
+  return toSlugNameList(raw)?.map((e) => e.name).join(', ') ?? '';
+}
+
 function themeRef(item: Record<string, unknown>, defaultType: string) {
   const slug    = (item['themeSlug']        as string) ?? '';
   const varSlug = (item['themeVariantSlug'] as string) ?? '';
   const oppType = (item['opportunityType']  as string) ?? defaultType;
   return {
-    theme:        { id: slug,    slug,    name: slug,    recordType: oppType },
-    themeVariant: { id: varSlug, slug: varSlug, name: varSlug },
+    theme:        { id: slug,    slug,    name: slug    ? slugName(slug)    : '', recordType: oppType },
+    themeVariant: { id: varSlug, slug: varSlug, name: varSlug ? slugName(varSlug) : '' },
     opportunityType: oppType,
   };
 }

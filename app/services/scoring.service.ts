@@ -119,6 +119,7 @@ export function scoreSchedule(
   startTime?: string | null,
   endTime?: string | null,
 ): number {
+  return 100
   if (type === 'venue' || type === 'route') return 100;
 
   const now   = new Date();

@@ -3,6 +3,7 @@ import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
 import { resolveLiveStatus } from "./opportunity-status";
+import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -66,9 +67,9 @@ function resolveSuitableFor(data: OpportunityEventV2): string[] | null {
   return bands.length > 0 ? bands : null;
 }
 
-function buildFacilities(data: OpportunityEventV2): string[] | null {
+function buildFacilities(data: OpportunityEventV2): SlugName[] | null {
   const all = [data.eventGeneralFacilities, data.eventChildFacilities, data.eventAdultFacilities]
-    .flatMap((raw) => splitList(raw) ?? []);
+    .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }
 
@@ -140,7 +141,12 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
   }
 
   if (data.eventType || data.eventSkillArea) {
-    infoList.push({ icon: "details", title: data.eventType ?? "—", subtitle: data.eventSkillArea ?? "—", label: "Event Details" });
+    infoList.push({
+      icon: "details",
+      title: data.eventType ? toSlugName(data.eventType).name : "—",
+      subtitle: toSlugNameList(data.eventSkillArea)?.map((e) => e.name).join(", ") ?? "—",
+      label: "Event Details",
+    });
   }
 
   if (data.eventBookingType || data.ticketingRequirement !== null) {
@@ -166,15 +172,15 @@ function resolvePriceInfo(data: OpportunityEventV2): string | null {
   return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-function buildForThem(data: OpportunityEventV2): string[] | null {
-  const childFacilities = splitList(data.eventChildFacilities) ?? [];
+function buildForThem(data: OpportunityEventV2): SlugName[] | null {
+  const childFacilities = toSlugNameList(data.eventChildFacilities) ?? [];
 
-  if (childFacilities.length === 0) {
-    const seasonalHighlights = data.eventSeasonalHighlights ? splitList(data.eventSeasonalHighlights) ?? [] : [];
+  // if (childFacilities.length === 0) {
+  //   const seasonalHighlights = data.eventSeasonalHighlights ? toSlugNameList(data.eventSeasonalHighlights) ?? [] : [];
 
-    const combined = [...seasonalHighlights];
-    return combined.length > 0 ? combined : null;
-  }
+  //   const combined = [...seasonalHighlights];
+  //   return combined.length > 0 ? combined : null;
+  // }
 
   return childFacilities
 }
@@ -184,9 +190,9 @@ function buildPerfectFor(data: OpportunityEventV2) : any[] | null {
   let perfectFor = [];
 
 
-  const abilityLevel = data.eventAbilityLevel;
+  const abilityLevel = toSlugNameList(data.eventAbilityLevel)?.map((e) => e.name).join(", ");
   const suitableAges = resolveSuitableFor(data)?.join(", ");
-  const skillArea = data.eventSkillArea;
+  const skillArea = toSlugNameList(data.eventSkillArea)?.map((e) => e.name).join(", ");
 
   if(abilityLevel) perfectFor.push({title: abilityLevel, label: 'ability'});
   if(suitableAges) perfectFor.push({title: suitableAges, label:  'ages'})
@@ -221,28 +227,28 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     interest_category: data.theme.name,
     opp_category: data.theme.slug,
     subcategory: data.themeVariant.name,
-    activity_effort_tag: data.eventActivityGroup,
+    activity_effort_tag: toSlugNameList(data.eventActivityGroup),
     opportunity_theme_variant: data.themeVariant.slug,
 
     // Suitability
     min_age: resolveMinAge(data),
     max_age: resolveMaxAge(data),
     // suitable_for: resolveSuitableFor(data),
-    suitable_for: splitList(data.eventChildFacilities),
+    suitable_for: toSlugNameList(data.eventChildFacilities),
     interest_tags: splitList(data.eventInterestTags),
     accessibility_features: null,
 
     // Facilities
     facilities: buildFacilities(data),
-    parking_provision: splitList(data.eventParkingProvision),
-    required_kit: splitList(data.eventExtraKit),
-    weather_suitability: splitList(data.eventDetailedWeatherSuitability),
-    seasonal_tag: splitList(data.eventSeasonalTags),
-    seasonal_highlights: data.eventSeasonalHighlights,
+    parking_provision: toSlugNameList(data.eventParkingProvision),
+    required_kit: toSlugNameList(data.eventExtraKit),
+    weather_suitability: toSlugNameList(data.eventDetailedWeatherSuitability),
+    seasonal_tag: toSlugNameList(data.eventSeasonalTags),
+    seasonal_highlights: toSlugNameList(data.eventSeasonalHighlights),
     terrain: null,
     forThem:buildForThem(data),
-    forYou: splitList(data.eventAdultFacilities),
-    highlights: splitList(data.eventHighlights),
+    forYou: toSlugNameList(data.eventAdultFacilities),
+    highlights: toSlugNameList(data.eventHighlights),
     perfectFor:  buildPerfectFor(data),
 
     // Pricing
@@ -293,7 +299,7 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     // ── Event only ────────────────────────────────────────
     start_date: data.eventStartDate ? data.eventStartDate.toISOString() : null,
     end_date: data.eventEndDate ? data.eventEndDate.toISOString() : null,
-    event_type: data.eventType,
+    event_type: data.eventType ? toSlugName(data.eventType) : null,
     event_times: buildEventTimes(data),
     venue_name: null,
     max_capacity: null,

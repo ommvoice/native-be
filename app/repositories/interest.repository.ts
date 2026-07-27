@@ -47,19 +47,7 @@ export class InterestRepository {
   }
 
   async listInterestTags(): Promise<InterestTagRecord[]> {
-    const items = [{
-      id: '1',
-      slug: 'dogs',
-      name: 'Dogs'
-    }, {
-      id: '2',
-      slug: 'cats',
-      name: 'Cats'
-    }, {
-      id: '3',
-      slug: 'birds',
-      name: 'Birds'
-    }];
+    const items = this.assets.getIntrestTags()
     return items as InterestTagRecord[];
   }
 }

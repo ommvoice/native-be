@@ -1,5 +1,11 @@
 export type OppType = 'venue' | 'route' | 'club' | 'event';
 
+/** An enum-backed value, resolved to both its slug (stable identifier) and human-readable name. */
+export interface SlugName {
+  name: string;
+  slug: string;
+}
+
 export interface PricingTier {
   label: string;
   price: string;
@@ -36,27 +42,27 @@ export interface OpportunityDetail {
   interest_category:         string | null;
   opp_category:              string | null;
   subcategory:               string | null;
-  activity_effort_tag:       string | null;
+  activity_effort_tag:       SlugName[] | null;
   opportunity_theme_variant: string | null;
 
   // Suitability
   min_age:               number | null;
   max_age:               number | null;
-  suitable_for:          string[] | null;
+  suitable_for:          SlugName[] | null;
   interest_tags:         string[] | null;
   accessibility_features:string[] | null;
 
   // Facilities
-  facilities:          string[] | null;
-  parking_provision:   string[] | null;
-  required_kit:        string[] | null;
-  weather_suitability: string[] | null;
-  seasonal_tag:        string[] | null;
-  seasonal_highlights: string | null;
-  terrain:             string[] | null;
-  forThem:             string[] | null;
-  forYou:            string[] | null;
-  highlights:        string[] | null;
+  facilities:          SlugName[] | null;
+  parking_provision:   SlugName[] | null;
+  required_kit:        SlugName[] | null;
+  weather_suitability: SlugName[] | null;
+  seasonal_tag:        SlugName[] | null;
+  seasonal_highlights: SlugName[] | null;
+  terrain:             SlugName[] | null;
+  forThem:             SlugName[] | null;
+  forYou:            SlugName[] | null;
+  highlights:        SlugName[] | null;
   perfectFor:        any[] | null;
 
   // Pricing
@@ -81,23 +87,23 @@ export interface OpportunityDetail {
 
   // ── Venue only ────────────────────────────────────────
   opening_hours:           Record<string, { open?: string; close?: string }> | null;
-  estimated_visit_duration:string | null;
+  estimated_visit_duration:SlugName[] | null;
 
   // ── Route only ────────────────────────────────────────
-  route_type:       string | null;
+  route_type:       SlugName[] | null;
   route_distance:   string | null;
   route_start_point:string | null;
   route_estimate_u5: string | null;
   route_estimate_510:string | null;
   route_estimate_10: string | null;
-  difficulty_rating: string | null;
-  dog_facilities:    string[] | null;
+  difficulty_rating: SlugName | null;
+  dog_facilities:    SlugName[] | null;
   bike_route:        boolean | null;
   scooter_route:     boolean | null;
 
   // ── Club only ─────────────────────────────────────────
-  club_type:          string | null;
-  club_commitment:    string | null;
+  club_type:          SlugName | null;
+  club_commitment:    SlugName | null;
   club_session_cost:  string | null;
   club_total_cost:    string | null;
   club_session_total: number | null;
@@ -107,7 +113,7 @@ export interface OpportunityDetail {
   // ── Event only ───────────────────────────────────────
   start_date:           string | null;
   end_date:             string | null;
-  event_type:           string | null;
+  event_type:           SlugName | null;
   event_times:          Record<string, string[]> | null;
   venue_name:           string | null;
   max_capacity:         number | null;

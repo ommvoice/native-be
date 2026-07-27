@@ -1,4 +1,4 @@
-import type { OpportunityDetail } from "../../types/opportunity-detail.types";
+import type { OpportunityDetail, SlugName } from "../../types/opportunity-detail.types";
 
 const DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
 const DAY_LABELS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
@@ -25,7 +25,7 @@ function getOpeningStatus(
   const todayHours = openingHours[currentDay];
 
   if (todayHours?.open && todayHours?.close && currentTime >= todayHours.open && currentTime < todayHours.close) {
-    return { isOpen: true, message: `Open Now – ${todayHours.close}` };
+    return { isOpen: true, message: `Open - until ${todayHours.close}` };
   }
 
   if (todayHours?.open && todayHours?.close && currentTime < todayHours.open) {
@@ -100,12 +100,12 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   return { variant: "closed", message: "Closed Today" };
 }
 
-/** Parses the current season's highlight out of a free-text seasonal_highlights string, plus matching seasonal tags. Routes only. */
+/** Parses the current season's highlight out of the seasonal_highlights values, plus matching seasonal tags. Routes only. */
 export function resolveSeasonalHighlight(
-  seasonalHighlights: string | null,
-  seasonalTag: string[] | null
+  seasonalHighlights: SlugName[] | null,
+  seasonalTag: SlugName[] | null
 ): SeasonalHighlight | null {
-  if (!seasonalHighlights) return null;
+  if (!seasonalHighlights || seasonalHighlights.length === 0) return null;
 
   const month = new Date().getMonth();
   const currentSeason =
@@ -118,11 +118,12 @@ export function resolveSeasonalHighlight(
   };
   const seasonLabel = seasonLabels[currentSeason]!;
 
+  const highlightsText = seasonalHighlights.map((h) => h.name).join(", ");
   const seasonRegex = new RegExp(`${seasonLabel}:\\s*([^.]+\\.?)`, "i");
-  const match = seasonalHighlights.match(seasonRegex);
-  const highlight = match ? match[1]!.trim() : seasonalHighlights;
+  const match = highlightsText.match(seasonRegex);
+  const highlight = match ? match[1]!.trim() : highlightsText;
 
-  const tags = (seasonalTag ?? []).filter((tag) => tag.toLowerCase().includes(currentSeason));
+  const tags = (seasonalTag ?? []).map((t) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
 
   return { season: seasonLabel, highlight, tags };
 }

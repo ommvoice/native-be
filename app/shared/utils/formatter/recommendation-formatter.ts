@@ -11,6 +11,7 @@ import { buildImageUrl } from "./image-url";
 import { buildScheduleInfo as buildClubScheduleInfo } from "./club-to-opportunity";
 import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportunity";
 import { resolveCardPrice } from "./pricing";
+import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 
 /** Scored recommendation row enriched with full opportunity payload. */
 export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> {
@@ -54,7 +55,7 @@ export interface Opportunity {
   image:       string;
   duration:    string;
   tags:        string[];
-  activityGroup: string[] | null;
+  activityGroup: SlugName[] | null;
   theme:       ThemeRef | null;
   themeVariant: ThemeVariantRef | null;
   price:       string;
@@ -65,8 +66,8 @@ export interface Opportunity {
   distanceKm?: number;
   durationMin?:number;
   description?:string;
-  amenitiesForThem?: { icon: string; label: string }[];
-  amenitiesForYou?:  { icon: string; label: string }[];
+  amenitiesForThem?: { icon: string; label: SlugName }[];
+  amenitiesForYou?:  { icon: string; label: SlugName }[];
   location?: { latitude: string | null; longitude: string | null } | null;
   // Pre-composed per-size card text (see CardDisplay above).
   cardDisplay: CardDisplay;
@@ -142,8 +143,8 @@ function resolveDescription(rec: EnrichedScoredRecommendationV2): string | undef
 
 function resolveDuration(rec: EnrichedScoredRecommendationV2): string {
   switch (rec.opportunityType) {
-    case "venue": return (rec as unknown as OpportunityVenueV2).venueEstimatedDuration ?? "";
-    case "route": return (rec as unknown as OpportunityRouteV2).routeEstimatedDuration ?? "";
+    case "venue": return toSlugNameList((rec as unknown as OpportunityVenueV2).venueEstimatedDuration)?.map((e) => e.name).join(", ") ?? "";
+    case "route": return toSlugNameList((rec as unknown as OpportunityRouteV2).routeEstimatedDuration)?.map((e) => e.name).join(", ") ?? "";
     case "club": {
       const schedule = buildClubScheduleInfo(rec as unknown as OpportunityClubV2);
       return schedule ? `${schedule.title} · ${schedule.subtitle}` : "";
@@ -168,7 +169,7 @@ function resolveTags(rec: EnrichedScoredRecommendationV2): string[] {
     return raw.split(",").map((t) => t.trim()).filter(Boolean);
 }
 
-function resolveActivityGroup(rec: EnrichedScoredRecommendationV2): string[] | null {
+function resolveActivityGroup(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
   let raw: string | null = null;
   switch (rec.opportunityType) {
     case "venue": raw = (rec as unknown as OpportunityVenueV2).venueActivityGroup; break;
@@ -177,23 +178,24 @@ function resolveActivityGroup(rec: EnrichedScoredRecommendationV2): string[] | n
     case "route": raw = (rec as unknown as OpportunityRouteV2).routeActivityGrouping; break;
     default:      raw = null;
   }
-  if (!raw) return [];
-  return raw.split(",").map((t) => t.trim()).filter(Boolean);
+  return toSlugNameList(raw) ?? [];
 }
 
-// Raw recommendation rows only carry flat `themeSlug`/`themeVariantSlug` strings
-// (no DB join for a display name exists yet) — mirrors the same shim used by
-// opportunity-v2.enrichers.ts's themeRef() for the /opportunity/* endpoints.
+// `themeSlug`/`themeVariantSlug` on raw recommendation rows are enum slugs
+// (possibly comma-joined for multi-value themes) — resolve every slug to its
+// human-readable name via the combined enum lookup instead of showing the slug.
 function resolveTheme(rec: EnrichedScoredRecommendationV2): ThemeRef | null {
   const slug = rec.themeSlug;
   if (!slug) return null;
-  return { id: slug, slug, name: slug, recordType: rec.opportunityType };
+  const name = toSlugNameList(slug)?.map((e) => e.name).join(", ") ?? slug;
+  return { id: slug, slug, name, recordType: rec.opportunityType };
 }
 
 function resolveThemeVariant(rec: EnrichedScoredRecommendationV2): ThemeVariantRef | null {
   const slug = rec.themeVariantSlug;
   if (!slug) return null;
-  return { id: slug, slug, name: slug };
+  const name = toSlugNameList(slug)?.map((e) => e.name).join(", ") ?? slug;
+  return { id: slug, slug, name };
 }
 
 function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
@@ -236,36 +238,38 @@ function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; pri
   }
 }
 
-function resolveChildFacilities(rec: EnrichedScoredRecommendationV2): string | null {
+function resolveChildFacilities(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
   switch (rec.opportunityType) {
-    case "venue": return (rec as unknown as OpportunityVenueV2).venueChildFacilities;
-    case "event": return (rec as unknown as OpportunityEventV2).eventChildFacilities;
-    case "club":  return (rec as unknown as OpportunityClubV2).clubChildFacilities;
-    case "route": return (rec as unknown as OpportunityRouteV2).routeChildFacilities;
-    default:      return null;
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueChildFacilities; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventChildFacilities; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubChildFacilities; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeChildFacilities; break;
   }
+  return toSlugNameList(raw);
 }
 
-function resolveAdultFacilities(rec: EnrichedScoredRecommendationV2): string | null {
+function resolveAdultFacilities(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
   switch (rec.opportunityType) {
-    case "venue": return (rec as unknown as OpportunityVenueV2).venueAdultFacilities;
-    case "event": return (rec as unknown as OpportunityEventV2).eventAdultFacilities;
-    case "club":  return (rec as unknown as OpportunityClubV2).clubAdultFacilities;
-    case "route": return (rec as unknown as OpportunityRouteV2).routeAdultFacilities;
-    default:      return null;
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueAdultFacilities; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventAdultFacilities; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubAdultFacilities; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeAdultFacilities; break;
   }
+  return toSlugNameList(raw);
 }
 
 // ── Card-display field resolvers (nativeapp-main-loveable OpportunityCard.tsx parity) ──
 
 function resolveBookingType(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "venue") return null;
-  return (rec as unknown as OpportunityVenueV2).venueBookingType ?? null;
+  return toSlugNameList((rec as unknown as OpportunityVenueV2).venueBookingType)?.map((e) => e.name).join(", ") ?? null;
 }
 
 function resolveRouteType(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "route") return null;
-  return (rec as unknown as OpportunityRouteV2).routeType ?? null;
+  return toSlugNameList((rec as unknown as OpportunityRouteV2).routeType)?.map((e) => e.name).join(", ") ?? null;
 }
 
 // Route suitability (Buggies/Dogs/Scooters/Bikes/Wheelchairs/Carriers, matching
@@ -302,22 +306,25 @@ export function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): st
 
 function resolveClubFrequency(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "club") return null;
-  return (rec as unknown as OpportunityClubV2).clubFrequency ?? null;
+  const raw = (rec as unknown as OpportunityClubV2).clubFrequency;
+  return raw ? toSlugName(raw).name : null;
 }
 
 function resolveClubCommitment(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "club") return null;
-  return (rec as unknown as OpportunityClubV2).clubCommittment ?? null;
+  const raw = (rec as unknown as OpportunityClubV2).clubCommittment;
+  return raw ? toSlugName(raw).name : null;
 }
 
 function resolveClubFormat(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "club") return null;
-  return (rec as unknown as OpportunityClubV2).clubFormat ?? null;
+  const raw = (rec as unknown as OpportunityClubV2).clubFormat;
+  return raw ? toSlugName(raw).name : null;
 }
 
 function resolveClubSkillArea(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "club") return null;
-  return (rec as unknown as OpportunityClubV2).clubSkillArea ?? null;
+  return toSlugNameList((rec as unknown as OpportunityClubV2).clubSkillArea)?.map((e) => e.name).join(", ") ?? null;
 }
 
 function resolveRequiresBooking(rec: EnrichedScoredRecommendationV2): boolean {
@@ -328,7 +335,8 @@ function resolveRequiresBooking(rec: EnrichedScoredRecommendationV2): boolean {
 
 function resolveEventType(rec: EnrichedScoredRecommendationV2): string | null {
   if (rec.opportunityType !== "event") return null;
-  return (rec as unknown as OpportunityEventV2).eventType ?? null;
+  const raw = (rec as unknown as OpportunityEventV2).eventType;
+  return raw ? toSlugName(raw).name : null;
 }
 
 // ── Card display composition (nativeapp-main-loveable OpportunityCard.tsx parity) ──
@@ -389,7 +397,7 @@ function resolveCardDisplay(
 
   switch (type) {
     case "venue": {
-      const costBooking = fields.bookingType ? `${cost} (${fields.bookingType})` : cost;
+      const costBooking = fields.bookingType ? fields.bookingType.toLowerCase().includes('free') ? `Free` : `${cost} (${fields.bookingType})` : cost;
       const timeLine = duration ? `Allow ${compactDuration(duration)}` : undefined;
       return {
         compact: { line1: costBooking, line2: journey, line2IsJourney: true },
@@ -436,13 +444,9 @@ function resolveCardDisplay(
   }
 }
 
-function parseAmenities(raw: string | null): { icon: string; label: string }[] {
-  if (!raw) return [];
-  return raw
-    .split(",")
-    .map((f) => f.trim())
-    .filter(Boolean)
-    .map((label) => ({ icon: facilityIcon(label), label }));
+function parseAmenities(facilities: SlugName[] | null): { icon: string; label: SlugName }[] {
+  if (!facilities) return [];
+  return facilities.map((label) => ({ icon: facilityIcon(label.name), label }));
 }
 
 function formatTravelTime(seconds: number | null): string {

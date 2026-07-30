@@ -32,7 +32,7 @@ export const exeterArenaSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueMixedTimingsFridayEnd: "21:00",
   venueMixedTimingsSaturdayStart: "09:00",
   venueMixedTimingsSaturdayEnd: "13:00",
-  venueMixedTimingsSundayStart: null,
+  venueMixedTimingsSundayStart: "09:00",
   venueMixedTimingsSundayEnd: "13:00",
   venueOpeningExclusions: null,
   venueEntryCost: false,
@@ -73,6 +73,6 @@ export const exeterArenaSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "mixed_difficulty_zones, clear_sightlines_for_adults",
   venueExtraKit: null,
-  image: null,
+  image: "Exeter Arena Skate Park.JPG",
   venueBankHolidays: null,
 };

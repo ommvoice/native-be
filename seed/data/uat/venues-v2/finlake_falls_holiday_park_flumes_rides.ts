@@ -73,6 +73,6 @@ export const finlakeFallsHolidayParkFlumesRidesVenueV2: OpportunityVenueV2SeedIn
   venueSeasonalHighlights: "seasonal_water_fun",
   venueAttractions: "instructor_support, splash_friendly_areas, water_slides, water_rides",
   venueExtraKit: null,
-  image: null,
+  image: "Finlake Pool.jpg",
   venueBankHolidays: null,
 };

@@ -19,7 +19,7 @@ export const whimplePlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const whimplePlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "pump_track, bmx_track",
   venueExtraKit: null,
-  image: null,
+  image: "Whimple Play Park.jpg",
   venueBankHolidays: null,
 };

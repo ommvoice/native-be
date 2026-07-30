@@ -1,6 +1,8 @@
 export interface RecommendationQueryDto {
   parentId: string;
   childId?: string;
+  opportunityLat? :  string;
+  opportunityLong? :  string;
 }
 
 export interface ScoreBreakdown {

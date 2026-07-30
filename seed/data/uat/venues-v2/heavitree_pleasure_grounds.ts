@@ -19,7 +19,7 @@ export const heavitreePleasureGroundsVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const heavitreePleasureGroundsVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "seasonal_water_fun, autumn_leaves",
   venueAttractions: "climbing_frames, slides, swings, open_grass_running_space, water_play_features, bowl, quarter_pipes, street_skating_features",
   venueExtraKit: null,
-  image: "Swimming kit, Towels, Water shoes",
+  image: "Heavitree Pleasure Grounds.JPG",
   venueBankHolidays: null,
 };

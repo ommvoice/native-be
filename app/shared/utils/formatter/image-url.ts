@@ -1,17 +1,11 @@
 
-const S3_BASE = "https://native-uat.s3.eu-west-3.amazonaws.com/opportunities-1";
+const S3_BASE = "https://native-uat.s3.eu-west-3.amazonaws.com/opportunities-2";
 const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=250&auto=format&fit=crop";
 
-const OPP_IMG_FOLDER1: Record<string, string> = {
+const OPP_IMG_FOLDER: Record<string, string> = {
   club:  "club",
   event: "event",
   route: "route",
-  venue: "venue-2",
-};
-const OPP_IMG_FOLDER: Record<string, string> = {
-  club:  "venue",
-  event: "venue",
-  route: "venue",
   venue: "venue",
 };
 

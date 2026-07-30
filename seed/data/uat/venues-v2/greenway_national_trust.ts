@@ -73,6 +73,6 @@ export const greenwayNationalTrustVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "ice_creams, garden_games, festive_displays, bluebells, seasonal_flowers",
   venueAttractions: "designed_or_sculpted_landscapes, seasonal_foliage, seasonal_or_curated_displays, room_to_run_freely, open_sightlines, meandering_paths, hidden_corners_passageways_gates_gardens",
   venueExtraKit: null,
-  image: null,
+  image: "Greenway.jpg",
   venueBankHolidays: null,
 };

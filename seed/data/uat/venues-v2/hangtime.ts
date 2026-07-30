@@ -73,6 +73,6 @@ export const hangtimeVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "outdoor_play_area_nearby, combined_with_a_walk_or_attraction, farm_animals_nearby",
   venueExtraKit: null,
-  image: null,
+  image: "Hangtime.jpg",
   venueBankHolidays: null,
 };

@@ -73,6 +73,6 @@ export const wavesSwimmingRiveriaCentreVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "instructor_support, water_slides, wave_machines, lifeguarded_areas_where_applicable",
   venueExtraKit: null,
-  image: null,
+  image: "Waves Swim.jpg",
   venueBankHolidays: null,
 };

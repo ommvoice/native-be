@@ -73,6 +73,6 @@ export const finlakeFallsHolidayParkKidsSwimmingPoolVenueV2: OpportunityVenueV2S
   venueSeasonalHighlights: "seasonal_water_fun",
   venueAttractions: "instructor_support, splash_friendly_areas",
   venueExtraKit: null,
-  image: null,
+  image: "Finlake Pool.jpg",
   venueBankHolidays: null,
 };

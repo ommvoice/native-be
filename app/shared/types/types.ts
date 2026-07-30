@@ -80,7 +80,7 @@ export interface OpportunityDetail {
   provider_id: string;
 
   // ── Venue only ────────────────────────────────────────
-  opening_hours: Record<string, { open?: string; close?: string }> | null;
+  opening_hours: Record<string, { open?: string; close?: string; allDay?: boolean }> | null;
   estimated_visit_duration: string | null;
 
   // ── Route only ────────────────────────────────────────

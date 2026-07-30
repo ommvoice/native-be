@@ -9,6 +9,7 @@ export interface SlugName {
 export interface PricingTier {
   label: string;
   price: string;
+  age?: string;
   description?: string;
 }
 
@@ -19,7 +20,7 @@ export interface LiveStatus {
 
 export interface SeasonalHighlight {
   season: 'Spring' | 'Summer' | 'Autumn' | 'Winter';
-  highlight: string;
+  highlight: SlugName[];
   tags: string[];
 }
 
@@ -86,7 +87,7 @@ export interface OpportunityDetail {
   provider_id: string;
 
   // ── Venue only ────────────────────────────────────────
-  opening_hours:           Record<string, { open?: string; close?: string }> | null;
+  opening_hours:           Record<string, { open?: string; close?: string; allDay?: boolean }> | null;
   estimated_visit_duration:SlugName[] | null;
 
   // ── Route only ────────────────────────────────────────

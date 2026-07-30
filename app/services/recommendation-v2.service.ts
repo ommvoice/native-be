@@ -121,9 +121,11 @@ export class RecommendationV2Service {
 
     const lat       = Number.parseFloat(narrowed.latitude);
     const lon       = Number.parseFloat(narrowed.longitude);
+    const oppLat       = Number.parseFloat(dto.opportunityLat || '0');
+    const oppLong       = Number.parseFloat(dto.opportunityLong || '0');
     const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
     // const maxMiles  = narrowed.searchRadius;
-    const maxMiles  = 5;
+    const maxMiles  = 1;
 
     const candidates = await this.repo.getOpportunityCandidatesV2();
     const routable   = candidates
@@ -143,7 +145,7 @@ export class RecommendationV2Service {
       .map((c) => {
         const coords = this.parseCoords(c);
         if (!coords) return null;
-        const distMiles    = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
+        const distMiles    = haversineDistanceMiles(oppLat, oppLong, coords.latitude, coords.longitude);
         if (distMiles > maxMiles) return null;
         const ageScore      = Math.round(scoreAge(childAges, c.ageBands));
         const distScore     = Math.round(scoreDistance(distMiles, maxMiles));

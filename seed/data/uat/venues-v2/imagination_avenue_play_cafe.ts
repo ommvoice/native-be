@@ -73,6 +73,6 @@ export const imaginationAvenuePlayCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "immersive_settings, dressing_up_clothes, role_based_scenarios, shared_imaginative_spaces, open_ended_play_structure",
   venueExtraKit: null,
-  image: null,
+  image: "The Play Cafe.jpg",
   venueBankHolidays: null,
 };

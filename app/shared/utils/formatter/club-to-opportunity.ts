@@ -1,8 +1,8 @@
 import type { OpportunityClubV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
-import { buildPricingTiers } from "./pricing";
-import { resolveLiveStatus } from "./opportunity-status";
+import { resolveTicketPricing } from "./pricing";
+import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -14,12 +14,6 @@ function splitList(raw: string | null): string[] | null {
     .map((s) => s.trim().replace(/^["']+|["']+$/g, "").trim())
     .filter(Boolean);
   return parts.length > 0 ? parts : null;
-}
-
-function parsePrice(raw: string | null | undefined): number | null {
-  if (!raw) return null;
-  const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
-  return isNaN(num) ? null : num;
 }
 
 function buildAddress(line1: string | null, line2: string | null): string | null {
@@ -268,7 +262,8 @@ function buildPerfectFor(data: OpportunityClubV2) : any[] | null {
 
 export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail => {
   const hasTicketing = data.ticketingRequirement === true;
-  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantFixedChildPrice ?? data.ticketVariantYoungChildPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+  const pricing = resolveTicketPricing(data);
 
   const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────
@@ -313,15 +308,15 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     perfectFor: buildPerfectFor(data),
 
     // Pricing
-    is_free: !hasTicketing && !anyPrice,
+    is_free: (!hasTicketing && !anyPrice) || pricing.isFree,
     entry_cost: anyPrice ?? null,
     price_info: resolvePriceInfo(data),
-    adult_price: parsePrice(data.ticketVariantAdultPrice),
-    child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
-    infant_price: parsePrice(data.ticketVariantBabyPrice),
+    adult_price: pricing.adultPrice,
+    child_price: pricing.childPrice,
+    infant_price: pricing.babyPrice,
     family_price: null,
-    concession_price: parsePrice(data.ticketVariantConcessionPrice),
-    pricingTiers: [],
+    concession_price: pricing.concessionPrice,
+    pricingTiers: pricing.tiers,
 
     // Contact / links
     website_url: null,
@@ -374,7 +369,8 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     liveStatus: { variant: "closed", message: "" },
     seasonalHighlight: null,
   };
-  opp.pricingTiers = buildPricingTiers(opp);
   opp.liveStatus = resolveLiveStatus(opp);
+  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag);
+  
   return opp;
 };

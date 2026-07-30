@@ -43,7 +43,7 @@ export const paigntonZooVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantBabyPrice: "0",
   ticketVariantDefinitionFixedChild: null,
   ticketVariantFixedChildPrice: null,
-  ticketVariantDefinitionYoungChild: null,
+  ticketVariantDefinitionYoungChild: "1-2",
   ticketVariantYoungChildPrice: "2.75",
   ticketVariantDefinitionOlderChild: "3-15",
   ticketVariantOlderChildPrice: "19.75",

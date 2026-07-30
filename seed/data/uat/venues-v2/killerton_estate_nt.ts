@@ -73,6 +73,6 @@ export const killertonEstateNtVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "bluebells, autumn_leaves, berries_nuts_conkers, crocus_lawn, garden_games, apple_picking, pumpkin_patch, festive_displays, seasonal_flowers, snowdrops, butterflies, migrating_birds",
   venueAttractions: "room_to_run_freely, open_sightlines, meandering_paths, historic_features, hidden_corners_passageways_gates_gardens, seasonal_foliage, seasonal_or_curated_displays",
   venueExtraKit: null,
-  image: "XC Buggy, Sling / baby carrier, Infant / toddler carrier",
+  image: "Killerton.jpg",
   venueBankHolidays: null,
 };

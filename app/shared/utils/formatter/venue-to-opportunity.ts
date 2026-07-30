@@ -1,9 +1,10 @@
 import type { OpportunityVenueV2 } from "../../types/opportunity-v2.types";
 import type { OpportunityDetail } from "../../types/opportunity-detail.types";
 import { buildImageUrls } from "./image-url";
-import { buildPricingTiers } from "./pricing";
+import { resolveTicketPricing } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugNameList, type SlugName } from "../slug-name";
+import { resolveCompactDuration } from "./recommendation-formatter";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -14,12 +15,6 @@ function splitList(raw: string | null): string[] | null {
     .map((s) => s.trim().replace(/^["']+|["']+$/g, "").trim())
     .filter(Boolean);
   return parts.length > 0 ? parts : null;
-}
-
-function parsePrice(raw: string | null | undefined): number | null {
-  if (!raw) return null;
-  const num = parseFloat(raw.replace(/[^0-9.]/g, ""));
-  return isNaN(num) ? null : num;
 }
 
 function buildAddress(line1: string | null, line2: string | null): string | null {
@@ -73,7 +68,12 @@ function buildFacilities(data: OpportunityVenueV2): SlugName[] | null {
   return all.length > 0 ? all : null;
 }
 
-function buildOpeningHours(data: OpportunityVenueV2): Record<string, { open?: string; close?: string }> | null {
+/** "00:00"–"24:00" is how the source sheet marks a venue as open all day (see scripts/parse-venues-data.ts). */
+function isAllDay(open: string | null | undefined, close: string | null | undefined): boolean {
+  return open === "00:00" && close === "24:00";
+}
+
+function buildOpeningHours(data: OpportunityVenueV2): Record<string, { open?: string; close?: string; allDay?: boolean }> | null {
   const DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
   type Day = typeof DAYS[number];
 
@@ -100,19 +100,20 @@ function buildOpeningHours(data: OpportunityVenueV2): Record<string, { open?: st
     const days = data.venueSchedulePattern
       ? splitList(data.venueSchedulePattern) ?? [...DAYS]
       : [...DAYS];
-    const entry: { open?: string; close?: string } = { open: data.venueFixedTimingsStartTime };
+    const entry: { open?: string; close?: string; allDay?: boolean } = { open: data.venueFixedTimingsStartTime };
     if (data.venueFixedTimingsEndTime) entry.close = data.venueFixedTimingsEndTime;
-    const out: Record<string, { open?: string; close?: string }> = {};
+    if (isAllDay(data.venueFixedTimingsStartTime, data.venueFixedTimingsEndTime)) entry.allDay = true;
+    const out: Record<string, { open?: string; close?: string; allDay?: boolean }> = {};
     for (const day of days) out[day.toLowerCase()] = entry;
     return out;
   }
 
-  const result: Record<string, { open?: string; close?: string }> = {};
+  const result: Record<string, { open?: string; close?: string; allDay?: boolean }> = {};
   for (const day of DAYS) {
     const start = mixedStart[day];
     if (!start) continue;
     const end = mixedEnd[day];
-    result[day] = { open: start, ...(end ? { close: end } : {}) };
+    result[day] = { open: start, ...(end ? { close: end } : {}), ...(isAllDay(start, end) ? { allDay: true } : {}) };
   }
   return Object.keys(result).length > 0 ? result : null;
 }
@@ -153,7 +154,8 @@ function buildForThem(data: OpportunityVenueV2): SlugName[] | null {
 
 export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail => {
   const hasEntryCost = data.venueEntryCost === true;
-  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+  const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantFixedChildPrice ?? data.ticketVariantYoungChildPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
+  const pricing = resolveTicketPricing(data);
 
   const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────
@@ -199,15 +201,15 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     perfectFor: null,
 
     // Pricing
-    is_free: !hasEntryCost && !anyPrice,
+    is_free: (!hasEntryCost && !anyPrice) || pricing.isFree,
     entry_cost: anyPrice ?? null,
     price_info: resolvePriceInfo(data),
-    adult_price: parsePrice(data.ticketVariantAdultPrice),
-    child_price: parsePrice(data.ticketVariantOlderChildPrice ?? data.ticketVariantYoungChildPrice),
-    infant_price: parsePrice(data.ticketVariantBabyPrice),
+    adult_price: pricing.adultPrice,
+    child_price: pricing.childPrice,
+    infant_price: pricing.babyPrice,
     family_price: null,
-    concession_price: null,
-    pricingTiers: [],
+    concession_price: pricing.concessionPrice,
+    pricingTiers: pricing.tiers,
 
     // Contact / links
     website_url: null,
@@ -220,8 +222,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
 
     // ── Venue only ────────────────────────────────────────
     opening_hours: buildOpeningHours(data),
-    estimated_visit_duration: toSlugNameList(data.venueEstimatedDuration),
-
+    estimated_visit_duration: resolveCompactDuration(data.venueEstimatedDuration),
     // ── Route only (n/a for venue) ────────────────────────
     route_type: null,
     route_distance: null,
@@ -259,7 +260,8 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     liveStatus: { variant: "closed", message: "" },
     seasonalHighlight: null,
   };
-  opp.pricingTiers = buildPricingTiers(opp);
   opp.liveStatus = resolveLiveStatus(opp);
+  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag);
+
   return opp;
 };

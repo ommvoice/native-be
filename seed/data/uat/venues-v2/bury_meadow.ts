@@ -19,7 +19,7 @@ export const buryMeadowVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const buryMeadowVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "balance_elements, stepping_obstacles, clear_sightlines_for_adults",
   venueExtraKit: null,
-  image: null,
+  image: "Bury Meadow.jpg",
   venueBankHolidays: null,
 };

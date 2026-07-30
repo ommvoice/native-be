@@ -73,6 +73,6 @@ export const decoyParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "watersports_hire, seasonal_water_fun, fungi, berries_nuts_conkers, autumn_leaves, migrating_birds, butterflies, dragonflies_damselflies",
   venueAttractions: "climbable_trees, play_equipment, marked_trails, natural_play_features_logs_slopes_rocks, bridges, scenic_backdrops, countryside_views, room_to_run_freely, ponds_or_lakes",
   venueExtraKit: null,
-  image: "Towels, Swimming kit, Water shoes, XC Buggy, Sling / baby carrier, Infant / toddler carrier",
+  image: "Decoy Park.jpg",
   venueBankHolidays: null,
 };

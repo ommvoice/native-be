@@ -19,7 +19,7 @@ export const mansandsBeachNationalTrustVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const mansandsBeachNationalTrustVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "returning_swallows_swifts_birds, birdsong, migrating_birds, starling_murmurations, snowdrops",
   venueAttractions: "rockpools, seaweed_beds, shell_or_seaglass_collecting, smooth_pebbles, coves_inlets, streams_or_channels, rock_formations_coastal_adventures_attractions, cliffs_or_headlands, caves, coastal_wildlife, dog_friendly_off_lead_all_year",
   venueExtraKit: null,
-  image: "Sling / baby carrier, Infant / toddler carrier, Swimming kit, Towels, Water shoes, Wetsuit Boots",
+  image: "Mansands Beach.jpg",
   venueBankHolidays: null,
 };

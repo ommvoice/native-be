@@ -1,7 +1,10 @@
+import { AssetsService } from "../../../services/assets.service";
 import type { OpportunityDetail, SlugName } from "../../types/opportunity-detail.types";
+import type { EnumSeasonalHighlight } from "../../types/assets.types";
 
 const DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
 const DAY_LABELS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
+const assets = new AssetsService();
 
 export interface LiveStatus {
   variant: "open" | "soon" | "closed";
@@ -10,7 +13,7 @@ export interface LiveStatus {
 
 export interface SeasonalHighlight {
   season: "Spring" | "Summer" | "Autumn" | "Winter";
-  highlight: string;
+  highlight: SlugName[];
   tags: string[];
 }
 
@@ -24,6 +27,10 @@ function getOpeningStatus(
   const currentTime = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
   const todayHours = openingHours[currentDay];
 
+  if (todayHours?.allDay) {
+    return { isOpen: true, message: "Open all day" };
+  }
+
   if (todayHours?.open && todayHours?.close && currentTime >= todayHours.open && currentTime < todayHours.close) {
     return { isOpen: true, message: `Open - until ${todayHours.close}` };
   }
@@ -35,8 +42,11 @@ function getOpeningStatus(
   for (let i = 1; i <= 7; i++) {
     const nextDayIdx = (now.getDay() + i) % 7;
     const nextDayHours = openingHours[DAYS[nextDayIdx]!];
+    const label = i === 1 ? "Tomorrow" : DAY_LABELS[nextDayIdx];
+    if (nextDayHours?.allDay) {
+      return { isOpen: false, message: `Open ${label} – all day` };
+    }
     if (nextDayHours?.open && nextDayHours?.close) {
-      const label = i === 1 ? "Tomorrow" : DAY_LABELS[nextDayIdx];
       return { isOpen: false, message: `Open ${label} ${nextDayHours.open} – ${nextDayHours.close}` };
     }
   }
@@ -117,13 +127,14 @@ export function resolveSeasonalHighlight(
     winter: "Winter",
   };
   const seasonLabel = seasonLabels[currentSeason]!;
+  const seasonalAllHighlights = assets.getSeasonalHighlights(currentSeason);
 
-  const highlightsText = seasonalHighlights.map((h) => h.name).join(", ");
-  const seasonRegex = new RegExp(`${seasonLabel}:\\s*([^.]+\\.?)`, "i");
-  const match = highlightsText.match(seasonRegex);
-  const highlight = match ? match[1]!.trim() : highlightsText;
+  const foundHighlights = seasonalAllHighlights.filter((item: EnumSeasonalHighlight) =>
+    seasonalHighlights.some((other) => other.slug === item.slug)
+  );
 
-  const tags = (seasonalTag ?? []).map((t) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
+  const tags = (seasonalTag ?? []).map((t: SlugName) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
+  const highlight: SlugName[] = foundHighlights.map((item) => ({ slug: currentSeason, name: item.name }));
 
   return { season: seasonLabel, highlight, tags };
 }

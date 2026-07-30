@@ -19,7 +19,7 @@ export const sandyBayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,

@@ -9,12 +9,12 @@ import type { InterestCategoryRecord, InterestSubCategoryRecord } from '../repos
 import type { ThemeRecord, ThemeVariantRecord } from '../repositories/theme.repository';
 import type { SkillRecord } from '../repositories/skill.repository';
 import type { FacilityRecord } from '../repositories/facility.repository';
+import { EnumEntry, EnumSeasonalHighlight } from '../shared/types/assets.types';
 
 // Enum-sourced records (`{name, slug, active}`) have no real createdAt/updatedAt —
 // this fixed placeholder keeps the existing Record shapes intact without implying a real timestamp.
 const SYNTHETIC_TIMESTAMP = '2025-01-01T00:00:00.000Z';
-
-type EnumEntry = { name: string; slug: string; active: boolean };
+ 
 
 export class AssetsService {
   // ── Opportunities ──────────────────────────────────────────────────────────
@@ -211,5 +211,15 @@ export class AssetsService {
 ] as const;
 
     return interests
+  }
+
+  getSeasonalHighlights(season:string): EnumSeasonalHighlight[] {
+    const allSeasonalHighlight = enums.seasonalHighlight as EnumSeasonalHighlight[];
+
+    if(season && season !== ""){
+      return allSeasonalHighlight.filter((h)=> h.seasonalTagSlugs && h.seasonalTagSlugs.includes(season))
+    }
+
+    return [] 
   }
 }

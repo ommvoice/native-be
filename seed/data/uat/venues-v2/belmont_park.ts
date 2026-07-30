@@ -19,7 +19,7 @@ export const belmontParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const belmontParkVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "climbing_frames, slides, swings, springers_rockers, tunnels_and_crawl_spaces, open_grass_running_space, sensory_play_features",
   venueExtraKit: null,
-  image: null,
+  image: "Belmont Park.jpg",
   venueBankHolidays: null,
 };

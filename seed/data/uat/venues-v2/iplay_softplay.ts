@@ -41,7 +41,7 @@ export const iplaySoftplayVenueV2: OpportunityVenueV2SeedInput = {
   ticketingVariants: "baby, fixed_child, adult",
   ticketVariantDefinitionBaby: "Under 1 year",
   ticketVariantBabyPrice: "0",
-  ticketVariantDefinitionFixedChild: null,
+  ticketVariantDefinitionFixedChild: "1-7",
   ticketVariantFixedChildPrice: "7.45",
   ticketVariantDefinitionYoungChild: null,
   ticketVariantYoungChildPrice: null,
@@ -73,6 +73,6 @@ export const iplaySoftplayVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area",
   venueExtraKit: null,
-  image: null,
+  image: "iplay Softplay.jpg",
   venueBankHolidays: null,
 };

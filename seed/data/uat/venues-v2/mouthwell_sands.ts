@@ -19,7 +19,7 @@ export const mouthwellSandsVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const mouthwellSandsVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "ice_creams, watersports_hire, wildflower_meadows, seasonal_flowers, marine_wildlife_spotting, migrating_birds, seabird_colonies",
   venueAttractions: "seasonally_lifeguarded, diggable_sand_sandcastles, rockpools, seaweed_beds, shell_or_seaglass_collecting, smooth_pebbles, shallow_paddling, streams_or_channels, coves_inlets, rock_formations_coastal_adventures_attractions, caves, cliffs_or_headlands, coastal_wildlife, surfing, swimming, bodyboarding, kayaking_sup, toilets_nearby, beach_cafe, slipway",
   venueExtraKit: null,
-  image: null,
+  image: "Hope Cove.jpg",
   venueBankHolidays: null,
 };

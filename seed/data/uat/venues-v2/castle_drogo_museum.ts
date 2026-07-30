@@ -73,6 +73,6 @@ export const castleDrogoMuseumVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "autumn_leaves",
   venueAttractions: "historic_buildings, period_features, recreated_environments, castles_or_fortresses, story_led_interpretation, visual_displays, audio_guides_or_trails",
   venueExtraKit: null,
-  image: null,
+  image: "Caslte Drogo Museum.jpg",
   venueBankHolidays: null,
 };

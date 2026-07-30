@@ -119,53 +119,39 @@ export function scoreSchedule(
   startTime?: string | null,
   endTime?: string | null,
 ): number {
-  return 100
   if (type === 'venue' || type === 'route') return 100;
 
   const now   = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const MS_PER_DAY = 86_400_000;
 
   // Starting inside the next hour, or ended inside the last hour — surface
-  // these as maximally relevant regardless of the day-level score below.
+  // these as maximally relevant regardless of the day-level check below.
   if (isStartingWithinAnHour(now, startTime) || endedWithinAnHour(now, endTime)) return 100;
 
   if (type === 'event') {
-    if (!startDate && !endDate) return 50;
+    const start    = startDate ? new Date(startDate) : null;
+    const end      = endDate ? new Date(endDate) : null;
+    const startDay = start ? new Date(start.getFullYear(), start.getMonth(), start.getDate()) : null;
+    const endDay   = end ? new Date(end.getFullYear(), end.getMonth(), end.getDate()) : null;
 
-    if (endDate) {
-      const end    = new Date(endDate);
-      const endDay = new Date(end.getFullYear(), end.getMonth(), end.getDate());
-      if (endDay < today) return 0;
-      if (endDay.getTime() === today.getTime()) return 100;
-      const daysLeft = Math.ceil((endDay.getTime() - today.getTime()) / MS_PER_DAY);
-      if (daysLeft <= 7)  return 90;
-      if (daysLeft <= 30) return 70;
-      return 50;
-    }
+    // No date info at all — can't confirm it's actually on today, so don't show it.
+    if (!startDay && !endDay) return 0;
+    // Hasn't started yet, or already ended — not on today, don't show it.
+    if (startDay && startDay > today) return 0;
+    if (endDay && endDay < today) return 0;
 
-    if (startDate) {
-      const start    = new Date(startDate);
-      const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-      if (startDay.getTime() === today.getTime()) return 100;
-      if (startDay > today) {
-        const daysUntil = Math.ceil((startDay.getTime() - today.getTime()) / MS_PER_DAY);
-        return daysUntil <= 7 ? 80 : 50;
-      }
-      return 70;
-    }
-
-    return 50;
+    // Today falls within [start, end] (or the one bound present covers today) — it's on today.
+    return 100;
   }
 
   if (type === 'club') {
-    if (!activeDays || activeDays.length === 0) return 50;
-    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const todayName    = dayNames[now.getDay()]!;
-    const tomorrowName = dayNames[(now.getDay() + 1) % 7]!;
-    if (activeDays.includes(todayName))    return 100;
-    if (activeDays.includes(tomorrowName)) return 80;
-    return 60;
+    // No recurring schedule captured — can't confirm it's open today, don't show it.
+    if (!activeDays || activeDays.length === 0) return 0;
+    const dayNames  = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const todayName = dayNames[now.getDay()]!;
+    // Not running today — closed today, don't show it.
+    if (!activeDays.includes(todayName)) return 0;
+    return 100;
   }
 
   return 100;

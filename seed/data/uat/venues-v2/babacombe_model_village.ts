@@ -73,6 +73,6 @@ export const babacombeModelVillageVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "themed_environments, immersive_settings, shared_imaginative_spaces",
   venueExtraKit: null,
-  image: "Babacombe Model Village.JPG",
+  image: "Babcombe Model Village.jpg",
   venueBankHolidays: null,
 };

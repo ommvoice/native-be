@@ -34,7 +34,14 @@ const HEADER_ROW = 3; // 0-indexed grid row (Excel row 4): the snake_case field-
 const FIRST_DATA_ROW = 4; // 0-indexed grid row (Excel row 5): first real data row
 const NAME_FIELD = "route_name";
 
-type Cell = string | number | boolean | Date | null;
+/** Raw cell value plus SheetJS's pre-formatted display text (`w`) — used as a fallback when Excel
+ * autocorrects free text that looks date-like (e.g. an age range like "1-3") into a real date value,
+ * so that text isn't silently dropped. See the equivalent doc comment in parse-venues-data.ts. */
+interface RawCell {
+  v: string | number | boolean | Date | null;
+  w?: string;
+}
+type Cell = RawCell | null;
 
 // ── Enum registry (keys double as the overlay JSON's top-level keys) ────────
 
@@ -98,7 +105,7 @@ function readGrid(): Cell[][] {
     for (let c = range.s.c; c <= range.e.c; c++) {
       const cellRef = XLSX.utils.encode_cell({ r, c });
       const cell = sheet[cellRef];
-      row.push(cell ? (cell.v as Cell) : null);
+      row.push(cell ? { v: cell.v as RawCell["v"], w: cell.w } : null);
     }
     grid.push(row);
   }
@@ -106,9 +113,14 @@ function readGrid(): Cell[][] {
 }
 
 function cellToStr(v: Cell): string | null {
-  if (v === null || v === undefined) return null;
-  if (v instanceof Date) return null;
-  const s = String(v).trim();
+  if (v === null || v === undefined || v.v === null || v.v === undefined) return null;
+  // Excel sometimes autocorrects free text that looks date-like (e.g. an age range "1-3") into a real
+  // date value; `w` still holds the display text Excel showed, so fall back to that instead of dropping it.
+  if (v.v instanceof Date) {
+    const w = v.w?.trim();
+    return w && w !== "-" ? w : null;
+  }
+  const s = String(v.v).trim();
   return s.length && s !== "-" ? s : null;
 }
 
@@ -127,8 +139,8 @@ function splitMultiValue(raw: string): string[] {
 }
 
 function toNumberOrNull(v: Cell): number | null {
-  if (v === null || v === undefined) return null;
-  if (typeof v === "number") return v;
+  if (v === null || v === undefined || v.v === null || v.v === undefined) return null;
+  if (typeof v.v === "number") return v.v;
   const s = cellToStr(v);
   if (s === null) return null;
   const n = Number(s);
@@ -136,12 +148,12 @@ function toNumberOrNull(v: Cell): number | null {
 }
 
 function toStringOrNull(v: Cell): string | null {
-  if (typeof v === "number") return String(v);
+  if (v && typeof v.v === "number") return String(v.v);
   return cellToStr(v);
 }
 
 function toBoolOrNull(v: Cell): boolean | null {
-  return typeof v === "boolean" ? v : null;
+  return v && typeof v.v === "boolean" ? v.v : null;
 }
 
 // ── Column configuration ──────────────────────────────────────────────────────

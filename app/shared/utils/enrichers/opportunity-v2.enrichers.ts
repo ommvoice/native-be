@@ -327,6 +327,7 @@ export function enrichRoute(item: Record<string, unknown>): OpportunityRouteV2 {
     routeActivityGrouping:           s(item['routeActivityGrouping']),
     routeDescription:                s(item['routeDescription']),
     routeType:                       s(item['routeType']),
+    routeSuitability:                s(item['routeSuitability']),
     routeDistance:                   s(item['routeDistance']),
     routeTerrainType:                s(item['routeTerrainType']),
     routeDifficulty:                 s(item['routeDifficulty']),

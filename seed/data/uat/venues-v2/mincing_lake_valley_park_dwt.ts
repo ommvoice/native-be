@@ -19,7 +19,7 @@ export const mincingLakeValleyParkDwtVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const mincingLakeValleyParkDwtVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "wildflower_meadows",
   venueAttractions: "grassy_banks, rolling_landscapes, scenic_backdrops, countryside_views, streams_or_ditches, meadows_or_wild_grass",
   venueExtraKit: null,
-  image: "Binoculars, Sling / baby carrier, Infant / toddler carrier, XC Buggy",
+  image: "Mincing Lake Valley Park.JPG",
   venueBankHolidays: null,
 };

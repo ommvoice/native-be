@@ -36,7 +36,19 @@ const HEADER_ROW = 3; // 0-indexed grid row (Excel row 4): the snake_case field-
 const FIRST_DATA_ROW = 4; // 0-indexed grid row (Excel row 5): first real data row
 const NAME_FIELD = "club_name";
 
-type Cell = string | number | boolean | Date | null;
+/** Raw cell value plus SheetJS's pre-formatted display text (`w`), which reflects the number format
+ * applied in Excel independent of the `cellDates` JS-Date conversion. Time-of-day cells are read from
+ * `w` rather than from a converted Date: Excel's date-serial epoch is 1899-12-30, and JS Date's local
+ * getHours()/getMinutes() re-derive that local time using the *historical* timezone rule in effect for
+ * that date (e.g. pre-1900 Local Mean Time), which can silently disagree with the modern-day offset —
+ * and a serial of exactly 1 ("24:00", i.e. open until midnight) round-trips through Date as the next
+ * day's 00:00, indistinguishable from a genuine midnight start. `w` sidesteps both problems entirely.
+ * It's also used as a fallback for scalar text Excel autocorrected into a date (e.g. an age range "1-3"). */
+interface RawCell {
+  v: string | number | boolean | Date | null;
+  w?: string;
+}
+type Cell = RawCell | null;
 
 // ── Enum registry (keys double as the overlay JSON's top-level keys) ────────
 
@@ -101,7 +113,7 @@ function readGrid(): Cell[][] {
     for (let c = range.s.c; c <= range.e.c; c++) {
       const cellRef = XLSX.utils.encode_cell({ r, c });
       const cell = sheet[cellRef];
-      row.push(cell ? (cell.v as Cell) : null);
+      row.push(cell ? { v: cell.v as RawCell["v"], w: cell.w } : null);
     }
     grid.push(row);
   }
@@ -109,9 +121,14 @@ function readGrid(): Cell[][] {
 }
 
 function cellToStr(v: Cell): string | null {
-  if (v === null || v === undefined) return null;
-  if (v instanceof Date) return null;
-  const s = String(v).trim();
+  if (v === null || v === undefined || v.v === null || v.v === undefined) return null;
+  // Excel sometimes autocorrects free text that looks date-like (e.g. an age range "1-3") into a real
+  // date value; `w` still holds the display text Excel showed, so fall back to that instead of dropping it.
+  if (v.v instanceof Date) {
+    const w = v.w?.trim();
+    return w && w !== "-" ? w : null;
+  }
+  const s = String(v.v).trim();
   return s.length && s !== "-" ? s : null;
 }
 
@@ -135,20 +152,25 @@ function roundToNearestMinute(d: Date): Date {
 }
 
 function toDateOnly(v: Cell): Date | null {
-  if (!(v instanceof Date)) return null;
-  const d = roundToNearestMinute(v);
+  if (!v || !(v.v instanceof Date)) return null;
+  const d = roundToNearestMinute(v.v);
   return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
 }
 
+/** Reads a time-of-day cell from its formatted display text rather than a converted Date (see RawCell
+ * doc comment). Handles both real time cells ("07:00", "24:00:00") and any free-text time value Excel's
+ * time format can't hold, like a literal "24:00". */
 function toTimeString(v: Cell): string | null {
-  if (!(v instanceof Date)) return null;
-  const d = roundToNearestMinute(v);
-  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  const w = v?.w?.trim();
+  if (!w || w === "-") return null;
+  const match = /^(\d{1,2}):(\d{1,2})(?::\d{1,2})?$/.exec(w);
+  if (!match) return null;
+  return `${match[1]!.padStart(2, "0")}:${match[2]!.padStart(2, "0")}`;
 }
 
 function toNumberOrNull(v: Cell): number | null {
-  if (v === null || v === undefined) return null;
-  if (typeof v === "number") return v;
+  if (v === null || v === undefined || v.v === null || v.v === undefined) return null;
+  if (typeof v.v === "number") return v.v;
   const s = cellToStr(v);
   if (s === null) return null;
   const n = Number(s);
@@ -156,12 +178,12 @@ function toNumberOrNull(v: Cell): number | null {
 }
 
 function toStringOrNull(v: Cell): string | null {
-  if (typeof v === "number") return String(v);
+  if (v && typeof v.v === "number") return String(v.v);
   return cellToStr(v);
 }
 
 function toBoolOrNull(v: Cell): boolean | null {
-  return typeof v === "boolean" ? v : null;
+  return v && typeof v.v === "boolean" ? v.v : null;
 }
 
 // ── Column configuration ──────────────────────────────────────────────────────

@@ -4,6 +4,7 @@ import { buildImageUrls } from "./image-url";
 import { buildPricingTiers } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
+import { resolveCompactDuration } from "./recommendation-formatter";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -155,7 +156,7 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
 
     // ── Venue only (n/a for route) ────────────────────────
     opening_hours: null,
-    estimated_visit_duration: toSlugNameList(data.routeEstimatedDuration),
+    estimated_visit_duration: resolveCompactDuration(data.routeEstimatedDuration),
 
     // ── Route only ────────────────────────────────────────
     route_type: toSlugNameList(data.routeType),

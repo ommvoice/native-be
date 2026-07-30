@@ -19,7 +19,7 @@ export const whimplePumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   venueSchedulePattern: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday",
   venueFixedDailyTimings: true,
   venueFixedTimingsStartTime: "00:00",
-  venueFixedTimingsEndTime: "00:00",
+  venueFixedTimingsEndTime: "24:00",
   venueMixedTimingsMondayStart: null,
   venueMixedTimingsMondayEnd: null,
   venueMixedTimingsTuesdayStart: null,
@@ -73,6 +73,6 @@ export const whimplePumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: null,
   venueAttractions: "climbing_frames, rope_bridges, balance_elements, scramble_nets, stepping_obstacles, towers_and_platforms, slides, swings, basket_nest_swings, roundabouts, seesaws, ground_trampolines, wheelchair_accessible_equipment, inclusive_swings",
   venueExtraKit: null,
-  image: null,
+  image: "Whimple Pump Track.jpg",
   venueBankHolidays: null,
 };

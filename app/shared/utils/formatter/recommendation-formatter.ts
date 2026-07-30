@@ -10,8 +10,11 @@ import type { OppType } from "../../types/opportunity-detail.types";
 import { buildImageUrl } from "./image-url";
 import { buildScheduleInfo as buildClubScheduleInfo } from "./club-to-opportunity";
 import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportunity";
-import { resolveCardPrice } from "./pricing";
+import { resolveCardTotalPrice, resolveTicketPricing } from "./pricing";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
+import { AssetsService } from "../../../services/assets.service";
+
+const assets = new AssetsService();
 
 /** Scored recommendation row enriched with full opportunity payload. */
 export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> {
@@ -71,10 +74,27 @@ export interface Opportunity {
   location?: { latitude: string | null; longitude: string | null } | null;
   // Pre-composed per-size card text (see CardDisplay above).
   cardDisplay: CardDisplay;
-  // Suitability icon keys (Buggies/Dogs/Scooters/Bikes/Wheelchairs/Carriers)
+  // Suitability slugs (buggy_friendly/dog_friendly/scooter_route/etc.)
   // — kept raw (not composed into cardDisplay) because the frontend maps
-  // these to actual icon components; route only, see resolveRouteSuitability().
-  routeSuitability?: string[];
+  // each slug to an icon; route only, see resolveRouteSuitability().
+  routeSuitability?: SlugName[];
+  // Flat slug bag for client-side search/filter matching — see resolveSearchTags().
+  searchTags: SearchTags;
+}
+
+export interface SearchTags {
+  interestCategory: SlugName | null;
+  theme: string | null;
+  themeVariant: string[];
+  activityGroup: string[];
+  // child + adult/parent + dog + general/functional facilities + parking, flattened to slugs.
+  essentials: string[];
+  // route only.
+  routeSuitability: string[];
+  // route only.
+  routeDifficulty: string[];
+  distance?: number;
+  durationMin?: number;
 }
 
 
@@ -200,37 +220,14 @@ function resolveThemeVariant(rec: EnrichedScoredRecommendationV2): ThemeVariantR
 
 function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
   switch (rec.opportunityType) {
-    case "route":
-      return { price: "Free", priceValue: 0 };
-
-    case "venue": {
-      const venue = rec as unknown as OpportunityVenueV2;
-      return resolveCardPrice(
-        venue.venueEntryCost === true,
-        venue.ticketVariantAdultPrice,
-        venue.ticketVariantOlderChildPrice,
-        venue.ticketVariantBabyPrice,
-      );
-    }
-
-    case "event": {
-      const event = rec as unknown as OpportunityEventV2;
-      return resolveCardPrice(
-        event.eventEntryCost === true,
-        event.ticketVariantAdultPrice,
-        event.ticketVariantOlderChildPrice,
-        event.ticketVariantBabyPrice,
-      );
-    }
-
+    case "venue":
+    case "event":
     case "club": {
-      const club = rec as unknown as OpportunityClubV2;
-      return resolveCardPrice(
-        club.ticketingRequirement === true,
-        club.ticketVariantAdultPrice,
-        club.ticketVariantOlderChildPrice,
-        club.ticketVariantBabyPrice,
-      );
+      // Adult + Fixed/Young/Older Child (whichever this record uses) combine
+      // into one total on the card, instead of only ever showing Adult.
+      const pricing = resolveTicketPricing(rec as unknown as OpportunityVenueV2 | OpportunityEventV2 | OpportunityClubV2);
+      if (pricing.isFree) return { price: "Free", priceValue: 0 };
+      return resolveCardTotalPrice(pricing);
     }
 
     default:
@@ -260,6 +257,50 @@ function resolveAdultFacilities(rec: EnrichedScoredRecommendationV2): SlugName[]
   return toSlugNameList(raw);
 }
 
+function resolveGeneralFacilities(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
+  switch (rec.opportunityType) {
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueGeneralFacilities; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventGeneralFacilities; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubGeneralFacilities; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeGeneralFacilities; break;
+  }
+  return toSlugNameList(raw);
+}
+
+function resolveDogFacilities(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
+  switch (rec.opportunityType) {
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueDogFacilities; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventVenueDogFacilities; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeDogFacilities; break;
+    // club has no dog-facilities field.
+  }
+  return toSlugNameList(raw);
+}
+
+function resolveParkingProvision(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
+  switch (rec.opportunityType) {
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueParkingProvision; break;
+    case "event": raw = (rec as unknown as OpportunityEventV2).eventParkingProvision; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubParkingProvision; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeParkingProvision; break;
+  }
+  return toSlugNameList(raw);
+}
+
+// A theme belongs to one or more interest categories (opportunityTheme enum's
+// interestCategorySlugs) — resolve the recommendation row's theme to its
+// first/primary interest category, same convention AssetsService.getThemes()
+// uses for ThemeRecord.interestId.
+function resolveInterestCategory(themeSlug: string | undefined): SlugName | null {
+  const firstThemeSlug = themeSlug?.split(",")[0]?.trim();
+  if (!firstThemeSlug) return null;
+  const theme = assets.getThemes().find((t) => t.slug === firstThemeSlug);
+  return theme?.interestId ? toSlugName(theme.interestId) : null;
+}
+
 // ── Card-display field resolvers (nativeapp-main-loveable OpportunityCard.tsx parity) ──
 
 function resolveBookingType(rec: EnrichedScoredRecommendationV2): string | null {
@@ -272,36 +313,10 @@ function resolveRouteType(rec: EnrichedScoredRecommendationV2): string | null {
   return toSlugNameList((rec as unknown as OpportunityRouteV2).routeType)?.map((e) => e.name).join(", ") ?? null;
 }
 
-// Route suitability (Buggies/Dogs/Scooters/Bikes/Wheelchairs/Carriers, matching
-// Lovable's SuitabilityIcons keys exactly) has no dedicated backend field —
-// OpportunityRouteV2 only has free-text facility/kit/attraction fields. Derive
-// a best-effort signal via keyword matching over the fields that actually
-// mention this (routeExtraKit, routeAttractions, routeGeneralFacilities,
-// routeDogFacilities) rather than leaving it permanently empty.
-const ROUTE_SUITABILITY_KEYWORDS: Record<string, string[]> = {
-  Buggies: ["buggy", "pushchair", "stroller"],
-  Dogs: ["dog"],
-  Scooters: ["scooter"],
-  Bikes: ["bike", "cycl"],
-  Wheelchairs: ["wheelchair"],
-  Carriers: ["carrier", "sling"],
-};
-
-export function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): string[] {
+export function resolveRouteSuitability(rec: EnrichedScoredRecommendationV2): SlugName[] {
   if (rec.opportunityType !== "route") return [];
   const route = rec as unknown as OpportunityRouteV2;
-  const haystack = [
-    route.routeExtraKit,
-    route.routeAttractions,
-    route.routeGeneralFacilities,
-    route.routeDogFacilities,
-    route.routeChildFacilities,
-    route.routeAdultFacilities,
-  ].filter(Boolean).join(", ").toLowerCase();
-  if (!haystack) return [];
-  return Object.entries(ROUTE_SUITABILITY_KEYWORDS)
-    .filter(([, keywords]) => keywords.some((kw) => haystack.includes(kw)))
-    .map(([key]) => key);
+  return toSlugNameList(route.routeSuitability) ?? [];
 }
 
 function resolveClubFrequency(rec: EnrichedScoredRecommendationV2): string | null {
@@ -350,22 +365,91 @@ function resolveEventType(rec: EnrichedScoredRecommendationV2): string | null {
 
 const CARD_LINE_SEPARATOR = "  •  ";
 
+const DURATION_UNIT_RE = /(min(?:ute)?s?|hours?|hrs?)/i;
+const durationToMins = (val: number, unit: string) => (/hour|hr/i.test(unit) ? val * 60 : val);
+
+/** Parses one duration segment ("30-60 mins", "30-60min", "1-2 hours", "45 mins") into its low/high bounds, in minutes. Null if unparseable. */
+function parseDurationSegment(segment: string): { low: number; high: number } | null {
+  // Each number carries its own unit: "30 min - 1 hour".
+  const dualUnitMatch = segment.match(
+    /(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)/i,
+  );
+  if (dualUnitMatch) {
+    return {
+      low: durationToMins(parseFloat(dualUnitMatch[1]!), dualUnitMatch[2]!),
+      high: durationToMins(parseFloat(dualUnitMatch[3]!), dualUnitMatch[4]!),
+    };
+  }
+  // One trailing unit shared by both numbers: "30-60min", "1-2 hours" — the
+  // far more common notation, so this must be tried before the single-value
+  // fallback below (otherwise that would wrongly grab just the second number).
+  const sharedUnitMatch = segment.match(
+    /(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)/i,
+  );
+  if (sharedUnitMatch) {
+    return {
+      low: durationToMins(parseFloat(sharedUnitMatch[1]!), sharedUnitMatch[3]!),
+      high: durationToMins(parseFloat(sharedUnitMatch[2]!), sharedUnitMatch[3]!),
+    };
+  }
+  const singleMatch = segment.match(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*${DURATION_UNIT_RE.source}`, "i"));
+  if (singleMatch) {
+    const mins = durationToMins(parseFloat(singleMatch[1]!), singleMatch[2]!);
+    return { low: mins, high: mins };
+  }
+  return null;
+}
+
+/** Formats a single minutes value in whichever unit reads naturally: "45min" under an hour, "5hrs" (or "1.5hrs") at/above it. */
+function formatDurationBound(mins: number): string {
+  if (mins < 60) return `${Math.round(mins)}min`;
+  return `${mins % 60 === 0 ? mins / 60 : (mins / 60).toFixed(1)}hrs`;
+}
+
 /**
  * Compact duration strings like "30 min - 1 hour" → "30-60 mins",
- * "1-2 hours" → "1-2 hrs".
+ * "1-2 hours" → "1-2 hrs". A theme/venue can also carry several ranges at
+ * once (e.g. "30-60 mins, 1-2 hours, 4-5 hours" from multiple selected
+ * estimated-duration enum values) — those combine into one overall span
+ * using the lowest low and the highest high, each shown in its own natural
+ * unit: "30min-5hrs".
  */
-function compactDuration(duration?: string | null): string | undefined {
+export function compactDuration(duration?: string | null): string | undefined {
   if (!duration) return undefined;
-  const rangeMatch = duration.match(/^(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)\s*[-–]\s*(\d+(?:\.\d+)?)\s*(min(?:ute)?s?|hours?|hrs?)$/i);
-  if (rangeMatch) {
-    const toMins = (val: number, unit: string) => (/hour|hr/i.test(unit) ? val * 60 : val);
-    const low = toMins(parseFloat(rangeMatch[1]), rangeMatch[2]);
-    const high = toMins(parseFloat(rangeMatch[3]), rangeMatch[4]);
-    if (high <= 90) return `${Math.round(low)}-${Math.round(high)} mins`;
+
+  const fallback = () => duration.replace(/\bhours?\b/gi, "hrs").replace(/\bminutes?\b/gi, "mins");
+
+  const segments = duration.split(",").map((s) => s.trim()).filter(Boolean);
+  const parsed = segments
+    .map(parseDurationSegment)
+    .filter((p): p is { low: number; high: number } => p !== null);
+
+  // Nothing numeric to work with, or a single flat (non-range) value — leave as-is.
+  if (parsed.length === 0) return fallback();
+  if (parsed.length === 1 && parsed[0]!.low === parsed[0]!.high) return fallback();
+
+  const overallLow = Math.min(...parsed.map((p) => p.low));
+  const overallHigh = Math.max(...parsed.map((p) => p.high));
+
+  if (overallHigh <= 90) return `${Math.round(overallLow)}-${Math.round(overallHigh)} mins`;
+  if (overallLow >= 60) {
     const toHrs = (m: number) => (m % 60 === 0 ? `${m / 60}` : `${(m / 60).toFixed(1)}`);
-    return `${toHrs(low)}-${toHrs(high)} hrs`;
+    return `${toHrs(overallLow)}-${toHrs(overallHigh)} hrs`;
   }
-  return duration.replace(/\bhours?\b/gi, "hrs").replace(/\bminutes?\b/gi, "mins");
+  return `${formatDurationBound(overallLow)}-${formatDurationBound(overallHigh)}`;
+}
+
+/**
+ * Resolves an estimated-duration enum-slug string (e.g. "thirty_sixty_mins, one_two_hours") into the
+ * single compacted range `compactDuration` reports for it (e.g. "30min-2hrs"), wrapped as the one-element
+ * `SlugName[]` the `estimated_visit_duration` field expects. Slugs must resolve to their human-readable
+ * names *before* `compactDuration` runs — it parses digits/units out of text like "30-60mins", not slugs.
+ */
+export function resolveCompactDuration(raw: string | null): SlugName[] | null {
+  const names = toSlugNameList(raw)?.map((e) => e.name).join(", ");
+  if (!names) return null;
+  const compacted = compactDuration(names) ?? names;
+  return [{ name: compacted, slug: compacted }];
 }
 
 /** snake_case / kebab-case → Title Case. */
@@ -408,7 +492,7 @@ function resolveCardDisplay(
     case "route": {
       let routeTypeLabel = formatCardLabel(fields.routeType);
       if (routeTypeLabel === "Out And Back") routeTypeLabel = "Out-Back";
-      const durationPart = duration || undefined;
+      const durationPart = compactDuration(duration) || undefined;
       const typeDurationCompact = [routeTypeLabel, durationPart ? `(${durationPart})` : undefined].filter(Boolean).join(" ");
       return {
         compact: { line1: typeDurationCompact || undefined, line2: journey, line2IsJourney: true },
@@ -459,6 +543,40 @@ function formatTravelTime(seconds: number | null): string {
 }
 
 const MILES_TO_KM = 1.60934;
+
+// Flat slug bag used for client-side search/filter matching — every facility
+// category that counts as "essential" (child, adult/parent, dog, general/
+// functional, parking) flattened into one array of slugs, alongside theme/
+// interest-category/activity-group identifiers and the resolved distance/duration.
+function resolveSearchTags(
+  rec: EnrichedScoredRecommendationV2,
+  distanceKm: number | undefined,
+  durationMin: number | undefined,
+): SearchTags {
+  const essentials = [
+    ...(resolveChildFacilities(rec) ?? []),
+    ...(resolveAdultFacilities(rec) ?? []),
+    ...(resolveDogFacilities(rec) ?? []),
+    ...(resolveGeneralFacilities(rec) ?? []),
+    ...(resolveParkingProvision(rec) ?? []),
+  ].map((facility) => facility.slug);
+
+  const routeDifficulty = rec.opportunityType === "route"
+    ? toSlugNameList((rec as unknown as OpportunityRouteV2).routeDifficulty)?.map((d) => d.slug) ?? []
+    : [];
+
+  return {
+    interestCategory: resolveInterestCategory(rec.themeSlug),
+    theme: rec.themeSlug ?? null,
+    themeVariant: toSlugNameList(rec.themeVariantSlug)?.map((t) => t.slug) ?? [],
+    activityGroup: (resolveActivityGroup(rec) ?? []).map((a) => a.slug),
+    essentials,
+    routeSuitability: resolveRouteSuitability(rec).map((s) => s.slug),
+    routeDifficulty,
+    ...(distanceKm !== undefined && { distance: distanceKm }),
+    ...(durationMin !== undefined && { durationMin }),
+  };
+}
 
 // ── Main formatter ────────────────────────────────────────────────────────────
 
@@ -511,6 +629,7 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
       : null,
     cardDisplay,
     routeSuitability: resolveRouteSuitability(rec),
+    searchTags: resolveSearchTags(rec, distanceKm, durationMin),
   };
 }
 

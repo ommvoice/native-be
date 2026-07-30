@@ -43,7 +43,7 @@ export const riverDartCountryParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantBabyPrice: "0",
   ticketVariantDefinitionFixedChild: null,
   ticketVariantFixedChildPrice: null,
-  ticketVariantDefinitionYoungChild: null,
+  ticketVariantDefinitionYoungChild: "3-4",
   ticketVariantYoungChildPrice: "£3.50-£8.45",
   ticketVariantDefinitionOlderChild: "5-17",
   ticketVariantOlderChildPrice: "£3.50-£14.95",

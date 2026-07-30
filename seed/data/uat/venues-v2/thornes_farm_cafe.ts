@@ -73,6 +73,6 @@ export const thornesFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueSeasonalHighlights: "fruit_picking, pyo_fruit, pyo_vegetables, pyo_flowers",
   venueAttractions: "dedicated_play_area, toy_corner_or_play_table, puzzles_or_games, colouring, shop_or_browsing_area_e_g_farm_shop_garden_centre",
   venueExtraKit: null,
-  image: "Thorne's Cafe.JPG",
+  image: "Thorne_s Cafe.JPG",
   venueBankHolidays: null,
 };

@@ -110,13 +110,20 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   return { variant: "closed", message: "Closed Today" };
 }
 
-/** Parses the current season's highlight out of the seasonal_highlights values, plus matching seasonal tags. Routes only. */
+const MIN_HIGHLIGHTS = 3;
+
+/**
+ * Parses the current season's highlight out of the seasonal_highlights values, plus matching seasonal
+ * tags. When there's nothing seasonal to show, `attractions` (the theme-attraction list — venueAttractions,
+ * routeAttractions, clubAttractions, eventHighlights) fills in instead, so the section never renders empty
+ * for an opportunity that just isn't running a seasonal highlight right now; it also tops up a thin
+ * (< 3) seasonal match so the section doesn't look sparse.
+ */
 export function resolveSeasonalHighlight(
   seasonalHighlights: SlugName[] | null,
-  seasonalTag: SlugName[] | null
+  seasonalTag: SlugName[] | null,
+  attractions: SlugName[] | null = null
 ): SeasonalHighlight | null {
-  if (!seasonalHighlights || seasonalHighlights.length === 0) return null;
-
   const month = new Date().getMonth();
   const currentSeason =
     month >= 2 && month <= 4 ? "spring" : month >= 5 && month <= 7 ? "summer" : month >= 8 && month <= 10 ? "autumn" : "winter";
@@ -127,14 +134,25 @@ export function resolveSeasonalHighlight(
     winter: "Winter",
   };
   const seasonLabel = seasonLabels[currentSeason]!;
-  const seasonalAllHighlights = assets.getSeasonalHighlights(currentSeason);
+  const tags = (seasonalTag ?? []).map((t: SlugName) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
 
+  if (!seasonalHighlights || seasonalHighlights.length === 0) {
+    if (!attractions || attractions.length === 0) return null;
+    return { season: seasonLabel, highlight: attractions, tags };
+  }
+
+  const seasonalAllHighlights = assets.getSeasonalHighlights(currentSeason);
   const foundHighlights = seasonalAllHighlights.filter((item: EnumSeasonalHighlight) =>
     seasonalHighlights.some((other) => other.slug === item.slug)
   );
 
-  const tags = (seasonalTag ?? []).map((t: SlugName) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
-  const highlight: SlugName[] = foundHighlights.map((item) => ({ slug: currentSeason, name: item.name }));
+  let highlight: SlugName[] = foundHighlights.map((item) => ({ slug: currentSeason, name: item.name }));
+
+  if (highlight.length < MIN_HIGHLIGHTS && attractions && attractions.length > 0) {
+    const existingNames = new Set(highlight.map((h) => h.name));
+    const extra = attractions.filter((a) => !existingNames.has(a.name));
+    highlight = [...highlight, ...extra].slice(0, MIN_HIGHLIGHTS);
+  }
 
   return { season: seasonLabel, highlight, tags };
 }

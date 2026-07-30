@@ -308,7 +308,7 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     seasonalHighlight: null,
   };
   opp.liveStatus = resolveLiveStatus(opp);
-  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag);
+  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag, toSlugNameList(data.eventHighlights));
   
   return opp;
 };

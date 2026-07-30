@@ -5668,7 +5668,7 @@
     "ticketVariantFixedChildPrice": null,
     "ticketVariantDefinitionYoungChild": "0-5",
     "ticketVariantYoungChildPrice": "0",
-    "ticketVariantDefinitionOlderChild": "16-17",
+    "ticketVariantDefinitionOlderChild": "6-17",
     "ticketVariantOlderChildPrice": "30",
     "ticketVariantDefinitionAdult": "18+",
     "ticketVariantAdultPrice": "30",

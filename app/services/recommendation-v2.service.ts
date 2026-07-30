@@ -125,7 +125,7 @@ export class RecommendationV2Service {
     const oppLong       = Number.parseFloat(dto.opportunityLong || '0');
     const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
     // const maxMiles  = narrowed.searchRadius;
-    const maxMiles  = 1;
+    const maxMiles  = 5;
 
     const candidates = await this.repo.getOpportunityCandidatesV2();
     const routable   = candidates

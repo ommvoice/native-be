@@ -574,7 +574,7 @@ function resolveSearchTags(
     routeSuitability: resolveRouteSuitability(rec).map((s) => s.slug),
     routeDifficulty,
     ...(distanceKm !== undefined && { distance: distanceKm }),
-    ...(durationMin !== undefined && { durationMin }),
+    ...(durationMin !== undefined && { durationMin: durationMin*2 }),
   };
 }
 

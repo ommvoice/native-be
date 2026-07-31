@@ -218,9 +218,13 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
   const concessionPrice = parsePriceValue(data.ticketVariantConcessionPrice);
 
   const isFree = tiers.length > 0 && tiers.every((t) => t.price === "Free");
+  
+  const filteredPricingTiers = tiers.filter(
+  (tier) => tier.label?.toLowerCase() !== "family"
+);
 
   return {
-    tiers: isFree ? [] : tiers,
+    tiers: isFree ? [] : filteredPricingTiers,
     isFree: tiers.length === 0 || isFree,
     adultPrice,
     childPrice,

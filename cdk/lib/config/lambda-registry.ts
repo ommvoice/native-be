@@ -58,6 +58,13 @@ const authLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: true },
     routes: [{ path: ['auth', 'me'], method: 'GET', auth: true }],
   },
+  {
+    key: 'authRefresh', name: 'auth-refresh', entry: 'auth/refresh.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'none', cognito: true },
+    // Public: authenticates via the refresh token in the body, not the API's bearer-token authorizer.
+    routes: [{ path: ['auth', 'refresh'], method: 'POST', auth: false }],
+  },
 ];
 
 // ── Users ─────────────────────────────────────────────────────────────────────

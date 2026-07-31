@@ -80,6 +80,39 @@ export class AuthService {
     return user;
   }
 
+  /**
+   * Exchanges a still-valid refresh token for a new id token, without the user re-entering their
+   * password. Cognito doesn't rotate the refresh token on this flow — the same one keeps working
+   * until it hits its own 30-day validity (see COGNITO_TOKEN_VALIDITY), so the client just keeps
+   * calling this each time the short-lived id token (24h) expires.
+   */
+  async refresh(refreshToken: string) {
+    let result;
+    try {
+      result = await getCognito().send(
+        new AdminInitiateAuthCommand({
+          UserPoolId: env.cognitoUserPoolId(),
+          ClientId:   env.cognitoClientId(),
+          AuthFlow:   'REFRESH_TOKEN_AUTH',
+          AuthParameters: { REFRESH_TOKEN: refreshToken },
+        }),
+      );
+    } catch (err: unknown) {
+      const name = (err as { name?: string }).name;
+      if (name === 'NotAuthorizedException') {
+        throw new AppError(401, 'Refresh token is invalid or expired');
+      }
+      throw err;
+    }
+
+    const idToken = result.AuthenticationResult?.IdToken;
+    if (!idToken) throw new AppError(500, 'Cognito did not return a token');
+
+    await getVerifier().verify(idToken);
+
+    return { token: idToken };
+  }
+
   private async _authenticateAndUpsert(email: string, password: string) {
     const result = await getCognito().send(
       new AdminInitiateAuthCommand({
@@ -90,12 +123,13 @@ export class AuthService {
       }),
     );
 
-    const idToken = result.AuthenticationResult?.IdToken;
-    if (!idToken) throw new AppError(500, 'Cognito did not return a token');
+    const idToken      = result.AuthenticationResult?.IdToken;
+    const refreshToken = result.AuthenticationResult?.RefreshToken;
+    if (!idToken || !refreshToken) throw new AppError(500, 'Cognito did not return a token');
 
     const payload = await getVerifier().verify(idToken);
     const user    = await this.userRepo.upsertBySub(payload.sub, email);
 
-    return { token: idToken, user };
+    return { token: idToken, refreshToken, user };
   }
 }

@@ -24,9 +24,12 @@ export const COGNITO_AUTH_FLOWS: cognito.AuthFlow = {
 
 // ── Token validity ─────────────────────────────────────────────────────────────
 
+// Cognito caps id/access tokens at 24h — that's the hard maximum, a 1-month token isn't possible.
+// The app instead relies on the 30-day refresh token (see auth.service.ts's `refresh()`) so a session
+// can last up to a month without the user re-entering their password.
 export const COGNITO_TOKEN_VALIDITY = {
-  accessToken:  cdk.Duration.hours(1),
-  idToken:      cdk.Duration.hours(1),
+  accessToken:  cdk.Duration.hours(24),
+  idToken:      cdk.Duration.hours(24),
   refreshToken: cdk.Duration.days(30),
 } as const;
 

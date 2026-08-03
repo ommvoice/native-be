@@ -17,6 +17,11 @@ export interface SeasonalHighlight {
   tags: string[];
 }
 
+function capitalize(text: string): string {
+  if (!text) return text;
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 function getOpeningStatus(
   openingHours: OpportunityDetail["opening_hours"]
 ): { isOpen: boolean; message: string } | null {
@@ -88,7 +93,13 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
     const eventDate = new Date(opp.start_date);
     const isToday = eventDate.toDateString() === now.toDateString();
     if (isToday) {
-      const todayTimes = opp.event_times?.[currentDay];
+      const todayTimes = opp.event_times?.[currentDay] ?? opp.event_times?.[capitalize(currentDay)];
+      const [start, end] = todayTimes?.[0]?.split(/[-–]/).map((s2) => s2.trim()) ?? [];
+      const currentTime = `${currentHour.toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+
+      if (start && end && currentTime >= start && currentTime < end) {
+        return { variant: "open", message: `Happening Now \u2013 ${end}` };
+      }
       if (todayTimes && todayTimes.length > 0) {
         return { variant: "soon", message: `Starting Soon ${todayTimes[0]}` };
       }
@@ -97,10 +108,11 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   }
 
   if (opp.opp_type === "route") {
-    if (currentHour >= 6 && currentHour < 18) {
-      return { variant: "open", message: "Open Now – dusk" };
-    }
-    return { variant: "soon", message: "Opens Soon 06:00" };
+    return { variant: "open", message: "Open Now" };
+    // if (currentHour >= 6 && currentHour < 18) {
+    //   return { variant: "open", message: "Open Now – dusk" };
+    // }
+    // return { variant: "soon", message: "Opens Soon 06:00" };
   }
 
   const hash = opp.id.split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0);

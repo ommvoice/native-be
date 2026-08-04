@@ -1,4 +1,5 @@
 import type { RecommendationV2AgeBands } from '../dtos/recommendation.dto';
+import { AppClock } from '../shared/utils/app-clock';
 
 export function collectFamilyInterestSlugs(input: {
   parentCategorySlugs: string[];
@@ -27,9 +28,11 @@ export function haversineDistanceMiles(lat1: number, lon1: number, lat2: number,
 }
 
 export function getAgeInYears(dateOfBirth: Date, asOf = new Date()): number {
-  let age = asOf.getFullYear() - dateOfBirth.getFullYear();
-  const m = asOf.getMonth() - dateOfBirth.getMonth();
-  if (m < 0 || (m === 0 && asOf.getDate() < dateOfBirth.getDate())) age--;
+  const birth = AppClock.parts(dateOfBirth);
+  const ref   = AppClock.parts(asOf);
+  let age = ref.year - birth.year;
+  const m = ref.month - birth.month;
+  if (m < 0 || (m === 0 && ref.day < birth.day)) age--;
   return Math.max(0, age);
 }
 
@@ -84,31 +87,22 @@ export function combineNearby(ageScore: number, distanceScore: number): number {
   return Math.round(ageScore * 0.5 + distanceScore * 0.5);
 }
 
-const ONE_HOUR_MS = 60 * 60 * 1000;
-
-/** Combines an "HH:mm" time-of-day string with `date`'s calendar day. Returns null on unparseable input. */
-function parseTimeOnDate(date: Date, time: string): Date | null {
-  const match = time.match(/^(\d{1,2}):(\d{2})/);
-  if (!match) return null;
-  const result = new Date(date);
-  result.setHours(Number(match[1]), Number(match[2]), 0, 0);
-  return result;
-}
-
+/** `now` and the "HH:MM" `startTime` are compared as UK wall-clock minutes-since-midnight — not by
+ * building Date objects via `setHours`, which runs in the Lambda runtime's own zone (UTC), not the UK's. */
 function isStartingWithinAnHour(now: Date, startTime?: string | null): boolean {
   if (!startTime) return false;
-  const start = parseTimeOnDate(now, startTime);
-  if (!start) return false;
-  const diff = start.getTime() - now.getTime();
-  return diff >= 0 && diff <= ONE_HOUR_MS;
+  const startMins = AppClock.parseTimeToMinutes(startTime);
+  if (startMins === null) return false;
+  const diff = startMins - AppClock.minutesSinceMidnight(now);
+  return diff >= 0 && diff <= 60;
 }
 
 function endedWithinAnHour(now: Date, endTime?: string | null): boolean {
   if (!endTime) return false;
-  const end = parseTimeOnDate(now, endTime);
-  if (!end) return false;
-  const diff = now.getTime() - end.getTime();
-  return diff >= 0 && diff <= ONE_HOUR_MS;
+  const endMins = AppClock.parseTimeToMinutes(endTime);
+  if (endMins === null) return false;
+  const diff = AppClock.minutesSinceMidnight(now) - endMins;
+  return diff >= 0 && diff <= 60;
 }
 
 export function scoreSchedule(
@@ -122,7 +116,7 @@ export function scoreSchedule(
   if (type === 'route' || type === 'venue') return 100;
 
   const now   = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const today = AppClock.calendarDay(now);
 
   // Starting inside the next hour,  surface
   // these as maximally relevant regardless of the day-level check below.
@@ -131,8 +125,8 @@ export function scoreSchedule(
   if (type === 'event') {
     const start    = startDate ? new Date(startDate) : null;
     const end      = endDate ? new Date(endDate) : null;
-    const startDay = start ? new Date(start.getFullYear(), start.getMonth(), start.getDate()) : null;
-    const endDay   = end ? new Date(end.getFullYear(), end.getMonth(), end.getDate()) : null;
+    const startDay = start ? AppClock.calendarDay(start) : null;
+    const endDay   = end ? AppClock.calendarDay(end) : null;
 
     // No date info at all — can't confirm it's actually on today, so don't show it.
     if (!startDay && !endDay) return 0;
@@ -148,7 +142,7 @@ export function scoreSchedule(
     // No recurring schedule captured — can't confirm it's open today, don't show it.
     if (!activeDays || activeDays.length === 0) return 0;
     const dayNames  = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const todayName = dayNames[now.getDay()]!;
+    const todayName = dayNames[AppClock.weekday(now)]!;
     // Not running today — closed today, don't show it.
     if (!activeDays.includes(todayName)) return 0;
     return 100;

@@ -4,6 +4,7 @@ import { buildImageUrls } from "./image-url";
 import { resolveTicketPricing } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
+import { AppClock } from "../app-clock";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -148,7 +149,7 @@ export function buildScheduleInfo(data: OpportunityClubV2): { title: string; sub
 
   const weekDaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 
-  const todayIndex = new Date().getDay();
+  const todayIndex = AppClock.weekday();
   const todayShort = weekDaysShort[todayIndex];
 
   // map day index to your mixedDays structure

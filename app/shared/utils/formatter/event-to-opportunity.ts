@@ -4,6 +4,7 @@ import { buildImageUrls } from "./image-url";
 import { resolveTicketPricing } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
+import { AppClock } from "../app-clock";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -103,11 +104,10 @@ export function buildScheduleInfo(data: OpportunityEventV2): { title: string; su
   const eventEndDate = data.eventEndDate ? new Date(data.eventEndDate): null;
   if (!eventStartDate && !eventEndDate) return null;
 
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const today = AppClock.calendarDay();
 
-  const start = eventStartDate ? new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), eventStartDate.getDate()) : null;
-  const end = eventEndDate ? new Date(eventEndDate.getFullYear(), eventEndDate.getMonth(), eventEndDate.getDate()) : null;
+  const start = eventStartDate ? AppClock.calendarDay(eventStartDate) : null;
+  const end = eventEndDate ? AppClock.calendarDay(eventEndDate) : null;
 
   if (end && end < today) return { title: "Ended", subtitle: "Event has ended" };
   if (start && start.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Today" };

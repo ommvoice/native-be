@@ -5,6 +5,7 @@ import { AssetsService } from '../services/assets.service';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { OpportunityRecordType } from './driving-leg.repository';
 import { legKey } from './driving-leg.repository';
+import { AppClock } from '../shared/utils/app-clock';
 
 function b(v: unknown): boolean | null {
   return typeof v === 'boolean' ? v : null;
@@ -21,7 +22,7 @@ function getEventTodayTimes(e: Record<string, unknown>): { startTime: string | n
       endTime:   (e.eventDailyFixedEndTime   as string | null) ?? null,
     };
   }
-  const day = DAY_NAMES[new Date().getDay()]!;
+  const day = DAY_NAMES[AppClock.weekday()]!;
   return {
     startTime: (e[`eventMixedTimings${capitalize(day)}Start`] as string | null) ?? null,
     endTime:   (e[`eventMixedTimings${capitalize(day)}End`]   as string | null) ?? null,
@@ -36,7 +37,7 @@ function getClubTodayTimes(c: Record<string, unknown>): { startTime: string | nu
       endTime:   (c.clubDailyEndTime   as string | null) ?? null,
     };
   }
-  const day = DAY_NAMES[new Date().getDay()]!;
+  const day = DAY_NAMES[AppClock.weekday()]!;
   return {
     startTime: (c[`clubMixedTimings${capitalize(day)}StartTime`] as string | null) ?? null,
     endTime:   (c[`clubMixedTimings${capitalize(day)}EndTime`]   as string | null) ?? null,

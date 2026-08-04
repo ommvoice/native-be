@@ -1,6 +1,7 @@
 import { AssetsService } from "../../../services/assets.service";
 import type { OpportunityDetail, SlugName } from "../../types/opportunity-detail.types";
 import type { EnumSeasonalHighlight } from "../../types/assets.types";
+import { AppClock } from "../app-clock";
 
 const DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
 const DAY_LABELS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
@@ -28,8 +29,8 @@ function getOpeningStatus(
   if (!openingHours) return null;
 
   const now = new Date();
-  const currentDay = DAYS[now.getDay()]!;
-  const currentTime = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+  const currentDay = DAYS[AppClock.weekday(now)]!;
+  const currentTime = AppClock.timeString(now);
   const todayHours = openingHours[currentDay];
 
   if (todayHours?.allDay) {
@@ -45,7 +46,7 @@ function getOpeningStatus(
   }
 
   for (let i = 1; i <= 7; i++) {
-    const nextDayIdx = (now.getDay() + i) % 7;
+    const nextDayIdx = (AppClock.weekday(now) + i) % 7;
     const nextDayHours = openingHours[DAYS[nextDayIdx]!];
     const label = i === 1 ? "Tomorrow" : DAY_LABELS[nextDayIdx];
     if (nextDayHours?.allDay) {
@@ -62,8 +63,9 @@ function getOpeningStatus(
 /** Live open/closed status for any opportunity type — real data where available, deterministic fallback otherwise. */
 export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   const now = new Date();
-  const currentHour = now.getHours();
-  const currentDay = DAYS[now.getDay()]!;
+  const nowParts = AppClock.parts(now);
+  const currentHour = nowParts.hours;
+  const currentDay = DAYS[nowParts.weekday]!;
 
   if (opp.opp_type === "venue") {
     const real = getOpeningStatus(opp.opening_hours);
@@ -78,7 +80,7 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
     const todaySlot = opp.club_availability[currentDay]?.[0] ?? null;
     if (todaySlot) {
       const [start, end] = todaySlot.split(/[-–]/).map((s) => s.trim());
-      const currentTime = `${currentHour.toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+      const currentTime = `${currentHour.toString().padStart(2, "0")}:${nowParts.minutes.toString().padStart(2, "0")}`;
       if (start && end && currentTime >= start && currentTime < end) {
         return { variant: "open", message: `Happening Now – ${end}` };
       }
@@ -91,11 +93,11 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
 
   if (opp.opp_type === "event" && opp.start_date) {
     const eventDate = new Date(opp.start_date);
-    const isToday = eventDate.toDateString() === now.toDateString();
+    const isToday = AppClock.isSameCalendarDay(eventDate, now);
     if (isToday) {
       const todayTimes = opp.event_times?.[currentDay] ?? opp.event_times?.[capitalize(currentDay)];
       const [start, end] = todayTimes?.[0]?.split(/[-–]/).map((s2) => s2.trim()) ?? [];
-      const currentTime = `${currentHour.toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+      const currentTime = `${currentHour.toString().padStart(2, "0")}:${nowParts.minutes.toString().padStart(2, "0")}`;
 
       if (start && end && currentTime >= start && currentTime < end) {
         return { variant: "open", message: `Happening Now \u2013 ${end}` };
@@ -136,7 +138,7 @@ export function resolveSeasonalHighlight(
   seasonalTag: SlugName[] | null,
   attractions: SlugName[] | null = null
 ): SeasonalHighlight | null {
-  const month = new Date().getMonth();
+  const month = AppClock.parts().month;
   const currentSeason =
     month >= 2 && month <= 4 ? "spring" : month >= 5 && month <= 7 ? "summer" : month >= 8 && month <= 10 ? "autumn" : "winter";
   const seasonLabels: Record<string, SeasonalHighlight["season"]> = {

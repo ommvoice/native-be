@@ -118,9 +118,12 @@ export function scoreSchedule(
   const now   = new Date();
   const today = AppClock.calendarDay(now);
 
-  // Starting inside the next hour,  surface
-  // these as maximally relevant regardless of the day-level check below.
-  if (isStartingWithinAnHour(now, startTime)) return 100;
+  // isStartingWithinAnHour only compares wall-clock time-of-day — it has no
+  // idea which day/date this club/event actually runs on. Checking it before
+  // confirming the item is even on today would let a pure clock-time
+  // coincidence (e.g. it's 14:45 and startTime is "15:30") override a real
+  // "not open today" exclusion below. So the day/date gate must run first;
+  // the within-an-hour check only matters once we already know it's on today.
 
   if (type === 'event') {
     const start    = startDate ? new Date(startDate) : null;
@@ -134,8 +137,12 @@ export function scoreSchedule(
     if (startDay && startDay > today) return 0;
     if (endDay && endDay < today) return 0;
 
-    // Today falls within [start, end] (or the one bound present covers today) — it's on today.
-    return 100;
+    // Today falls within [start, end] (or the one bound present covers today)
+    // — it's on today. Starting or ending within the hour is maximally
+    // relevant (100); otherwise still shown, just ranked slightly below the
+    // imminent ones (90).
+    if (isStartingWithinAnHour(now, startTime) || endedWithinAnHour(now, endTime)) return 100;
+    return 90;
   }
 
   if (type === 'club') {
@@ -145,7 +152,9 @@ export function scoreSchedule(
     const todayName = dayNames[AppClock.weekday(now)]!;
     // Not running today — closed today, don't show it.
     if (!activeDays.includes(todayName)) return 0;
-    return 100;
+
+    if (isStartingWithinAnHour(now, startTime) || endedWithinAnHour(now, endTime)) return 100;
+    return 90;
   }
 
   return 100;

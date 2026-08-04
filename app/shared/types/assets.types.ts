@@ -52,6 +52,7 @@ export type EnumAbilityLevel = EnumEntry;
 export type EnumEventType = EnumEntry;
 export type EnumBookingType = EnumEntry;
 export type EnumTicketVariant = EnumEntry;
+export type EnumInterestTag = EnumEntry;
 
 export interface EnumResponse {
     opportunityType : EnumOpportunityType[];
@@ -86,4 +87,5 @@ export interface EnumResponse {
     skillAreaVariant : EnumSkillAreaVariant[];
     seasonalHighlight : EnumSeasonalHighlight[];
     themeAttraction : EnumThemeAttraction[];
+    interestTags : EnumInterestTag[];
 }

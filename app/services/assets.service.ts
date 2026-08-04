@@ -9,7 +9,7 @@ import type { InterestCategoryRecord, InterestSubCategoryRecord } from '../repos
 import type { ThemeRecord, ThemeVariantRecord } from '../repositories/theme.repository';
 import type { SkillRecord } from '../repositories/skill.repository';
 import type { FacilityRecord } from '../repositories/facility.repository';
-import { EnumEntry, EnumSeasonalHighlight } from '../shared/types/assets.types';
+import { EnumEntry, EnumSeasonalHighlight, EnumInterestTag } from '../shared/types/assets.types';
 
 // Enum-sourced records (`{name, slug, active}`) have no real createdAt/updatedAt —
 // this fixed placeholder keeps the existing Record shapes intact without implying a real timestamp.
@@ -183,34 +183,9 @@ export class AssetsService {
     return this.slugLabelMap.get(slug);
   }
 
-  getIntrestTags() : any{
+  getIntrestTags() : EnumInterestTag[]{
 
-   const interests = [
-  { id: "birds", slug: "birds", name: "Birds" },
-  { id: "craft", slug: "craft", name: "Craft" },
-  { id: "dancing", slug: "dancing", name: "Dancing" },
-  { id: "dinosaurs", slug: "dinosaurs", name: "Dinosaurs" },
-  { id: "drawing", slug: "drawing", name: "Drawing" },
-  { id: "music", slug: "music", name: "Music" },
-  { id: "animals", slug: "animals", name: "Animals" },
-  { id: "nature", slug: "nature", name: "Nature" },
-  { id: "swimming", slug: "swimming", name: "Swimming" },
-  { id: "reading", slug: "reading", name: "Reading" },
-  { id: "gaming", slug: "gaming", name: "Gaming" },
-  { id: "flowers", slug: "flowers", name: "Flowers" },
-  { id: "fish", slug: "fish", name: "Fish" },
-  { id: "cats", slug: "cats", name: "Cats" },
-  { id: "dogs", slug: "dogs", name: "Dogs" },
-  { id: "drama", slug: "drama", name: "Drama" },
-  { id: "sports", slug: "sports", name: "Sports" },
-  { id: "art", slug: "art", name: "Art" },
-  { id: "cooking", slug: "cooking", name: "Cooking" },
-  { id: "trucks", slug: "trucks", name: "Trucks" },
-  { id: "lego", slug: "lego", name: "Lego" },
-  { id: "superheroes", slug: "superheroes", name: "Superheroes" },
-] as const;
-
-    return interests
+    return enums.interestTags as EnumInterestTag[];
   }
 
   getSeasonalHighlights(season:string): EnumSeasonalHighlight[] {

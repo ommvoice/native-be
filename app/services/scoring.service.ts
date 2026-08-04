@@ -119,14 +119,14 @@ export function scoreSchedule(
   startTime?: string | null,
   endTime?: string | null,
 ): number {
-  if (type === 'route') return 100;
+  if (type === 'route' || type === 'venue') return 100;
 
   const now   = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  // Starting inside the next hour, or ended inside the last hour — surface
+  // Starting inside the next hour,  surface
   // these as maximally relevant regardless of the day-level check below.
-  if (isStartingWithinAnHour(now, startTime) || endedWithinAnHour(now, endTime)) return 100;
+  if (isStartingWithinAnHour(now, startTime)) return 100;
 
   if (type === 'event') {
     const start    = startDate ? new Date(startDate) : null;

@@ -91,7 +91,7 @@ export class AssetsService {
       id: t.slug,
       slug: t.slug,
       name: t.name,
-      interestId: (t.interestCategorySlugs ?? [])[0] ?? '',
+      interestId: (t.interestCategorySlugs ?? []),
       description: null,
       imageUrl: null,
       createdAt: SYNTHETIC_TIMESTAMP,

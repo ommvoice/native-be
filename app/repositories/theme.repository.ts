@@ -4,7 +4,7 @@ export interface ThemeRecord {
   id: string;
   slug: string;
   name: string;
-  interestId: string;
+  interestId: string[];
   description: string | null;
   imageUrl: string | null;
   createdAt: string;

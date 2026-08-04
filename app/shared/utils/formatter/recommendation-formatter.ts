@@ -298,7 +298,7 @@ function resolveInterestCategory(themeSlug: string | undefined): SlugName | null
   const firstThemeSlug = themeSlug?.split(",")[0]?.trim();
   if (!firstThemeSlug) return null;
   const theme = assets.getThemes().find((t) => t.slug === firstThemeSlug);
-  return theme?.interestId ? toSlugName(theme.interestId) : null;
+  return theme?.interestId ? toSlugName(theme.interestId[0]) : null;
 }
 
 // ── Card-display field resolvers (nativeapp-main-loveable OpportunityCard.tsx parity) ──

@@ -481,7 +481,14 @@ function resolveCardDisplay(
 
   switch (type) {
     case "venue": {
-      const costBooking = fields.bookingType ? fields.bookingType.toLowerCase().includes('free') ? `Free` : `${cost} (${fields.bookingType})` : cost;
+      const bookingLable = fields.bookingType?.split(",")?.[0]?.trim() ?? undefined;
+     const costBooking = bookingLable
+        ? cost.toLowerCase() === "free"
+          ? bookingLable === "Open (Free) Access"
+            ? bookingLable
+            : `Free (${bookingLable})`
+          : `${cost} (${bookingLable})`
+        : cost;
       const timeLine = duration ? `Allow ${compactDuration(duration)}` : undefined;
       return {
         compact: { line1: costBooking, line2: journey, line2IsJourney: true },
@@ -490,7 +497,7 @@ function resolveCardDisplay(
     }
 
     case "route": {
-      let routeTypeLabel = formatCardLabel(fields.routeType);
+      let routeTypeLabel = formatCardLabel(fields.routeType)?.split(",")[0].trim() ?? undefined;
       if (routeTypeLabel === "Out And Back") routeTypeLabel = "Out-Back";
       const durationPart = compactDuration(duration) || undefined;
       const typeDurationCompact = [routeTypeLabel, durationPart ? `(${durationPart})` : undefined].filter(Boolean).join(" ");

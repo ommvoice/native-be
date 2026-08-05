@@ -35,6 +35,8 @@ export interface RecommendationV2Candidate {
   ageBands: RecommendationV2AgeBands;
   skillAreaSlug: string | null;
   skillAreaVariant: string | null;
+  /** Free-text interest tags (e.g. "birdsong", "cycling") — matched against children's own interestTags. */
+  tags: string[];
   startDate?: string | null;
   endDate?: string | null;
   activeDays?: string[];

@@ -11,6 +11,12 @@ function b(v: unknown): boolean | null {
   return typeof v === 'boolean' ? v : null;
 }
 
+/** venue/event/club/routeInterestTags are a comma-separated free-text list, e.g. "birdsong, viewpoints, cycling". */
+function splitTags(raw: unknown): string[] {
+  if (typeof raw !== 'string' || !raw.trim()) return [];
+  return raw.split(',').map((t) => t.trim()).filter(Boolean);
+}
+
 const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 function capitalize(s: string): string { return s.charAt(0).toUpperCase() + s.slice(1); }
 
@@ -113,6 +119,9 @@ export class RecommendationV2Repository {
         dateOfBirth:           new Date(item.dateOfBirth as string),
         interestCategories:    categorySlugs.map((slug) => ({ slug })),
         interestSubCategories: subCategorySlugs.map((slug) => ({ slug })),
+        // Free-text tags (e.g. "Cats", "Dogs") — separate from the
+        // slug-based interestCategoryIds/interestSubCategoryIds above.
+        interestTags: (item.interestTags as string[]) ?? [],
         skills: skillSlugs.map((slug) => ({
           slug,
           minAge: null,
@@ -150,6 +159,7 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    null,
       skillAreaVariant: null,
+      tags:             splitTags(v.venueInterestTags),
     }));
 
     const eventRows: RecommendationV2Candidate[] = events.map((e) => ({
@@ -175,6 +185,7 @@ export class RecommendationV2Repository {
       skillAreaVariant: (e.eventSkillAreaVariant   as string | null) ?? null,
       startDate:        (e.eventStartDate as string | null) ?? null,
       endDate:          (e.eventEndDate   as string | null) ?? null,
+      tags:             splitTags(e.eventInterestTags),
       ...getEventTodayTimes(e),
     }));
 
@@ -202,6 +213,7 @@ export class RecommendationV2Repository {
       startDate:        (c.clubStartDate as string | null) ?? null,
       endDate:          (c.clubEndDate   as string | null) ?? null,
       activeDays:       getClubActiveDays(c),
+      tags:             splitTags(c.clubInterestTags),
       ...getClubTodayTimes(c),
     }));
 
@@ -226,6 +238,7 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    null,
       skillAreaVariant: null,
+      tags:             splitTags(r.routeInterestTags),
     }));
 
     return [...venueRows, ...eventRows, ...clubRows, ...routeRows];

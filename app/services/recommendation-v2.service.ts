@@ -13,6 +13,7 @@ import {
   scoreDistance,
   scoreInterestOverlap,
   scoreSchedule,
+  scoreTagOverlap,
 } from './scoring.service';
 import type { RecommendationQueryDto } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
@@ -58,6 +59,10 @@ export class RecommendationV2Service {
       })),
     });
 
+    // Free-text tags (e.g. "Cats", "Dogs") the selected children picked directly —
+    // separate from the slug-based interest categories/sub-categories above.
+    const childTags = [...new Set(narrowed.children.flatMap((ch) => ch.interestTags ?? []))];
+
     const candidates = await this.repo.getOpportunityCandidatesV2();
     const routable   = candidates
       .map((c) => {
@@ -83,6 +88,7 @@ export class RecommendationV2Service {
         const interestScore  = Math.round(scoreInterestOverlap(familySlugs, c.themeSlug, c.themeVariantSlug));
         const ageScore       = Math.round(scoreAge(childAges, c.ageBands));
         const distanceScore  = Math.round(scoreDistance(distMiles, maxMiles));
+        const tagScore       = Math.round(scoreTagOverlap(childTags, c.tags));
         const openingTimeScore  = scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime); //openningScore
         if (openingTimeScore === 0) return null;
         const total          = combineWeighted(interestScore, ageScore, distanceScore);
@@ -97,11 +103,14 @@ export class RecommendationV2Service {
           drivingDistanceMiles:   driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters)  : null,
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
           score: adjusted,
-          scoreBreakdown: { interestScore, ageScore, distanceScore, openingTimeScore, total: adjusted },
+          tagScore,
+          scoreBreakdown: { interestScore, ageScore, distanceScore, tagScore, openingTimeScore, total: adjusted },
         };
       })
       .filter(Boolean)
-      .sort((a, b) => b!.score - a!.score) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      // tagScore only breaks ties within the same recommendation score — it
+      // never outranks a candidate with a higher base score.
+      .sort((a, b) => b!.score - a!.score || b!.tagScore - a!.tagScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
       // .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
     return this.attachPayloads(scored);

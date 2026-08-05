@@ -275,7 +275,7 @@
   ],
   "estimatedDuration": [
     {
-      "name": "Under 30mins",
+      "name": "Up to 30mins",
       "slug": "under_thirty_mins",
       "active": true
     },
@@ -300,7 +300,7 @@
       "active": true
     },
     {
-      "name": "Whole Day",
+      "name": "",
       "slug": "whole_day",
       "active": true
     }

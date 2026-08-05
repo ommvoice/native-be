@@ -77,6 +77,17 @@ export function scoreDistance(distanceMiles: number, maxMiles: number): number {
   return 100 * (1 - distanceMiles / maxMiles);
 }
 
+/** How many of the children's free-text interestTags (e.g. "Cats", "Dogs") show up in this candidate's own tag list — matched case-insensitively. No child tags selected -> neutral 50, same convention as scoreInterestOverlap. */
+export function scoreTagOverlap(childTags: string[], candidateTags: string[]): number {
+  if (childTags.length === 0) return 50;
+  const candidateSet = new Set(candidateTags.map((t) => t.trim().toLowerCase()));
+  let matched = 0;
+  for (const t of childTags) {
+    if (candidateSet.has(t.trim().toLowerCase())) matched++;
+  }
+  return (matched / childTags.length) * 100;
+}
+
 export function combineWeighted(interestScore: number, ageScore: number, distanceScore: number): number {
   if (interestScore === 0 || ageScore === 0 || distanceScore === 0) return 0;
   return Math.round((interestScore + ageScore + distanceScore) / 3);

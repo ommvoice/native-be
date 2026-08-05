@@ -108,22 +108,23 @@ export function buildScheduleInfo(data: OpportunityEventV2): { title: string; su
 
   const start = eventStartDate ? AppClock.calendarDay(eventStartDate) : null;
   const end = eventEndDate ? AppClock.calendarDay(eventEndDate) : null;
+  const title = `${eventStartDate} – ${eventEndDate}`;
 
   if (end && end < today) return { title: "Ended", subtitle: "Event has ended" };
-  if (start && start.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Today" };
-  if (end && end.getTime() === today.getTime()) return { title: "Don't Miss It", subtitle: "Last day" };
+  if (start && start.getTime() === today.getTime()) return { title, subtitle: "Today" };
+  if (end && end.getTime() === today.getTime()) return { title, subtitle: "Last day" };
 
   if (end) {
     const daysLeft = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    return { title: "Don't Miss It", subtitle: `${daysLeft} day${daysLeft === 1 ? "" : "s"} left` };
+    return { title, subtitle: `${daysLeft} day${daysLeft === 1 ? "" : "s"} left` };
   }
 
   if (start && start > today) {
     const daysUntil = Math.ceil((start.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    return { title: "Coming Soon", subtitle: `Starts in ${daysUntil} day${daysUntil === 1 ? "" : "s"}` };
+    return { title, subtitle: `Starts in ${daysUntil} day${daysUntil === 1 ? "" : "s"}` };
   }
 
-  return { title: "Don't Miss It", subtitle: "On now" };
+  return { title, subtitle: "On now" };
 }
 
 function buildInfoData(data: OpportunityEventV2): any[] | null {

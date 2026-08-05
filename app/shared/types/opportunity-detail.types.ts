@@ -70,6 +70,8 @@ export interface OpportunityDetail {
   is_free:          boolean | null;
   entry_cost:       string | null;
   price_info:       string | null;
+  // Venue/event only — how entry works (advance_book/pay_on_arrival/etc.), possibly multi-value.
+  booking_type:     SlugName[] | null;
   adult_price:      number | null;
   child_price:      number | null;
   infant_price:     number | null;

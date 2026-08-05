@@ -138,6 +138,7 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
     is_free: true,
     entry_cost: null,
     price_info: null,
+    booking_type: null,
     adult_price: null,
     child_price: null,
     infant_price: null,

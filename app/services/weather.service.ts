@@ -28,7 +28,13 @@ export async function getWeatherByPostcode(postcode: string) {
   }
 
   return {
-    icon:      `https:${body.current.condition.icon}`,
+    condition: {
+      text: body.current.condition.text,
+      icon: `https:${body.current.condition.icon}`,
+      code: body.current.condition.code,
+      isDay: body.current.is_day === 1,
+      isWindy: body.current.wind_mph >= 35,
+    },
     wind_mph:  Math.round(body.current.wind_mph),
     temp_c:    Math.round(body.current.temp_c),
     localtime: body.location.localtime,

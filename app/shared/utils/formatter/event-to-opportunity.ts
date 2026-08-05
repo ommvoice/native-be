@@ -99,6 +99,34 @@ function buildEventTimes(data: OpportunityEventV2): Record<string, string[]> | n
   return Object.keys(result).length > 0 ? result : null;
 }
 
+const MIXED_TIMING_DAY_FIELDS = [
+  ["eventMixedTimingsSundayStart", "eventMixedTimingsSundayEnd"],
+  ["eventMixedTimingsMondayStart", "eventMixedTimingsMondayEnd"],
+  ["eventMixedTimingsTuesdayStart", "eventMixedTimingsTuesdayEnd"],
+  ["eventMixedTimingsWednesdayStart", "eventMixedTimingsWednesdayEnd"],
+  ["eventMixedTimingsThursdayStart", "eventMixedTimingsThursdayEnd"],
+  ["eventMixedTimingsFridayStart", "eventMixedTimingsFridayEnd"],
+  ["eventMixedTimingsSaturdayStart", "eventMixedTimingsSaturdayEnd"],
+] as const satisfies readonly (readonly [keyof OpportunityEventV2, keyof OpportunityEventV2])[];
+
+/** "HH:MM-HH:MM" for whichever of the event's start/end time fields actually apply — daily fixed timing first, then weekly fixed, then today's specific mixed-timing day. Null when the event has no time-of-day info at all (only start/end dates). */
+function resolveEventTimeRange(data: OpportunityEventV2): string | null {
+  if (data.eventDailyFixedTimings && data.eventDailyFixedStartTime && data.eventDailyFixedEndTime) {
+    return `${data.eventDailyFixedStartTime}-${data.eventDailyFixedEndTime}`;
+  }
+
+  if (data.eventWeeklyFixedStartTime && data.eventWeeklyFixedEndTime) {
+    return `${data.eventWeeklyFixedStartTime}-${data.eventWeeklyFixedEndTime}`;
+  }
+
+  const [startField, endField] = MIXED_TIMING_DAY_FIELDS[AppClock.weekday()]!;
+  const start = data[startField] as string | null;
+  const end = data[endField] as string | null;
+  if (start && end) return `${start}-${end}`;
+
+  return null;
+}
+
 export function buildScheduleInfo(data: OpportunityEventV2): { title: string; subtitle: string } | null {
   const eventStartDate = data.eventStartDate ? new Date(data.eventStartDate): null;
   const eventEndDate = data.eventEndDate ? new Date(data.eventEndDate): null;
@@ -108,7 +136,7 @@ export function buildScheduleInfo(data: OpportunityEventV2): { title: string; su
 
   const start = eventStartDate ? AppClock.calendarDay(eventStartDate) : null;
   const end = eventEndDate ? AppClock.calendarDay(eventEndDate) : null;
-  const title = `${eventStartDate} – ${eventEndDate}`;
+  const title = resolveEventTimeRange(data) ?? "";
 
   if (end && end < today) return { title: "Ended", subtitle: "Event has ended" };
   if (start && start.getTime() === today.getTime()) return { title, subtitle: "Today" };
@@ -147,7 +175,7 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
   if (data.eventBookingType || data.ticketingRequirement !== null) {
     const type = (data.eventBookingType ?? "").toLowerCase().trim();
     const title = type.includes("advance") ? "Book Ahead" : "Drop In";
-    const subtitle = data.eventBookingType || "-";
+    const subtitle = toSlugNameList(data.eventBookingType)?.map((e) => e.name).join(", ") ?? "-";
     infoList.push({ icon: "booking", title, subtitle, label: "Booking" });
   }
 
@@ -251,6 +279,7 @@ export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail 
     is_free: (!hasEntryCost && !anyPrice) || pricing.isFree,
     entry_cost: anyPrice ?? null,
     price_info: resolvePriceInfo(data),
+    booking_type: toSlugNameList(data.eventBookingType),
     adult_price: pricing.adultPrice,
     child_price: pricing.childPrice,
     infant_price: pricing.babyPrice,

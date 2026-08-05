@@ -312,6 +312,7 @@ export const clubToOpportunity = (data: OpportunityClubV2): OpportunityDetail =>
     is_free: (!hasTicketing && !anyPrice) || pricing.isFree,
     entry_cost: anyPrice ?? null,
     price_info: resolvePriceInfo(data),
+    booking_type: null, // clubs have no bookingType field — see clubCommittment/requires_booking instead
     adult_price: pricing.adultPrice,
     child_price: pricing.childPrice,
     infant_price: pricing.babyPrice,

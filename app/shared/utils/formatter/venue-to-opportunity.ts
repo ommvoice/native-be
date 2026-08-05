@@ -204,6 +204,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     is_free: (!hasEntryCost && !anyPrice) || pricing.isFree,
     entry_cost: anyPrice ?? null,
     price_info: resolvePriceInfo(data),
+    booking_type: toSlugNameList(data.venueBookingType),
     adult_price: pricing.adultPrice,
     child_price: pricing.childPrice,
     infant_price: pricing.babyPrice,

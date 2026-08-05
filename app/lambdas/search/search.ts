@@ -9,7 +9,7 @@ import { ParentRepository } from '../../repositories/parent.repository';
 import { DrivingLegRepository } from '../../repositories/driving-leg.repository';
 import { FacilityRepository, type FacilityRecord } from '../../repositories/facility.repository';
 import { RecommendationV2Repository } from '../../repositories/recommendation-v2.repository';
-import { haversineDistanceMiles, metersToMilesOneDecimal } from '../../services/scoring.service';
+import { getAgeInYears, haversineDistanceMiles, metersToMilesOneDecimal } from '../../services/scoring.service';
 import type { OpportunitySearchQueryDto } from '../../dtos/search.dto';
 import { matchesSearchFilters, type RawSearchPayload } from './search-filters';
 import { toOpportunity, type EnrichedScoredRecommendationV2 } from '../../shared/utils/formatter/recommendation-formatter';
@@ -50,6 +50,13 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   if (!Number.isFinite(parentLat) || !Number.isFinite(parentLon)) {
     throw new AppError(400, 'Parent location is invalid');
   }
+
+  // Card prices should reflect this specific family's composition (see
+  // recommendation-formatter.ts resolveFamilyEstimatedTotal), same as the
+  // main recommendations feed — fetched separately since ParentRepository
+  // doesn't join children.
+  const parentForFamily = await recRepo.getParentForRecommendations(dto.parentId, dto.childId);
+  const childrenAges = (parentForFamily?.children ?? []).map((c) => getAgeInYears(c.dateOfBirth));
 
   // Validate facility slugs and build a slug->record map for label-based
   // fuzzy matching against the free-text facility fields (see search-filters.ts).
@@ -130,7 +137,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
         themeVariantSlug: themeVariantRef?.slug,
       };
 
-      return toOpportunity(enriched);
+      return toOpportunity(enriched, childrenAges);
     })
     .filter(Boolean);
 

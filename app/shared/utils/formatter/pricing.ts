@@ -233,7 +233,7 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
   };
 }
 
-/** Recommendation-card price: combine Adult + resolved child rate into one total when both exist, instead of only ever surfacing Adult. */
+/** Recommendation-card price: combine Adult + resolved child rate into one total when both exist, instead of only ever surfacing Adult. Kept as the fallback for callers with no family context (see resolveFamilyEstimatedTotal for the family-aware version). */
 export function resolveCardTotalPrice(pricing: ResolvedTicketPricing): { price: string; priceValue: number | undefined } {
   const { adultPrice, childPrice, babyPrice } = pricing;
 
@@ -246,4 +246,96 @@ export function resolveCardTotalPrice(pricing: ResolvedTicketPricing): { price: 
   if (single === null || single === undefined) return { price: "Free", priceValue: 0 };
   if (single === 0) return { price: "Free", priceValue: 0 };
   return { price: `From £${single.toFixed(2)}`, priceValue: single };
+}
+
+// ── Family-composition-aware card estimate ──────────────────────────────────
+// Backend counterpart of native-fe-v0's PricingCard.tsx (calcQuantitiesFromMembers
+// + its estimatedTotal calculation): 1 Adult (the requesting parent, always
+// counted) + each of their children matched to the narrowest-fitting age-banded
+// tier, summed across every non-flat-rate tier — instead of a flat "1 adult +
+// 1 child" guess with no regard for the family actually asking.
+
+interface AgeRange {
+  min: number;
+  max: number;
+}
+
+/** Parses a tier's free-text age range ("18+", "0-16", "0-12months") into numeric years. Returns null when it's not age-based at all (e.g. height-based "Below 90cm"). Mirrors PricingCard.tsx's parseAgeRange exactly. */
+function parseAgeRange(age?: string): AgeRange | null {
+  if (!age) return null;
+  const trimmed = age.trim().toLowerCase();
+
+  const plusMatch = trimmed.match(/^(\d+)\s*\+/);
+  if (plusMatch) return { min: parseInt(plusMatch[1]!, 10), max: Infinity };
+
+  const monthsMatch = trimmed.match(/^(\d+)\s*[-–]\s*(\d+)\s*months?/);
+  if (monthsMatch) return { min: parseInt(monthsMatch[1]!, 10) / 12, max: parseInt(monthsMatch[2]!, 10) / 12 };
+
+  const rangeMatch = trimmed.match(/^(\d+)\s*[-–]\s*(\d+)/);
+  if (rangeMatch) return { min: parseInt(rangeMatch[1]!, 10), max: parseInt(rangeMatch[2]!, 10) };
+
+  return null;
+}
+
+/** A tier's displayed price is sometimes a range ("£12.00-£14.00") rather than a single value — both bounds carry through so the estimate can scale each by quantity instead of collapsing to one number. Mirrors PricingCard.tsx's parsePriceRange. */
+function parsePriceDisplayRange(price: string): { low: number; high: number } {
+  const matches = price.match(/[\d.]+/g);
+  if (!matches || matches.length === 0) return { low: 0, high: 0 };
+  const low = parseFloat(matches[0]!);
+  const high = matches.length >= 2 ? parseFloat(matches[1]!) : low;
+  return { low, high };
+}
+
+function calcFamilyQuantities(childAges: number[], tiers: PricingTier[]): Record<string, number> {
+  const quantities: Record<string, number> = {};
+  tiers.forEach((tier) => { quantities[tier.label] = 0; });
+
+  const adultTier = tiers.find((t) => t.label.toLowerCase() === "adult");
+  if (adultTier) quantities[adultTier.label] = 1; // the requesting parent
+
+  // Per-child tiers, ranked narrowest range first so e.g. a baby ("0-1")
+  // matches "Baby" before it could also satisfy a broader catch-all like
+  // "Child" ("0-16") — same ranking PricingCard.tsx uses.
+  const childTiers = tiers
+    .filter((t) => t !== adultTier && !t.description)
+    .map((t) => ({ tier: t, range: parseAgeRange(t.age) }))
+    .filter((t): t is { tier: PricingTier; range: AgeRange } => t.range !== null)
+    .sort((a, b) => (a.range.max - a.range.min) - (b.range.max - b.range.min));
+
+  const fallbackChildTier =
+    tiers.find((t) => t.label.toLowerCase() === "child") ??
+    tiers.find((t) => t !== adultTier && /child/i.test(t.label));
+
+  childAges.forEach((age) => {
+    const match = childTiers.find(({ range }) => age >= range.min && age <= range.max);
+    const label = match?.tier.label ?? fallbackChildTier?.label;
+    if (label) quantities[label] = (quantities[label] ?? 0) + 1;
+  });
+
+  return quantities;
+}
+
+/** Sums each non-flat-rate tier's price × the requesting family's matched quantity into an overall {low, high} estimate, formatted the same way PricingCard.tsx's formatPriceRange does. */
+export function resolveFamilyEstimatedTotal(
+  tiers: PricingTier[],
+  childAges: number[]
+): { price: string; priceValue: number | undefined } {
+  if (tiers.length === 0) return { price: "Free", priceValue: 0 };
+
+  const quantities = calcFamilyQuantities(childAges, tiers);
+
+  let low = 0;
+  let high = 0;
+  tiers.forEach((tier) => {
+    if (tier.description) return;
+    const qty = quantities[tier.label] || 0;
+    if (qty === 0) return;
+    const range = parsePriceDisplayRange(tier.price);
+    low += qty * range.low;
+    high += qty * range.high;
+  });
+
+  if (low === 0 && high === 0) return { price: "Free", priceValue: 0 };
+  if (low === high) return { price: `£${low.toFixed(2)}`, priceValue: low };
+  return { price: `£${low.toFixed(2)}-£${high.toFixed(2)}`, priceValue: low };
 }

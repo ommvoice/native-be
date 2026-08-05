@@ -40,6 +40,6 @@ export const powderhamToTurfLocksRouteV2: OpportunityRouteV2SeedInput = {
   routeSeasonalHighlights: null,
   routeAttractions: "rivers_and_streams, coastal_views, wildlife_spotting",
   routeExtraKit: null,
-  image: "Powerderham to Turf.jpg",
+  image: "Powerderham to Turf Lock.jpg",
   routeCountry: null,
 };

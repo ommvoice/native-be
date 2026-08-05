@@ -10,7 +10,7 @@ import type { OppType } from "../../types/opportunity-detail.types";
 import { buildImageUrl } from "./image-url";
 import { buildScheduleInfo as buildClubScheduleInfo } from "./club-to-opportunity";
 import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportunity";
-import { resolveCardTotalPrice, resolveTicketPricing } from "./pricing";
+import { resolveCardTotalPrice, resolveFamilyEstimatedTotal, resolveTicketPricing } from "./pricing";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 import { AssetsService } from "../../../services/assets.service";
 
@@ -218,16 +218,23 @@ function resolveThemeVariant(rec: EnrichedScoredRecommendationV2): ThemeVariantR
   return { id: slug, slug, name };
 }
 
-function resolvePrice(rec: EnrichedScoredRecommendationV2): { price: string; priceValue: number | undefined } {
+function resolvePrice(
+  rec: EnrichedScoredRecommendationV2,
+  familyChildAges?: number[]
+): { price: string; priceValue: number | undefined } {
   switch (rec.opportunityType) {
     case "venue":
     case "event":
     case "club": {
-      // Adult + Fixed/Young/Older Child (whichever this record uses) combine
-      // into one total on the card, instead of only ever showing Adult.
       const pricing = resolveTicketPricing(rec as unknown as OpportunityVenueV2 | OpportunityEventV2 | OpportunityClubV2);
       if (pricing.isFree) return { price: "Free", priceValue: 0 };
-      return resolveCardTotalPrice(pricing);
+      // When the requesting family's children are known, estimate using
+      // this specific family's composition (1 adult + each child matched to
+      // its age-banded tier) instead of a flat "1 adult + 1 child" guess
+      // that silently drops Baby/other tiers when there's no "Child" tier.
+      return familyChildAges
+        ? resolveFamilyEstimatedTotal(pricing.tiers, familyChildAges)
+        : resolveCardTotalPrice(pricing);
     }
 
     default:
@@ -587,8 +594,8 @@ function resolveSearchTags(
 
 // ── Main formatter ────────────────────────────────────────────────────────────
 
-export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity {
-  const { price, priceValue } = resolvePrice(rec);
+export function toOpportunity(rec: EnrichedScoredRecommendationV2, familyChildAges?: number[]): Opportunity {
+  const { price, priceValue } = resolvePrice(rec, familyChildAges);
   const distanceKm = rec.distanceMiles != null
     ? parseFloat((rec.distanceMiles * MILES_TO_KM).toFixed(1))
     : undefined;
@@ -640,6 +647,6 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2): Opportunity 
   };
 }
 
-export function toOpportunityList(data: EnrichedScoredRecommendationV2[]): Opportunity[] {
-  return data.map(toOpportunity);
+export function toOpportunityList(data: EnrichedScoredRecommendationV2[], familyChildAges?: number[]): Opportunity[] {
+  return data.map((rec) => toOpportunity(rec, familyChildAges));
 }

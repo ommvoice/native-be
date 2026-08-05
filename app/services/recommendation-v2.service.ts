@@ -113,7 +113,8 @@ export class RecommendationV2Service {
       .sort((a, b) => b!.score - a!.score || b!.tagScore - a!.tagScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
       // .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
-    return this.attachPayloads(scored);
+    const data = await this.attachPayloads(scored);
+    return { data, childrenAges: childAges };
   }
 
   async getNearby(dto: RecommendationQueryDto) {
@@ -178,7 +179,8 @@ export class RecommendationV2Service {
       .sort((a, b) => b!.score - a!.score)
       .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
-    return this.attachPayloads(scored);
+    const data = await this.attachPayloads(scored);
+    return { data, childrenAges: childAges };
   }
 
   private parseCoords(c: RecommendationV2Candidate): { latitude: number; longitude: number } | null {

@@ -16,6 +16,17 @@ import { AssetsService } from "../../../services/assets.service";
 
 const assets = new AssetsService();
 
+/** Exactly what fed scoreSchedule()/openingTimeScore for this item — see recommendation-v2.service.ts. */
+export interface RecommendationSchedule {
+  startTime: string | null;
+  endTime:   string | null;
+  startDate: string | null;
+  endDate:   string | null;
+  weekDay:   string[] | null;
+  // System time (ISO) scoreSchedule() actually compared startTime/endTime/etc. against.
+  currentTime: string;
+}
+
 /** Scored recommendation row enriched with full opportunity payload. */
 export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> {
   id:                    string;
@@ -28,6 +39,8 @@ export interface EnrichedScoredRecommendationV2 extends Record<string, unknown> 
   drivingDurationSeconds?: number | null;
   themeSlug?:            string;
   themeVariantSlug?:     string;
+  score?:                number;
+  schedule?:             RecommendationSchedule;
 }
 
 // A single line of card text, plus whether it's the journey/travel-time line
@@ -65,6 +78,10 @@ export interface Opportunity {
   travelTime:  string;
   isFavorite?: boolean;
   icons?:      string[];
+  // Recommendation match score (0-100) — undefined for non-scored results (e.g. search).
+  score?:      number;
+  // Exactly what fed the schedule component of `score` — undefined for non-scored results.
+  schedule?:   RecommendationSchedule;
   priceValue?: number;
   distanceKm?: number;
   durationMin?:number;
@@ -667,6 +684,8 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2, familyChildAg
     price,
     travelTime,
     isFavorite: false,
+    ...(rec.score !== undefined && { score: rec.score }),
+    ...(rec.schedule !== undefined && { schedule: rec.schedule }),
     ...(priceValue !== undefined && { priceValue }),
     ...(distanceKm !== undefined && { distanceKm }),
     ...(durationMin !== undefined && { durationMin }),

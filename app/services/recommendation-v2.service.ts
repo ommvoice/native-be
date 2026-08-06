@@ -105,6 +105,10 @@ export class RecommendationV2Service {
           score: adjusted,
           tagScore,
           scoreBreakdown: { interestScore, ageScore, distanceScore, tagScore, openingTimeScore, total: adjusted },
+          // Exactly what fed openingTimeScore/scoreSchedule — carried through
+          // to the response so clients can see why a schedule score landed
+          // where it did, not just the resulting number.
+          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString() },
         };
       })
       .filter(Boolean)
@@ -173,6 +177,7 @@ export class RecommendationV2Service {
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
           score: adjusted,
           scoreBreakdown: { interestScore: 0, ageScore, distanceScore: distScore, scheduleScore, total: adjusted },
+          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString() },
         };
       })
       .filter(Boolean)
@@ -209,6 +214,7 @@ export class RecommendationV2Service {
       drivingDurationSeconds: number | null;
       score: number;
       scoreBreakdown: object;
+      schedule: { startTime: string | null; endTime: string | null; startDate: string | null; endDate: string | null; weekDay: string[] | null; currentTime: string };
     }[]).map((row) => {
       const payload = payloadMap.get(legKey(row.type as 'venue' | 'event' | 'club' | 'route', row.id));
       if (!payload) throw new AppError(500, `Payload missing for ${row.type} ${row.id}`);
@@ -219,6 +225,7 @@ export class RecommendationV2Service {
         drivingDurationSeconds: row.drivingDurationSeconds,
         score:                  row.score,
         scoreBreakdown:         row.scoreBreakdown,
+        schedule:               row.schedule,
       };
     });
   }

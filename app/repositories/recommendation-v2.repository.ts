@@ -35,6 +35,21 @@ function getEventTodayTimes(e: Record<string, unknown>): { startTime: string | n
   };
 }
 
+/** Today's opening/closing time-of-day for a venue, e.g. { startTime: "09:00", endTime: "17:00" }. Same field-naming convention as events (venueMixedTimings{Day}Start/End), see buildOpeningHours in venue-to-opportunity.ts. */
+function getVenueTodayTimes(v: Record<string, unknown>): { startTime: string | null; endTime: string | null } {
+  if (v.venueFixedDailyTimings === true) {
+    return {
+      startTime: (v.venueFixedTimingsStartTime as string | null) ?? null,
+      endTime:   (v.venueFixedTimingsEndTime   as string | null) ?? null,
+    };
+  }
+  const day = DAY_NAMES[AppClock.weekday()]!;
+  return {
+    startTime: (v[`venueMixedTimings${capitalize(day)}Start`] as string | null) ?? null,
+    endTime:   (v[`venueMixedTimings${capitalize(day)}End`]   as string | null) ?? null,
+  };
+}
+
 /** Today's scheduled start/end time-of-day for a club, e.g. { startTime: "16:30", endTime: "17:30" }. */
 function getClubTodayTimes(c: Record<string, unknown>): { startTime: string | null; endTime: string | null } {
   if (c.clubFixedDailyTimings === true) {
@@ -160,6 +175,7 @@ export class RecommendationV2Repository {
       skillAreaSlug:    null,
       skillAreaVariant: null,
       tags:             splitTags(v.venueInterestTags),
+      ...getVenueTodayTimes(v),
     }));
 
     const eventRows: RecommendationV2Candidate[] = events.map((e) => ({

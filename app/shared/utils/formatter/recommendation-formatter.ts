@@ -91,8 +91,12 @@ export interface SearchTags {
   essentials: string[];
   // route only.
   routeSuitability: string[];
-  // route only.
   routeDifficulty: string[];
+  routeType: string[];
+  // route only — upper bound of routeDistance ("1-3 miles" -> 3, "5 miles" -> 5).
+  routeDistanceMile?: number;
+  // venue/club/route only — event has no attractions field.
+  attractions: string[];
   distance?: number;
   durationMin?: number;
 }
@@ -295,6 +299,27 @@ function resolveParkingProvision(rec: EnrichedScoredRecommendationV2): SlugName[
     case "route": raw = (rec as unknown as OpportunityRouteV2).routeParkingProvision; break;
   }
   return toSlugNameList(raw);
+}
+
+function resolveAttractions(rec: EnrichedScoredRecommendationV2): SlugName[] | null {
+  let raw: string | null = null;
+  switch (rec.opportunityType) {
+    case "venue": raw = (rec as unknown as OpportunityVenueV2).venueAttractions; break;
+    case "club":  raw = (rec as unknown as OpportunityClubV2).clubAttractions; break;
+    case "route": raw = (rec as unknown as OpportunityRouteV2).routeAttractions; break;
+    // event has no attractions field.
+  }
+  return toSlugNameList(raw);
+}
+
+/** routeDistance is free text ("5 miles", "1-3 miles", "0.75-2miles") — take the upper bound of a range, or the single value when it isn't one. */
+function resolveRouteDistanceMiles(rec: EnrichedScoredRecommendationV2): number | undefined {
+  if (rec.opportunityType !== "route") return undefined;
+  const raw = (rec as unknown as OpportunityRouteV2).routeDistance;
+  if (!raw) return undefined;
+  const matches = raw.match(/[\d.]+/g);
+  if (!matches || matches.length === 0) return undefined;
+  return parseFloat(matches[matches.length - 1]!);
 }
 
 // A theme belongs to one or more interest categories (opportunityTheme enum's
@@ -579,6 +604,13 @@ function resolveSearchTags(
     ? toSlugNameList((rec as unknown as OpportunityRouteV2).routeDifficulty)?.map((d) => d.slug) ?? []
     : [];
 
+  const routeType = rec.opportunityType === "route"
+    ? toSlugNameList((rec as unknown as OpportunityRouteV2).routeType)?.map((t) => t.slug) ?? []
+    : [];
+
+  const attractions = (resolveAttractions(rec) ?? []).map((a) => a.slug);
+  const routeDistanceMile = resolveRouteDistanceMiles(rec);
+
   return {
     interestCategory: resolveInterestCategory(rec.themeSlug),
     theme: rec.themeSlug ?? null,
@@ -587,8 +619,11 @@ function resolveSearchTags(
     essentials,
     routeSuitability: resolveRouteSuitability(rec).map((s) => s.slug),
     routeDifficulty,
-    ...(distanceKm !== undefined && { distance: distanceKm }),
+    routeType,
+    attractions,
+    ...(distanceKm !== undefined && { distance: distanceKm }), // distance of opportunnity from user postCode determine by mapbox api, in km
     ...(durationMin !== undefined && { durationMin: durationMin*2 }),
+    ...(routeDistanceMile !== undefined && { routeDistanceMile }),
   };
 }
 

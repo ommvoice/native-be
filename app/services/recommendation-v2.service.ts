@@ -9,6 +9,7 @@ import {
   getAgeInYears,
   haversineDistanceMiles,
   metersToMilesOneDecimal,
+  rankWithShuffle,
   scoreAge,
   scoreDistance,
   scoreInterestOverlap,
@@ -121,7 +122,11 @@ export class RecommendationV2Service {
       
       // .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
-    const data = await this.attachPayloads(scored);
+    // Shuffle candidates that tie on both score and tagScore, so repeat requests don't always
+    // return the exact same order within a tier; higher-scored candidates still always float to the top.
+    const scoredShuffled = rankWithShuffle(scored as unknown as { score: number; tagScore: number }[]);
+
+    const data = await this.attachPayloads(scoredShuffled);
     return { data, childrenAges: childAges };
   }
 

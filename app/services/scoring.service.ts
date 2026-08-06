@@ -189,6 +189,24 @@ export function scoreSchedule(
   return 100;
 }
 
+/** Sorts by score desc, then tagScore desc — same tie-break priority as before — but randomizes
+ * the order among candidates that tie on both, so repeat requests don't always return the exact
+ * same ordering within a tier while higher-scored candidates still always float to the top. */
+export function rankWithShuffle<T extends { score: number; tagScore: number }>(items: T[]): T[] {
+  const sorted = [...items].sort((a, b) => b.score - a.score || b.tagScore - a.tagScore);
+  let i = 0;
+  while (i < sorted.length) {
+    let j = i + 1;
+    while (j < sorted.length && sorted[j].score === sorted[i].score && sorted[j].tagScore === sorted[i].tagScore) j++;
+    for (let k = j - 1; k > i; k--) {
+      const r = i + Math.floor(Math.random() * (k - i + 1));
+      [sorted[k], sorted[r]] = [sorted[r], sorted[k]];
+    }
+    i = j;
+  }
+  return sorted;
+}
+
 export function metersToMilesOneDecimal(meters: number): number {
   return Math.round(meters * 0.000621371192 * 10) / 10;
 }

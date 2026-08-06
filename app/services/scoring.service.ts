@@ -116,6 +116,21 @@ function endedWithinAnHour(now: Date, endTime?: string | null): boolean {
   return diff >= 0 && diff <= 60;
 }
 
+/** Whether `now` falls within [startTime, endTime] on the UK wall clock. A missing bound isn't
+ * constraining (e.g. no endTime means "no known closing time", not "always closed"). */
+function isOpenNow(now: Date, startTime?: string | null, endTime?: string | null): boolean {
+  const nowMins = AppClock.minutesSinceMidnight(now);
+  if (startTime) {
+    const startMins = AppClock.parseTimeToMinutes(startTime);
+    if (startMins !== null && nowMins < startMins) return false;
+  }
+  if (endTime) {
+    const endMins = AppClock.parseTimeToMinutes(endTime);
+    if (endMins !== null && nowMins > endMins) return false;
+  }
+  return true;
+}
+
 export function scoreSchedule(
   type: string,
   startDate?: string | null,
@@ -143,6 +158,8 @@ export function scoreSchedule(
 
     // imminent ones (90).
     if (isStartingWithinAnHour(now, startTime)) return 100;
+    // Not starting soon, and outside its own time-of-day window — not open right now, don't show it.
+    if (!isOpenNow(now, startTime, endTime)) return 0;
     return 90;
   }
 
@@ -155,6 +172,8 @@ export function scoreSchedule(
     if (!activeDays.includes(todayName)) return 0;
 
     if (isStartingWithinAnHour(now, startTime)) return 100;
+    // Not starting soon, and outside its own time-of-day window — not open right now, don't show it.
+    if (!isOpenNow(now, startTime, endTime)) return 0;
     return 90;
   }
 
@@ -162,6 +181,8 @@ export function scoreSchedule(
     // No time-of-day resolved for today at all — can't confirm it's open, don't show it.
     if (!startTime && !endTime) return 0;
     if (isStartingWithinAnHour(now, startTime)) return 100;
+    // Not starting soon, and outside its own opening hours — not open right now, don't show it.
+    if (!isOpenNow(now, startTime, endTime)) return 0;
     return 90;
   }
 

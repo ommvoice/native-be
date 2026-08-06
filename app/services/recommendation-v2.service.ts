@@ -114,7 +114,11 @@ export class RecommendationV2Service {
       .filter(Boolean)
       // tagScore only breaks ties within the same recommendation score — it
       // never outranks a candidate with a higher base score.
-      .sort((a, b) => b!.score - a!.score || b!.tagScore - a!.tagScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      .sort((a, b) => b!.score - a!.score)// as NonNullable<ReturnType<typeof this.scoreOne>>[]
+      .sort((a, b) => b!.tagScore - a!.tagScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      //.sort((a, b) => b!.score - a!.score || b!.tagScore - a!.tagScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      
+      
       // .slice(0, DEFAULT_LIMIT) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
     const data = await this.attachPayloads(scored);

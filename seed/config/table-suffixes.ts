@@ -9,6 +9,10 @@ export const TABLE_SUFFIXES = {
   drivingLegs:              'driving-legs',
   wishlists:                'wishlists',
   wishlistItems:            'wishlist-items',
+  venues:                   'venues',
+  events:                   'events',
+  clubs:                    'clubs',
+  routes:                   'routes',
 } as const;
 
 export type TableKey = keyof typeof TABLE_SUFFIXES;

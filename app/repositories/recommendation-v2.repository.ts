@@ -148,10 +148,16 @@ export class RecommendationV2Repository {
   }
 
   async getOpportunityCandidatesV2(): Promise<RecommendationV2Candidate[]> {
-    const venues = this.assets.getAllVenues() as unknown as Record<string, unknown>[];
-    const events = this.assets.getAllEvents() as unknown as Record<string, unknown>[];
-    const clubs  = this.assets.getAllClubs()  as unknown as Record<string, unknown>[];
-    const routes = this.assets.getAllRoutes() as unknown as Record<string, unknown>[];
+    const [venuesRaw, eventsRaw, clubsRaw, routesRaw] = await Promise.all([
+      this.assets.getAllVenues(),
+      this.assets.getAllEvents(),
+      this.assets.getAllClubs(),
+      this.assets.getAllRoutes(),
+    ]);
+    const venues = venuesRaw as unknown as Record<string, unknown>[];
+    const events = eventsRaw as unknown as Record<string, unknown>[];
+    const clubs  = clubsRaw  as unknown as Record<string, unknown>[];
+    const routes = routesRaw as unknown as Record<string, unknown>[];
 
     const venueRows: RecommendationV2Candidate[] = venues.map((v) => ({
       type: 'venue' as const,
@@ -273,22 +279,22 @@ export class RecommendationV2Repository {
     // never have it) — the old DynamoDB seed rows always had it hardcoded per type,
     // and the response formatter switches on this field, so force it here.
     if (venueIds.size > 0) {
-      for (const item of this.assets.getAllVenues() as unknown as Record<string, unknown>[]) {
+      for (const item of (await this.assets.getAllVenues()) as unknown as Record<string, unknown>[]) {
         if (venueIds.has(item.id as string)) map.set(legKey('venue', item.id as string), { ...item, opportunityType: 'venue' });
       }
     }
     if (eventIds.size > 0) {
-      for (const item of this.assets.getAllEvents() as unknown as Record<string, unknown>[]) {
+      for (const item of (await this.assets.getAllEvents()) as unknown as Record<string, unknown>[]) {
         if (eventIds.has(item.id as string)) map.set(legKey('event', item.id as string), { ...item, opportunityType: 'event' });
       }
     }
     if (clubIds.size > 0) {
-      for (const item of this.assets.getAllClubs() as unknown as Record<string, unknown>[]) {
+      for (const item of (await this.assets.getAllClubs()) as unknown as Record<string, unknown>[]) {
         if (clubIds.has(item.id as string)) map.set(legKey('club', item.id as string), { ...item, opportunityType: 'club' });
       }
     }
     if (routeIds.size > 0) {
-      for (const item of this.assets.getAllRoutes() as unknown as Record<string, unknown>[]) {
+      for (const item of (await this.assets.getAllRoutes()) as unknown as Record<string, unknown>[]) {
         if (routeIds.has(item.id as string)) map.set(legKey('route', item.id as string), { ...item, opportunityType: 'route' });
       }
     }

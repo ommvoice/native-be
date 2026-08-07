@@ -83,4 +83,8 @@ export const TABLE_ENV_VARS = {
   drivingLegs:              'TABLE_DRIVING_LEGS',
   wishlists:                'TABLE_WISHLISTS',
   wishlistItems:            'TABLE_WISHLIST_ITEMS',
+  venues:                   'TABLE_VENUES',
+  events:                   'TABLE_EVENTS',
+  clubs:                    'TABLE_CLUBS',
+  routes:                   'TABLE_ROUTES',
 } as const;

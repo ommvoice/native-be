@@ -489,6 +489,16 @@ export function compactDuration(duration?: string | null): string | undefined {
 }
 
 /**
+ * Lower bound of a compactDuration() string, in minutes — e.g. "30-60 mins" → 30,
+ * "1-2 hrs" → 60, "30min-2hrs" → 30. Undefined when there's nothing numeric to parse.
+ */
+export function getMinutesFromCompactDuration(compact?: string | null): number {
+  if (!compact) return 0;
+  const parsed = parseDurationSegment(compact);
+  return parsed ? Math.round(parsed.low) : 0;
+}
+
+/**
  * Resolves an estimated-duration enum-slug string (e.g. "thirty_sixty_mins, one_two_hours") into the
  * single compacted range `compactDuration` reports for it (e.g. "30min-2hrs"), wrapped as the one-element
  * `SlugName[]` the `estimated_visit_duration` field expects. Slugs must resolve to their human-readable
@@ -608,6 +618,7 @@ function resolveSearchTags(
   rec: EnrichedScoredRecommendationV2,
   distanceKm: number | undefined,
   durationMin: number | undefined,
+  compactDuration?: string | null
 ): SearchTags {
   const essentials = [
     ...(resolveChildFacilities(rec) ?? []),
@@ -627,6 +638,7 @@ function resolveSearchTags(
 
   const attractions = (resolveAttractions(rec) ?? []).map((a) => a.slug);
   const routeDistanceMile = resolveRouteDistanceMiles(rec);
+  const durationMinFromCompact = getMinutesFromCompactDuration(compactDuration);
 
   return {
     interestCategory: resolveInterestCategory(rec.themeSlug),
@@ -639,7 +651,7 @@ function resolveSearchTags(
     routeType,
     attractions,
     ...(distanceKm !== undefined && { distance: distanceKm }), // distance of opportunnity from user postCode determine by mapbox api, in km
-    ...(durationMin !== undefined && { durationMin: durationMin*2 }),
+    ...(durationMin !== undefined && { durationMin: ((durationMin*2)+durationMinFromCompact) }),
     ...(routeDistanceMile !== undefined && { routeDistanceMile }),
   };
 }
@@ -676,7 +688,7 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2, familyChildAg
     type,
     title: resolveName(rec),
     image: buildImageUrl(rec.image, rec.opportunityType) ,
-    duration,
+    duration: compactDuration(duration) ?? duration,
     tags: resolveTags(rec),
     activityGroup: resolveActivityGroup(rec),
     theme: resolveTheme(rec),
@@ -697,7 +709,7 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2, familyChildAg
       : null,
     cardDisplay,
     routeSuitability: resolveRouteSuitability(rec),
-    searchTags: resolveSearchTags(rec, distanceKm, durationMin),
+    searchTags: resolveSearchTags(rec, distanceKm, durationMin, compactDuration(duration)),
   };
 }
 

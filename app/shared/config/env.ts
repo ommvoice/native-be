@@ -19,6 +19,10 @@ export const env = {
     drivingLegs:              () => required('TABLE_DRIVING_LEGS'),
     wishlists:                () => required('TABLE_WISHLISTS'),
     wishlistItems:            () => required('TABLE_WISHLIST_ITEMS'),
+    venues:                   () => required('TABLE_VENUES'),
+    events:                   () => required('TABLE_EVENTS'),
+    clubs:                    () => required('TABLE_CLUBS'),
+    routes:                   () => required('TABLE_ROUTES'),
   },
 
   // Auth

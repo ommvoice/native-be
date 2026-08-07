@@ -4,51 +4,62 @@ import events from '../shared/assets/events.json' with { type: 'json' };
 import routes from '../shared/assets/routes.json' with { type: 'json' };
 import clubs from '../shared/assets/clubs.json' with { type: 'json' };
 
+
 import type { Venue, Club, Event, Route } from '../shared/assets/types/index.js';
 import type { InterestCategoryRecord, InterestSubCategoryRecord } from '../repositories/interest.repository';
 import type { ThemeRecord, ThemeVariantRecord } from '../repositories/theme.repository';
 import type { SkillRecord } from '../repositories/skill.repository';
 import type { FacilityRecord } from '../repositories/facility.repository';
 import { EnumEntry, EnumSeasonalHighlight, EnumInterestTag } from '../shared/types/assets.types';
+import { OpportunityService } from './opportunity.service';
 
 // Enum-sourced records (`{name, slug, active}`) have no real createdAt/updatedAt —
 // this fixed placeholder keeps the existing Record shapes intact without implying a real timestamp.
 const SYNTHETIC_TIMESTAMP = '2025-01-01T00:00:00.000Z';
- 
+
 
 export class AssetsService {
+  private readonly opportunityService = new OpportunityService();
   // ── Opportunities ──────────────────────────────────────────────────────────
 
-  getAllVenues(): Venue[] {
-    return venues as Venue[];
+  async getAllVenues(): Promise<Venue[]> {
+    // return venues as Venue[];
+    return this.opportunityService.getAllVenues();
   }
 
-  getAllEvents(): Event[] {
-    return events as Event[];
+  async getAllEvents(): Promise<Event[]> {
+    //  return events as Event[];
+    return this.opportunityService.getAllEvents();
   }
 
-  getAllClubs(): Club[] {
-    return clubs as Club[];
+  async getAllClubs(): Promise<Club[]> {
+    // return clubs as Club[];
+    return this.opportunityService.getAllClubs();
   }
 
-  getAllRoutes(): Route[] {
-    return routes as Route[];
+  async getAllRoutes(): Promise<Route[]> {
+    // return routes as Route[];
+    return this.opportunityService.getAllRoutes();
   }
 
-  getVenueBySlug(slug: string): Venue | null {
-    return this.getAllVenues().find((v) => v.id === slug) ?? null;
+  async getVenueBySlug(slug: string): Promise<Venue | null> {
+    // return (await this.getAllVenues()).find((v) => v.id === slug) ?? null;
+    return this.opportunityService.getVenueBySlug(slug);
   }
 
-  getEventBySlug(slug: string): Event | null {
-    return this.getAllEvents().find((e) => e.id === slug) ?? null;
+  async getEventBySlug(slug: string): Promise<Event | null> {
+    // return (await this.getAllEvents()).find((e) => e.id === slug) ?? null;
+    return this.opportunityService.getEventBySlug(slug);
   }
 
-  getClubBySlug(slug: string): Club | null {
-    return this.getAllClubs().find((c) => c.id === slug) ?? null;
+  async getClubBySlug(slug: string): Promise<Club | null> {
+    // return (await this.getAllClubs()).find((c) => c.id === slug) ?? null;
+    return this.opportunityService.getClubBySlug(slug);
   }
 
-  getRouteBySlug(slug: string): Route | null {
-    return this.getAllRoutes().find((r) => r.id === slug) ?? null;
+  async getRouteBySlug(slug: string): Promise<Route | null> {
+    // return (await this.getAllRoutes()).find((r) => r.id === slug) ?? null;
+    return this.opportunityService.getRouteBySlug(slug);
   }
 
   // ── Interests ──────────────────────────────────────────────────────────────

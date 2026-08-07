@@ -64,11 +64,20 @@ export class TableStack extends cdk.Stack {
     const children = t('Children', tableNames.children, 'id');
     gsi(children, 'parentId-index', 'parentId');
 
-    // NOTE: interestCategories, skills, skillLevels, facilities, the legacy
-    // opportunityVenues/Events/Clubs/Routes tables, their V2 counterparts, and
-    // opportunityThemes/opportunityThemeVariants have all been migrated to
-    // static assets (app/shared/assets/*.json) — see AssetsService. Their
-    // tables are intentionally no longer provisioned here.
+    // NOTE: interestCategories, skills, skillLevels, facilities, and
+    // opportunityThemes/opportunityThemeVariants remain migrated to static
+    // assets (app/shared/assets/*.json) — see AssetsService. Their tables are
+    // intentionally not provisioned here.
+
+    // ── Opportunities (venues, events, clubs, routes) ───────────────────────────
+    // Sourced from app/shared/assets/{venues,events,clubs,routes}.json, seeded
+    // via scripts/seed-opportunities.ts. No GSIs — read via full scan, mirroring
+    // the prior JSON-asset access pattern.
+
+    const venues = t('Venues', tableNames.venues, 'id');
+    const events = t('Events', tableNames.events, 'id');
+    const clubs  = t('Clubs',  tableNames.clubs,  'id');
+    const routes = t('Routes', tableNames.routes, 'id');
 
     // ── Driving legs ──────────────────────────────────────────────────────────
 
@@ -87,6 +96,10 @@ export class TableStack extends cdk.Stack {
       users,
       parents,
       children,
+      venues,
+      events,
+      clubs,
+      routes,
       drivingLegs,
       wishlists,
       wishlistItems,

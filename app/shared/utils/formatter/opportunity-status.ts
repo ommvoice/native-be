@@ -164,7 +164,7 @@ export function resolveSeasonalHighlight(
 
   if (highlight.length < MIN_HIGHLIGHTS && attractions && attractions.length > 0) {
     const existingNames = new Set(highlight.map((h) => h.name));
-    const extra = attractions.filter((a) => !existingNames.has(a.name));
+    const extra = attractions.filter((a) => !existingNames.has(a.name)).map((a) => ({ slug: "attractions", name: a.name })).reverse();
     highlight = [...highlight, ...extra].slice(0, MIN_HIGHLIGHTS);
   }
 

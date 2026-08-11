@@ -65,7 +65,8 @@ function resolveSuitableFor(data: OpportunityClubV2): string[] | null {
 }
 
 function buildFacilities(data: OpportunityClubV2): SlugName[] | null {
-  const all = [data.clubGeneralFacilities, data.clubChildFacilities, data.clubAdultFacilities]
+  // const all = [data.clubGeneralFacilities, data.clubChildFacilities, data.clubAdultFacilities]
+  const all = [data.clubGeneralFacilities]
     .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }

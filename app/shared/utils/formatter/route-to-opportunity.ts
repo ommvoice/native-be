@@ -63,7 +63,8 @@ function resolveSuitableFor(data: OpportunityRouteV2): string[] | null {
 }
 
 function buildFacilities(data: OpportunityRouteV2): SlugName[] | null {
-  const all = [data.routeGeneralFacilities, data.routeChildFacilities, data.routeAdultFacilities]
+  // const all = [data.routeGeneralFacilities, data.routeChildFacilities, data.routeAdultFacilities]
+  const all = [data.routeGeneralFacilities]
     .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }

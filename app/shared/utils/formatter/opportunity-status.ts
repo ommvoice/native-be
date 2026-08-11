@@ -34,7 +34,7 @@ function getOpeningStatus(
   const todayHours = openingHours[currentDay];
 
   if (todayHours?.allDay) {
-    return { isOpen: true, message: "Open all day" };
+    return { isOpen: true, message: "Open now - unrestricted" };
   }
 
   if (todayHours?.open && todayHours?.close && currentTime >= todayHours.open && currentTime < todayHours.close) {
@@ -50,7 +50,7 @@ function getOpeningStatus(
     const nextDayHours = openingHours[DAYS[nextDayIdx]!];
     const label = i === 1 ? "Tomorrow" : DAY_LABELS[nextDayIdx];
     if (nextDayHours?.allDay) {
-      return { isOpen: false, message: `Open ${label} – all day` };
+      return { isOpen: false, message: `Open ${label} – unrestricted` };
     }
     if (nextDayHours?.open && nextDayHours?.close) {
       return { isOpen: false, message: `Open ${label} ${nextDayHours.open} – ${nextDayHours.close}` };
@@ -110,7 +110,7 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   }
 
   if (opp.opp_type === "route") {
-    return { variant: "open", message: "Open Now" };
+    return { variant: "open", message: "Open Now - unrestricted" };
     // if (currentHour >= 6 && currentHour < 18) {
     //   return { variant: "open", message: "Open Now – dusk" };
     // }

@@ -63,7 +63,8 @@ function resolveSuitableFor(data: OpportunityVenueV2): string[] | null {
 }
 
 function buildFacilities(data: OpportunityVenueV2): SlugName[] | null {
-  const all = [data.venueGeneralFacilities, data.venueChildFacilities, data.venueAdultFacilities]
+  // const all = [data.venueGeneralFacilities, data.venueChildFacilities, data.venueAdultFacilities]
+  const all = [data.venueGeneralFacilities]
     .flatMap((raw) => toSlugNameList(raw) ?? []);
   return all.length > 0 ? all : null;
 }

@@ -199,6 +199,6 @@ export const routeToOpportunity = (data: OpportunityRouteV2): OpportunityDetail 
   };
   opp.pricingTiers = buildPricingTiers(opp);
   opp.liveStatus = resolveLiveStatus(opp);
-  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag, toSlugNameList(data.routeAttractions));
+  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag, toSlugNameList(data.routeAttractions), buildForThem(data));
   return opp;
 };

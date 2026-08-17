@@ -128,16 +128,20 @@ const MIN_HIGHLIGHTS = 3;
 
 /**
  * Parses the current season's highlight out of the seasonal_highlights values, plus matching seasonal
- * tags. When there's nothing seasonal to show, `attractions` (the theme-attraction list — venueAttractions,
- * routeAttractions, clubAttractions, eventHighlights) fills in instead, so the section never renders empty
- * for an opportunity that just isn't running a seasonal highlight right now; it also tops up a thin
- * (< 3) seasonal match so the section doesn't look sparse.
+ * tags. A record with no seasonal tagging at all has nothing to show here — full stop, no fallback.
+ * When it does have seasonal tagging, the matched highlights are topped up with `forThem` (real child
+ * facilities) and `attractions`: if `forThem` is real content, both it and `attractions` are attached;
+ * if the record has no child facilities, `forThem` is just `attractions` again (buildForThem's fallback),
+ * so only `forThem` is attached — adding `attractions` too would duplicate the same items.
  */
 export function resolveSeasonalHighlight(
   seasonalHighlights: SlugName[] | null,
   seasonalTag: SlugName[] | null,
-  attractions: SlugName[] | null = null
+  attractions: SlugName[] | null = null,
+  forThem: SlugName[] | null = null
 ): SeasonalHighlight | null {
+  if (!seasonalHighlights || seasonalHighlights.length === 0) return null;
+
   const month = AppClock.parts().month;
   const currentSeason =
     month >= 2 && month <= 4 ? "spring" : month >= 5 && month <= 7 ? "summer" : month >= 8 && month <= 10 ? "autumn" : "winter";
@@ -150,11 +154,6 @@ export function resolveSeasonalHighlight(
   const seasonLabel = seasonLabels[currentSeason]!;
   const tags = (seasonalTag ?? []).map((t: SlugName) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
 
-  if (!seasonalHighlights || seasonalHighlights.length === 0) {
-    if (!attractions || attractions.length === 0) return null;
-    return { season: seasonLabel, highlight: attractions, tags };
-  }
-
   const seasonalAllHighlights = assets.getSeasonalHighlights(currentSeason);
   const foundHighlights = seasonalAllHighlights.filter((item: EnumSeasonalHighlight) =>
     seasonalHighlights.some((other) => other.slug === item.slug)
@@ -162,11 +161,14 @@ export function resolveSeasonalHighlight(
 
   let highlight: SlugName[] = foundHighlights.map((item) => ({ slug: currentSeason, name: item.name }));
 
-  if (highlight.length < MIN_HIGHLIGHTS && attractions && attractions.length > 0) {
-    const existingNames = new Set(highlight.map((h) => h.name));
-    const extra = attractions.filter((a) => !existingNames.has(a.name)).map((a) => ({ slug: "attractions", name: a.name })).reverse();
-    highlight = [...highlight, ...extra].slice(0, MIN_HIGHLIGHTS);
-  }
+const filteredAttractions = (attractions ?? []).filter(
+  attraction => !(forThem ?? []).some(
+    item => item.slug === attraction.slug
+  )
+).map((x)=>({slug: "attarctions_", name: x.name}));
+
+  highlight = [...highlight, ...filteredAttractions];
+
 
   return { season: seasonLabel, highlight, tags };
 }

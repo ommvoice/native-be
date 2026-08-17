@@ -266,7 +266,7 @@ export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail 
     seasonalHighlight: null,
   };
   opp.liveStatus = resolveLiveStatus(opp);
-  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag, toSlugNameList(data.venueAttractions));
+  opp.seasonalHighlight = resolveSeasonalHighlight(opp.seasonal_highlights, opp.seasonal_tag, toSlugNameList(data.venueAttractions), buildForThem(data));
 
   return opp;
 };

@@ -231,7 +231,10 @@ function buildPerfectFor(data: OpportunityEventV2) : any[] | null {
 export const eventToOpportunity = (data: OpportunityEventV2): OpportunityDetail => {
   const hasEntryCost = data.eventEntryCost === true;
   const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantFixedChildPrice ?? data.ticketVariantYoungChildPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
-  const pricing = resolveTicketPricing(data);
+  // Open-access + no entry cost overrides any ticketVariant data present —
+  // a free walk-in event shouldn't show paid tiers off stray sheet data.
+  const isOpenAccess = (data.eventBookingType ?? "").split(",").map((s: string) => s.trim()).includes("open_access");
+  const pricing = resolveTicketPricing(data, isOpenAccess && !hasEntryCost);
 
   const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────

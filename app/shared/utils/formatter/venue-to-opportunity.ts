@@ -156,7 +156,10 @@ function buildForThem(data: OpportunityVenueV2): SlugName[] | null {
 export const venueToOpportunity = (data: OpportunityVenueV2): OpportunityDetail => {
   const hasEntryCost = data.venueEntryCost === true;
   const anyPrice = data.ticketVariantAdultPrice ?? data.ticketVariantFixedChildPrice ?? data.ticketVariantYoungChildPrice ?? data.ticketVariantOlderChildPrice ?? data.ticketVariantBabyPrice;
-  const pricing = resolveTicketPricing(data);
+  // Open-access + no entry cost overrides any ticketVariant data present —
+  // a free walk-in venue shouldn't show paid tiers off stray sheet data.
+  const isOpenAccess = (data.venueBookingType ?? "").split(",").map((s: string) => s.trim()).includes("open_access");
+  const pricing = resolveTicketPricing(data, isOpenAccess && !hasEntryCost);
 
   const opp: OpportunityDetail = {
     // ── Core ──────────────────────────────────────────────

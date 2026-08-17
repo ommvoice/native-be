@@ -96,7 +96,7 @@ export interface ResolvedTicketPricing {
 }
 
 function formatAmount(v: number): string {
-  return v === 0 ? "Free" : `£${v.toFixed(2)}`;
+  return `£${v.toFixed(2)}`;
 }
 
 /** A price cell is sometimes a single value ("12.73"), sometimes a range ("£3.50-£8.45") — sheet data isn't consistent. */
@@ -120,7 +120,7 @@ function formatPriceDisplay(raw: string | null | undefined): string | null {
     const lo = parseFloat(rangeMatch[1]!);
     const hi = parseFloat(rangeMatch[2]!);
     if (isNaN(lo) || isNaN(hi)) return null;
-    if (lo === 0 && hi === 0) return "Free";
+    if (lo === hi) return formatAmount(lo);
     return `£${lo.toFixed(2)}-£${hi.toFixed(2)}`;
   }
   const num = parseFloat(cleaned.replace(/[^0-9.]/g, ""));
@@ -129,7 +129,7 @@ function formatPriceDisplay(raw: string | null | undefined): string | null {
 
 /**
  * Parses a Group ticket's free-text definition into an abbreviated tier
- * description: "Family (2 adults and up to 3 children)" -> "(2A + 3C)",
+ * description: "Family (2 adults and up to 3 children)" -> "(2A+3C)",
  * "4 people, max 2 adults" -> "(4P)", "Groups of 25+" -> "(25P+)". Returns
  * undefined when the text has no recognizable count (e.g. "Family Group").
  */
@@ -138,7 +138,7 @@ function parseGroupDescription(definition: string | null): string | undefined {
 
   const adultMatch = definition.match(/(\d+)\s*adults?/i);
   const childMatch = definition.match(/(\d+)\s*child(?:ren)?/i);
-  if (adultMatch && childMatch) return `(${adultMatch[1]}A + ${childMatch[1]}C)`;
+  if (adultMatch && childMatch) return `(${adultMatch[1]}A+${childMatch[1]}C)`;
 
   const peopleMatch = definition.match(/(\d+)\s*(?:people|persons?)\s*(\+)?/i);
   if (peopleMatch) return `(${peopleMatch[1]}P${peopleMatch[2] ? "+" : ""})`;
@@ -162,7 +162,7 @@ const VARIANT_FIELD_MAP: Record<
   TicketVariantSlug,
   { price: keyof TicketVariantFields; definition: keyof TicketVariantFields; label: string }
 > = {
-  baby:        { price: "ticketVariantBabyPrice",        definition: "ticketVariantDefinitionBaby",       label: "Baby" },
+  baby:        { price: "ticketVariantBabyPrice",        definition: "ticketVariantDefinitionBaby",       label: "Infant" },
   fixed_child: { price: "ticketVariantFixedChildPrice",  definition: "ticketVariantDefinitionFixedChild", label: "Child" },
   young_child: { price: "ticketVariantYoungChildPrice",  definition: "ticketVariantDefinitionYoungChild", label: "Young Child" },
   older_child: { price: "ticketVariantOlderChildPrice",  definition: "ticketVariantDefinitionOlderChild", label: "Older Child" },
@@ -173,8 +173,20 @@ const VARIANT_FIELD_MAP: Record<
   group:       { price: "ticketVariantGroupPrice",       definition: "ticketVariantDefinitionGroup",      label: "Family" },
 };
 
-/** Builds the full pricing-tier list (+ the scalar prices OpportunityDetail stores) directly from a venue/event/club's raw ticketVariant* fields. */
-export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketPricing {
+/**
+ * Builds the full pricing-tier list (+ the scalar prices OpportunityDetail
+ * stores) directly from a venue/event/club's raw ticketVariant* fields.
+ *
+ * `forceFree` overrides everything below it: a venue/event marked
+ * open-access with no entry cost is free regardless of what's sitting in
+ * its ticketVariant* fields (stray/leftover ticket data shouldn't turn a
+ * genuinely free, walk-in opportunity into a paid one).
+ */
+export function resolveTicketPricing(data: TicketVariantFields, forceFree = false): ResolvedTicketPricing {
+  if (forceFree) {
+    return { tiers: [], isFree: true, adultPrice: null, childPrice: null, babyPrice: null, concessionPrice: null };
+  }
+
   const tiers: PricingTier[] = [];
 
   // Fixed Child is mutually exclusive with Young Child / Older Child — a
@@ -184,17 +196,29 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
   const useFixedChild =
     !!formatPriceDisplay(data.ticketVariantFixedChildPrice) || !!data.ticketVariantDefinitionFixedChild;
 
+  // Whether this record carries ANY ticketing data at all, in any slot —
+  // distinguishes a genuinely free / no-ticketing opportunity (nothing to
+  // show, isFree short-circuits below) from a priced one, where every
+  // applicable slot is shown even if this particular record has no price or
+  // definition for it (rendered as "-"), instead of only the populated ones.
+  const hasAnyTicketData = CANONICAL_ORDER.some(
+    (slug) => !!formatPriceDisplay(data[VARIANT_FIELD_MAP[slug].price]) || !!data[VARIANT_FIELD_MAP[slug].definition]
+  );
+
+  let anyRealPrice = false;
+  let allRealPricesFree = true;
+
   const pushTier = (slug: TicketVariantSlug) => {
     const { price: priceKey, definition: definitionKey, label } = VARIANT_FIELD_MAP[slug];
     const rawDefinition = data[definitionKey];
-    const display = formatPriceDisplay(data[priceKey]);
+    const rawPrice = data[priceKey];
+    const display = formatPriceDisplay(rawPrice);
     const hasDefinition = !!rawDefinition;
 
-    // Show the tier whenever there's a real price (even "£0.00" -> "Free")
-    // or a real definition (e.g. an age band entered with no price yet, like
-    // "not allowed") — skip only when the slot is genuinely absent from
-    // this record.
-    if (!display && !hasDefinition) return;
+    if (display !== null) {
+      anyRealPrice = true;
+      if (parsePriceValue(rawPrice) !== 0) allRealPricesFree = false;
+    }
 
     const description = slug === "group" ? parseGroupDescription(rawDefinition) : undefined;
 
@@ -206,10 +230,12 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
     });
   };
 
-  for (const slug of CANONICAL_ORDER) {
-    if (slug === "fixed_child" && !useFixedChild) continue;
-    if ((slug === "young_child" || slug === "older_child") && useFixedChild) continue;
-    pushTier(slug);
+  if (hasAnyTicketData) {
+    for (const slug of CANONICAL_ORDER) {
+      if (slug === "fixed_child" && !useFixedChild) continue;
+      if ((slug === "young_child" || slug === "older_child") && useFixedChild) continue;
+      pushTier(slug);
+    }
   }
 
   const adultPrice = parsePriceValue(data.ticketVariantAdultPrice);
@@ -220,11 +246,14 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
   const babyPrice = parsePriceValue(data.ticketVariantBabyPrice);
   const concessionPrice = parsePriceValue(data.ticketVariantConcessionPrice);
 
-  const isFree = tiers.length > 0 && tiers.every((t) => t.price === "Free");
+  // Free only when every tier that actually had a price was exactly £0.00 —
+  // tiers with no data at all ("-") don't count either way, and a record
+  // with no ticket data whatsoever (tiers empty) is free by default.
+  const isFree = !hasAnyTicketData || (anyRealPrice && allRealPricesFree);
 
   return {
     tiers: isFree ? [] : tiers,
-    isFree: tiers.length === 0 || isFree,
+    isFree,
     adultPrice,
     childPrice,
     babyPrice,

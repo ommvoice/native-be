@@ -150,17 +150,23 @@ function parseGroupDescription(definition: string | null): string | undefined {
 }
 
 type TicketVariantSlug =
-  | "adult" | "fixed_child" | "young_child" | "older_child" | "baby" | "concession" | "group";
+  | "baby" | "fixed_child" | "young_child" | "older_child" | "adult" | "concession" | "group";
+
+// Client-specified display order for the pricing box — fixed regardless of
+// what order ticketingVariants (or the source sheet) happens to list them in.
+const CANONICAL_ORDER: TicketVariantSlug[] = [
+  "baby", "fixed_child", "young_child", "older_child", "adult", "concession", "group",
+];
 
 const VARIANT_FIELD_MAP: Record<
   TicketVariantSlug,
   { price: keyof TicketVariantFields; definition: keyof TicketVariantFields; label: string }
 > = {
-  adult:       { price: "ticketVariantAdultPrice",      definition: "ticketVariantDefinitionAdult",      label: "Adult" },
+  baby:        { price: "ticketVariantBabyPrice",        definition: "ticketVariantDefinitionBaby",       label: "Baby" },
   fixed_child: { price: "ticketVariantFixedChildPrice",  definition: "ticketVariantDefinitionFixedChild", label: "Child" },
   young_child: { price: "ticketVariantYoungChildPrice",  definition: "ticketVariantDefinitionYoungChild", label: "Young Child" },
   older_child: { price: "ticketVariantOlderChildPrice",  definition: "ticketVariantDefinitionOlderChild", label: "Older Child" },
-  baby:        { price: "ticketVariantBabyPrice",        definition: "ticketVariantDefinitionBaby",       label: "Baby" },
+  adult:       { price: "ticketVariantAdultPrice",       definition: "ticketVariantDefinitionAdult",      label: "Adult" },
   concession:  { price: "ticketVariantConcessionPrice",  definition: "ticketVariantDefinitionConcession", label: "Concession" },
   // Group tickets are how "family" pricing is actually represented in the
   // data — there's no separate family field, so Group is shown as "Family".
@@ -171,42 +177,39 @@ const VARIANT_FIELD_MAP: Record<
 export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketPricing {
   const tiers: PricingTier[] = [];
 
+  // Fixed Child is mutually exclusive with Young Child / Older Child — a
+  // record either sets one flat child rate, or splits pricing by age band,
+  // never both. Fixed Child wins whenever it has data; otherwise whichever
+  // of Young/Older Child is populated shows individually.
+  const useFixedChild =
+    !!formatPriceDisplay(data.ticketVariantFixedChildPrice) || !!data.ticketVariantDefinitionFixedChild;
+
   const pushTier = (slug: TicketVariantSlug) => {
-    const { price, definition, label } = VARIANT_FIELD_MAP[slug];
-    const display = formatPriceDisplay(data[price]);
-    if (!display) return;
-    const age = data[definition] ?? undefined;
-    const description = slug === "group" ? parseGroupDescription(data[definition]) : undefined;
+    const { price: priceKey, definition: definitionKey, label } = VARIANT_FIELD_MAP[slug];
+    const rawDefinition = data[definitionKey];
+    const display = formatPriceDisplay(data[priceKey]);
+    const hasDefinition = !!rawDefinition;
+
+    // Show the tier whenever there's a real price (even "£0.00" -> "Free")
+    // or a real definition (e.g. an age band entered with no price yet, like
+    // "not allowed") — skip only when the slot is genuinely absent from
+    // this record.
+    if (!display && !hasDefinition) return;
+
+    const description = slug === "group" ? parseGroupDescription(rawDefinition) : undefined;
+
     tiers.push({
       label,
-      price: display,
-      ...(age ? { age } : {}),
+      price: display ?? "-",
+      ...(hasDefinition ? { age: rawDefinition! } : {}),
       ...(description ? { description } : {}),
     });
   };
 
-  // ticketingVariants (e.g. "adult, young_child, older_child, group") is the
-  // authoritative, per-record list of which variants actually apply — when
-  // present, show exactly those, in that order, instead of guessing from
-  // whichever price fields happen to be populated.
-  const declared = data.ticketingVariants
-    ?.split(",")
-    .map((s) => s.trim().toLowerCase())
-    .filter((s): s is TicketVariantSlug => s in VARIANT_FIELD_MAP);
-
-  if (declared && declared.length > 0) {
-    for (const slug of declared) pushTier(slug);
-  } else {
-    pushTier("adult");
-    // A record either sets one flat "Fixed Child" rate, or splits child
-    // pricing by age into Young Child / Older Child — Fixed Child wins as
-    // the single representative "child" rate when present, else Young Child.
-    if (formatPriceDisplay(data.ticketVariantFixedChildPrice)) pushTier("fixed_child");
-    else if (formatPriceDisplay(data.ticketVariantYoungChildPrice)) pushTier("young_child");
-    pushTier("older_child");
-    pushTier("baby");
-    pushTier("concession");
-    pushTier("group");
+  for (const slug of CANONICAL_ORDER) {
+    if (slug === "fixed_child" && !useFixedChild) continue;
+    if ((slug === "young_child" || slug === "older_child") && useFixedChild) continue;
+    pushTier(slug);
   }
 
   const adultPrice = parsePriceValue(data.ticketVariantAdultPrice);
@@ -218,13 +221,9 @@ export function resolveTicketPricing(data: TicketVariantFields): ResolvedTicketP
   const concessionPrice = parsePriceValue(data.ticketVariantConcessionPrice);
 
   const isFree = tiers.length > 0 && tiers.every((t) => t.price === "Free");
-  
-  const filteredPricingTiers = tiers.filter(
-  (tier) => tier.label?.toLowerCase() !== "family"
-);
 
   return {
-    tiers: isFree ? [] : filteredPricingTiers,
+    tiers: isFree ? [] : tiers,
     isFree: tiers.length === 0 || isFree,
     adultPrice,
     childPrice,

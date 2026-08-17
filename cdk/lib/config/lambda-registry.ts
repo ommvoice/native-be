@@ -313,6 +313,13 @@ const searchLambdas: LambdaDefinition[] = [
     overrides: { timeoutSeconds: 30 },
     routes: [{ path: ['search'], method: 'GET', auth: true }],
   },
+  {
+    key: 'searchList', name: 'search-list', entry: 'search/search-list.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    overrides: { timeoutSeconds: 30 },
+    routes: [{ path: ['search', 'list'], method: 'GET', auth: true }],
+  },
 ];
 
 // ── Weather ───────────────────────────────────────────────────────────────────

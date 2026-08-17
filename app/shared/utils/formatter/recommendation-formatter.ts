@@ -540,7 +540,8 @@ function resolveCardDisplay(
 
   switch (type) {
     case "venue": {
-      const bookingLable = fields.bookingType?.split(",")?.[0]?.trim() ?? undefined;
+      const bookingTypes = fields.bookingType?.split(",").map((t) => t.trim()).filter(Boolean) ?? [];
+      const bookingLable = bookingTypes.length > 1 ? "Check bookings" : bookingTypes[0] ?? undefined;
      const costBooking = bookingLable
         ? cost.toLowerCase() === "free"
           ? bookingLable === "Open (Free) Access"

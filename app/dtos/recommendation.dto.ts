@@ -3,6 +3,13 @@ export interface RecommendationQueryDto {
   childId?: string;
   opportunityLat? :  string;
   opportunityLong? :  string;
+  searchRadius?: string; 
+}
+
+export interface RecommendationSearchQueryDto {
+  parentId: string;
+  childId?: string;
+  searchRadius?: string; 
 }
 
 export interface ScoreBreakdown {

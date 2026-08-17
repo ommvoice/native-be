@@ -26,7 +26,7 @@ import {
   getCachedWeatherSuitabilitySlugs,
   scoreWeatherSuitability,
 } from './scoring-v2.service';
-import type { RecommendationQueryDto } from '../dtos/recommendation.dto';
+import type { RecommendationQueryDto, RecommendationSearchQueryDto } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { Narrowed } from '../shared/types/assets.types';
 
@@ -242,8 +242,10 @@ export class RecommendationV2Service {
       .sort((a,b)=> b.score.total - a.score.total);
 
     const finalData = weatherScoreMatch;
+    //-----------
+    const data = await this.attachPayloads(finalData)
 
-    return finalData.slice(0,2);
+    return {data, childrenAges: childAges};
   }
 
   async getNearby(dto: RecommendationQueryDto) {
@@ -311,6 +313,27 @@ export class RecommendationV2Service {
 
     const data = await this.attachPayloads(scored);
     return { data, childrenAges: childAges };
+  }
+
+  async getByRadius(dto : RecommendationSearchQueryDto) {
+    const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
+    if (!parent) throw new AppError(404, 'Parent not found');
+
+    const narrowed = dto.childId
+      ? { ...parent, children: parent.children.filter((c) => c.id === dto.childId) }
+      : parent;
+
+    if (!narrowed.children.length) {
+      throw new AppError(400, 'No children found for this query. Add a child or remove childId filter.');
+    }
+
+    const narrowedData: Narrowed = {
+      ...narrowed,
+      ...(dto.searchRadius &&  {searchRadius: Number(dto.searchRadius)})
+    }
+
+    return this.getItemsWithScore(narrowedData);
+
   }
 
   private parseCoords(c: RecommendationV2Candidate): { latitude: number; longitude: number } | null {

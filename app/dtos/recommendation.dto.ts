@@ -37,6 +37,10 @@ export interface RecommendationV2Candidate {
   skillAreaVariant: string | null;
   /** Free-text interest tags (e.g. "birdsong", "cycling") — matched against children's own interestTags. */
   tags: string[];
+  /** e.g. ["inside"], ["outside"], ["mixed_covering"] — physicalSetting enum slugs. */
+  physicalSetting: string[];
+  /** e.g. ["sunshine", "dry_mild", "overcast"] — weatherSuitability enum slugs. Always empty for clubs (no such field on club records). */
+  weatherSuitability: string[];
   startDate?: string | null;
   endDate?: string | null;
   activeDays?: string[];

@@ -1,0 +1,302 @@
+{
+  "parentId": "040167fc-d670-4836-9d11-89ba0121f824",
+  "childIds": [
+    "3bd50c63-9e95-4763-9043-9d587bd8321a",
+    "a2a644e9-60ad-4b47-8b7b-d357a32e86e2",
+    "b0621148-b169-4971-b509-b592cace2da6"
+  ],
+  "familySlugs": {
+    
+  },
+  "childTags": [
+    "birds",
+    "dancing",
+    "craft",
+    "cycling",
+    "butterflies",
+    "salmon",
+    "cafés",
+    "cakes",
+    "bike trails",
+    "surfing"
+  ],
+  "childAges": [
+    8,
+    3,
+    5
+  ],
+  "lat": 50.651162,
+  "lon": -3.42354,
+  "maxMiles": 40,
+  "narrowed": {
+    "id": "040167fc-d670-4836-9d11-89ba0121f824",
+    "postCode": "EX8 5JG",
+    "latitude": "50.651162",
+    "longitude": "-3.42354",
+    "searchRadius": 40,
+    "interestCategories": [
+      {
+        "slug": "nature_exploration"
+      },
+      {
+        "slug": "creativity_imagination"
+      },
+      {
+        "slug": "learning_curiosity"
+      },
+      {
+        "slug": "movement_energy"
+      }
+    ],
+    "interestSubCategories": [
+      {
+        "slug": "scenic_walks"
+      },
+      {
+        "slug": "green_spaces"
+      },
+      {
+        "slug": "nature_wildlife"
+      },
+      {
+        "slug": "coastal_adventures"
+      },
+      {
+        "slug": "gardens_outdoor"
+      },
+      {
+        "slug": "active_play"
+      },
+      {
+        "slug": "sporty_activities"
+      },
+      {
+        "slug": "wheels_routes"
+      },
+      {
+        "slug": "water_fun"
+      },
+      {
+        "slug": "creative_play"
+      },
+      {
+        "slug": "imaginative_play"
+      },
+      {
+        "slug": "hands_on_learning"
+      },
+      {
+        "slug": "interactive_museums"
+      },
+      {
+        "slug": "historical_cultural"
+      },
+      {
+        "slug": "animal_encounters"
+      },
+      {
+        "slug": "soft_play"
+      },
+      {
+        "slug": "indoor_entertainment"
+      },
+      {
+        "slug": "vehicles_transport"
+      }
+    ],
+    "children": [
+      {
+        "id": "3bd50c63-9e95-4763-9043-9d587bd8321a",
+        "dateOfBirth": "2018-01-01T00:00:00.000Z",
+        "interestCategories": [
+          {
+            "slug": "nature_exploration"
+          },
+          {
+            "slug": "creativity_imagination"
+          },
+          {
+            "slug": "together_time"
+          },
+          {
+            "slug": "special_memorable"
+          }
+        ],
+        "interestSubCategories": [
+          {
+            "slug": "scenic_walks"
+          },
+          {
+            "slug": "green_spaces"
+          },
+          {
+            "slug": "nature_wildlife"
+          },
+          {
+            "slug": "coastal_adventures"
+          },
+          {
+            "slug": "gardens_outdoor"
+          },
+          {
+            "slug": "water_fun"
+          },
+          {
+            "slug": "creative_play"
+          },
+          {
+            "slug": "imaginative_play"
+          },
+          {
+            "slug": "interactive_museums"
+          },
+          {
+            "slug": "historical_cultural"
+          },
+          {
+            "slug": "big_day_out"
+          },
+          {
+            "slug": "family_dining"
+          },
+          {
+            "slug": "relaxed_cafe"
+          },
+          {
+            "slug": "indoor_entertainment"
+          }
+        ],
+        "interestTags": [
+          "birds",
+          "dancing",
+          "craft",
+          "cycling",
+          "butterflies",
+          "salmon",
+          "cafés",
+          "cakes"
+        ],
+        "skills": [
+          
+        ]
+      },
+      {
+        "id": "a2a644e9-60ad-4b47-8b7b-d357a32e86e2",
+        "dateOfBirth": "2023-02-03T00:00:00.000Z",
+        "interestCategories": [
+          {
+            "slug": "creativity_imagination"
+          },
+          {
+            "slug": "movement_energy"
+          }
+        ],
+        "interestSubCategories": [
+          {
+            "slug": "active_play"
+          },
+          {
+            "slug": "sporty_activities"
+          },
+          {
+            "slug": "wheels_routes"
+          },
+          {
+            "slug": "water_fun"
+          },
+          {
+            "slug": "creative_play"
+          },
+          {
+            "slug": "imaginative_play"
+          },
+          {
+            "slug": "hands_on_learning"
+          },
+          {
+            "slug": "interactive_museums"
+          },
+          {
+            "slug": "historical_cultural"
+          },
+          {
+            "slug": "soft_play"
+          },
+          {
+            "slug": "indoor_entertainment"
+          }
+        ],
+        "interestTags": [
+          
+        ],
+        "skills": [
+          
+        ]
+      },
+      {
+        "id": "b0621148-b169-4971-b509-b592cace2da6",
+        "dateOfBirth": "2021-02-14T00:00:00.000Z",
+        "interestCategories": [
+          {
+            "slug": "movement_energy"
+          },
+          {
+            "slug": "creativity_imagination"
+          },
+          {
+            "slug": "learning_curiosity"
+          }
+        ],
+        "interestSubCategories": [
+          {
+            "slug": "active_play"
+          },
+          {
+            "slug": "sporty_activities"
+          },
+          {
+            "slug": "wheels_routes"
+          },
+          {
+            "slug": "water_fun"
+          },
+          {
+            "slug": "creative_play"
+          },
+          {
+            "slug": "imaginative_play"
+          },
+          {
+            "slug": "hands_on_learning"
+          },
+          {
+            "slug": "interactive_museums"
+          },
+          {
+            "slug": "historical_cultural"
+          },
+          {
+            "slug": "animal_encounters"
+          },
+          {
+            "slug": "soft_play"
+          },
+          {
+            "slug": "indoor_entertainment"
+          },
+          {
+            "slug": "vehicles_transport"
+          }
+        ],
+        "interestTags": [
+          "birds",
+          "bike trails",
+          "surfing"
+        ],
+        "skills": [
+          
+        ]
+      }
+    ]
+  }
+}

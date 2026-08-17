@@ -14,6 +14,7 @@
     "parse:venues-data": "tsx scripts/parse-venues-data.ts",
     "export:data-json": "tsx scripts/export-data-json.ts",
     "seed:opportunities": "tsx scripts/seed-opportunities.ts",
+    "test:recommendations": "tsx scripts/test-recommendations.ts",
     "___ LAYER ___": "",
     "layer:install": "cd layers && npm install",
     "___ INSTALL ___": "",

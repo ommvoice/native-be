@@ -1,28 +1,28 @@
 export interface EnumEntry {
     name: string;
     slug: string;
-    active: boolean ;
+    active: boolean;
 }
 
-export interface EnumSeasonalHighlight extends EnumEntry{
-    seasonalTagSlugs? : string[]
+export interface EnumSeasonalHighlight extends EnumEntry {
+    seasonalTagSlugs?: string[]
 }
 
-export interface EnumThemeAttraction extends EnumEntry{
-    opportunityThemeSlugs? : string[]
+export interface EnumThemeAttraction extends EnumEntry {
+    opportunityThemeSlugs?: string[]
 }
 
 export interface EnumOpportunityTheme extends EnumEntry {
-    opportunityTypeSlugs? : string[]
-    interestCategorySlugs? : string[]
+    opportunityTypeSlugs?: string[]
+    interestCategorySlugs?: string[]
 }
 
 export interface EnumOpportunityThemeVariant extends EnumEntry {
-    opportunityThemeSlugs? : string[]
+    opportunityThemeSlugs?: string[]
 }
 
 export interface EnumSkillAreaVariant extends EnumEntry {
-    skillAreaSlugs? : string[]
+    skillAreaSlugs?: string[]
 }
 
 export type EnumOpportunityType = EnumEntry;
@@ -55,37 +55,68 @@ export type EnumTicketVariant = EnumEntry;
 export type EnumInterestTag = EnumEntry;
 
 export interface EnumResponse {
-    opportunityType : EnumOpportunityType[];
-    activityGroup : EnumActivityGroup[];
-    interestCategory : EnumInterestCategory[];
-    generalSkill : EnumGeneralSkill[];
-    weatherSuitability : EnumWeatherSuitability[];
-    physicalSetting : EnumPhysicalSetting[];
-    ageSuitability : EnumAgeSuitability[];
-    estimatedDuration : EnumEstimatedDuration[];
-    functionalFacility : EnumFunctionalFacility[];
-    parentFacility : EnumParentFacility[];
-    kidsFacility : EnumKidsFacility[];
-    dogFacility : EnumDogFacility[];
-    parkingProvision : EnumParkingProvision[];
-    extraKit : EnumExtraKit[];
-    seasonalTag : EnumSeasonalTag[];
-    routeType : EnumRouteType[];
-    routeSuitability : EnumRouteSuitability[];
-    terrainType : EnumTerrainType[];
-    routeDifficulty : EnumRouteDifficulty[];
-    clubFormat : EnumClubFormat[];
-    clubFrequency : EnumClubFrequency[];
-    clubCommitment : EnumClubCommitment[];
-    skillArea : EnumSkillArea[];
-    abilityLevel : EnumAbilityLevel[];
-    eventType : EnumEventType[];
-    bookingType : EnumBookingType[];
-    ticketVariant : EnumTicketVariant[];
-    opportunityTheme : EnumOpportunityTheme[];
-    opportunityThemeVariant : EnumOpportunityThemeVariant[];
-    skillAreaVariant : EnumSkillAreaVariant[];
-    seasonalHighlight : EnumSeasonalHighlight[];
-    themeAttraction : EnumThemeAttraction[];
-    interestTags : EnumInterestTag[];
+    opportunityType: EnumOpportunityType[];
+    activityGroup: EnumActivityGroup[];
+    interestCategory: EnumInterestCategory[];
+    generalSkill: EnumGeneralSkill[];
+    weatherSuitability: EnumWeatherSuitability[];
+    physicalSetting: EnumPhysicalSetting[];
+    ageSuitability: EnumAgeSuitability[];
+    estimatedDuration: EnumEstimatedDuration[];
+    functionalFacility: EnumFunctionalFacility[];
+    parentFacility: EnumParentFacility[];
+    kidsFacility: EnumKidsFacility[];
+    dogFacility: EnumDogFacility[];
+    parkingProvision: EnumParkingProvision[];
+    extraKit: EnumExtraKit[];
+    seasonalTag: EnumSeasonalTag[];
+    routeType: EnumRouteType[];
+    routeSuitability: EnumRouteSuitability[];
+    terrainType: EnumTerrainType[];
+    routeDifficulty: EnumRouteDifficulty[];
+    clubFormat: EnumClubFormat[];
+    clubFrequency: EnumClubFrequency[];
+    clubCommitment: EnumClubCommitment[];
+    skillArea: EnumSkillArea[];
+    abilityLevel: EnumAbilityLevel[];
+    eventType: EnumEventType[];
+    bookingType: EnumBookingType[];
+    ticketVariant: EnumTicketVariant[];
+    opportunityTheme: EnumOpportunityTheme[];
+    opportunityThemeVariant: EnumOpportunityThemeVariant[];
+    skillAreaVariant: EnumSkillAreaVariant[];
+    seasonalHighlight: EnumSeasonalHighlight[];
+    themeAttraction: EnumThemeAttraction[];
+    interestTags: EnumInterestTag[];
+}
+
+export interface Narrowed {
+    id: string;
+    postCode: string;
+    latitude: string;
+    longitude: string;
+    searchRadius: number;
+    interestCategories: {
+        slug: string;
+    }[];
+    interestSubCategories: {
+        slug: string;
+    }[];
+    children: {
+        id: string;
+        dateOfBirth: Date;
+        interestCategories: {
+            slug: string;
+        }[];
+        interestSubCategories: {
+            slug: string;
+        }[];
+        interestTags: string[];
+        skills: {
+            slug: string;
+            minAge: null;
+            maxAge: null;
+            subCategory: null;
+        }[];
+    }[];
 }

@@ -11,8 +11,9 @@ function b(v: unknown): boolean | null {
   return typeof v === 'boolean' ? v : null;
 }
 
-/** venue/event/club/routeInterestTags are a comma-separated free-text list, e.g. "birdsong, viewpoints, cycling". */
-function splitTags(raw: unknown): string[] {
+/** Comma-separated free-text/enum-slug lists, e.g. interestTags "birdsong, viewpoints, cycling" or
+ * weatherSuitability "sunshine, overcast, dry_mild". Shared by tags, physicalSetting and weatherSuitability. */
+function splitList(raw: unknown): string[] {
   if (typeof raw !== 'string' || !raw.trim()) return [];
   return raw.split(',').map((t) => t.trim()).filter(Boolean);
 }
@@ -180,7 +181,9 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    null,
       skillAreaVariant: null,
-      tags:             splitTags(v.venueInterestTags),
+      tags:             splitList(v.venueInterestTags),
+      physicalSetting:   splitList(v.venuePhysicalSetting),
+      weatherSuitability:splitList(v.venueDetailedWeatherSuitability),
       ...getVenueTodayTimes(v),
     }));
 
@@ -207,7 +210,9 @@ export class RecommendationV2Repository {
       skillAreaVariant: (e.eventSkillAreaVariant   as string | null) ?? null,
       startDate:        (e.eventStartDate as string | null) ?? null,
       endDate:          (e.eventEndDate   as string | null) ?? null,
-      tags:             splitTags(e.eventInterestTags),
+      tags:             splitList(e.eventInterestTags),
+      physicalSetting:   splitList(e.eventPhysicalSetting),
+      weatherSuitability:splitList(e.eventDetailedWeatherSuitability),
       ...getEventTodayTimes(e),
     }));
 
@@ -235,7 +240,10 @@ export class RecommendationV2Repository {
       startDate:        (c.clubStartDate as string | null) ?? null,
       endDate:          (c.clubEndDate   as string | null) ?? null,
       activeDays:       getClubActiveDays(c),
-      tags:             splitTags(c.clubInterestTags),
+      tags:             splitList(c.clubInterestTags),
+      physicalSetting:   splitList(c.clubPhysicalSetting),
+      // Clubs have no weather-suitability field at all — always empty, unlike venue/event/route.
+      weatherSuitability: [],
       ...getClubTodayTimes(c),
     }));
 
@@ -260,7 +268,9 @@ export class RecommendationV2Repository {
       },
       skillAreaSlug:    null,
       skillAreaVariant: null,
-      tags:             splitTags(r.routeInterestTags),
+      tags:             splitList(r.routeInterestTags),
+      physicalSetting:   splitList(r.routePhysicalSetting),
+      weatherSuitability:splitList(r.routeDetailedWeatherSuitability),
     }));
 
     return [...venueRows, ...eventRows, ...clubRows, ...routeRows];

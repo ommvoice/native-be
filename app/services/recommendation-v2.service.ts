@@ -16,8 +16,19 @@ import {
   scoreSchedule,
   scoreTagOverlap,
 } from './scoring.service';
+import {
+  buildFamilyThemeSlugWeights,
+  scoreInterestThemeWeighted,
+  buildChildTagWeights,
+  scoreInterestTagsWeighted,
+  scoreAge as scoreAgeV2,
+  scoreSchedule as scoreScheduleV2,
+  getCachedWeatherSuitabilitySlugs,
+  scoreWeatherSuitability,
+} from './scoring-v2.service';
 import type { RecommendationQueryDto } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
+import type { Narrowed } from '../shared/types/assets.types';
 
 const DEFAULT_LIMIT = 30;
 
@@ -128,6 +139,111 @@ export class RecommendationV2Service {
 
     const data = await this.attachPayloads(scoredShuffled);
     return { data, childrenAges: childAges };
+  }
+
+  async getItemsWithScore(narrowed: Narrowed) {
+    const lat = Number.parseFloat(narrowed.latitude);
+    const lon = Number.parseFloat(narrowed.longitude);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+      throw new AppError(400, 'Parent location is invalid');
+    }
+
+    const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
+    const maxMiles  = narrowed.searchRadius;
+    // Free-text tags (e.g. "Cats", "Dogs") the selected children picked directly —
+    // separate from the slug-based interest categories/sub-categories above. Weighted so a tag
+    // 2 or more children picked scores higher than one only 1 child picked.
+    const childTagWeights = buildChildTagWeights(narrowed.children.map((ch) => ch.interestTags ?? []));
+
+    const candidates = await this.repo.getOpportunityCandidatesV2();
+
+    // Step 1: interest theme match — narrowed.interestSubCategories are the family's theme
+    // slugs; score every candidate by how much its themeSlug/themeVariantSlug overlaps them,
+    // weighted so a theme shared by the parent + 1 or 2 children scores higher than one only a
+    // single family member picked. 
+    const familyThemeSlugWeights = buildFamilyThemeSlugWeights({
+      parentSlugs:   narrowed.interestSubCategories.map((x) => x.slug),
+      childrenSlugs: narrowed.children.map((ch) => ch.interestSubCategories.map((x) => x.slug)),
+    });
+
+    const interestThemeScoreMatch = candidates.map((c) => {
+      const intrestScore = Math.round(scoreInterestThemeWeighted(familyThemeSlugWeights, c.themeSlug, c.themeVariantSlug))
+      return {
+      candidate: c,
+      score:{
+        intrestScore,
+        total: intrestScore
+      },
+    }}).sort((a,b)=> b.score.total - a.score.total);
+
+    // Step 2: interest tags match — how many of the family's free-text interestTags show up on
+    // each candidate's own tag list, weighted so a tag shared by 2 or more children scores
+    // higher than one only 1 child picked.
+    const interestTagsScoreMatch = interestThemeScoreMatch.map((item) => {
+       const interestTagsScore = Math.round(scoreInterestTagsWeighted(childTagWeights, item.candidate.tags));
+      return{
+      ...item,
+      score: {
+        ...item.score,
+        interestTagsScore,
+        total:  item.score.total + interestTagsScore
+        
+      },
+    }}).sort((a,b)=> b.score.total - a.score.total);
+
+    // Step 3: age match — how well each candidate's ageBands suit the family's children's ages.
+    const ageScoreMatch = interestTagsScoreMatch.map((item) => {
+      const ageScore = Math.round(scoreAgeV2(childAges, item.candidate.ageBands));
+      return {
+      ...item,
+      score: {
+        ...item.score,
+        ageScore,
+        total: item.score.total+ ageScore
+      },
+    }}).sort((a,b)=> b.score.total - a.score.total);
+
+    // Step 4: schedule match — how well each candidate's opening hours / session times line up
+    // with right now (the "1 hr rule": imminent or currently-open scores higher than closed).
+    // scheduleScore === 0 means closed/not-on-today/no-schedule-info — drop it.
+    const scheduleScoreMatch = ageScoreMatch
+      .map((item) => {
+        const c = item.candidate;
+        const scheduleScore = scoreScheduleV2(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime);
+        return {
+        ...item,
+        score: {
+          ...item.score,
+          scheduleScore,
+          total: item.score.total + scheduleScore
+        },
+      }})
+      .filter((item) => item.score.scheduleScore !== 0)
+      .sort((a,b)=> b.score.total - a.score.total);
+
+    // Step 5: weather match — "outside" candidates are excluded (weatherScore null) unless the
+    // live weather is actually one of their listed suitable conditions; "inside"/"mixed_covering"
+    // candidates are weather-immune and always score well. One weatherapi.com call per request
+    // (cached 10 minutes per postcode), not one per candidate.
+    const liveWeatherSlugs = await getCachedWeatherSuitabilitySlugs(narrowed.postCode);
+
+    const weatherScoreMatch = scheduleScoreMatch
+      .map((item) => {
+        const c = item.candidate;
+        const weatherScore = scoreWeatherSuitability(liveWeatherSlugs, c.physicalSetting, c.weatherSuitability);
+        return { ...item, score: { ...item.score, weatherScore } };
+      })
+      .filter((item) => item.score.weatherScore !== null)
+      .map((item) => {
+        const weatherScore = item.score.weatherScore as number;
+        return { ...item, score: { ...item.score, weatherScore, total: item.score.total + weatherScore } };
+      })
+      .sort((a,b)=> b.score.total - a.score.total);
+
+    const finalData = weatherScoreMatch;
+
+    return finalData.slice(0,2);
   }
 
   async getNearby(dto: RecommendationQueryDto) {

@@ -140,35 +140,85 @@ export function resolveSeasonalHighlight(
   attractions: SlugName[] | null = null,
   forThem: SlugName[] | null = null
 ): SeasonalHighlight | null {
-  if (!seasonalHighlights || seasonalHighlights.length === 0) return null;
+  if (
+    (!seasonalHighlights || seasonalHighlights.length === 0) &&
+    (!attractions || attractions.length === 0)
+  ) {
+    return null;
+  }
 
   const month = AppClock.parts().month;
+
   const currentSeason =
-    month >= 2 && month <= 4 ? "spring" : month >= 5 && month <= 7 ? "summer" : month >= 8 && month <= 10 ? "autumn" : "winter";
-  const seasonLabels: Record<string, SeasonalHighlight["season"]> = {
+    month >= 2 && month <= 4
+      ? "spring"
+      : month >= 5 && month <= 7
+        ? "summer"
+        : month >= 8 && month <= 10
+          ? "autumn"
+          : "winter";
+
+  const seasonLabels: Record<
+    string,
+    SeasonalHighlight["season"]
+  > = {
     spring: "Spring",
     summer: "Summer",
     autumn: "Autumn",
     winter: "Winter",
   };
-  const seasonLabel = seasonLabels[currentSeason]!;
-  const tags = (seasonalTag ?? []).map((t: SlugName) => t.name).filter((tag) => tag.toLowerCase().includes(currentSeason));
 
-  const seasonalAllHighlights = assets.getSeasonalHighlights(currentSeason);
-  const foundHighlights = seasonalAllHighlights.filter((item: EnumSeasonalHighlight) =>
-    seasonalHighlights.some((other) => other.slug === item.slug)
+  const seasonLabel = seasonLabels[currentSeason]!;
+
+  const tags = (seasonalTag ?? [])
+    .map((t: SlugName) => t.name)
+    .filter((tag) =>
+      tag.toLowerCase().includes(currentSeason)
+    );
+
+  let highlight: SlugName[] = [];
+
+  // Seasonal highlights
+  if (seasonalHighlights?.length) {
+    const seasonalAllHighlights =
+      assets.getSeasonalHighlights(currentSeason);
+
+    const foundHighlights = seasonalAllHighlights.filter(
+      (item: EnumSeasonalHighlight) =>
+        seasonalHighlights.some(
+          (other) => other.slug === item.slug
+        )
+    );
+
+    highlight = foundHighlights.map((item) => ({
+      slug: currentSeason,
+      name: item.name,
+    }));
+  }
+
+  // Names that already exist in "forThem"
+  const forThemSlugs = new Set(
+    (forThem ?? []).map((item) => item.name.toLowerCase())
   );
 
-  let highlight: SlugName[] = foundHighlights.map((item) => ({ slug: currentSeason, name: item.name }));
+  // Attractions that are NOT already in "forThem"
+  const filteredAttractions: SlugName[] = (attractions ?? [])
+    .filter(
+      (attraction) => !forThemSlugs.has(attraction.name.toLowerCase())
+    )
+    .map((attraction) => ({
+      slug: "attractions_",
+      name: attraction.name,
+    }));
 
-const filteredAttractions = (attractions ?? []).filter(
-  attraction => !(forThem ?? []).some(
-    item => item.slug === attraction.slug
-  )
-).map((x)=>({slug: "attarctions_", name: x.name}));
+  highlight = [
+    ...highlight,
+    ...filteredAttractions,
+  ];
 
-  highlight = [...highlight, ...filteredAttractions];
-
-
-  return { season: seasonLabel, highlight, tags };
+  return {
+    season: seasonLabel,
+    highlight,
+    tags,
+  };
 }

@@ -85,7 +85,10 @@ function buildForThem(data: OpportunityClubV2): SlugName[] | null {
   if (childFacilities.length === 0) {
     const attractions = data.clubAttractions ? toSlugNameList(data.clubAttractions) ?? [] : [];
 
-    return attractions.length > 0 ? attractions : null;
+    return attractions.length > 0 ? attractions.map((attraction) => ({
+      slug: "attractions_",
+      name: attraction.name,
+    })) : null;
   }
 
   return childFacilities

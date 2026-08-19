@@ -54,7 +54,6 @@ import { highTideCafeVenueV2 } from "./high_tide_cafe.js";
 import { exmouthLibraryVenueV2 } from "./exmouth_library.js";
 import { phearParkVenueV2 } from "./phear_park.js";
 import { phearParkPlayparkVenueV2 } from "./phear_park_playpark.js";
-import { phearParkBasketballCourtVenueV2 } from "./phear_park_basketball_court.js";
 import { exmouthBeachToyLibraryVenueV2 } from "./exmouth_beach_toy_library.js";
 import { carterAvenuePlayParkVenueV2 } from "./carter_avenue_play_park.js";
 import { geoplaySeafrontParkVenueV2 } from "./geoplay_seafront_park.js";

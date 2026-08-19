@@ -1,4 +1,5 @@
 import { AppError } from '../shared/errors/app-error';
+import { AppClock } from '../shared/utils/app-clock';
 import { RecommendationV2Repository } from '../repositories/recommendation-v2.repository';
 import { DrivingLegService, buildRoutableLeg } from './driving-leg.service';
 import { legKey } from '../repositories/driving-leg.repository';
@@ -60,7 +61,11 @@ export class RecommendationV2Service {
     }
 
     const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
-    const maxMiles  = narrowed.searchRadius;
+    // Per-request override (e.g. a filter-sheet radius) wins when present and
+    // valid; a missing/malformed searchRadius param falls back to the
+    // parent's persisted radius rather than silently going unbounded.
+    const parsedSearchRadius = dto.searchRadius ? Number(dto.searchRadius) : NaN;
+    const maxMiles = Number.isFinite(parsedSearchRadius) ? parsedSearchRadius : narrowed.searchRadius;
 
     const familySlugs = collectFamilyInterestSlugs({
       parentCategorySlugs:    narrowed.interestCategories.map((x) => x.slug),
@@ -120,7 +125,7 @@ export class RecommendationV2Service {
           // Exactly what fed openingTimeScore/scoreSchedule — carried through
           // to the response so clients can see why a schedule score landed
           // where it did, not just the resulting number.
-          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString() },
+          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString(), timeAndDate: AppClock.dateTimeString() },
         };
       })
       .filter(Boolean)
@@ -304,7 +309,7 @@ export class RecommendationV2Service {
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
           score: adjusted,
           scoreBreakdown: { interestScore: 0, ageScore, distanceScore: distScore, scheduleScore, total: adjusted },
-          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString() },
+          schedule: { startTime: c.startTime ?? null, endTime: c.endTime ?? null, startDate: c.startDate ?? null, endDate: c.endDate ?? null, weekDay: c.activeDays ?? null, currentTime: new Date().toISOString(), timeAndDate: AppClock.dateTimeString() },
         };
       })
       .filter(Boolean)
@@ -362,7 +367,7 @@ export class RecommendationV2Service {
       drivingDurationSeconds: number | null;
       score: number;
       scoreBreakdown: object;
-      schedule: { startTime: string | null; endTime: string | null; startDate: string | null; endDate: string | null; weekDay: string[] | null; currentTime: string };
+      schedule: { startTime: string | null; endTime: string | null; startDate: string | null; endDate: string | null; weekDay: string[] | null; currentTime: string; timeAndDate: string };
     }[]).map((row) => {
       const payload = payloadMap.get(legKey(row.type as 'venue' | 'event' | 'club' | 'route', row.id));
       if (!payload) throw new AppError(500, `Payload missing for ${row.type} ${row.id}`);

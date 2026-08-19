@@ -7,12 +7,13 @@ import { AppError } from '../../shared/errors/app-error.js';
 import { ok } from '../../shared/utils/response.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const parentId = event.queryStringParameters?.['parentId'];
-  const childId  = event.queryStringParameters?.['childId'];
+  const parentId     = event.queryStringParameters?.['parentId'];
+  const childId      = event.queryStringParameters?.['childId'];
+  const searchRadius = event.queryStringParameters?.['searchRadius'];
   if (!parentId) throw new AppError(400, 'parentId query parameter is required');
 
   const service = new RecommendationV2Service();
-  const { data: raw, childrenAges } = await service.getRecommendations({ parentId, childId });
+  const { data: raw, childrenAges } = await service.getRecommendations({ parentId, childId, searchRadius });
   const data = toOpportunityList(raw as any, childrenAges);
   return ok({ count: data.length, data });
 };

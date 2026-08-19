@@ -25,6 +25,8 @@ export interface RecommendationSchedule {
   weekDay:   string[] | null;
   // System time (ISO) scoreSchedule() actually compared startTime/endTime/etc. against.
   currentTime: string;
+  // Same instant as currentTime, human-readable as en-GB UK wall-clock date+time (AppClock.dateTimeString()).
+  timeAndDate: string;
 }
 
 /** Scored recommendation row enriched with full opportunity payload. */
@@ -541,7 +543,7 @@ function resolveCardDisplay(
   switch (type) {
     case "venue": {
       const bookingTypes = fields.bookingType?.split(",").map((t) => t.trim()).filter(Boolean) ?? [];
-      const bookingLable = bookingTypes.length > 1 ? "Check bookings" : bookingTypes[0] ?? undefined;
+      const bookingLable = bookingTypes.length > 1 ? "Check Booking" : bookingTypes[0] ?? undefined;
      const costBooking = bookingLable
         ? cost.toLowerCase() === "free"
           ? bookingLable === "Open (Free) Access"

@@ -66,6 +66,25 @@ function getClubTodayTimes(c: Record<string, unknown>): { startTime: string | nu
   };
 }
 
+/** Which days of the week a venue is actually open — parsed from venueSchedulePattern for fixed-timing venues (e.g. "Saturday, Sunday" for a weekend-only cafe), or inferred from which venueMixedTimings{Day}Start fields are populated otherwise. Mirrors getClubActiveDays. */
+function getVenueActiveDays(v: Record<string, unknown>): string[] {
+  if (v.venueFixedDailyTimings === true && v.venueSchedulePattern) {
+    return (v.venueSchedulePattern as string)
+      .split(',')
+      .map((d) => d.trim().toLowerCase())
+      .filter(Boolean);
+  }
+  const days: string[] = [];
+  if (v.venueMixedTimingsMondayStart)    days.push('monday');
+  if (v.venueMixedTimingsTuesdayStart)   days.push('tuesday');
+  if (v.venueMixedTimingsWednesdayStart) days.push('wednesday');
+  if (v.venueMixedTimingsThursdayStart)  days.push('thursday');
+  if (v.venueMixedTimingsFridayStart)    days.push('friday');
+  if (v.venueMixedTimingsSaturdayStart)  days.push('saturday');
+  if (v.venueMixedTimingsSundayStart)    days.push('sunday');
+  return days;
+}
+
 function getClubActiveDays(c: Record<string, unknown>): string[] {
   if (c.clubFixedDailyTimings === true && c.clubDailySchedule) {
     return (c.clubDailySchedule as string)
@@ -184,6 +203,7 @@ export class RecommendationV2Repository {
       tags:             splitList(v.venueInterestTags),
       physicalSetting:   splitList(v.venuePhysicalSetting),
       weatherSuitability:splitList(v.venueDetailedWeatherSuitability),
+      activeDays:       getVenueActiveDays(v),
       ...getVenueTodayTimes(v),
     }));
 

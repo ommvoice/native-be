@@ -178,6 +178,13 @@ export function scoreSchedule(
   }
 
   if (type === 'venue') {
+    // No recurring schedule captured — can't confirm it's open today, don't show it.
+    if (!activeDays || activeDays.length === 0) return 0;
+    const dayNames  = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const todayName = dayNames[AppClock.weekday(now)]!;
+    // Not open today (e.g. a weekend-only cafe on a Tuesday) — closed today, don't show it.
+    if (!activeDays.includes(todayName)) return 0;
+
     // No time-of-day resolved for today at all — can't confirm it's open, don't show it.
     if (!startTime && !endTime) return 0;
     if (isStartingWithinAnHour(now, startTime)) return 100;

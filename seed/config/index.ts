@@ -10,9 +10,10 @@ import { TABLE_SUFFIXES } from "./table-suffixes.js";
 
 type AppContext = { appName: string; environment: string; awsProfileRegion: string };
 
-function getAppContext(env: string): AppContext {
+export function getAppContext(env: string, cdkFileName?:string): AppContext {
+  const cdkFilePath = cdkFileName ?  `cdk/${cdkFileName}` :  "cdk/cdk.json"
   const cdkJson = JSON.parse(
-    readFileSync(resolve(process.cwd(), "cdk/cdk.json"), "utf-8"),
+    readFileSync(resolve(process.cwd(), cdkFilePath), "utf-8"),
   );
   const ctx = cdkJson.context?.[env] as AppContext | undefined;
   if (!ctx) throw new Error(`No CDK context found for env "${env}"`);
@@ -29,7 +30,7 @@ export { appName, environment, prefix };
 // ── DynamoDB client ────────────────────────────────────────────────────────────
 
 const client = new DynamoDBClient({
-  region: process.env.AWS_REGION ?? awsProfileRegion,
+  region: awsProfileRegion ?? process.env.AWS_REGION,
 });
 
 export const db = DynamoDBDocumentClient.from(client, {

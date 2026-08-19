@@ -26,7 +26,13 @@
     "deploy:uat": "cd cdk && npx cdk deploy --all --require-approval never --context config=uat --profile=cdk_profile_fo9",
     "destroy:uat": "cd cdk && npx cdk destroy --all --force --context config=uat --profile=cdk_profile_fo9",
     "___ DEPLOY ___": "",
-    "up:uat": "npm run deploy:uat"
+    "up:uat": "npm run deploy:uat",
+     "___ CDK_NATIVE ___": "",
+    "cdk:bootstrap:native": "cd cdk && npm install && npx cdk bootstrap --context config=uat --profile=cdk_profile_native",
+    "cdk:synth:native": "cd cdk && npx cdk synth --all --context config=uat --profile=cdk_profile_native",
+    "___ DEPLOY_UAT_NATIVE ___": "",
+    "deploy:uat:native": "cd cdk && npx cdk deploy --all --require-approval never --context config=uat --profile=cdk_profile_native",
+    "destroy:uat:native": "cd cdk && npx cdk destroy --all --force --context config=uat --profile=cdk_profile_native"
   },
   "type": "module",
   "keywords": [],

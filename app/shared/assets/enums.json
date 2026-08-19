@@ -790,7 +790,7 @@
     },
     {
       "name": "Springtime",
-      "slug": "spring_flowers",
+      "slug": "spring",
       "active": true
     },
     {
@@ -3099,41 +3099,65 @@
     {
       "name": "Birdsong",
       "slug": "birdsong",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Bluebells",
       "slug": "bluebells",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Daffodills",
       "slug": "daffodills",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Foals",
       "slug": "foals",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Baby Lambs",
       "slug": "baby_lambs",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Seasonal Flowers",
       "slug": "seasonal_flowers",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "Returning swallows, swifts (birds)",
       "slug": "returning_swallows_swifts_birds",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {
       "name": "New Ponies",
       "slug": "new_ponies",
+      "seasonalTagSlugs": [
+        "spring"
+      ],
       "active": true
     },
     {

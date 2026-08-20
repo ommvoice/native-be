@@ -12,6 +12,22 @@ vi.mock("../app/services/weather.service.js", () => ({
   }),
 }));
 
+// getItemsWithScore's distance step also now calls DrivingLegService.ensureLegsCached, which hits a
+// DynamoDB driving-legs table (TABLE_DRIVING_LEGS) that isn't deployed in this dev AWS account at
+// all — stub it to return an empty cache (drivingDistanceMiles/drivingDurationSeconds end up null,
+// same as the real "nothing cached yet, Mapbox lookup failed/skipped" case). Keep buildRoutableLeg
+// real since it's a pure function used directly by recommendation-v2.service.ts too.
+vi.mock("../app/services/driving-leg.service.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../app/services/driving-leg.service.js")>();
+  class MockDrivingLegService {
+    ensureLegsCached = vi.fn().mockResolvedValue(new Map());
+  }
+  return {
+    ...actual,
+    DrivingLegService: MockDrivingLegService,
+  };
+});
+
 import { RecommendationV2Service } from "../app/services/recommendation-v2.service.js";
 import params from "../app/shared/assets/params.json" with { type: "json" };
 import type { Narrowed } from "../app/shared/types/assets.types.js";
@@ -27,59 +43,101 @@ const narrowed: Narrowed = {
 };
 
 describe("RecommendationV2Service.getItemsWithScore", () => {
-  it("returns scored candidates with interest theme, tag, age, schedule and weather scores that sum to total", async () => {
+  it("returns { data, childrenAges } with every score dimension present and total = the sum of all 6", async () => {
     const service = new RecommendationV2Service();
     const result = await service.getItemsWithScore(narrowed);
 
-    expect(Array.isArray(result)).toBe(true);
-    // Debug slice(0, 2) in getItemsWithScore caps the result at 2 candidates.
-    expect(result.length).toBe(2);
+    expect(result).toHaveProperty("data");
+    expect(result).toHaveProperty("childrenAges");
+    expect(Array.isArray(result.data)).toBe(true);
+    expect(result.data.length).toBeGreaterThan(0);
+    expect(result.childrenAges).toEqual(narrowed.children.map(() => expect.any(Number)));
 
-    for (const item of result) {
-      expect(item.candidate).toBeDefined();
-      expect(typeof item.score.intrestScore).toBe("number");
-      expect(typeof item.score.interestTagsScore).toBe("number");
-      expect(typeof item.score.ageScore).toBe("number");
-      expect(typeof item.score.scheduleScore).toBe("number");
-      expect(typeof item.score.weatherScore).toBe("number");
-      expect(item.score.total).toBe(
-        item.score.intrestScore + item.score.interestTagsScore + item.score.ageScore
-        + item.score.scheduleScore + item.score.weatherScore,
+    for (const item of result.data) {
+      const s = item.score;
+      expect(typeof s.intrestScore).toBe("number");
+      expect(typeof s.interestTagsScore).toBe("number");
+      expect(typeof s.ageScore).toBe("number");
+      expect(typeof s.scheduleScore).toBe("number");
+      expect(typeof s.weatherScore).toBe("number");
+      expect(typeof s.distanceScore).toBe("number");
+      expect(s.total).toBeCloseTo(
+        s.intrestScore + s.interestTagsScore + s.ageScore + s.scheduleScore + s.weatherScore + s.distanceScore,
       );
+      expect(s.totalWeighted).toBe(Math.round(s.total / 6));
     }
   });
 
-  it("never returns a candidate with weatherScore null (outside candidates that don't suit the live weather are dropped)", async () => {
+  it("never returns a candidate with intrestScore, scheduleScore, weatherScore or distanceScore equal to 0 (each step drops its own zero-scored candidates)", async () => {
     const service = new RecommendationV2Service();
-    const result = await service.getItemsWithScore(narrowed);
+    const { data } = await service.getItemsWithScore(narrowed);
 
-    for (const item of result) {
-      expect(item.score.weatherScore).not.toBeNull();
-    }
-  });
-
-  it("sorts results by the running total score descending", async () => {
-    const service = new RecommendationV2Service();
-    const result = await service.getItemsWithScore(narrowed);
-
-    for (let i = 1; i < result.length; i++) {
-      expect(result[i - 1].score.total).toBeGreaterThanOrEqual(result[i].score.total);
-    }
-  });
-
-  it("never returns a candidate with scheduleScore 0 (closed/unscheduled candidates are dropped)", async () => {
-    const service = new RecommendationV2Service();
-    const result = await service.getItemsWithScore(narrowed);
-
-    for (const item of result) {
+    for (const item of data) {
+      expect(item.score.intrestScore).not.toBe(0);
       expect(item.score.scheduleScore).not.toBe(0);
+      expect(item.score.weatherScore).not.toBe(0);
+      expect(item.score.distanceScore).not.toBe(0);
     }
   });
 
-  it("throws when the parent's location is invalid", async () => {
+  it("never returns a candidate with totalWeighted 0", async () => {
+    const service = new RecommendationV2Service();
+    const { data } = await service.getItemsWithScore(narrowed);
+
+    for (const item of data) {
+      expect(item.score.totalWeighted).not.toBe(0);
+    }
+  });
+
+  it("sorts results by total score descending", async () => {
+    const service = new RecommendationV2Service();
+    const { data } = await service.getItemsWithScore(narrowed);
+
+    for (let i = 1; i < data.length; i++) {
+      expect(data[i - 1].score.total).toBeGreaterThanOrEqual(data[i].score.total);
+    }
+  });
+
+  it("attaches the enriched opportunity payload alongside the score/schedule/distance fields", async () => {
+    const service = new RecommendationV2Service();
+    const { data } = await service.getItemsWithScore(narrowed);
+
+    const item = data[0]!;
+    expect(typeof item.id).toBe("string");
+    expect(typeof item.opportunityType).toBe("string");
+    expect(typeof item.distanceMiles).toBe("number");
+    // startTime/endTime/startDate/endDate/weekDay are legitimately null for routes (no schedule
+    // fields at all) — only currentTime/timeAndDate are always populated strings.
+    expect(item.schedule).toHaveProperty("startTime");
+    expect(item.schedule).toHaveProperty("endTime");
+    expect(item.schedule).toHaveProperty("startDate");
+    expect(item.schedule).toHaveProperty("endDate");
+    expect(item.schedule).toHaveProperty("weekDay");
+    expect(item.schedule.currentTime).toEqual(expect.any(String));
+    expect(item.schedule.timeAndDate).toEqual(expect.any(String));
+  });
+
+  it("throws 'Location is invalid' when narrowed.latitude/longitude can't be parsed", async () => {
     const service = new RecommendationV2Service();
     const invalidNarrowed: Narrowed = { ...narrowed, latitude: "not-a-number" };
 
-    await expect(service.getItemsWithScore(invalidNarrowed)).rejects.toThrow("Parent location is invalid");
+    await expect(service.getItemsWithScore(invalidNarrowed)).rejects.toThrow("Location is invalid");
+  });
+
+  it("uses narrowed.opp (lat/long) instead of narrowed.latitude/longitude when present, for distance scoring", async () => {
+    const service = new RecommendationV2Service();
+
+    // opp deliberately set to the same coordinates as narrowed itself, and narrowed's own
+    // latitude/longitude deliberately broken — if opp weren't actually used, this would throw
+    // "Location is invalid" instead of succeeding.
+    const withOpp: Narrowed = {
+      ...narrowed,
+      latitude: "not-a-number",
+      longitude: "not-a-number",
+      opp: { lat: narrowed.latitude, long: narrowed.longitude },
+    };
+
+    const { data } = await service.getItemsWithScore(withOpp);
+    expect(data.length).toBeGreaterThan(0);
   });
 });

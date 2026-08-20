@@ -119,4 +119,8 @@ export interface Narrowed {
             subCategory: null;
         }[];
     }[];
+    opp?: {
+        lat:string;
+        long:string
+    }
 }

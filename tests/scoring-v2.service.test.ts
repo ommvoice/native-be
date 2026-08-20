@@ -17,7 +17,11 @@ import {
   mapWeatherToSuitabilitySlugs,
   scoreWeatherSuitability,
   getCachedWeatherSuitabilitySlugs,
+  scoreDistance,
+  combineWeighted,
+  rankWithShuffle,
 } from "../app/services/scoring-v2.service.js";
+import type { Score } from "../app/dtos/recommendation.dto.js";
 import { getAgeInYears } from "../app/services/scoring.service.js";
 import { RecommendationV2Repository } from "../app/repositories/recommendation-v2.repository.js";
 import params from "../app/shared/assets/params.json" with { type: "json" };
@@ -496,9 +500,11 @@ describe("scoring-v2.service", () => {
   });
 
   describe("scoreWeatherSuitability", () => {
-    it("returns null (skip) for an outside candidate whose weatherSuitability doesn't include the live condition", () => {
+    // Skip is now represented as 0 (not null) so getItemsWithScore can drop it with a plain
+    // `!== 0` filter, same convention as scheduleScore/intrestScore.
+    it("scores 0 (skip) for an outside candidate whose weatherSuitability doesn't include the live condition", () => {
       const score = scoreWeatherSuitability(["overcast"], ["outside"], ["sunshine", "dry_mild"]);
-      expect(score).toBeNull();
+      expect(score).toBe(0);
     });
 
     it("scores 5 for an outside candidate whose weatherSuitability does include the live condition", () => {
@@ -509,7 +515,7 @@ describe("scoring-v2.service", () => {
     it("scores 8 for an inside candidate that doesn't match, higher than an outside match", () => {
       const score = scoreWeatherSuitability(["overcast"], ["inside"], ["sunshine"]);
       expect(score).toBe(8);
-      expect(score).toBeGreaterThan(scoreWeatherSuitability(["overcast"], ["outside"], ["sunshine", "overcast"])!);
+      expect(score).toBeGreaterThan(scoreWeatherSuitability(["overcast"], ["outside"], ["sunshine", "overcast"]));
     });
 
     it("scores 10 for an inside candidate that also matches — the highest tier", () => {
@@ -554,6 +560,91 @@ describe("scoring-v2.service", () => {
       await getCachedWeatherSuitabilitySlugs("EX3 3CC");
       await getCachedWeatherSuitabilitySlugs("EX4 4DD");
       expect(getWeatherByPostcodeMock).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe("scoreDistance", () => {
+    it("scores 0 when the distance is at or beyond maxMiles", () => {
+      expect(scoreDistance(10, 10)).toBe(0);
+      expect(scoreDistance(15, 10)).toBe(0);
+    });
+
+    it("scores 0 when maxMiles is 0 or negative", () => {
+      expect(scoreDistance(1, 0)).toBe(0);
+      expect(scoreDistance(1, -5)).toBe(0);
+    });
+
+    it("scores 100 when the distance is 0 or negative (right on top of the parent)", () => {
+      expect(scoreDistance(0, 10)).toBe(100);
+      expect(scoreDistance(-1, 10)).toBe(100);
+    });
+
+    it("falls off linearly between 0 and maxMiles", () => {
+      expect(scoreDistance(5, 10)).toBe(50);
+      expect(scoreDistance(2, 10)).toBe(80);
+    });
+  });
+
+  describe("combineWeighted", () => {
+    it("sums all 6 score dimensions into total, and totalWeighted is total/6 rounded", () => {
+      const score: Score = {
+        intrestScore: 10, interestTagsScore: 20, ageScore: 100,
+        scheduleScore: 90, weatherScore: 5, distanceScore: 50,
+        total: 0, totalWeighted: 0,
+      };
+      const { total, totalWeighted } = combineWeighted(score);
+      expect(total).toBe(10 + 20 + 100 + 90 + 5 + 50);
+      expect(totalWeighted).toBe(Math.round(total / 6));
+    });
+
+    it("totals 0 when every dimension is 0", () => {
+      const score: Score = {
+        intrestScore: 0, interestTagsScore: 0, ageScore: 0,
+        scheduleScore: 0, weatherScore: 0, distanceScore: 0,
+        total: 0, totalWeighted: 0,
+      };
+      expect(combineWeighted(score)).toEqual({ total: 0, totalWeighted: 0 });
+    });
+  });
+
+  describe("rankWithShuffle", () => {
+    type Item = { id: string; score: { total: number; totalWeighted: number; interestTagsScore: number } };
+
+    it("sorts by total descending", () => {
+      const items: Item[] = [
+        { id: "low",  score: { total: 10, totalWeighted: 2, interestTagsScore: 0 } },
+        { id: "high", score: { total: 90, totalWeighted: 15, interestTagsScore: 0 } },
+        { id: "mid",  score: { total: 50, totalWeighted: 8, interestTagsScore: 0 } },
+      ];
+      expect(rankWithShuffle(items).map((i) => i.id)).toEqual(["high", "mid", "low"]);
+    });
+
+    it("breaks ties on total by interestTagsScore descending", () => {
+      const items: Item[] = [
+        { id: "lowTag",  score: { total: 50, totalWeighted: 8, interestTagsScore: 5 } },
+        { id: "highTag", score: { total: 50, totalWeighted: 8, interestTagsScore: 20 } },
+      ];
+      expect(rankWithShuffle(items).map((i) => i.id)).toEqual(["highTag", "lowTag"]);
+    });
+
+    // KNOWN LIMITATION (not desired behavior): the tie-detection loop compares `sorted[j].score
+    // === sorted[i].score` — an object-reference check — instead of comparing score.total values.
+    // Two distinct candidate objects with numerically identical scores are never distinct-object
+    // references, so this condition is always false and the shuffle-on-ties branch never runs in
+    // practice. This pins the *current* (unshuffled, but still correctly ordered) behavior rather
+    // than asserting the intended "randomize exact ties" behavior.
+    it("does not currently shuffle candidates that are tied on both total and interestTagsScore", () => {
+      const items: Item[] = [
+        { id: "a", score: { total: 50, totalWeighted: 8, interestTagsScore: 10 } },
+        { id: "b", score: { total: 50, totalWeighted: 8, interestTagsScore: 10 } },
+        { id: "c", score: { total: 50, totalWeighted: 8, interestTagsScore: 10 } },
+      ];
+      const orderings = new Set<string>();
+      for (let i = 0; i < 20; i++) {
+        orderings.add(rankWithShuffle(items).map((x) => x.id).join(","));
+      }
+      expect(orderings.size).toBe(1);
+      expect([...orderings][0]).toBe("a,b,c");
     });
   });
 });

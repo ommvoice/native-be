@@ -55,3 +55,18 @@ export interface RecommendationV2Candidate {
   startTime?: string | null;
   endTime?: string | null;
 }
+
+export interface Score {
+  intrestScore: number;
+  interestTagsScore: number;
+  ageScore: number;
+  scheduleScore: number;
+  weatherScore: number;
+  distanceScore: number;
+  total:number;
+  totalWeighted: number;
+};
+
+export interface RecommendationCandidateWithScore extends RecommendationV2Candidate {
+  score:Score;
+}

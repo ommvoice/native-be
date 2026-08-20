@@ -29,7 +29,7 @@ export function buildRoutableLeg(
       parentPostCode:       (parent.postCode  ?? '').trim(),
       parentLatitude:       (parent.latitude  ?? '').trim(),
       parentLongitude:      (parent.longitude ?? '').trim(),
-      opportunityPostCode:  normalizeUkPostcode(candidatePostcode),
+      opportunityPostCode:  normalizeUkPostcode(candidatePostcode || ""),
       opportunityLatitude:  coordKey(routing.latitude),
       opportunityLongitude: coordKey(routing.longitude),
     },

@@ -5,9 +5,7 @@
     "a2a644e9-60ad-4b47-8b7b-d357a32e86e2",
     "b0621148-b169-4971-b509-b592cace2da6"
   ],
-  "familySlugs": {
-    
-  },
+  "familySlugs": {},
   "childTags": [
     "birds",
     "dancing",
@@ -176,9 +174,7 @@
           "cafés",
           "cakes"
         ],
-        "skills": [
-          
-        ]
+        "skills": []
       },
       {
         "id": "a2a644e9-60ad-4b47-8b7b-d357a32e86e2",
@@ -226,12 +222,8 @@
             "slug": "indoor_entertainment"
           }
         ],
-        "interestTags": [
-          
-        ],
-        "skills": [
-          
-        ]
+        "interestTags": [],
+        "skills": []
       },
       {
         "id": "b0621148-b169-4971-b509-b592cace2da6",
@@ -293,9 +285,7 @@
           "bike trails",
           "surfing"
         ],
-        "skills": [
-          
-        ]
+        "skills": []
       }
     ]
   }

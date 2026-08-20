@@ -1,4 +1,4 @@
-import type { RecommendationV2AgeBands } from '../dtos/recommendation.dto';
+import type { RecommendationV2AgeBands, Score } from '../dtos/recommendation.dto';
 import { AppClock } from '../shared/utils/app-clock';
 import { getWeatherByPostcode } from './weather.service';
 
@@ -6,7 +6,7 @@ import { getWeatherByPostcode } from './weather.service';
 
 export function scoreInterestOverlap(familySlugs: Set<string>, themeSlug: string, variantSlug: string): number {
   const opp = new Set<string>();
-  if (themeSlug.trim())   opp.add(themeSlug.trim().toLowerCase());
+  if (themeSlug.trim()) opp.add(themeSlug.trim().toLowerCase());
   if (variantSlug.trim()) opp.add(variantSlug.trim().toLowerCase());
   if (familySlugs.size === 0) return 50;
   let matched = 0;
@@ -43,7 +43,7 @@ export function buildFamilyThemeSlugWeights(input: {
  * and both children all picked, even though both are technically "a match". */
 export function scoreInterestThemeWeighted(weights: Map<string, number>, themeSlug: string, variantSlug: string): number {
   const opp = new Set<string>();
-  if (themeSlug.trim())   opp.add(themeSlug.trim().toLowerCase());
+  if (themeSlug.trim()) opp.add(themeSlug.trim().toLowerCase());
   if (variantSlug.trim()) opp.add(variantSlug.trim().toLowerCase());
 
   let totalWeight = 0;
@@ -102,18 +102,18 @@ function band(v: boolean | null | undefined): boolean { return v === true; }
 
 function anyBandSelected(b: RecommendationV2AgeBands): boolean {
   return band(b.under1) || band(b.ages1To2) || band(b.ages3To4) ||
-         band(b.ages5To7) || band(b.ages8To12) || band(b.over13) || band(b.adults);
+    band(b.ages5To7) || band(b.ages8To12) || band(b.over13) || band(b.adults);
 }
 
 export function childAgeMatchesBands(childAge: number, b: RecommendationV2AgeBands): boolean {
   if (!anyBandSelected(b)) return true;
-  if (band(b.under1)   && childAge < 1)                          return true;
-  if (band(b.ages1To2) && childAge >= 1  && childAge <= 2)       return true;
-  if (band(b.ages3To4) && childAge >= 3  && childAge <= 4)       return true;
-  if (band(b.ages5To7) && childAge >= 5  && childAge <= 7)       return true;
-  if (band(b.ages8To12)&& childAge >= 8  && childAge <= 12)      return true;
-  if (band(b.over13)   && childAge >= 13)                        return true;
-  if (band(b.adults)   && childAge >= 16)                        return true;
+  if (band(b.under1) && childAge < 1) return true;
+  if (band(b.ages1To2) && childAge >= 1 && childAge <= 2) return true;
+  if (band(b.ages3To4) && childAge >= 3 && childAge <= 4) return true;
+  if (band(b.ages5To7) && childAge >= 5 && childAge <= 7) return true;
+  if (band(b.ages8To12) && childAge >= 8 && childAge <= 12) return true;
+  if (band(b.over13) && childAge >= 13) return true;
+  if (band(b.adults) && childAge >= 16) return true;
   return false;
 }
 
@@ -156,11 +156,11 @@ const weatherCache = new Map<string, { expiresAt: number; slugs: string[] }>();
 // WeatherAPI.com condition codes grouped into our own WEATHER_SUITABILITY_ENUM slugs — WeatherAPI
 // has no matching vocabulary of its own, so this hand-maps its numeric `condition.code` values
 // (see https://www.weatherapi.com/docs/weather_conditions.json) into the closest slug.
-const SUNNY_CODES    = new Set([1000, 1003]);
+const SUNNY_CODES = new Set([1000, 1003]);
 const OVERCAST_CODES = new Set([1006, 1009, 1030, 1135, 1147]);
-const RAIN_CODES     = new Set([1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1240, 1243, 1246]);
+const RAIN_CODES = new Set([1063, 1150, 1153, 1168, 1171, 1180, 1183, 1186, 1189, 1192, 1195, 1198, 1201, 1240, 1243, 1246]);
 const SNOW_ICE_CODES = new Set([1066, 1069, 1072, 1114, 1117, 1204, 1207, 1210, 1213, 1216, 1219, 1222, 1225, 1237, 1249, 1252, 1255, 1258, 1261, 1264]);
-const STORM_CODES    = new Set([1087, 1273, 1276, 1279, 1282]);
+const STORM_CODES = new Set([1087, 1273, 1276, 1279, 1282]);
 
 /** Maps a live WeatherAPI.com reading into our own weatherSuitability slugs (wet_rain, windy,
  * sunshine, snow_ice, overcast, storm_heavy_rain, dry_mild, dry_cold, dry_warm, dry_hot). A single
@@ -173,22 +173,22 @@ export function mapWeatherToSuitabilitySlugs(weather: {
   const slugs: string[] = [];
   const code = weather.condition.code;
 
-  const isSunny    = SUNNY_CODES.has(code);
+  const isSunny = SUNNY_CODES.has(code);
   const isOvercast = OVERCAST_CODES.has(code);
 
-  if (isSunny)                    slugs.push('sunshine');
-  if (isOvercast)                 slugs.push('overcast');
-  if (RAIN_CODES.has(code))       slugs.push('wet_rain');
-  if (SNOW_ICE_CODES.has(code))   slugs.push('snow_ice');
-  if (STORM_CODES.has(code))      slugs.push('storm_heavy_rain');
+  if (isSunny) slugs.push('sunshine');
+  if (isOvercast) slugs.push('overcast');
+  if (RAIN_CODES.has(code)) slugs.push('wet_rain');
+  if (SNOW_ICE_CODES.has(code)) slugs.push('snow_ice');
+  if (STORM_CODES.has(code)) slugs.push('storm_heavy_rain');
 
   // "Dry & ..." temperature bands only apply when it's actually dry (sunny or overcast, not
   // rain/snow/storm).
   if (isSunny || isOvercast) {
-    if (weather.temp_c < 10)      slugs.push('dry_cold');
+    if (weather.temp_c < 10) slugs.push('dry_cold');
     else if (weather.temp_c < 18) slugs.push('dry_mild');
     else if (weather.temp_c < 25) slugs.push('dry_warm');
-    else                          slugs.push('dry_hot');
+    else slugs.push('dry_hot');
   }
 
   if (weather.condition.isWindy) slugs.push('windy');
@@ -200,12 +200,12 @@ export function mapWeatherToSuitabilitySlugs(weather: {
  * minutes per postcode — avoids hitting weatherapi.com on every single recommendation request for
  * the same family/location. */
 export async function getCachedWeatherSuitabilitySlugs(postcode: string): Promise<string[]> {
-  const key    = postcode.trim().toUpperCase();
+  const key = postcode.trim().toUpperCase();
   const cached = weatherCache.get(key);
   if (cached && cached.expiresAt > Date.now()) return cached.slugs;
 
   const weather = await getWeatherByPostcode(postcode);
-  const slugs   = mapWeatherToSuitabilitySlugs(weather);
+  const slugs = mapWeatherToSuitabilitySlugs(weather);
   weatherCache.set(key, { slugs, expiresAt: Date.now() + WEATHER_CACHE_TTL_MS });
   return slugs;
 }
@@ -225,14 +225,14 @@ export function scoreWeatherSuitability(
   liveWeatherSlugs: string[],
   candidatePhysicalSetting: string[],
   candidateWeatherSuitability: string[],
-): number | null {
-  const settings  = candidatePhysicalSetting.map((s) => s.trim().toLowerCase());
+): number {
+  const settings = candidatePhysicalSetting.map((s) => s.trim().toLowerCase());
   const isOutside = settings.includes('outside') && !settings.includes('inside') && !settings.includes('mixed_covering');
 
   const candidateSet = new Set(candidateWeatherSuitability.map((s) => s.trim().toLowerCase()));
-  const matches       = liveWeatherSlugs.some((s) => candidateSet.has(s));
+  const matches = liveWeatherSlugs.some((s) => candidateSet.has(s));
 
-  if (isOutside) return matches ? 5 : null;
+  if (isOutside) return matches ? 5 : 0;
   return matches ? 10 : 8;
 }
 
@@ -246,14 +246,14 @@ export function scoreSchedule(
 ): number {
   if (type === 'route') return 100;
 
-  const now   = new Date();
+  const now = new Date();
   const today = AppClock.calendarDay(now);
 
   if (type === 'event') {
-    const start    = startDate ? new Date(startDate) : null;
-    const end      = endDate ? new Date(endDate) : null;
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
     const startDay = start ? AppClock.calendarDay(start) : null;
-    const endDay   = end ? AppClock.calendarDay(end) : null;
+    const endDay = end ? AppClock.calendarDay(end) : null;
 
     // No date info at all — can't confirm it's actually on today, so don't show it.
     if (!startDay && !endDay) return 0;
@@ -271,7 +271,7 @@ export function scoreSchedule(
   if (type === 'club') {
     // No recurring schedule captured — can't confirm it's open today, don't show it.
     if (!activeDays || activeDays.length === 0) return 0;
-    const dayNames  = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const todayName = dayNames[AppClock.weekday(now)]!;
     // Not running today — closed today, don't show it.
     if (!activeDays.includes(todayName)) return 0;
@@ -285,7 +285,7 @@ export function scoreSchedule(
   if (type === 'venue') {
     // No recurring schedule captured — can't confirm it's open today, don't show it.
     if (!activeDays || activeDays.length === 0) return 0;
-    const dayNames  = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const todayName = dayNames[AppClock.weekday(now)]!;
     // Not open today (e.g. a weekend-only cafe on a Tuesday) — closed today, don't show it.
     if (!activeDays.includes(todayName)) return 0;
@@ -299,4 +299,47 @@ export function scoreSchedule(
   }
 
   return 100;
+}
+
+export function scoreDistance(distanceMiles: number, maxMiles: number): number {
+  if (maxMiles <= 0 || distanceMiles >= maxMiles) return 0;
+  if (distanceMiles <= 0) return 100;
+  return 100 * (1 - distanceMiles / maxMiles);
+}
+
+export function combineWeighted(score: Score): { total: number, totalWeighted: number } {
+  const {
+    intrestScore,
+    interestTagsScore,
+    ageScore,
+    scheduleScore,
+    weatherScore,
+    distanceScore,
+  } = score;
+  const total =
+    intrestScore +
+    interestTagsScore +
+    ageScore +
+    scheduleScore +
+    weatherScore +
+    distanceScore;
+
+  const totalWeighted = Math.round(total / 6);
+
+  return { total, totalWeighted };
+}
+
+export function rankWithShuffle<T extends { score: {total: number, totalWeighted:number , interestTagsScore: number}}>(items: T[]): T[] {
+  const sorted = [...items].sort((a, b) => b.score.total - a.score.total || b.score.interestTagsScore - a.score.interestTagsScore);
+  let i = 0;
+  while (i < sorted.length) {
+    let j = i + 1;
+    while (j < sorted.length && sorted[j].score === sorted[i].score && sorted[j].score.interestTagsScore === sorted[i].score.interestTagsScore) j++;
+    for (let k = j - 1; k > i; k--) {
+      const r = i + Math.floor(Math.random() * (k - i + 1));
+      [sorted[k], sorted[r]] = [sorted[r], sorted[k]];
+    }
+    i = j;
+  }
+  return sorted;
 }

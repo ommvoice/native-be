@@ -233,7 +233,12 @@ describe("scoring-v2.service", () => {
     });
 
     it("scores a venue 0 when it has no resolved opening time for today at all", () => {
-      expect(scoreSchedule("venue", null, null, undefined, null, null)).toBe(0);
+      expect(scoreSchedule("venue", null, null, ["monday"], null, null)).toBe(0);
+    });
+
+    it("scores a venue 0 when it has no activeDays at all", () => {
+      expect(scoreSchedule("venue", null, null, undefined, "09:00", "17:00")).toBe(0);
+      expect(scoreSchedule("venue", null, null, [], "09:00", "17:00")).toBe(0);
     });
 
     it("scores an event 0 when it has no start/end date at all", () => {
@@ -247,7 +252,8 @@ describe("scoring-v2.service", () => {
     // The 3 candidates below all have *fixed* daily timings (same hours every day they run), so
     // their startTime/endTime/activeDays are stable regardless of which real weekday the test
     // suite happens to run on — only the fake system time below controls the scenario.
-    describe("venue: haldon_forest_park (fixed daily timing, 07:00-21:00)", () => {
+    describe("venue: haldon_forest_park (fixed daily timing, open every day, 07:00-21:00)", () => {
+      let activeDays: string[] | undefined;
       let startTime: string | null;
       let endTime: string | null;
 
@@ -255,45 +261,95 @@ describe("scoring-v2.service", () => {
         const repo = new RecommendationV2Repository();
         const candidates = await repo.getOpportunityCandidatesV2();
         const venue = candidates.find((c) => c.id === "haldon_forest_park")!;
+        expect(venue.activeDays).toEqual(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
         expect(venue.startTime).toBe("07:00");
         expect(venue.endTime).toBe("21:00");
-        startTime = venue.startTime ?? null;
-        endTime   = venue.endTime ?? null;
+        activeDays = venue.activeDays;
+        startTime  = venue.startTime ?? null;
+        endTime    = venue.endTime ?? null;
       });
 
       afterEach(() => vi.useRealTimers());
 
       it("scores 0 well before opening", () => {
         vi.useFakeTimers();
-        vi.setSystemTime(new Date("2026-01-05T05:00:00Z")); // 05:00 UK time, opens 07:00
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(0);
+        vi.setSystemTime(new Date("2026-01-05T05:00:00Z")); // Monday 05:00 UK time, opens 07:00
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(0);
       });
 
       it("scores 100 when starting within the hour", () => {
         vi.useFakeTimers();
-        vi.setSystemTime(new Date("2026-01-05T06:30:00Z")); // 30 min before opening
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(100);
+        vi.setSystemTime(new Date("2026-01-05T06:30:00Z")); // Monday, 30 min before opening
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(100);
       });
 
       it("scores 90 when currently open but not imminent", () => {
         vi.useFakeTimers();
-        vi.setSystemTime(new Date("2026-01-05T12:00:00Z")); // midday, well within 07:00-21:00
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(90);
+        vi.setSystemTime(new Date("2026-01-05T12:00:00Z")); // Monday midday, well within 07:00-21:00
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(90);
       });
 
       it("scores 0 after closing", () => {
         vi.useFakeTimers();
-        vi.setSystemTime(new Date("2026-01-05T22:00:00Z")); // 1hr after 21:00 close
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(0);
+        vi.setSystemTime(new Date("2026-01-05T22:00:00Z")); // Monday, 1hr after 21:00 close
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(0);
       });
 
       it("scores 90 still exactly at endTime, but 0 the very next minute — no grace window after closing", () => {
         vi.useFakeTimers();
-        vi.setSystemTime(new Date("2026-01-05T21:00:00Z")); // exactly 21:00
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(90);
+        vi.setSystemTime(new Date("2026-01-05T21:00:00Z")); // Monday, exactly 21:00
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(90);
 
         vi.setSystemTime(new Date("2026-01-05T21:01:00Z")); // 21:01 — 1 minute past close
-        expect(scoreSchedule("venue", null, null, undefined, startTime, endTime)).toBe(0);
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(0);
+      });
+    });
+
+    // Regression coverage for the bug where a venue with a fixed daily
+    // timing (e.g. weekend-only) scored as open on every day of the week —
+    // getVenueTodayTimes() resolved a startTime/endTime regardless of day,
+    // and scoreSchedule's venue branch never checked activeDays at all.
+    describe("venue: lower_halsdon_farm_cafe (fixed daily timing, Saturday/Sunday only, 10:00-16:00)", () => {
+      let activeDays: string[] | undefined;
+      let startTime: string | null;
+      let endTime: string | null;
+
+      beforeAll(async () => {
+        const repo = new RecommendationV2Repository();
+        const candidates = await repo.getOpportunityCandidatesV2();
+        const venue = candidates.find((c) => c.id === "lower_halsdon_farm_cafe")!;
+        expect(venue.activeDays).toEqual(["saturday", "sunday"]);
+        expect(venue.startTime).toBe("10:00");
+        expect(venue.endTime).toBe("16:00");
+        activeDays = venue.activeDays;
+        startTime  = venue.startTime ?? null;
+        endTime    = venue.endTime ?? null;
+      });
+
+      afterEach(() => vi.useRealTimers());
+
+      it("scores 0 on a non-running day (Tuesday), even during what would be opening hours", () => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2026-01-06T12:00:00Z")); // Tuesday midday — closed all week except Sat/Sun
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(0);
+      });
+
+      it("scores 90 when currently open on a running day (Saturday)", () => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2026-01-03T12:00:00Z")); // Saturday midday, within 10:00-16:00
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(90);
+      });
+
+      it("scores 100 when starting within the hour on a running day (Sunday)", () => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2026-01-04T09:30:00Z")); // Sunday, 30 min before 10:00 opening
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(100);
+      });
+
+      it("scores 0 after closing on a running day (Saturday)", () => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2026-01-03T17:00:00Z")); // Saturday, 1hr after 16:00 close
+        expect(scoreSchedule("venue", null, null, activeDays, startTime, endTime)).toBe(0);
       });
     });
 

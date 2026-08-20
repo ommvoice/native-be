@@ -17,10 +17,16 @@ const AWS_REGION_TECHNIT = process.env.AWS_REGION_TECHNIT ?? "";
 const AWS_ACCESS_KEY_ID_TECHNIT = process.env.AWS_ACCESS_KEY_ID_TECHNIT ?? "";
 const AWS_SECRET_ACCESS_KEY_TECHNIT = process.env.AWS_SECRET_ACCESS_KEY_TECHNIT ?? "";
 const AWS_REGION_NATIVE = process.env.AWS_REGION_NATIVE ?? "";
+const AWS_COGNITO_USER_POOL_ID_NATIVE = process.env.AWS_COGNITO_USER_POOL_ID_NATIVE ?? "";
 const AWS_ACCESS_KEY_ID_NATIVE = process.env.AWS_ACCESS_KEY_ID_NATIVE ?? "";
 const AWS_SECRET_ACCESS_KEY_NATIVE = process.env.AWS_SECRET_ACCESS_KEY_NATIVE ?? "";
 
 // Inline credentials below — do not commit real keys, fill in locally and revert before pushing.
+
+const SEEDED_USER_ID    = "6ecf1b49-3996-480c-a832-eac25bff06ef";  // for dbtable
+const SEEDED_USER_EMAIL    = "p@p.com";
+const SEEDED_USER_PASSWORD = "Password123!";
+const TARGET_USER_POOL_ID = AWS_COGNITO_USER_POOL_ID_NATIVE;
 
 // ── Source account (current) ────────────────────────────────────────────────
 const sourceClient = new DynamoDBClient({
@@ -61,11 +67,6 @@ const targetCognitoClient = new CognitoIdentityProviderClient({
   },
 });
 
-const TARGET_USER_POOL_ID = "<TARGET_USER_POOL_ID>";
-
-const SEEDED_USER_EMAIL    = "p@p.com";
-const SEEDED_USER_PASSWORD = "Password123!";
-
 async function scanAll(tableName: string) {
   const items: Record<string, any>[] = [];
   let ExclusiveStartKey: Record<string, any> | undefined;
@@ -105,7 +106,34 @@ async function seed(tableName: string, items: any[]) {
   }
 }
 
-async function seedCognitoUser(email: string, password: string, userId: string) {
+
+async function updateUserSub(userId: string, sub: string) {
+  await target.send(
+    new UpdateCommand({
+      TableName: TABLES.users,
+      Key: { id: userId },
+      UpdateExpression: "SET #sub = :sub",
+      ExpressionAttributeNames: { "#sub": "sub" },
+      ExpressionAttributeValues: { ":sub": sub },
+    }),
+  );
+  console.log(`[${TABLES.users}] updated sub for userId ${userId} -> ${sub}`);
+}
+
+async function runDatabaseTableMigrations() {
+  for (const tableName of Object.values(TABLES)) {
+    const items = await scanAll(tableName);
+    console.log(`[${tableName}] found ${items.length} items`);
+
+    if (items.length > 0) {
+      await seed(tableName, items);
+    }
+
+    console.log(`[${tableName}] migration completed`);
+  }
+}
+
+async function runCognitoUserMigration(email: string, password: string, userId:string) {
   const created = await targetCognitoClient.send(
     new AdminCreateUserCommand({
       UserPoolId:    TARGET_USER_POOL_ID,
@@ -126,48 +154,20 @@ async function seedCognitoUser(email: string, password: string, userId: string) 
 
   const sub = created.User?.Attributes?.find((attr) => attr.Name === "sub")?.Value;
   if (!sub) throw new Error(`Cognito did not return a sub for ${email}`);
+
+  await updateUserSub(userId, sub) //update use sub in migrated db
+
   console.log(`Cognito user seeded — userId: ${userId}, email: ${email}, sub: ${sub}`);
 
-  return { userId, email, sub };
+  return { email, sub, userId };
 }
 
-async function updateUserSub(userId: string, sub: string) {
-  await target.send(
-    new UpdateCommand({
-      TableName: TABLES.users,
-      Key: { id: userId },
-      UpdateExpression: "SET #sub = :sub",
-      ExpressionAttributeNames: { "#sub": "sub" },
-      ExpressionAttributeValues: { ":sub": sub },
-    }),
-  );
-  console.log(`[${TABLES.users}] updated sub for userId ${userId} -> ${sub}`);
-}
 
 async function main() {
-  let seededUserId: string | undefined;
 
-  for (const tableName of Object.values(TABLES)) {
-    const items = await scanAll(tableName);
-    console.log(`[${tableName}] found ${items.length} items`);
+  // await runDatabaseTableMigrations()
+  await runCognitoUserMigration(SEEDED_USER_EMAIL, SEEDED_USER_PASSWORD,SEEDED_USER_ID);
 
-    if (items.length > 0) {
-      await seed(tableName, items);
-    }
-
-    if (tableName === TABLES.users) {
-      seededUserId = items.find((item) => item.email === SEEDED_USER_EMAIL)?.id;
-    }
-
-    console.log(`[${tableName}] migration completed`);
-  }
-
-  if (!seededUserId) {
-    throw new Error(`No user with email ${SEEDED_USER_EMAIL} found in ${TABLES.users}`);
-  }
-
-  const { sub } = await seedCognitoUser(SEEDED_USER_EMAIL, SEEDED_USER_PASSWORD, seededUserId);
-  await updateUserSub(seededUserId, sub);
 }
 
 main().catch(console.error);

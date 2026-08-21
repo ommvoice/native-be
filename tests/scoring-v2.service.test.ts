@@ -20,6 +20,7 @@ import {
   scoreDistance,
   combineWeighted,
   rankWithShuffle,
+  getInitialScore,
 } from "../app/services/scoring-v2.service.js";
 import type { Score } from "../app/dtos/recommendation.dto.js";
 import { getAgeInYears } from "../app/services/scoring.service.js";
@@ -645,6 +646,54 @@ describe("scoring-v2.service", () => {
       }
       expect(orderings.size).toBe(1);
       expect([...orderings][0]).toBe("a,b,c");
+    });
+  });
+
+  describe("getInitialScore", () => {
+    it("returns every dimension at 0 (and total/totalWeighted 0) when called with no flags", () => {
+      expect(getInitialScore({})).toEqual({
+        intrestScore: 0,
+        interestTagsScore: 0,
+        ageScore: 0,
+        scheduleScore: 0,
+        weatherScore: 0,
+        distanceScore: 0,
+        total: 0,
+        totalWeighted: 0,
+      });
+    });
+
+    it("skipAll sets every dimension (including total/totalWeighted) to 100, ignoring the individual skip flags", () => {
+      expect(getInitialScore({ skipAll: true, skipInterests: false })).toEqual({
+        intrestScore: 100,
+        interestTagsScore: 100,
+        ageScore: 100,
+        scheduleScore: 100,
+        weatherScore: 100,
+        distanceScore: 100,
+        total: 100,
+        totalWeighted: 100,
+      });
+    });
+
+    it("sets only the flagged dimensions to 100, leaving the rest at 0", () => {
+      expect(getInitialScore({ skipInterests: true, skipDistance: true })).toEqual({
+        intrestScore: 100,
+        interestTagsScore: 0,
+        ageScore: 0,
+        scheduleScore: 0,
+        weatherScore: 0,
+        distanceScore: 100,
+        total: 0,
+        totalWeighted: 0,
+      });
+    });
+
+    it("maps each individual skip flag to its own Score field", () => {
+      expect(getInitialScore({ skipIntrestTags: true }).interestTagsScore).toBe(100);
+      expect(getInitialScore({ skipAges: true }).ageScore).toBe(100);
+      expect(getInitialScore({ skipWeather: true }).weatherScore).toBe(100);
+      expect(getInitialScore({ skipSchedule: true }).scheduleScore).toBe(100);
     });
   });
 });

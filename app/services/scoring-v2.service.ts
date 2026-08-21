@@ -2,6 +2,48 @@ import type { RecommendationV2AgeBands, Score } from '../dtos/recommendation.dto
 import { AppClock } from '../shared/utils/app-clock';
 import { getWeatherByPostcode } from './weather.service';
 
+export function getInitialScore({
+  skipAll,
+  skipInterests,
+  skipIntrestTags,
+  skipAges,
+  skipWeather,
+  skipSchedule,
+  skipDistance,
+}: {
+  skipAll?: boolean;
+  skipInterests?: boolean;
+  skipIntrestTags?: boolean;
+  skipAges?: boolean;
+  skipWeather?: boolean;
+  skipSchedule?: boolean;
+  skipDistance?: boolean;
+}): Score {
+  if (skipAll) {
+    return {
+      intrestScore: 100,
+      interestTagsScore: 100,
+      ageScore: 100,
+      scheduleScore: 100,
+      weatherScore: 100,
+      distanceScore: 100,
+      total: 100,
+      totalWeighted: 100,
+    };
+  }
+
+  return {
+    intrestScore: skipInterests ? 100 : 0,
+    interestTagsScore: skipIntrestTags ? 100 : 0,
+    ageScore: skipAges ? 100 : 0,
+    scheduleScore: skipSchedule ? 100 : 0,
+    weatherScore: skipWeather ? 100 : 0,
+    distanceScore: skipDistance ? 100 : 0,
+    total: 0,
+    totalWeighted: 0,
+  };
+}
+
 // ── Copied as-is from scoring.service.ts — unchanged logic, reused here ────────────────────────
 
 export function scoreInterestOverlap(familySlugs: Set<string>, themeSlug: string, variantSlug: string): number {

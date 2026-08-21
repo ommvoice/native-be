@@ -106,7 +106,7 @@ function getClubActiveDays(c: Record<string, unknown>): string[] {
 export class RecommendationV2Repository {
   private readonly assets = new AssetsService();
 
-  async getParentForRecommendations(parentId: string, childId?: string,  opportunityLat?: string, opportunityLong?: string) {
+  async getParentForRecommendations(parentId: string, childId?: string) {
     const res = await db.send(new GetCommand({ TableName: TABLES.parents, Key: { id: parentId } }));
     if (!res.Item) return null;
     const item = res.Item as Record<string, unknown>;

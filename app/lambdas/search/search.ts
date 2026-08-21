@@ -5,14 +5,37 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { opportunitySearchQuerySchema } from '../../schemas/search.schema';
 import { AppError } from '../../shared/errors/app-error';
 import { ok } from '../../shared/utils/response';
-import { ParentRepository } from '../../repositories/parent.repository';
-import { DrivingLegRepository } from '../../repositories/driving-leg.repository';
-import { FacilityRepository, type FacilityRecord } from '../../repositories/facility.repository';
 import { RecommendationV2Repository } from '../../repositories/recommendation-v2.repository';
-import { getAgeInYears, haversineDistanceMiles, metersToMilesOneDecimal } from '../../services/scoring.service';
 import type { OpportunitySearchQueryDto } from '../../dtos/search.dto';
-import { matchesSearchFilters, type RawSearchPayload } from './search-filters';
-import { toOpportunity, type EnrichedScoredRecommendationV2 } from '../../shared/utils/formatter/recommendation-formatter';
+import { toOpportunityList, } from '../../shared/utils/formatter/recommendation-formatter';
+import { Narrowed } from '../../shared/types/assets.types';
+import { RecommendationV2Service } from '../../services/recommendation-v2.service';
+import { getInitialScore } from '../../services/scoring-v2.service';
+import type { Score } from '../../dtos/recommendation.dto';
+
+const SKIP_ALL = 'all';
+
+/** Maps the query's skipRecommendations list onto the Score getItemsWithScore
+ * expects — "all" skips every dimension, a list of dimension names skips
+ * only those, and no list (undefined/empty, i.e. absent from the query)
+ * means don't skip anything: score every dimension normally. */
+const buildSkipRecommendationsScore = (skipRecommendations?: string[]): Score | undefined => {
+  if (!skipRecommendations || skipRecommendations.length === 0) return undefined;
+
+  if (skipRecommendations.includes(SKIP_ALL)) {
+    return getInitialScore({ skipAll: true });
+  }
+
+  const skip = new Set(skipRecommendations);
+  return getInitialScore({
+    skipInterests: skip.has('interests'),
+    skipIntrestTags: skip.has('interestTags'),
+    skipAges: skip.has('ages'),
+    skipWeather: skip.has('weather'),
+    skipSchedule: skip.has('schedule'),
+    skipDistance: skip.has('distance'),
+  });
+};
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   // queryValidator has already run the raw query string through
@@ -22,126 +45,51 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   // `qs['facility'].split(',')` on a value that was already an array).
   const qs = (event.queryStringParameters ?? {}) as unknown as Record<string, unknown>;
   const dto: OpportunitySearchQueryDto = {
-    parentId:                qs['parentId'] as string,
-    childId:                 qs['childId'] as string | undefined,
+    parentId: qs['parentId'] as string,
+    childId: qs['childId'] as string | undefined,
     interestSubCategorySlug: qs['interestSubCategorySlug'] as string | undefined,
-    facility:                (qs['facility'] as string[] | undefined) ?? [],
-    maxDistanceMiles:        qs['maxDistanceMiles']      != null ? Number(qs['maxDistanceMiles'])      : undefined,
-    maxTimeToReachMinutes:   qs['maxTimeToReachMinutes'] != null ? Number(qs['maxTimeToReachMinutes']) : undefined,
-    themeSlug:               qs['themeSlug'] as string | undefined,
-    themeVariantSlug:        (qs['themeVariantSlug'] as string[] | undefined) ?? [],
-    routeDifficulty:         (qs['routeDifficulty'] as string[] | undefined) ?? [],
-    routeType:               (qs['routeType'] as string[] | undefined) ?? [],
-    routeMaxLengthMiles:     qs['routeMaxLengthMiles'] != null ? Number(qs['routeMaxLengthMiles']) : undefined,
-    routeSuitability:        (qs['routeSuitability'] as string[] | undefined) ?? [],
-    attractions:             (qs['attractions'] as string[] | undefined) ?? [],
+    facility: (qs['facility'] as string[] | undefined) ?? [],
+    maxDistanceMiles: qs['maxDistanceMiles'] != null ? Number(qs['maxDistanceMiles']) : undefined,
+    maxTimeToReachMinutes: qs['maxTimeToReachMinutes'] != null ? Number(qs['maxTimeToReachMinutes']) : undefined,
+    themeSlug: qs['themeSlug'] as string | undefined,
+    themeVariantSlug: (qs['themeVariantSlug'] as string[] | undefined) ?? [],
+    routeDifficulty: (qs['routeDifficulty'] as string[] | undefined) ?? [],
+    routeType: (qs['routeType'] as string[] | undefined) ?? [],
+    routeMaxLengthMiles: qs['routeMaxLengthMiles'] != null ? Number(qs['routeMaxLengthMiles']) : undefined,
+    routeSuitability: (qs['routeSuitability'] as string[] | undefined) ?? [],
+    attractions: (qs['attractions'] as string[] | undefined) ?? [],
+    searchRadius: qs['searchRadius'] as string | undefined,
+    skipRecommendations: (qs['skipRecommendations'] as string[] | undefined) ?? [],
   };
 
-  const parentRepo   = new ParentRepository();
-  const legRepo      = new DrivingLegRepository();
-  const facilityRepo = new FacilityRepository();
-  const recRepo      = new RecommendationV2Repository();
 
-  const parent = await parentRepo.getById(dto.parentId);
+  //------TODO: Move to service------------
+  const recRepo = new RecommendationV2Repository();
+  const recService = new RecommendationV2Service();
+
+  const parent = await recRepo.getParentForRecommendations(dto.parentId);
   if (!parent) throw new AppError(404, 'Parent not found');
 
-  const parentLat = Number.parseFloat(parent.latitude);
-  const parentLon = Number.parseFloat(parent.longitude);
-  if (!Number.isFinite(parentLat) || !Number.isFinite(parentLon)) {
-    throw new AppError(400, 'Parent location is invalid');
+  const narrowed = dto.childId
+    ? { ...parent, children: parent.children.filter((c) => c.id === dto.childId) }
+    : parent;
+
+  if (!narrowed.children.length) {
+    throw new AppError(400, 'No children found for this query. Add a child or remove childId filter.');
   }
 
-  // Card prices should reflect this specific family's composition (see
-  // recommendation-formatter.ts resolveFamilyEstimatedTotal), same as the
-  // main recommendations feed — fetched separately since ParentRepository
-  // doesn't join children.
-  const parentForFamily = await recRepo.getParentForRecommendations(dto.parentId, dto.childId);
-  const childrenAges = (parentForFamily?.children ?? []).map((c) => getAgeInYears(c.dateOfBirth));
-
-  // Validate facility slugs and build a slug->record map for label-based
-  // fuzzy matching against the free-text facility fields (see search-filters.ts).
-  const facilitiesBySlug = new Map<string, FacilityRecord>();
-  for (const slug of dto.facility ?? []) {
-    const fac = await facilityRepo.getBySlug(slug);
-    if (!fac) throw new AppError(400, `Unknown facility slug: ${slug}`);
-    facilitiesBySlug.set(slug, fac);
+  let narrowedParams: Narrowed = {
+    ...narrowed,
+    ...(dto.maxDistanceMiles && { searchRadius: Number(dto.maxDistanceMiles) })
   }
 
-  const maxDurationSeconds = dto.maxTimeToReachMinutes != null ? dto.maxTimeToReachMinutes * 60 : undefined;
-  const maxDistanceMeters  = dto.maxDistanceMiles      != null ? dto.maxDistanceMiles * 1609.344 : undefined;
-
-  const allLegs = await legRepo.findByParentId(dto.parentId);
-  const filteredLegs = allLegs.filter((leg) => {
-    if (maxDurationSeconds != null && leg.drivingDurationSeconds > maxDurationSeconds) return false;
-    if (maxDistanceMeters  != null && leg.drivingDistanceMeters  > maxDistanceMeters)  return false;
-    return true;
-  });
-
-  if (filteredLegs.length === 0) return ok([]);
-
-  const refs       = filteredLegs.map((l) => ({ type: l.opportunityType, id: l.opportunityId }));
-  const payloadMap = await recRepo.getEnrichedPayloads(refs);
-
-  // interestSubCategorySlug is a legacy singular alias for the same concept
-  // as themeVariantSlug — merge both into one array so either caller shape works.
-  const themeVariantSlugs = [
-    ...(dto.themeVariantSlug ?? []),
-    ...(dto.interestSubCategorySlug ? [dto.interestSubCategorySlug] : []),
-  ];
-
-  const results = filteredLegs
-    .sort((a, b) => a.drivingDurationSeconds - b.drivingDurationSeconds)
-    .map((leg) => {
-      const key     = `${leg.opportunityType}#${leg.opportunityId}`;
-      const payload = payloadMap.get(key);
-      if (!payload) return null;
-
-      const rawRecord = { ...payload, opportunityType: leg.opportunityType } as RawSearchPayload;
-
-      const matches = matchesSearchFilters(
-        rawRecord,
-        {
-          themeSlug: dto.themeSlug,
-          themeVariantSlugs,
-          facilitySlugs: dto.facility,
-          routeDifficulty: dto.routeDifficulty,
-          routeType: dto.routeType,
-          routeMaxLengthMiles: dto.routeMaxLengthMiles,
-          routeSuitability: dto.routeSuitability,
-          attractions: dto.attractions,
-        },
-        facilitiesBySlug,
-      );
-      if (!matches) return null;
-
-      const oppLat = Number.parseFloat(leg.opportunityLatitude);
-      const oppLon = Number.parseFloat(leg.opportunityLongitude);
-      const distanceMiles = Number.isFinite(oppLat) && Number.isFinite(oppLon)
-        ? Math.round(haversineDistanceMiles(parentLat, parentLon, oppLat, oppLon) * 10) / 10
-        : null;
-
-      const themeRef = (rawRecord as unknown as { theme?: { slug?: string } }).theme;
-      const themeVariantRef = (rawRecord as unknown as { themeVariant?: { slug?: string } }).themeVariant;
-
-      const enriched: EnrichedScoredRecommendationV2 = {
-        ...rawRecord,
-        id: leg.opportunityId,
-        opportunityType: leg.opportunityType,
-        image: (rawRecord as unknown as { image?: string | null }).image ?? null,
-        latitude: leg.opportunityLatitude,
-        longitude: leg.opportunityLongitude,
-        distanceMiles,
-        drivingDistanceMiles: metersToMilesOneDecimal(leg.drivingDistanceMeters),
-        drivingDurationSeconds: leg.drivingDurationSeconds,
-        themeSlug: themeRef?.slug,
-        themeVariantSlug: themeVariantRef?.slug,
-      };
-
-      return toOpportunity(enriched, childrenAges);
-    })
-    .filter(Boolean);
-
-  return ok(results);
+  const skipRecommendations = buildSkipRecommendationsScore(dto.skipRecommendations);
+  
+  const { data: raw, childrenAges } = await recService.getItemsWithScore(narrowedParams, skipRecommendations)
+  const data = toOpportunityList(raw as any, childrenAges);
+  
+  
+  return ok({ count: data.length, data });
 };
 
 export const handler = middy(baseHandler)

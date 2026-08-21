@@ -14,7 +14,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   if (!parentId) throw new AppError(400, 'parentId query parameter is required');
 
   const service = new RecommendationV2Service();
-  const { data: raw, childrenAges } = await service.getByRadius({ parentId, childId, searchRadius});
+  const { data: raw, childrenAges } = await service.getSearchRecommendations({ parentId, childId, searchRadius});
   const data = toOpportunityList(raw as any, childrenAges);
   return ok({ count: data.length, data, mode: 'nearby' });
 };

@@ -308,14 +308,17 @@ const wishlistsLambdas: LambdaDefinition[] = [
 const searchLambdas: LambdaDefinition[] = [
   {
     key: 'searchOpportunities', name: 'search-opportunities', entry: 'search/search.ts',
-    env: { cognito: true },
+    // getItemsWithScore's weather step calls weatherapi.com — needs WEATHER_API_KEY.
+    env: { cognito: true, externalApi: true },
     permissions: { dynamodb: 'readWrite', cognito: false },
     overrides: { timeoutSeconds: 30 },
     routes: [{ path: ['search'], method: 'GET', auth: true }],
   },
   {
     key: 'searchList', name: 'search-list', entry: 'search/search-list.ts',
-    env: { cognito: true },
+    // getSearchRecommendations -> getItemsWithScore's weather step calls weatherapi.com — needs
+    // WEATHER_API_KEY.
+    env: { cognito: true, externalApi: true },
     permissions: { dynamodb: 'readWrite', cognito: false },
     overrides: { timeoutSeconds: 30 },
     routes: [{ path: ['search', 'list'], method: 'GET', auth: true }],

@@ -25,4 +25,5 @@ export const opportunitySearchQuerySchema = yup.object({
   routeMaxLengthMiles: yup.number().positive(),
   routeSuitability:    stringArray(),
   attractions:         stringArray(),
+  skipRecommendations: stringArray(),
 }).required();

@@ -29,6 +29,7 @@ vi.mock("../app/services/driving-leg.service.js", async (importOriginal) => {
 });
 
 import { RecommendationV2Service } from "../app/services/recommendation-v2.service.js";
+import { getInitialScore } from "../app/services/scoring-v2.service.js";
 import params from "../app/shared/assets/params.json" with { type: "json" };
 import type { Narrowed } from "../app/shared/types/assets.types.js";
 
@@ -139,5 +140,70 @@ describe("RecommendationV2Service.getItemsWithScore", () => {
 
     const { data } = await service.getItemsWithScore(withOpp);
     expect(data.length).toBeGreaterThan(0);
+  });
+
+  describe("skipRecommendations (initialScores)", () => {
+    it("skipAll fixes every returned candidate's score at the maxed-out total (600) and totalWeighted (100), skipping all 6 scoring steps", async () => {
+      const service = new RecommendationV2Service();
+      const skipAll = getInitialScore({ skipAll: true });
+      const { data } = await service.getItemsWithScore(narrowed, skipAll);
+
+      expect(data.length).toBeGreaterThan(0);
+      for (const item of data) {
+        expect(item.score.intrestScore).toBe(100);
+        expect(item.score.interestTagsScore).toBe(100);
+        expect(item.score.ageScore).toBe(100);
+        expect(item.score.scheduleScore).toBe(100);
+        expect(item.score.weatherScore).toBe(100);
+        expect(item.score.distanceScore).toBe(100);
+        expect(item.score.total).toBe(600);
+        expect(item.score.totalWeighted).toBe(100);
+      }
+    });
+
+    it("returns at least as many candidates as the default (unskipped) call, since a skipped dimension can no longer filter anything out at 0", async () => {
+      const service = new RecommendationV2Service();
+      const baseline = await service.getItemsWithScore(narrowed);
+      const skipAll = getInitialScore({ skipAll: true });
+      const skipped = await service.getItemsWithScore(narrowed, skipAll);
+
+      expect(skipped.data.length).toBeGreaterThanOrEqual(baseline.data.length);
+    });
+
+    it("a partial skip (skipInterests only) fixes intrestScore at 100 for every candidate while every other dimension is still computed for real", async () => {
+      const service = new RecommendationV2Service();
+      const skipInterestsOnly = getInitialScore({ skipInterests: true });
+      const { data } = await service.getItemsWithScore(narrowed, skipInterestsOnly);
+
+      expect(data.length).toBeGreaterThan(0);
+      for (const item of data) {
+        expect(item.score.intrestScore).toBe(100);
+      }
+
+      // Real, unforced scoring on the untouched dimensions should still show
+      // genuine variety across candidates — proving they weren't also
+      // accidentally skipped by the intrestScore-only flag.
+      const distinctAgeScores = new Set(data.map((item) => item.score.ageScore));
+      expect(distinctAgeScores.size).toBeGreaterThan(1);
+    });
+
+    it("with no skipRecommendations passed, behavior is unchanged from the default (no dimension forced to 100)", async () => {
+      const service = new RecommendationV2Service();
+      const { data } = await service.getItemsWithScore(narrowed);
+
+      // Every dimension being exactly 100 for every single candidate would
+      // only happen if skipping were somehow on by default — vanishingly
+      // unlikely with real scored data, so this is a safe regression guard.
+      const allMaxed = data.every(
+        (item) =>
+          item.score.intrestScore === 100 &&
+          item.score.interestTagsScore === 100 &&
+          item.score.ageScore === 100 &&
+          item.score.scheduleScore === 100 &&
+          item.score.weatherScore === 100 &&
+          item.score.distanceScore === 100,
+      );
+      expect(allMaxed).toBe(false);
+    });
   });
 });

@@ -28,25 +28,14 @@ import {
   scoreWeatherSuitability,
   scoreDistance as scoreDistanceV2,
   combineWeighted as combineWeightedV2,
-  rankWithShuffle as rankWithShuffleV2
+  rankWithShuffle as rankWithShuffleV2,
+  getInitialScore
 } from './scoring-v2.service';
 import type { RecommendationQueryDto, RecommendationSearchQueryDto, Score, RecommendationCandidateWithScore } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { Narrowed } from '../shared/types/assets.types';
 
 const DEFAULT_LIMIT = 30;
-
-export const DEFAULT_SCORE: Score = {
-  intrestScore: 0,
-  interestTagsScore: 0,
-  ageScore: 0,
-  scheduleScore: 0,
-  weatherScore: 0,
-  distanceScore: 0,
-  total: 0,
-  totalWeighted: 0
-}
-
 
 export class RecommendationV2Service {
   private readonly repo: RecommendationV2Repository;
@@ -277,7 +266,7 @@ export class RecommendationV2Service {
     return this.getItemsWithScore(narrowedParams);
   }
 
-  async getByRadius(dto: RecommendationSearchQueryDto) {
+  async getSearchRecommendations(dto: RecommendationSearchQueryDto) {
     const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
@@ -339,7 +328,7 @@ export class RecommendationV2Service {
     });
   }
 
-  async getItemsWithScore(narrowed: Narrowed) {
+  async getItemsWithScore(narrowed: Narrowed, skipRecommendations?: Score) {
     // console.log("NarrowedData : ",JSON.stringify(narrowed));
 
     let lat = Number.parseFloat(narrowed.latitude);
@@ -371,12 +360,25 @@ export class RecommendationV2Service {
       childrenSlugs: narrowed.children.map((ch) => ch.interestSubCategories.map((x) => x.slug)),
     });
 
+    const initialScores = {
+      ...getInitialScore({}), // all asigned to 0 consider for scoring
+      ...(skipRecommendations && {...skipRecommendations}) // asigned 100 to skip scoring
+    }
+
+    // A dimension pre-set to 100 (via skipRecommendations/initialScores) means
+    // "don't score this — treat it as already maxed", so each step below must
+    // leave it at 100 instead of recomputing and clobbering it with a real score.
+    const scoreOrSkip = (current: number, compute: () => number): number =>
+      current === 100 ? 100 : compute();
+
     const interestThemeScoreMatch: RecommendationCandidateWithScore[] = candidates.map((c) => {
-      const intrestScore = Math.round(scoreInterestThemeWeighted(familyThemeSlugWeights, c.themeSlug, c.themeVariantSlug))
+      const intrestScore = scoreOrSkip(initialScores.intrestScore, () =>
+        scoreInterestThemeWeighted(familyThemeSlugWeights, c.themeSlug, c.themeVariantSlug)
+      );
       return {
         ...c,
         score: {
-          ...DEFAULT_SCORE,
+          ...initialScores,
           intrestScore,
         },
       }
@@ -386,7 +388,9 @@ export class RecommendationV2Service {
     // each candidate's own tag list, weighted so a tag shared by 2 or more children scores
     // higher than one only 1 child picked.
     const interestTagsScoreMatch = interestThemeScoreMatch.map((item) => {
-      const interestTagsScore = scoreInterestTagsWeighted(childTagWeights, item.tags);
+      const interestTagsScore = scoreOrSkip(item.score.interestTagsScore, () =>
+        scoreInterestTagsWeighted(childTagWeights, item.tags)
+      );
       return {
         ...item,
         score: {
@@ -398,7 +402,7 @@ export class RecommendationV2Service {
 
     // Step 3: age match — how well each candidate's ageBands suit the family's children's ages.
     const ageScoreMatch = interestTagsScoreMatch.map((item) => {
-      const ageScore = scoreAgeV2(childAges, item.ageBands);
+      const ageScore = scoreOrSkip(item.score.ageScore, () => scoreAgeV2(childAges, item.ageBands));
       return {
         ...item,
         score: {
@@ -406,7 +410,7 @@ export class RecommendationV2Service {
           ageScore,
         },
       }
-    });
+    }).filter((item) => item.score.ageScore !== 0);
 
     // Step 4: schedule match — how well each candidate's opening hours / session times line up
     // with right now (the "1 hr rule": imminent or currently-open scores higher than closed).
@@ -414,7 +418,9 @@ export class RecommendationV2Service {
     const scheduleScoreMatch = ageScoreMatch
       .map((item) => {
         const c = item;
-        const scheduleScore = scoreScheduleV2(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime);
+        const scheduleScore = scoreOrSkip(item.score.scheduleScore, () =>
+          scoreScheduleV2(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime)
+        );
         return {
           ...item,
           score: {
@@ -434,7 +440,9 @@ export class RecommendationV2Service {
     const weatherScoreMatch = scheduleScoreMatch
       .map((item) => {
         const { physicalSetting, weatherSuitability } = item;
-        const weatherScore = scoreWeatherSuitability(liveWeatherSlugs, physicalSetting, weatherSuitability);
+        const weatherScore = scoreOrSkip(item.score.weatherScore, () =>
+          scoreWeatherSuitability(liveWeatherSlugs, physicalSetting, weatherSuitability)
+        );
         return { ...item, score: { ...item.score, weatherScore } };
       })
       .filter((item) => item.score.weatherScore !== 0);
@@ -462,7 +470,7 @@ export class RecommendationV2Service {
 
         const distMiles = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
         const driving = drivingMap.get(legKey(c.type, c.id));
-        const distanceScore = scoreDistanceV2(distMiles, maxMiles);
+        const distanceScore = scoreOrSkip(item.score.distanceScore, () => scoreDistanceV2(distMiles, maxMiles));
 
         return {
           ...item,

@@ -5,6 +5,7 @@ import { toOpportunityList } from '../../shared/utils/formatter/recommendation-f
 import { errorHandler } from '../../shared/middleware/error-handler.js';
 import { AppError } from '../../shared/errors/app-error.js';
 import { ok } from '../../shared/utils/response.js';
+import { getInitialScore } from '../../services/scoring-v2.service.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const parentId     = event.queryStringParameters?.['parentId'];
@@ -13,7 +14,9 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   if (!parentId) throw new AppError(400, 'parentId query parameter is required');
 
   const service = new RecommendationV2Service();
-  const { data: raw, childrenAges } = await service.getRecommendations({ parentId, childId, searchRadius });
+  // const { data: raw, childrenAges } = await service.getRecommendations({ parentId, childId, searchRadius });
+  const skipRecommendations = getInitialScore({skipWeather: true});
+  const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
   const data = toOpportunityList(raw as any, childrenAges);
   return ok({ count: data.length, data });
 };

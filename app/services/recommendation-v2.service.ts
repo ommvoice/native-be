@@ -150,7 +150,7 @@ export class RecommendationV2Service {
     return { data, childrenAges: childAges };
   }
 
-  async getRecommendations2(dto: RecommendationQueryDto) {
+  async getRecommendations2(dto: RecommendationQueryDto , skipRecommendations?:Score) {
     const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
@@ -170,7 +170,7 @@ export class RecommendationV2Service {
       searchRadius: maxMiles
     }
 
-    const scoredData = await this.getItemsWithScore(narrowedParams);
+    const scoredData = await this.getItemsWithScore(narrowedParams, skipRecommendations);
 
     return { data: scoredData.data, childrenAges: scoredData.childrenAges };
   }
@@ -242,7 +242,7 @@ export class RecommendationV2Service {
     return { data, childrenAges: childAges };
   }
 
-  async getNearby2(dto: RecommendationQueryDto) {
+  async getNearby2(dto: RecommendationQueryDto, skipRecommendations?:Score) {
     const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
@@ -263,7 +263,7 @@ export class RecommendationV2Service {
       },
     }
 
-    return this.getItemsWithScore(narrowedParams);
+    return this.getItemsWithScore(narrowedParams, skipRecommendations);
   }
 
   async getSearchRecommendations(dto: RecommendationSearchQueryDto) {

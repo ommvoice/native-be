@@ -23,42 +23,42 @@ export class AssetsService {
   // ── Opportunities ──────────────────────────────────────────────────────────
 
   async getAllVenues(): Promise<Venue[]> {
-    return venues as Venue[];
+    // return venues as Venue[];
     return this.opportunityService.getAllVenues();
   }
 
   async getAllEvents(): Promise<Event[]> {
-     return events as Event[];
+    //  return events as Event[];
     return this.opportunityService.getAllEvents();
   }
 
   async getAllClubs(): Promise<Club[]> {
-    return clubs as Club[];
+    // return clubs as Club[];
     return this.opportunityService.getAllClubs();
   }
 
   async getAllRoutes(): Promise<Route[]> {
-    return routes as Route[];
+    // return routes as Route[];
     return this.opportunityService.getAllRoutes();
   }
 
   async getVenueBySlug(slug: string): Promise<Venue | null> {
-    return (await this.getAllVenues()).find((v) => v.id === slug) ?? null;
+    // return (await this.getAllVenues()).find((v) => v.id === slug) ?? null;
     return this.opportunityService.getVenueBySlug(slug);
   }
 
   async getEventBySlug(slug: string): Promise<Event | null> {
-    return (await this.getAllEvents()).find((e) => e.id === slug) ?? null;
+    // return (await this.getAllEvents()).find((e) => e.id === slug) ?? null;
     return this.opportunityService.getEventBySlug(slug);
   }
 
   async getClubBySlug(slug: string): Promise<Club | null> {
-    return (await this.getAllClubs()).find((c) => c.id === slug) ?? null;
+    // return (await this.getAllClubs()).find((c) => c.id === slug) ?? null;
     return this.opportunityService.getClubBySlug(slug);
   }
 
   async getRouteBySlug(slug: string): Promise<Route | null> {
-    return (await this.getAllRoutes()).find((r) => r.id === slug) ?? null;
+    // return (await this.getAllRoutes()).find((r) => r.id === slug) ?? null;
     return this.opportunityService.getRouteBySlug(slug);
   }
 

@@ -210,7 +210,7 @@ export function resolveTicketPricing(data: TicketVariantFields, forceFree = fals
 
   const pushTier = (slug: TicketVariantSlug) => {
     const { price: priceKey, definition: definitionKey, label } = VARIANT_FIELD_MAP[slug];
-    const rawDefinition = data[definitionKey];
+    const rawDefinition = slug!== "concession" ? data[definitionKey] : null;
     const rawPrice = data[priceKey];
     const display = formatPriceDisplay(rawPrice);
     const hasDefinition = !!rawDefinition;

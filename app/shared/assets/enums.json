@@ -38,6 +38,16 @@
   ],
   "activityGroup": [
     {
+      "name": "Moment of Peace",
+      "slug": "moment_of_peace",
+      "active": true
+    },
+    {
+      "name": "Low Effort",
+      "slug": "low_effort",
+      "active": true
+    },
+    {
       "name": "Simple Reset",
       "slug": "simple_reset",
       "active": true
@@ -48,18 +58,8 @@
       "active": true
     },
     {
-      "name": "Low Effort",
-      "slug": "low_effort",
-      "active": true
-    },
-    {
       "name": "Special Day Out",
       "slug": "special_day_out",
-      "active": true
-    },
-    {
-      "name": "Moment of Peace",
-      "slug": "moment_of_peace",
       "active": true
     }
   ],

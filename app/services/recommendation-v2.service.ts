@@ -289,12 +289,12 @@ export class RecommendationV2Service {
       throw new AppError(400, 'No children found for this query. Add a child or remove childId filter.');
     }
 
-    const narrowedData: Narrowed = {
+    let narrowedParams: Narrowed = {
       ...narrowed,
       ...(dto.searchRadius && { searchRadius: Number(dto.searchRadius) })
     }
 
-    return this.getItemsWithScore(narrowedData);
+    return this.getItemsWithScore(narrowedParams);
   }
 
   private parseCoords(c: RecommendationV2Candidate): { latitude: number; longitude: number } | null {

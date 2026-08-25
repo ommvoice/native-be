@@ -286,6 +286,25 @@ const recommendationsLambdas: LambdaDefinition[] = [
   },
 ];
 
+// ── Plan ──────────────────────────────────────────────────────────────────────
+
+const planLambdas: LambdaDefinition[] = [
+  {
+    key: 'planFamily', name: 'plan-family', entry: 'plan/family.ts',
+    env: { cognito: true, externalApi: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    overrides: { timeoutSeconds: 60, memoryMb: 1024 },
+    routes: [{ path: ['plan', 'family'], method: 'GET', auth: true }],
+  },
+  {
+    key: 'planAll', name: 'plan-all', entry: 'plan/all.ts',
+    env: { cognito: true, externalApi: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    overrides: { timeoutSeconds: 60, memoryMb: 1024 },
+    routes: [{ path: ['plan', 'all'], method: 'GET', auth: true }],
+  },
+];
+
 // ── Wishlists ─────────────────────────────────────────────────────────────────
 
 const wishlistsLambdas: LambdaDefinition[] = [
@@ -364,6 +383,7 @@ export const allLambdas: LambdaDefinition[] = [
   ...enumsLambdas,
   ...opportunityLambdas,
   ...recommendationsLambdas,
+  ...planLambdas,
   ...wishlistsLambdas,
   ...searchLambdas,
   ...weatherLambdas,

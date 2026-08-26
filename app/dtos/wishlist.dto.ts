@@ -1,3 +1,5 @@
+import type { OpportunityRefType } from '../shared/utils/opportunity-ref';
+
 export interface CreateWishlistDto {
   name: string;
   color: string;
@@ -7,4 +9,9 @@ export interface CreateWishlistDto {
 
 export interface GetWishlistsQueryDto {
   parentId: string;
+}
+
+export interface AddWishlistItemDto {
+  opportunityId: string;
+  opportunityType: OpportunityRefType;
 }

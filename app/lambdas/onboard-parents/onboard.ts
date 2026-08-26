@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { UserRepository } from '../../repositories/user.repository';
 import { ParentRepository } from '../../repositories/parent.repository';
 import { ChildRepository } from '../../repositories/child.repository';
+import { WishlistService } from '../../services/wishlist.service';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { onboardParentSchema } from '../../schemas/onboard.schema';
@@ -18,6 +19,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
     new AuthService(new UserRepository()),
     new ParentRepository(),
     new ChildRepository(),
+    new WishlistService(),
   );
   return created(await service.create(dto));
 };

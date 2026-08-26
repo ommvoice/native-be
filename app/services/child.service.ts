@@ -2,6 +2,7 @@ import { AppError } from '../shared/errors/app-error';
 import { ChildRepository, type ChildRecord } from '../repositories/child.repository';
 import { InterestRepository } from '../repositories/interest.repository';
 import { ParentRepository } from '../repositories/parent.repository';
+import { WishlistService } from './wishlist.service';
 import type { CreateChildDto, UpdateChildDto } from '../dtos/child.dto';
 
 export class ChildService {
@@ -9,6 +10,7 @@ export class ChildService {
     private readonly childRepo: ChildRepository,
     private readonly interestRepo: InterestRepository,
     private readonly parentRepo: ParentRepository,
+    private readonly wishlistService: WishlistService,
   ) {}
 
   private async enrich(child: ChildRecord) {
@@ -21,7 +23,7 @@ export class ChildService {
   }
 
   async create(dto: CreateChildDto) {
-    return this.childRepo.create({
+    const child = await this.childRepo.create({
       parentId:               dto.parentId,
       nameOrNickName:         dto.nameOrNickName,
       dateOfBirth:            dto.dateOfBirth,
@@ -30,6 +32,9 @@ export class ChildService {
       interestSubCategoryIds: dto.interestSubCategoryIds ?? [],
       interestTags:           dto.interestTags ?? [],
     });
+    // Every child gets a wishlist named after them by default.
+    await this.wishlistService.createDefaultForChild(child.parentId, child.id, child.nameOrNickName);
+    return child;
   }
 
   async getById(id: string) {
@@ -57,5 +62,13 @@ export class ChildService {
     if (!child) throw new AppError(404, 'Child not found');
     await this.childRepo.updateInterestTags(id, tags);
     return this.getById(id);
+  }
+
+  async delete(id: string) {
+    const child = await this.childRepo.getById(id);
+    if (!child) throw new AppError(404, 'Child not found');
+    // Cascade: the child's default (and any other) wishlist, plus each wishlist's items.
+    await this.wishlistService.deleteAllForChild(child.parentId, id);
+    await this.childRepo.delete(id);
   }
 }

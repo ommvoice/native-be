@@ -147,6 +147,12 @@ const childrenLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['children', '{id}', 'interest-tags'], method: 'PUT', auth: true }],
   },
+  {
+    key: 'childrenDelete', name: 'children-delete', entry: 'children/delete.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['children', '{id}'], method: 'DELETE', auth: true }],
+  },
 ];
 
 // ── Interests ─────────────────────────────────────────────────────────────────
@@ -320,6 +326,76 @@ const wishlistsLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['wishlists'], method: 'POST', auth: true }],
   },
+  {
+    key: 'wishlistsDelete', name: 'wishlists-delete', entry: 'wishlists/delete.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['wishlists', '{id}'], method: 'DELETE', auth: true }],
+  },
+  {
+    key: 'wishlistItemsList', name: 'wishlist-items-list', entry: 'wishlists/items/list.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['wishlists', '{id}', 'items'], method: 'GET', auth: true }],
+  },
+  {
+    key: 'wishlistItemsAdd', name: 'wishlist-items-add', entry: 'wishlists/items/add.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['wishlists', '{id}', 'items'], method: 'POST', auth: true }],
+  },
+  {
+    key: 'wishlistItemsRemove', name: 'wishlist-items-remove', entry: 'wishlists/items/remove.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['wishlists', '{id}', 'items', '{itemId}'], method: 'DELETE', auth: true }],
+  },
+];
+
+// ── Visit intentions ("Remind Me") ─────────────────────────────────────────────
+
+const visitIntentionsLambdas: LambdaDefinition[] = [
+  {
+    key: 'visitIntentionsList', name: 'visit-intentions-list', entry: 'visit-intentions/list.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['visit-intentions'], method: 'GET', auth: true }],
+  },
+  {
+    key: 'visitIntentionsUpsert', name: 'visit-intentions-upsert', entry: 'visit-intentions/upsert.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['visit-intentions'], method: 'PUT', auth: true }],
+  },
+  {
+    key: 'visitIntentionsRemove', name: 'visit-intentions-remove', entry: 'visit-intentions/remove.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['visit-intentions', '{id}'], method: 'DELETE', auth: true }],
+  },
+];
+
+// ── Opportunity interactions (visited / not interested / star rating) ─────────
+
+const opportunityInteractionsLambdas: LambdaDefinition[] = [
+  {
+    key: 'opportunityInteractionsList', name: 'opportunity-interactions-list', entry: 'opportunity-interactions/list.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['opportunity-interactions'], method: 'GET', auth: true }],
+  },
+  {
+    key: 'opportunityInteractionsUpsert', name: 'opportunity-interactions-upsert', entry: 'opportunity-interactions/upsert.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['opportunity-interactions'], method: 'PUT', auth: true }],
+  },
+  {
+    key: 'opportunityInteractionsRemove', name: 'opportunity-interactions-remove', entry: 'opportunity-interactions/remove.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['opportunity-interactions', '{id}'], method: 'DELETE', auth: true }],
+  },
 ];
 
 // ── Search ────────────────────────────────────────────────────────────────────
@@ -385,6 +461,8 @@ export const allLambdas: LambdaDefinition[] = [
   ...recommendationsLambdas,
   ...planLambdas,
   ...wishlistsLambdas,
+  ...visitIntentionsLambdas,
+  ...opportunityInteractionsLambdas,
   ...searchLambdas,
   ...weatherLambdas,
   ...mapboxLambdas,

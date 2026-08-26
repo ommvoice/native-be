@@ -1,25 +1,22 @@
 import middy from '@middy/core';
-import httpJsonBodyParser from '@middy/http-json-body-parser';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ChildService } from '../../services/child.service';
 import { ChildRepository } from '../../repositories/child.repository';
 import { InterestRepository } from '../../repositories/interest.repository';
 import { ParentRepository } from '../../repositories/parent.repository';
 import { WishlistService } from '../../services/wishlist.service';
-import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
-import { updateChildInterestsSchema } from '../../schemas/child.schema';
-import { ok } from '../../shared/utils/response';
-import type { UpdateChildInterestsDto } from '../../dtos/child.dto';
+import { AppError } from '../../shared/errors/app-error';
+import { noContent } from '../../shared/utils/response';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const id      = event.pathParameters?.['id']!;
-  const dto     = event.body as unknown as UpdateChildInterestsDto;
+  const id = event.pathParameters?.['id'];
+  if (!id) throw new AppError(400, 'id path parameter is required');
+
   const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
-  return ok(await service.updateInterests(id, dto.interestCategoryIds, dto.interestSubCategoryIds));
+  await service.delete(id);
+  return noContent();
 };
 
 export const handler = middy(baseHandler)
-  .use(httpJsonBodyParser())
-  .use(bodyValidator(updateChildInterestsSchema))
   .use(errorHandler());

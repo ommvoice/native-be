@@ -12,6 +12,8 @@ export const TABLES = {
   get drivingLegs()              { return env.tables.drivingLegs(); },
   get wishlists()                { return env.tables.wishlists(); },
   get wishlistItems()            { return env.tables.wishlistItems(); },
+  get visitIntentions()          { return env.tables.visitIntentions(); },
+  get opportunityInteractions()  { return env.tables.opportunityInteractions(); },
   get venues()                   { return env.tables.venues(); },
   get events()                   { return env.tables.events(); },
   get clubs()                    { return env.tables.clubs(); },

@@ -5,6 +5,7 @@ import { ChildService } from '../../services/child.service';
 import { ChildRepository } from '../../repositories/child.repository';
 import { InterestRepository } from '../../repositories/interest.repository';
 import { ParentRepository } from '../../repositories/parent.repository';
+import { WishlistService } from '../../services/wishlist.service';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateChildInterestTagsSchema } from '../../schemas/child.schema';
@@ -14,7 +15,7 @@ import type { UpdateChildInterestTagsDto } from '../../dtos/child.dto';
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id      = event.pathParameters?.['id']!;
   const dto     = event.body as unknown as UpdateChildInterestTagsDto;
-  const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository());
+  const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
   return ok(await service.updateInterestTags(id, dto.interestTags));
 };
 

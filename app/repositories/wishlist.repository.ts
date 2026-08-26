@@ -2,6 +2,7 @@ import { GetCommand, PutCommand, QueryCommand, DeleteCommand } from '@aws-sdk/li
 import db from '../shared/db/dynamo-client';
 import { TABLES } from '../shared/db/tables';
 import { v4 as uuidv4 } from 'uuid';
+import { opportunityRefKey, toOpportunityRefColumns, type OpportunityRefType } from '../shared/utils/opportunity-ref';
 
 export interface WishlistRecord {
   id: string;
@@ -14,6 +15,9 @@ export interface WishlistRecord {
 }
 
 export interface WishlistItemRecord {
+  /** `${wishlistId}#${type}#${opportunityId}` — re-adding the same opportunity to the same
+   * wishlist overwrites instead of duplicating (matches Lovable's unique-constraint-per-wishlist
+   * behavior, enforced here via the key itself rather than a conditional expression). */
   id: string;
   wishlistId: string;
   opportunityVenueId:  string | null;
@@ -22,6 +26,10 @@ export interface WishlistItemRecord {
   opportunityRouteId:  string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+export function wishlistItemKey(wishlistId: string, type: OpportunityRefType, opportunityId: string): string {
+  return `${wishlistId}#${opportunityRefKey(type, opportunityId)}`;
 }
 
 export class WishlistRepository {
@@ -49,6 +57,10 @@ export class WishlistRepository {
     return record;
   }
 
+  async delete(id: string): Promise<void> {
+    await db.send(new DeleteCommand({ TableName: TABLES.wishlists, Key: { id } }));
+  }
+
   async listItems(wishlistId: string): Promise<WishlistItemRecord[]> {
     const res = await db.send(
       new QueryCommand({
@@ -61,9 +73,15 @@ export class WishlistRepository {
     return (res.Items ?? []) as WishlistItemRecord[];
   }
 
-  async addItem(data: Omit<WishlistItemRecord, 'id' | 'createdAt' | 'updatedAt'>): Promise<WishlistItemRecord> {
+  async addItem(wishlistId: string, type: OpportunityRefType, opportunityId: string): Promise<WishlistItemRecord> {
     const now = new Date().toISOString();
-    const record: WishlistItemRecord = { id: uuidv4(), createdAt: now, updatedAt: now, ...data };
+    const record: WishlistItemRecord = {
+      id: wishlistItemKey(wishlistId, type, opportunityId),
+      wishlistId,
+      ...toOpportunityRefColumns(type, opportunityId),
+      createdAt: now,
+      updatedAt: now,
+    };
     await db.send(new PutCommand({ TableName: TABLES.wishlistItems, Item: record }));
     return record;
   }

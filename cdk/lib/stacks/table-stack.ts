@@ -92,6 +92,14 @@ export class TableStack extends cdk.Stack {
     const wishlistItems = t('WishlistItems', tableNames.wishlistItems, 'id');
     gsi(wishlistItems, 'wishlistId-index', 'wishlistId');
 
+    // ── Visit intentions ("Remind Me") + opportunity interactions (visited/not interested) ─────
+
+    const visitIntentions = t('VisitIntentions', tableNames.visitIntentions, 'id');
+    gsi(visitIntentions, 'parentId-index', 'parentId');
+
+    const opportunityInteractions = t('OpportunityInteractions', tableNames.opportunityInteractions, 'id');
+    gsi(opportunityInteractions, 'parentId-index', 'parentId');
+
     this.tables = {
       users,
       parents,
@@ -103,6 +111,8 @@ export class TableStack extends cdk.Stack {
       drivingLegs,
       wishlists,
       wishlistItems,
+      visitIntentions,
+      opportunityInteractions,
     };
 
     // ── Outputs ───────────────────────────────────────────────────────────────

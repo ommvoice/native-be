@@ -30,4 +30,3 @@ export * from "./opportunity-theme-variant.enum.js";
 export * from "./skill-area-variant.enum.js";
 export * from "./seasonal-highlight.enum.js";
 export * from "./theme-attraction.enum.js";
-export * from "./interest-tags.enum.js";

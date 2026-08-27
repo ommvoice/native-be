@@ -24,7 +24,7 @@ import { emitTypeFile, type TypeField } from "./lib/emit-type.js";
 import * as ENUMS from "../seed/data/uat/enums/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const WORKBOOK_PATH = path.join(__dirname, "..", "newData.xlsx");
+const WORKBOOK_PATH = path.join(__dirname, "..", "newData2.xlsx");
 const SHEET_NAME = "Routes";
 const OVERLAY_PATH = path.join(__dirname, "..", "seed", "data", "uat", "enums", "data-discovered-additions.json");
 const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "routes-v2");

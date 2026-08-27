@@ -61,7 +61,9 @@
       "name": "Special Day Out",
       "slug": "special_day_out",
       "active": true
-    }
+    },
+    { "name": "Wilder Adventure", "slug": "wilder_adventure", "active": true },
+    { "name": "Under the Radar", "slug": "under_the_radar", "active": true }
   ],
   "interestCategory": [
     {

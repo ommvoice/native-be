@@ -68,16 +68,16 @@ function writeJson(fileName: string, data: unknown): void {
 function main(): void {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  writeJson("enums.json", ENUMS_JSON);
-  writeJson("clubs.json", opportunityClubV2SeedRows);
-  writeJson("events.json", opportunityEventV2SeedRows);
+  // writeJson("enums.json", ENUMS_JSON);
+  // writeJson("clubs.json", opportunityClubV2SeedRows);
+  // writeJson("events.json", opportunityEventV2SeedRows);
   writeJson("routes.json", opportunityRouteV2SeedRows);
   writeJson("venues.json", opportunityVenuesV2SeedItems);
 
   console.log(`Exported JSON assets to ${path.relative(process.cwd(), OUTPUT_DIR)}:`);
-  console.log(`  enums.json  — ${Object.keys(ENUMS_JSON).length} enum groups`);
-  console.log(`  clubs.json  — ${opportunityClubV2SeedRows.length} clubs`);
-  console.log(`  events.json — ${opportunityEventV2SeedRows.length} events`);
+  // console.log(`  enums.json  — ${Object.keys(ENUMS_JSON).length} enum groups`);
+  // console.log(`  clubs.json  — ${opportunityClubV2SeedRows.length} clubs`);
+  // console.log(`  events.json — ${opportunityEventV2SeedRows.length} events`);
   console.log(`  routes.json — ${opportunityRouteV2SeedRows.length} routes`);
   console.log(`  venues.json — ${opportunityVenuesV2SeedItems.length} venues`);
 }

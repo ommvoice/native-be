@@ -11,7 +11,7 @@ export const lympstoneVillageLoopRouteV2: OpportunityRouteV2SeedInput = {
   routeDescription: "A short, unhurried walk around Lympstone village that takes in the harbour, historic buildings, Peter's Tower and the estuary foreshore. The harbour is the main draw for children — the passages between the cottages lead down to the beach, where the houses back right onto the shore and the residents close metal flood gates at high tide, and the harbour where (timed right) children can go crabbing. The tall poles on the beach traditionally used for drying washing and still stand today, and Peter's Tower, the Italianate clock tower built in 1885, is a good spotting landmark. The route is mostly quiet lanes and paths, suitable for a gentle wander or scooters in places, and Cliff Field play area is close by if you want to add a play stop. The village has a pub and a small shop for supplies, and High Tide cafe which sells a brilliant range of sweet treats, breakfast options and light lunch options.",
   routeType: "circular",
   routeSuitability: "buggy_friendly, dog_friendly, scooter_route, cycle_route",
-  routeDistance: "0.75-2 miles",
+  routeDistance: "0.75-2",
   routeTerrainType: "undulating, surfaced_smooth",
   routeDifficulty: "easy",
   routeAddressLine1: "1 Church Road",

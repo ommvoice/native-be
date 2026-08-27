@@ -11,7 +11,7 @@ export const mincingLakeValleyParkRouteV2: OpportunityRouteV2SeedInput = {
   routeDescription: "Mincinglake is one of Exeter's quieter green spaces, tucked into a valley with woodland, meadows, a stream and a small play area that feels genuinely separate from the city around it. Devon Wildlife Trust manages the site, and the wildlife interest is really varied; bullfinches, foxes, harvest mice, and a fairy village that children tend to find and return to repeatedly. The stream runs through the bottom of the valley and children who spot it tend to stop and stay for a while. DWT runs free seasonal family activity sessions in summer with bug hunting, birdwatching and nature art, but most days Mincinglake is an unhurried, rustic walk that feels low-key and straightforward if you're in the area.",
   routeType: "trail_network",
   routeSuitability: "dog_friendly, bike_route, offroad_buggy_only",
-  routeDistance: "0.75-2miles",
+  routeDistance: "0.75-2",
   routeTerrainType: "undulating, woodland_track",
   routeDifficulty: "easy",
   routeAddressLine1: "48 Stoke Hill",

@@ -184,6 +184,8 @@ export const OPPORTUNITY_THEME_VARIANT_ENUM: OpportunityThemeVariantEntry[] = [
   { name: "Library or Reading Nook", slug: "library_or_reading_nook", active: true },
   { name: "Lido", slug: "lido", active: true },
   { name: "Gallery", slug: "gallery", active: true },
+  { name: "Gallery or Exhbit", slug: "gallery_or_exhbit", active: true },
+  { name: "Library", slug: "library", active: true },
 ];
 
 export type OpportunityThemeVariantSlug = (typeof OPPORTUNITY_THEME_VARIANT_ENUM)[number]["slug"];

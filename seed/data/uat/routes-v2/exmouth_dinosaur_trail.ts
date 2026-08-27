@@ -11,7 +11,7 @@ export const exmouthDinosaurTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeDescription: "A free self-guided walking trail around Exmouth town, spotting life-sized dinosaur models, murals and etchings scattered across the streets and seafront. There are two versions — a shorter Town Trail and a longer Explorer Trail — both starting from the Tourist Information Centre on The Strand, where you can pick up a free trail map. Brass rubbing plaques sit alongside each dinosaur, and children who complete all the rubbings can collect a souvenir badge from the TIC for £1. Species include velociraptors, a brachiosaurus, iguanodon, ichthyosaur and a T-Rex hatching from an egg. The trail also links to the Ordnance Survey Secret Stories app if you want to go digital, which adds clues, Horrible Histories-style stories and puzzles along the route.",
   routeType: "point_to_point",
   routeSuitability: "buggy_friendly, dog_friendly, scooter_route, cycle_route, wheelchair_friendly",
-  routeDistance: null,
+  routeDistance: "2.4",
   routeTerrainType: "flat, surfaced_smooth",
   routeDifficulty: "easy",
   routeAddressLine1: "Exmouth Information Centre",
@@ -40,6 +40,6 @@ export const exmouthDinosaurTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeSeasonalHighlights: null,
   routeAttractions: "waymarked_features",
   routeExtraKit: null,
-  image: "Dinosaur Trail.jpg",
+  image: "Exmouth Dinosaur Trail.JPG",
   routeCountry: null,
 };

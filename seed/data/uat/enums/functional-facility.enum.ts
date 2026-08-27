@@ -19,6 +19,8 @@ export const FUNCTIONAL_FACILITY_ENUM: FunctionalFacilityEntry[] = [
   { name: "Buggy Loan", slug: "buggy_loan", active: true },
   { name: "Baby Carrier Loan", slug: "carrier_loan", active: true },
   { name: "Outdoor Seating", slug: "outdoor_seating", active: true },
+  { name: "BYO Picnic", slug: "byo_picnic", active: true },
+  { name: "Water Refill", slug: "water_refill", active: true },
 ];
 
 export type FunctionalFacilitySlug = (typeof FUNCTIONAL_FACILITY_ENUM)[number]["slug"];

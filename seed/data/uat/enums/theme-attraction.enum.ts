@@ -462,6 +462,7 @@ export const THEME_ATTRACTION_ENUM: ThemeAttractionEntry[] = [
   { name: "Slides (particularly tall or long)", slug: "slides_particularly_tall_or_long", active: true },
   { name: "Bowling", slug: "bowling", active: true },
   { name: "Escape Room", slug: "escape_room", active: true },
+  { name: "Quiet space", slug: "quiet_space", active: true },
 ];
 
 export type ThemeAttractionSlug = (typeof THEME_ATTRACTION_ENUM)[number]["slug"];

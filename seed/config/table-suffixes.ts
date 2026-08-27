@@ -9,6 +9,8 @@ export const TABLE_SUFFIXES = {
   drivingLegs:              'driving-legs',
   wishlists:                'wishlists',
   wishlistItems:            'wishlist-items',
+  visitIntentions:          'visit-intentions',
+  opportunityInteractions:  'opportunity-interactions',
   venues:                   'venues',
   events:                   'events',
   clubs:                    'clubs',

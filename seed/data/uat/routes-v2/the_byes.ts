@@ -11,7 +11,7 @@ export const theByesRouteV2: OpportunityRouteV2SeedInput = {
   routeDescription: "The Byes is one of the easiest riverside routes to use with children because it feels peaceful and tucked away, but still connects back into Sidmouth and the high street. The path follows the River Sid — Devon's shortest river — for about 1.5 miles through meadows and parkland towards Sidford, and is tarmacked throughout, making it good for scooters, bikes and buggies. Multiple small bridges cross the river along the route, which children tend to make the most of. Keep an eye out for kingfishers, dippers and grey wagtails, and otters are present in the river too. Build it around a town café, play stop or beach visit at the end — continuing into Sidmouth brings you out at Ham Play Park and the far end of the town beach, with cafés and ice cream a short walk away.",
   routeType: "out_and_back",
   routeSuitability: "dog_friendly, buggy_friendly, scooter_route, cycle_route, wheelchair_friendly",
-  routeDistance: "2-4 miles",
+  routeDistance: "2-4",
   routeTerrainType: "flat, surfaced_smooth",
   routeDifficulty: "easy",
   routeAddressLine1: "Byes Lane",

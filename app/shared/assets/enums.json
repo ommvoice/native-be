@@ -62,8 +62,16 @@
       "slug": "special_day_out",
       "active": true
     },
-    { "name": "Wilder Adventure", "slug": "wilder_adventure", "active": true },
-    { "name": "Under the Radar", "slug": "under_the_radar", "active": true }
+    {
+      "name": "Wilder Adventure",
+      "slug": "wilder_adventure",
+      "active": true
+    },
+    {
+      "name": "Under the Radar",
+      "slug": "under_the_radar",
+      "active": true
+    }
   ],
   "interestCategory": [
     {
@@ -2341,6 +2349,14 @@
     {
       "name": "Light-touch Sensory",
       "slug": "light_touch_sensory_experience",
+      "opportunityThemeSlugs": [
+        "sensory_soothing"
+      ],
+      "active": true
+    },
+    {
+      "name": "Library",
+      "slug": "public_library",
       "opportunityThemeSlugs": [
         "sensory_soothing"
       ],

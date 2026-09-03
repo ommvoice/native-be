@@ -243,11 +243,12 @@ export class RecommendationV2Service {
   }
 
   async getNearby2(dto: RecommendationQueryDto, skipRecommendations?:Score) {
-    const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
+    const parent = await this.repo.getParentForRecommendations(dto.parentId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
+    const childIds = dto.childId?.split(',').map((id) => id.trim());
     const narrowed = dto.childId
-      ? { ...parent, children: parent.children.filter((c) => c.id === dto.childId) }
+      ? { ...parent, children: parent.children.filter((c) => childIds?.includes(c.id)) }
       : parent;
 
     if (!narrowed.children.length) {
@@ -468,8 +469,10 @@ export class RecommendationV2Service {
         const coords = this.parseCoords(c);
         if (!coords) return null;
 
-        const distMiles = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
         const driving = drivingMap.get(legKey(c.type, c.id));
+        // const distMiles = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
+        const distMilesRadius = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
+        const distMiles = driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters) : distMilesRadius;
         const distanceScore = scoreOrSkip(item.score.distanceScore, () => scoreDistanceV2(distMiles, maxMiles));
 
         return {

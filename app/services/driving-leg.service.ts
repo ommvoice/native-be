@@ -1,6 +1,6 @@
 import { DrivingLegRepository, legKey, type DrivingLegSnapshot } from '../repositories/driving-leg.repository';
 import type { OpportunityRecordType } from '../repositories/driving-leg.repository';
-import { mapboxDrivingOneToMany, MAPBOX_MATRIX_MAX_DESTINATIONS } from './mapbox-routing.service';
+import { mapboxDrivingOneToMany, MAPBOX_MATRIX_MAX_DESTINATIONS, googleDrivingOneToMany } from './mapbox-routing.service';
 import { normalizeUkPostcode } from './postcode.service';
 import { logger } from '../shared/utils/logger';
 
@@ -71,6 +71,7 @@ export class DrivingLegService {
 
       try {
         const results = await mapboxDrivingOneToMany(origin, dests);
+        // const results = await googleDrivingOneToMany(origin, dests)
 
         for (let j = 0; j < chunk.length; j++) {
           const leg = chunk[j]!;

@@ -8,6 +8,9 @@ interface MatrixResult {
   durationSeconds: number | null;
 }
 
+// const googleApiKey = env.googleMapsApiKey();
+const googleApiKey = "";
+
 /** Calls Mapbox Matrix API: 1 origin → N destinations (max 24). */
 export async function mapboxDrivingOneToMany(
   origin: { lat: number; lon: number },
@@ -53,7 +56,7 @@ export async function googleDrivingOneToMany1(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-  const apiKey = "AIzaSyD6PE5PiFX2KcIlDFpbqakJS5YCN2kykK8";
+  const apiKey = googleApiKey;
 
   if (!apiKey) {
     return destinations.map(() => ({
@@ -187,8 +190,8 @@ export async function googleDrivingOneToMany(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-  // const apiKey = env.googleMapsApiKey();
-  const apiKey = "AIzaSyD6PE5PiFX2KcIlDFpbqakJS5YCN2kykK8";
+   const apiKey = googleApiKey;
+
 
   if (!apiKey || destinations.length === 0) {
     return destinations.map(() => ({

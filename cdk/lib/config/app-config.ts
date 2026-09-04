@@ -5,6 +5,7 @@ export interface AppConfigOptions {
   env: string;
   mapboxAccessToken: string;
   weatherApiKey: string;
+  googleMapsApiKey: string;
   awsAccount?: string;
   awsRegion?: string;
   hostedZoneId: string;
@@ -18,6 +19,7 @@ export class AppConfig {
   readonly env: string;
   readonly mapboxAccessToken: string;
   readonly weatherApiKey: string;
+  readonly googleMapsApiKey: string;
   readonly awsAccount: string | undefined;
   readonly awsRegion: string | undefined;
   readonly hostedZoneId: string;
@@ -32,6 +34,7 @@ export class AppConfig {
     this.env               = opts.env;
     this.mapboxAccessToken = opts.mapboxAccessToken;
     this.weatherApiKey     = opts.weatherApiKey;
+    this.googleMapsApiKey  = opts.googleMapsApiKey;
     this.awsAccount        = opts.awsAccount;
     this.awsRegion         = opts.awsRegion;
     this.hostedZoneId      = opts.hostedZoneId;

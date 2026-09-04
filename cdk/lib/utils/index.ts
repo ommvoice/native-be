@@ -33,6 +33,7 @@ const getAppContext = (app: Construct) => {
     toEmail: getContextProperty(context, 'toEmail'),
     mapboxAccessToken: getContextProperty(context, 'mapboxAccessToken'),
     weatherApiKey: getContextProperty(context, 'weatherApiKey'),
+    googleMapsApiKey: getContextProperty(context, 'googleMapsApiKey'),
   };
 
   console.log('App context:', buildConfig);

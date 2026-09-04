@@ -57,6 +57,7 @@ export class LambdaStack extends cdk.Stack {
     const externalApiEnv = {
       MAPBOX_ACCESS_TOKEN: config.mapboxAccessToken,
       WEATHER_API_KEY:     config.weatherApiKey,
+      GOOGLE_MAPS_API_KEY: config.googleMapsApiKey,
     };
 
     const lambdasDir = path.join(__dirname, '../../..', 'app', 'lambdas');

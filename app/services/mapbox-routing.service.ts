@@ -8,9 +8,6 @@ interface MatrixResult {
   durationSeconds: number | null;
 }
 
-// const googleApiKey = env.googleMapsApiKey();
-const googleApiKey = "";
-
 /** Calls Mapbox Matrix API: 1 origin → N destinations (max 24). */
 export async function mapboxDrivingOneToMany(
   origin: { lat: number; lon: number },
@@ -52,11 +49,11 @@ export async function mapboxDrivingOneToMany(
  * Calls Google Routes API Compute Route Matrix:
  * 1 origin → N destinations. in single request, up to 25 destinations. Returns results in the same order as the input destinations.
  */
-export async function googleDrivingOneToMany1(
+export async function googleDrivingOneToMany(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-  const apiKey = googleApiKey;
+  const apiKey = env.googleMapsApiKey();
 
   if (!apiKey) {
     return destinations.map(() => ({
@@ -186,11 +183,11 @@ export async function googleDrivingOneToMany1(
  * the other does. Same "never throws — a failure just leaves that entry null" contract as before,
  * now per-destination rather than per-batch, so one destination failing doesn't blank the rest.
  */
-export async function googleDrivingOneToMany(
+export async function googleDrivingOneToMany1(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-   const apiKey = googleApiKey;
+   const apiKey = env.googleMapsApiKey();
 
 
   if (!apiKey || destinations.length === 0) {

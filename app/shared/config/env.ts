@@ -32,8 +32,9 @@ export const env = {
   cognitoClientId:   () => required('COGNITO_CLIENT_ID'),
 
   // External services
-  mapboxToken:  () => optional('MAPBOX_ACCESS_TOKEN'),
-  weatherApiKey:() => optional('WEATHER_API_KEY'),
+  mapboxToken:     () => optional('MAPBOX_ACCESS_TOKEN'),
+  weatherApiKey:   () => optional('WEATHER_API_KEY'),
+  googleMapsApiKey:() => optional('GOOGLE_MAPS_API_KEY'),
 
   appName: () => optional('APP_NAME', 'native-be'),
   appEnv:  () => optional('APP_ENV', 'dev'),

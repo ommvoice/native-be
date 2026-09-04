@@ -10,13 +10,14 @@ import { getAppContext } from '../lib/utils';
 
 const app = new cdk.App();
 
-const { appName, environment, mapboxAccessToken, weatherApiKey, awsAccountId, awsProfileRegion, hostedZoneId, domain, certificateArn } = getAppContext(app);
+const { appName, environment, mapboxAccessToken, weatherApiKey, googleMapsApiKey, awsAccountId, awsProfileRegion, hostedZoneId, domain, certificateArn } = getAppContext(app);
 
 const config = new AppConfig({
   appName,
   env: environment,
   mapboxAccessToken,
   weatherApiKey,
+  googleMapsApiKey,
   awsAccount: awsAccountId,
   awsRegion: awsProfileRegion,
   hostedZoneId,

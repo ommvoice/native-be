@@ -70,8 +70,8 @@ export class DrivingLegService {
       const dests  = chunk.map((c) => ({ lat: c.lat, lon: c.lon }));
 
       try {
-        const results = await mapboxDrivingOneToMany(origin, dests);
-        // const results = await googleDrivingOneToMany(origin, dests)
+        // const results = await mapboxDrivingOneToMany(origin, dests);
+        const results = await googleDrivingOneToMany(origin, dests);
 
         for (let j = 0; j < chunk.length; j++) {
           const leg = chunk[j]!;

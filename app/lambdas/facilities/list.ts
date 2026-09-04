@@ -10,9 +10,9 @@ const baseHandler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProx
   ...new Map(list.map(item => [item.slug, item])).values(),
 ];
 
-//  const filteredFacilities = allUniqueFacilities.filter((facility) => facility.type !== 'GENERAL');
+ const filteredFacilities = allUniqueFacilities.filter((facility) => facility.type !== 'DOG');
 
-  return ok(allUniqueFacilities);
+  return ok(filteredFacilities);
 };
 
 export const handler = middy(baseHandler)

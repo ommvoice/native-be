@@ -247,13 +247,13 @@ export class RecommendationV2Service {
     if (!parent) throw new AppError(404, 'Parent not found');
 
     const childIds = dto.childId?.split(',').map((id) => id.trim());
-    const narrowed = dto.childId
+    const narrowed = childIds
       ? { ...parent, children: parent.children.filter((c) => childIds?.includes(c.id)) }
       : parent;
 
-    if (!narrowed.children.length) {
-      throw new AppError(400, 'No children found for this query.');
-    }
+    // if (!narrowed.children.length) {
+    //   throw new AppError(400, 'No children found for this query.');
+    // }
 
     let narrowedParams: Narrowed = {
       ...narrowed,

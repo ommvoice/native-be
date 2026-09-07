@@ -330,9 +330,14 @@ function calcFamilyQuantities(childAges: number[], tiers: PricingTier[]): Record
     .filter((t): t is { tier: PricingTier; range: AgeRange } => t.range !== null)
     .sort((a, b) => (a.range.max - a.range.min) - (b.range.max - b.range.min));
 
+  // Only a tier with no parseable age range at all is a valid fallback — a
+  // tier that does specify an age range (e.g. "Child (4-18)") already had its
+  // shot via childTiers above, and a child outside that range must not be
+  // forced back into the very tier that just rejected them. Mirrors
+  // PricingCard.tsx's fallbackChildTier fix.
   const fallbackChildTier =
-    tiers.find((t) => t.label.toLowerCase() === "child") ??
-    tiers.find((t) => t !== adultTier && /child/i.test(t.label));
+    tiers.find((t) => t.label.toLowerCase() === "child" && parseAgeRange(t.age) === null) ??
+    tiers.find((t) => t !== adultTier && /child/i.test(t.label) && parseAgeRange(t.age) === null);
 
   childAges.forEach((age) => {
     const match = childTiers.find(({ range }) => age >= range.min && age <= range.max);

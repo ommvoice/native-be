@@ -1622,6 +1622,15 @@
         "event",
         "club"
       ],
+      "interestCategorySlugs": [
+        "nature_exploration",
+        "movement_energy",
+        "creativity_imagination",
+        "learning_curiosity",
+        "slowing_down",
+        "together_time",
+        "special_memorable"
+      ],
       "active": true
     }
   ],

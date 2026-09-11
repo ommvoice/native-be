@@ -50,3 +50,11 @@ export function groupOpportunitiesByInterest(opportunities: Opportunity[]): Plan
     list: opportunities.filter((opp) => opp.searchTags.interestCategory?.slug === interest.slug),
   }));
 }
+
+export function groupOpportunitiesByFamilyInterest(opportunities: Opportunity[], interestSlugs: string[],themeSLugs: string[]): PlanGroup[] {
+  return assets.getInterestCategories().map((interest): PlanGroup => ({
+    interest: { slug: interest.slug, name: interest.name },
+    themes: resolveThemesForInterest(interest.slug),
+    list: opportunities.filter((opp) => opp.searchTags.interestCategory?.slug === interest.slug),
+  }));
+}

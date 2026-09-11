@@ -247,6 +247,18 @@ export async function getCachedWeatherSuitabilitySlugs(postcode: string): Promis
   if (cached && cached.expiresAt > Date.now()) return cached.slugs;
 
   const weather = await getWeatherByPostcode(postcode);
+//   const weather = {
+//     "condition": {
+//         "text": "Light rain",
+//         "icon": "https://cdn.weatherapi.com/weather/64x64/day/296.png",
+//         "code": 1183,
+//         "isDay": true,
+//         "isWindy": false
+//     },
+//     "wind_mph": 16,
+//     "temp_c": 13,
+//     "localtime": "2026-09-08 13:00"
+// }
   const slugs = mapWeatherToSuitabilitySlugs(weather);
   weatherCache.set(key, { slugs, expiresAt: Date.now() + WEATHER_CACHE_TTL_MS });
   return slugs;

@@ -102,7 +102,11 @@ export interface Opportunity {
 }
 
 export interface SearchTags {
-  interestCategory: SlugName | null;
+  // An opportunity's theme can belong to more than one interest category
+  // (opportunityTheme enum's interestCategorySlugs) — every one of them applies,
+  // not just the first, so an opportunity can surface under all of its matching
+  // interest categories rather than being forced into a single "primary" one.
+  interestCategories: SlugName[];
   theme: string | null;
   themeVariant: string[];
   activityGroup: string[];
@@ -342,14 +346,14 @@ function resolveRouteDistanceMiles(rec: EnrichedScoredRecommendationV2): number 
 }
 
 // A theme belongs to one or more interest categories (opportunityTheme enum's
-// interestCategorySlugs) — resolve the recommendation row's theme to its
-// first/primary interest category, same convention AssetsService.getThemes()
-// uses for ThemeRecord.interestId.
-function resolveInterestCategory(themeSlug: string | undefined): SlugName | null {
+// interestCategorySlugs, AssetsService.getThemes()'s ThemeRecord.interestId) —
+// resolve the recommendation row's theme to every one of its interest
+// categories, not just the first, so it can surface under all of them.
+function resolveInterestCategories(themeSlug: string | undefined): SlugName[] {
   const firstThemeSlug = themeSlug?.split(",")[0]?.trim();
-  if (!firstThemeSlug) return null;
+  if (!firstThemeSlug) return [];
   const theme = assets.getThemes().find((t) => t.slug === firstThemeSlug);
-  return theme?.interestId ? toSlugName(theme.interestId[0]) : null;
+  return theme?.interestId.map(toSlugName) ?? [];
 }
 
 // ── Card-display field resolvers (nativeapp-main-loveable OpportunityCard.tsx parity) ──
@@ -644,7 +648,7 @@ function resolveSearchTags(
   const durationMinFromCompact = getMinutesFromCompactDuration(compactDuration);
 
   return {
-    interestCategory: resolveInterestCategory(rec.themeSlug),
+    interestCategories: resolveInterestCategories(rec.themeSlug),
     theme: rec.themeSlug ?? null,
     themeVariant: toSlugNameList(rec.themeVariantSlug)?.map((t) => t.slug) ?? [],
     activityGroup: (resolveActivityGroup(rec) ?? []).map((a) => a.slug),

@@ -40,14 +40,16 @@ function resolveThemesForInterest(interestSlug: string): PlanGroupTheme[] {
  * Mirrors nativeapp-main-2's `EVERYTHING_LOCAL_DISPLAY_GROUPS`, which is a fixed display list
  * rendered regardless of whether a group currently has any opportunities (empty ones render as
  * a "Coming soon" row client-side) — themes/variants are resolved the same asset-driven way.
- * An opportunity with no resolvable interest category (`searchTags.interestCategory` unset via
- * recommendation-formatter's resolveInterestCategory()) is dropped — it can't be placed in any group.
+ * An opportunity with no resolvable interest category (`searchTags.interestCategories` empty via
+ * recommendation-formatter's resolveInterestCategories()) is dropped — it can't be placed in any group.
+ * An opportunity whose theme spans multiple interest categories appears in every matching group's
+ * `list`, not just one — see resolveInterestCategories().
  */
 export function groupOpportunitiesByInterest(opportunities: Opportunity[]): PlanGroup[] {
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
-    list: opportunities.filter((opp) => opp.searchTags.interestCategory?.slug === interest.slug),
+    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }
 
@@ -55,6 +57,6 @@ export function groupOpportunitiesByFamilyInterest(opportunities: Opportunity[],
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
-    list: opportunities.filter((opp) => opp.searchTags.interestCategory?.slug === interest.slug),
+    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }

@@ -30,6 +30,13 @@ export class ParentService {
     return this.getById(id);
   }
 
+  async updateBase(id: string, baseId: string, serviceBranch: string) {
+    const parent = await this.parentRepo.getById(id);
+    if (!parent) throw new AppError(404, 'Parent not found');
+    await this.parentRepo.updateBase(id, baseId, serviceBranch);
+    return this.getById(id);
+  }
+
   async updateInterests(id: string, categoryIds: string[], subCategoryIds: string[]) {
     const parent = await this.parentRepo.getById(id);
     if (!parent) throw new AppError(404, 'Parent not found');

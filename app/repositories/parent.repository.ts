@@ -15,6 +15,8 @@ export interface ParentRecord {
   userId: string;
   interestCategoryIds: string[];
   interestSubCategoryIds: string[];
+  baseId?: string | null;
+  serviceBranch?: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -62,6 +64,18 @@ export class ParentRepository {
         Key: { id },
         UpdateExpression: 'SET searchRadius = :sr, updatedAt = :ua',
         ExpressionAttributeValues: { ':sr': searchRadius, ':ua': now },
+      }),
+    );
+  }
+
+  async updateBase(id: string, baseId: string, serviceBranch: string): Promise<void> {
+    const now = new Date().toISOString();
+    await db.send(
+      new UpdateCommand({
+        TableName: TABLES.parents,
+        Key: { id },
+        UpdateExpression: 'SET baseId = :b, serviceBranch = :sb, updatedAt = :ua',
+        ExpressionAttributeValues: { ':b': baseId, ':sb': serviceBranch, ':ua': now },
       }),
     );
   }

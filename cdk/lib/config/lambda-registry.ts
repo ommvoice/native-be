@@ -112,6 +112,12 @@ const parentLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['parents', '{id}', 'interests'], method: 'PUT', auth: true }],
   },
+  {
+    key: 'parentsUpdateBase', name: 'parents-update-base', entry: 'parents/update-base.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['parents', '{id}', 'base'], method: 'PUT', auth: true }],
+  },
 ];
 
 // ── Children ──────────────────────────────────────────────────────────────────
@@ -444,6 +450,16 @@ const mapboxLambdas: LambdaDefinition[] = [
   },
 ];
 
+// ── Community ──────────────────────────────────────────────────────────────
+const communityLambdas: LambdaDefinition[] = [
+  {
+    key: 'communityGetHub', name: 'community-get-hub', entry: 'community/get-hub.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['community', 'hub'], method: 'GET', auth: true }],
+  },
+];
+
 // ── All Lambdas ───────────────────────────────────────────────────────────────
 
 export const allLambdas: LambdaDefinition[] = [
@@ -466,4 +482,5 @@ export const allLambdas: LambdaDefinition[] = [
   ...searchLambdas,
   ...weatherLambdas,
   ...mapboxLambdas,
+  ...communityLambdas,
 ];

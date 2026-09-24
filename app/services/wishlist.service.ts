@@ -26,7 +26,7 @@ export class WishlistService {
   /** Called from ChildService.create()/OnboardParentService.create() — every child gets a wishlist
    * named after them, attached via childId, by default. */
   async createDefaultForChild(parentId: string, childId: string, childName: string) {
-    return this.repo.create({ name: childName, color: DEFAULT_CHILD_WISHLIST_COLOR, parentId, childId });
+    return this.repo.create({ name: `${childName}'s Favourites`, color: DEFAULT_CHILD_WISHLIST_COLOR, parentId, childId });
   }
 
   /** Cascade-deletes every wishlist belonging to one child (there's normally just the one

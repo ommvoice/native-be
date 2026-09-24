@@ -130,6 +130,12 @@ const childrenLambdas: LambdaDefinition[] = [
     routes: [{ path: ['children'], method: 'POST', auth: true }],
   },
   {
+    key: 'childrenCreateGuest', name: 'children-create-guest', entry: 'children/create-guest.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
+    routes: [{ path: ['children', 'guest'], method: 'POST', auth: true }],
+  },
+  {
     key: 'childrenGet', name: 'children-get', entry: 'children/get.ts',
     env: { cognito: true },
     permissions: { dynamodb: 'readWrite', cognito: false },

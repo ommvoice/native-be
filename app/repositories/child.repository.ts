@@ -12,6 +12,11 @@ export interface ChildRecord {
   interestCategoryIds: string[];
   interestSubCategoryIds: string[];
   interestTags: string[];
+  /** Set only for a same-day guest child (POST /children/guest) — unset for a normal child. */
+  variant?: 'guest';
+  /** "YYYY-MM-DD", the UK calendar day the guest was created — checked against AppClock.isoDateString()
+   * by ChildService.deleteExpiredGuests(). Unset for a normal (non-guest) child. */
+  expireDate?: string | null;
   createdAt: string;
   updatedAt: string;
 }

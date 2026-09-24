@@ -59,6 +59,15 @@ export class AppClock {
     return `${String(p.hours).padStart(2, "0")}:${String(p.minutes).padStart(2, "0")}`;
   }
 
+  /** UK calendar date as "YYYY-MM-DD" — same convention as a child's stored dateOfBirth, so it can
+   * be compared with plain string `<`/`>=` (e.g. guest-child expireDate) without parsing back into
+   * a Date. Use instead of `date.toISOString().slice(0, 10)`, which reads the UTC calendar day and
+   * can land on the wrong date close to midnight UK time. */
+  static isoDateString(date: Date = new Date()): string {
+    const p = AppClock.parts(date);
+    return `${p.year}-${String(p.month + 1).padStart(2, "0")}-${String(p.day).padStart(2, "0")}`;
+  }
+
   /** Full UK wall-clock date+time, en-GB formatted (e.g. "Tue, 18/08/2026, 14:30:05") — a human-readable companion to the machine-readable ISO timestamp, representing the exact instant startTime/endTime were compared against. */
   static dateTimeString(date: Date = new Date()): string {
     return AppClock.formatter.format(date);

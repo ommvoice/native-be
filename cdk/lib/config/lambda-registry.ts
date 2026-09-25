@@ -76,6 +76,13 @@ const usersLambdas: LambdaDefinition[] = [
     permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['users', 'me'], method: 'GET', auth: true }],
   },
+  {
+    key: 'usersDeleteMe', name: 'users-delete-me', entry: 'users/delete-me.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: true },   // cognito: AdminDeleteUser
+    overrides: { timeoutSeconds: 30 },
+    routes: [{ path: ['users', 'me'], method: 'DELETE', auth: true }],
+  },
 ];
 
 // ── Onboard ───────────────────────────────────────────────────────────────────

@@ -54,4 +54,5 @@ export const COGNITO_ADMIN_IAM_ACTIONS: string[] = [
   'cognito-idp:AdminSetUserPassword',
   'cognito-idp:AdminInitiateAuth',
   'cognito-idp:AdminGetUser',
+  'cognito-idp:AdminDeleteUser',
 ];

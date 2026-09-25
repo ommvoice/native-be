@@ -1,5 +1,6 @@
 import {
   AdminCreateUserCommand,
+  AdminDeleteUserCommand,
   AdminInitiateAuthCommand,
   AdminSetUserPasswordCommand,
   CognitoIdentityProviderClient,
@@ -111,6 +112,22 @@ export class AuthService {
     await getVerifier().verify(idToken);
 
     return { token: idToken };
+  }
+
+  /** Removes the Cognito login. Username is the email we registered with (see register()).
+   * Already-gone users are treated as success so a retried account deletion can finish. */
+  async deleteCognitoUser(username: string) {
+    try {
+      await getCognito().send(
+        new AdminDeleteUserCommand({
+          UserPoolId: env.cognitoUserPoolId(),
+          Username:   username,
+        }),
+      );
+    } catch (err: unknown) {
+      if ((err as { name?: string }).name === 'UserNotFoundException') return;
+      throw err;
+    }
   }
 
   private async _authenticateAndUpsert(email: string, password: string) {

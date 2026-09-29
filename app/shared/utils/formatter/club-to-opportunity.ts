@@ -215,12 +215,12 @@ function buildInfoData(data: OpportunityClubV2): any[] | null {
 
   const schedule = buildScheduleInfo(data);
   if (schedule) {
-    infoList.push({ icon: "schedule", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
+    infoList.push({ icon: "today", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
   }
 
   if (data.clubFormat || data.clubFrequency) {
     infoList.push({
-      icon: "format",
+      icon: data.theme.slug,
       title: data.clubFormat ? toSlugName(data.clubFormat).name : "—",
       subtitle: data.clubFrequency ? toSlugName(data.clubFrequency).name : "—",
       label: "Format",
@@ -229,7 +229,7 @@ function buildInfoData(data: OpportunityClubV2): any[] | null {
 
   const bookingTitle = data.ticketingRequirement ? "Book Ahead" : "Drop In";
   if (data.ticketingRequirement !== null || data.clubCommittment) {
-    infoList.push({ icon: "booking", title: bookingTitle, subtitle: resolveClubCommitmentLabel(data.clubCommittment), label: "Booking" });
+    infoList.push({ icon: "bookings", title: bookingTitle, subtitle: resolveClubCommitmentLabel(data.clubCommittment), label: "Booking" });
   }
 
   return infoList.length > 0 ? infoList : null;

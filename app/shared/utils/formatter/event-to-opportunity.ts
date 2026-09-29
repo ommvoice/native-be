@@ -161,12 +161,12 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
 
   const schedule = buildScheduleInfo(data);
   if (schedule) {
-    infoList.push({ icon: "schedule", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
+    infoList.push({ icon: "today", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
   }
 
   if (data.eventType || data.eventSkillArea) {
     infoList.push({
-      icon: "details",
+      icon: data.theme.slug,
       title: data.eventType ? toSlugName(data.eventType).name : "—",
       subtitle: toSlugNameList(data.eventSkillArea)?.map((e) => e.name).join(", ") ?? "—",
       label: "Event Details",
@@ -177,7 +177,7 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
     const type = (data.eventBookingType ?? "").toLowerCase().trim();
     const title = type.includes("advance") ? "Book Ahead" : "Drop In";
     const subtitle = toSlugNameList(data.eventBookingType)?.map((e) => e.name).join(", ") ?? "-";
-    infoList.push({ icon: "booking", title, subtitle, label: "Booking" });
+    infoList.push({ icon: "bookings", title, subtitle, label: "Booking" });
   }
 
   return infoList.length > 0 ? infoList : null;

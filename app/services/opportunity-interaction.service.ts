@@ -1,4 +1,4 @@
-import { OpportunityInteractionRepository, opportunityInteractionKey } from '../repositories/opportunity-interaction.repository';
+import { OpportunityInteractionRepository, opportunityInteractionKey, isSuppressed, suppressedUntil, suppressionEndFrom } from '../repositories/opportunity-interaction.repository';
 import { enrichOpportunityRefs, opportunityRefKey } from '../shared/utils/opportunity-enrichment';
 import type { CreateOpportunityInteractionDto, GetOpportunityInteractionsQueryDto } from '../dtos/opportunity-interaction.dto';
 
@@ -13,8 +13,10 @@ export class OpportunityInteractionService {
    * rating + visited-at — optionally narrowed to one interactionType (e.g. "visited" for the Saved
    * screen's Past Trips section). */
   async listEnriched(query: GetOpportunityInteractionsQueryDto) {
-    const all = await this.repo.listByParentId(query.parentId);
-    const interactions = query.interactionType ? all.filter((i) => i.interactionType === query.interactionType) : all;
+    // An expired "Not for us" (past its 90 days) no longer counts as an interaction at all.
+    const active = (await this.repo.listByParentId(query.parentId))
+      .filter((i) => i.interactionType !== 'not_interested' || isSuppressed(i));
+    const interactions = query.interactionType ? active.filter((i) => i.interactionType === query.interactionType) : active;
 
     const opportunities = await enrichOpportunityRefs(
       interactions.map((i) => ({ type: i.opportunityType, id: i.opportunityId })),
@@ -24,7 +26,7 @@ export class OpportunityInteractionService {
       .map((interaction) => {
         const opportunity = opportunities.get(opportunityRefKey(interaction.opportunityType, interaction.opportunityId));
         return opportunity
-          ? { opportunity, interactionType: interaction.interactionType, starRating: interaction.starRating, visitedAt: interaction.visitedAt }
+          ? { opportunity, interactionType: interaction.interactionType, starRating: interaction.starRating, visitedAt: interaction.visitedAt, suppressedUntil: suppressedUntil(interaction) }
           : null;
       })
       .filter((item): item is NonNullable<typeof item> => !!item);
@@ -48,6 +50,9 @@ export class OpportunityInteractionService {
       interactionType: dto.interactionType,
       starRating: dto.starRating ?? null,
       visitedAt,
+      // "Not for us" — hidden from every recommendation/plan/search list for 90 days from now
+      // (re-pressing it restarts the 90 days). See RecommendationV2Service.getItemsWithScore().
+      suppressedUntil: dto.interactionType === 'not_interested' ? suppressionEndFrom(new Date().toISOString()) : null,
     });
   }
 

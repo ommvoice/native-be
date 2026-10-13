@@ -16,8 +16,33 @@ export interface OpportunityInteractionRecord {
   interactionType: InteractionType;
   starRating: number | null;
   visitedAt: string | null;
+  /** not_interested only: ISO time until which the opportunity is hidden from every
+   * recommendation/plan/search list ("Not for us" on the detail screen). Unset on records written
+   * before this field existed — see suppressedUntil() below. */
+  suppressedUntil?: string | null;
   createdAt: string;
   updatedAt: string;
+}
+
+/** How long "Not for us" hides an opportunity for the family. */
+export const NOT_INTERESTED_SUPPRESSION_DAYS = 90;
+
+export function suppressionEndFrom(fromIso: string): string {
+  const end = new Date(fromIso);
+  end.setUTCDate(end.getUTCDate() + NOT_INTERESTED_SUPPRESSION_DAYS);
+  return end.toISOString();
+}
+
+/** When a not_interested interaction stops hiding its opportunity — null for any other type.
+ * Older records without suppressedUntil fall back to updatedAt + 90 days. */
+export function suppressedUntil(i: OpportunityInteractionRecord): string | null {
+  if (i.interactionType !== 'not_interested') return null;
+  return i.suppressedUntil ?? suppressionEndFrom(i.updatedAt);
+}
+
+export function isSuppressed(i: OpportunityInteractionRecord, now: Date = new Date()): boolean {
+  const until = suppressedUntil(i);
+  return !!until && until > now.toISOString();
 }
 
 export function opportunityInteractionKey(parentId: string, type: OpportunityRefType, opportunityId: string): string {

@@ -3,6 +3,8 @@ import { AppClock } from '../shared/utils/app-clock';
 import { RecommendationV2Repository } from '../repositories/recommendation-v2.repository';
 import { DrivingLegService, buildRoutableLeg } from './driving-leg.service';
 import { legKey } from '../repositories/driving-leg.repository';
+import { OpportunityInteractionRepository, isSuppressed } from '../repositories/opportunity-interaction.repository';
+import { opportunityRefKey } from '../shared/utils/opportunity-ref';
 import {
   collectFamilyInterestSlugs,
   combineNearby,
@@ -40,10 +42,20 @@ const DEFAULT_LIMIT = 30;
 export class RecommendationV2Service {
   private readonly repo: RecommendationV2Repository;
   private readonly drivingLegs: DrivingLegService;
+  private readonly interactions: OpportunityInteractionRepository;
 
   constructor() {
     this.repo = new RecommendationV2Repository();
     this.drivingLegs = new DrivingLegService();
+    this.interactions = new OpportunityInteractionRepository();
+  }
+
+  /** `${type}#${id}` of every opportunity this parent marked "Not for us" within the last 90 days. */
+  private async getSuppressedRefKeys(parentId: string): Promise<Set<string>> {
+    const interactions = await this.interactions.listByParentId(parentId);
+    return new Set(
+      interactions.filter((i) => isSuppressed(i)).map((i) => opportunityRefKey(i.opportunityType, i.opportunityId)),
+    );
   }
 
   async getRecommendations(dto: RecommendationQueryDto) {
@@ -346,7 +358,13 @@ export class RecommendationV2Service {
 
     const childAges = narrowed.children.map((c) => getAgeInYears(c.dateOfBirth));
     const maxMiles = narrowed.searchRadius;
-    const candidates = await this.repo.getOpportunityCandidatesV2();
+    // Every recommendation/plan/search endpoint funnels through here, so this one filter hides a
+    // "Not for us" opportunity (opportunity-interactions, not_interested) from all of them for 90 days.
+    const [allCandidates, suppressed] = await Promise.all([
+      this.repo.getOpportunityCandidatesV2(),
+      this.getSuppressedRefKeys(narrowed.id),
+    ]);
+    const candidates = allCandidates.filter((c) => !suppressed.has(opportunityRefKey(c.type, c.id)));
     // Free-text tags (e.g. "Cats", "Dogs") the selected children picked directly —
     // separate from the slug-based interest categories/sub-categories above. Weighted so a tag
     // 2 or more children picked scores higher than one only 1 child picked.

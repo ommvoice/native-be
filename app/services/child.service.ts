@@ -28,6 +28,7 @@ export class ChildService {
       parentId:               dto.parentId,
       nameOrNickName:         dto.nameOrNickName,
       dateOfBirth:            dto.dateOfBirth,
+      variant:                dto.variant ?? 'child',
       skillIds:               dto.skillIds ?? [],
       interestCategoryIds:    dto.interestCategoryIds ?? [],
       interestSubCategoryIds: dto.interestSubCategoryIds ?? [],

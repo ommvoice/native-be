@@ -8,7 +8,7 @@ import { ParentRepository } from '../../repositories/parent.repository';
 import { WishlistService } from '../../services/wishlist.service';
 import { bodyValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
-import { createChildSchema } from '../../schemas/child.schema';
+import { createGuestChildSchema } from '../../schemas/child.schema';
 import { created } from '../../shared/utils/response';
 import type { CreateGuestChildDto } from '../../dtos/child.dto';
 
@@ -23,5 +23,5 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
 export const handler = middy(baseHandler)
   .use(httpJsonBodyParser())
-  .use(bodyValidator(createChildSchema))
+  .use(bodyValidator(createGuestChildSchema))
   .use(errorHandler());

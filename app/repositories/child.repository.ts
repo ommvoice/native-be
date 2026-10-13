@@ -3,6 +3,8 @@ import db from '../shared/db/dynamo-client';
 import { TABLES } from '../shared/db/tables';
 import { v4 as uuidv4 } from 'uuid';
 
+export type PersonVariant = "guest" | "parent" | "child" | "adult";
+
 export interface ChildRecord {
   id: string;
   nameOrNickName: string;
@@ -13,7 +15,7 @@ export interface ChildRecord {
   interestSubCategoryIds: string[];
   interestTags: string[];
   /** Set only for a same-day guest child (POST /children/guest) — unset for a normal child. */
-  variant?: 'guest';
+  variant?: PersonVariant;
   /** "YYYY-MM-DD", the UK calendar day the guest was created — checked against AppClock.isoDateString()
    * by ChildService.deleteExpiredGuests(). Unset for a normal (non-guest) child. */
   expireDate?: string | null;

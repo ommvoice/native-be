@@ -1,7 +1,10 @@
+import { PersonVariant } from "../repositories/child.repository";
+
 export interface CreateChildDto {
   parentId: string;
   nameOrNickName: string;
   dateOfBirth: string;
+  variant?: PersonVariant;
   skillIds?: string[];
   interestCategoryIds?: string[];
   interestSubCategoryIds?: string[];

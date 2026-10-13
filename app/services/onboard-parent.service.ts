@@ -36,6 +36,7 @@ export class OnboardParentService {
           parentId:               parent.id,
           nameOrNickName:         c.nameOrNickName,
           dateOfBirth:            c.dateOfBirth,
+          variant:                "child",
           skillIds:               [],
           interestCategoryIds:    [],
           interestSubCategoryIds: [],

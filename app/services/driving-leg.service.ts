@@ -99,4 +99,39 @@ export class DrivingLegService {
 
     return valid;
   }
+
+  /**
+   * Driving distance/time from an arbitrary origin (e.g. the opportunity being viewed, for the
+   * "nearby" list) to each leg. Deliberately NOT cached: the drivingLegs table is keyed per
+   * opportunity and holds home → opportunity legs, so writing opportunity → opportunity legs there
+   * would overwrite the times every other list shows. Callers should pass only a short, already
+   * radius-filtered list to keep routing calls small.
+   */
+  async computeLegsFrom(
+    origin: { lat: number; lon: number },
+    legs: RoutableLeg[],
+  ): Promise<Map<string, { drivingDistanceMeters: number; drivingDurationSeconds: number }>> {
+    const result = new Map<string, { drivingDistanceMeters: number; drivingDurationSeconds: number }>();
+    if (legs.length === 0 || !Number.isFinite(origin.lat) || !Number.isFinite(origin.lon)) return result;
+
+    for (let i = 0; i < legs.length; i += MAPBOX_MATRIX_MAX_DESTINATIONS) {
+      const chunk = legs.slice(i, i + MAPBOX_MATRIX_MAX_DESTINATIONS);
+      try {
+        const results = await googleDrivingOneToMany(origin, chunk.map((c) => ({ lat: c.lat, lon: c.lon })));
+        chunk.forEach((leg, j) => {
+          const r = results[j];
+          if (r?.distanceMeters != null && r.durationSeconds != null &&
+              Number.isFinite(r.distanceMeters) && Number.isFinite(r.durationSeconds)) {
+            result.set(legKey(leg.type, leg.id), {
+              drivingDistanceMeters:  Math.round(r.distanceMeters),
+              drivingDurationSeconds: Math.round(r.durationSeconds),
+            });
+          }
+        });
+      } catch (err) {
+        logger.warn('Nearby driving leg batch failed — falling back to straight-line distance', err);
+      }
+    }
+    return result;
+  }
 }

@@ -2,8 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambdaNode from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as logs from 'aws-cdk-lib/aws-logs';
+import * as path from 'path';
 import { Construct } from 'constructs';
 import type { AppConfig } from '../config/app-config';
+import { LAMBDA_RUNTIME, LAMBDA_ARCHITECTURE, getBundlingOptions, logRetentionDays } from '../config/lambda-config';
 import {
   COGNITO_PASSWORD_POLICY,
   COGNITO_AUTH_FLOWS,
@@ -36,6 +39,35 @@ export class CognitoStack extends cdk.Stack {
     const { config } = props;
     const isProd = config.env === 'prod';
 
+    // ── CustomMessage trigger (HTML email templates) ──────────────────────────
+    // Lives in this stack, not LambdaStack: LambdaStack already depends on Cognito, so wiring one
+    // of its functions as a pool trigger would create a cycle. Imports no third-party packages,
+    // so it's bundled standalone without the shared layer.
+
+    const repoRoot = path.join(__dirname, '../../..');
+    const customMessageName = config.prefix('cognito-custom-message');
+    const customMessageFn = new lambdaNode.NodejsFunction(this, 'CustomMessageTrigger', {
+      functionName:     customMessageName,
+      description:      'Cognito CustomMessage trigger — renders HTML email templates',
+      entry:            path.join(repoRoot, 'app', 'lambdas', 'cognito-triggers', 'custom-message.ts'),
+      handler:          'handler',
+      runtime:          LAMBDA_RUNTIME,
+      architecture:     LAMBDA_ARCHITECTURE,
+      memorySize:       256,
+      timeout:          cdk.Duration.seconds(5),
+      logGroup:         new logs.LogGroup(this, 'CustomMessageTriggerLogs', {
+        logGroupName:  `/aws/lambda/${customMessageName}`,
+        retention:     logRetentionDays(config.env),
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }),
+      projectRoot:      repoRoot,
+      depsLockFilePath: path.join(repoRoot, 'package-lock.json'),
+      bundling: {
+        ...getBundlingOptions(config.env),
+        tsconfig: path.join(repoRoot, 'app', 'tsconfig.json'),
+      },
+    });
+
     // ── User Pool ─────────────────────────────────────────────────────────────
 
     this.userPool = new cognito.UserPool(this, 'UserPool', {
@@ -46,6 +78,17 @@ export class CognitoStack extends cdk.Stack {
       standardAttributes:   COGNITO_STANDARD_ATTRIBUTES,
       passwordPolicy:       COGNITO_PASSWORD_POLICY,
       accountRecovery:      cognito.AccountRecovery.EMAIL_ONLY,
+      // Send Cognito emails (password reset codes) through SES from our verified sender instead of
+      // Cognito's default no-reply address. While SES is in sandbox mode, mail only reaches
+      // SES-verified recipients — request production access before going live.
+      email: cognito.UserPoolEmail.withSES({
+        fromEmail: config.fromEmail,
+        fromName:  'Native Family',
+        sesRegion: config.awsRegion ?? cdk.Stack.of(this).region,
+      }),
+      lambdaTriggers: {
+        customMessage: customMessageFn,
+      },
       removalPolicy:        isProd ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY,
     });
 
@@ -59,6 +102,9 @@ export class CognitoStack extends cdk.Stack {
       accessTokenValidity:  COGNITO_TOKEN_VALIDITY.accessToken,
       idTokenValidity:      COGNITO_TOKEN_VALIDITY.idToken,
       refreshTokenValidity: COGNITO_TOKEN_VALIDITY.refreshToken,
+      // Unknown emails get the same responses as real ones (no account enumeration via
+      // forgot-password or login).
+      preventUserExistenceErrors: true,
     });
 
     // ── Outputs ───────────────────────────────────────────────────────────────

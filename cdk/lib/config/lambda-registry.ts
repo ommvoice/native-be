@@ -65,6 +65,19 @@ const authLambdas: LambdaDefinition[] = [
     // Public: authenticates via the refresh token in the body, not the API's bearer-token authorizer.
     routes: [{ path: ['auth', 'refresh'], method: 'POST', auth: false }],
   },
+  {
+    key: 'authForgotPassword', name: 'auth-forgot-password', entry: 'auth/forgot-password.ts',
+    env: { cognito: true },
+    // ForgotPassword/ConfirmForgotPassword are public client APIs — no IAM or table access needed.
+    permissions: { dynamodb: 'none', cognito: false },
+    routes: [{ path: ['auth', 'forgot-password'], method: 'POST', auth: false }],
+  },
+  {
+    key: 'authResetPassword', name: 'auth-reset-password', entry: 'auth/reset-password.ts',
+    env: { cognito: true },
+    permissions: { dynamodb: 'none', cognito: false },
+    routes: [{ path: ['auth', 'reset-password'], method: 'POST', auth: false }],
+  },
 ];
 
 // ── Users ─────────────────────────────────────────────────────────────────────

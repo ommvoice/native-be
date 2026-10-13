@@ -6,6 +6,8 @@ export interface AppConfigOptions {
   mapboxAccessToken: string;
   weatherApiKey: string;
   googleMapsApiKey: string;
+  /** SES-verified sender for Cognito emails (password reset, future signup codes). */
+  fromEmail: string;
   awsAccount?: string;
   awsRegion?: string;
   hostedZoneId: string;
@@ -20,6 +22,7 @@ export class AppConfig {
   readonly mapboxAccessToken: string;
   readonly weatherApiKey: string;
   readonly googleMapsApiKey: string;
+  readonly fromEmail: string;
   readonly awsAccount: string | undefined;
   readonly awsRegion: string | undefined;
   readonly hostedZoneId: string;
@@ -35,6 +38,7 @@ export class AppConfig {
     this.mapboxAccessToken = opts.mapboxAccessToken;
     this.weatherApiKey     = opts.weatherApiKey;
     this.googleMapsApiKey  = opts.googleMapsApiKey;
+    this.fromEmail         = opts.fromEmail;
     this.awsAccount        = opts.awsAccount;
     this.awsRegion         = opts.awsRegion;
     this.hostedZoneId      = opts.hostedZoneId;

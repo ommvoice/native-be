@@ -4,12 +4,15 @@ import {
   AdminInitiateAuthCommand,
   AdminSetUserPasswordCommand,
   CognitoIdentityProviderClient,
+  ConfirmForgotPasswordCommand,
+  ForgotPasswordCommand,
   MessageActionType,
 } from '@aws-sdk/client-cognito-identity-provider';
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import { AppError } from '../shared/errors/app-error';
 import { env } from '../shared/config/env';
 import { UserRepository } from '../repositories/user.repository';
+import { logger } from '../shared/utils/logger';
 
 let _cognitoClient: CognitoIdentityProviderClient | null = null;
 function getCognito() {
@@ -42,6 +45,12 @@ export class AuthService {
           Username:      email,
           MessageAction: MessageActionType.SUPPRESS,
           TemporaryPassword: password,
+          // Marked verified up front: Cognito's ForgotPassword only sends codes to a verified
+          // email, and signup doesn't (yet) run its own email-verification step.
+          UserAttributes: [
+            { Name: 'email',          Value: email },
+            { Name: 'email_verified', Value: 'true' },
+          ],
         }),
       );
     } catch (err: unknown) {
@@ -72,6 +81,62 @@ export class AuthService {
         throw new AppError(401, 'Invalid email or password');
       }
       throw err;
+    }
+  }
+
+  /**
+   * Starts Cognito's forgot-password flow — Cognito emails a 6-digit code (HTML from the
+   * CustomMessage trigger, sent via SES). Deliberately silent about whether the account exists:
+   * the client has preventUserExistenceErrors on, and an unverified email is logged, not surfaced.
+   */
+  async forgotPassword(email: string): Promise<void> {
+    try {
+      await getCognito().send(
+        new ForgotPasswordCommand({ ClientId: env.cognitoClientId(), Username: email }),
+      );
+    } catch (err: unknown) {
+      const name = (err as { name?: string }).name;
+      if (name === 'LimitExceededException' || name === 'TooManyRequestsException') {
+        throw new AppError(429, 'Too many reset requests. Please try again later.');
+      }
+      if (name === 'InvalidParameterException' || name === 'UserNotFoundException') {
+        // Unverified email (account predates email_verified backfill) or unknown user — no email
+        // can be sent, but the caller gets the same generic response either way.
+        logger.warn('Forgot password: no code sent', { name, message: (err as Error).message });
+        return;
+      }
+      throw err;
+    }
+  }
+
+  /** Completes the reset with the emailed code. Existing sessions/refresh tokens are left as-is. */
+  async resetPassword(email: string, code: string, newPassword: string): Promise<void> {
+    try {
+      await getCognito().send(
+        new ConfirmForgotPasswordCommand({
+          ClientId:         env.cognitoClientId(),
+          Username:         email,
+          ConfirmationCode: code,
+          Password:         newPassword,
+        }),
+      );
+    } catch (err: unknown) {
+      const name = (err as { name?: string }).name;
+      switch (name) {
+        case 'CodeMismatchException':
+        case 'UserNotFoundException':
+          throw new AppError(400, 'That code is incorrect. Please check it and try again.');
+        case 'ExpiredCodeException':
+          throw new AppError(400, 'That code has expired. Please request a new one.');
+        case 'InvalidPasswordException':
+          throw new AppError(400, (err as Error).message || 'Password does not meet the requirements.');
+        case 'LimitExceededException':
+        case 'TooManyFailedAttemptsException':
+        case 'TooManyRequestsException':
+          throw new AppError(429, 'Too many attempts. Please try again later.');
+        default:
+          throw err;
+      }
     }
   }
 

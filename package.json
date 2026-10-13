@@ -16,6 +16,7 @@
     "seed:opportunities": "tsx scripts/seed-opportunities.ts",
     "test:recommendations": "tsx scripts/test-recommendations.ts",
     "migrate:data": "tsx scripts/migrate-data.ts",
+    "backfill:email-verified": "tsx scripts/backfill-email-verified.ts",
     "___ LAYER ___": "",
     "layer:install": "cd layers && npm install",
     "___ INSTALL ___": "",

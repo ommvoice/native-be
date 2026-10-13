@@ -461,7 +461,17 @@ export class RecommendationV2Service {
       })
       .filter(Boolean) as ReturnType<typeof buildRoutableLeg>[];
 
-    const drivingMap = await this.drivingLegs.ensureLegsCached(narrowed.id, routable);
+    // Nearby mode (opportunity details → "Nearby ideas"): distance AND travel time are measured
+    // from the opportunity being viewed, not the parent's home. Only places already within the
+    // straight-line radius get routed (keeps routing calls tiny), and these opportunity →
+    // opportunity legs bypass the per-parent home-leg cache so they never overwrite it.
+    const isNearby = !!narrowed.opp;
+    const drivingMap = isNearby
+      ? await this.drivingLegs.computeLegsFrom(
+          { lat, lon },
+          routable.filter((leg) => haversineDistanceMiles(lat, lon, leg.lat, leg.lon) <= maxMiles),
+        )
+      : await this.drivingLegs.ensureLegsCached(narrowed.id, routable);
 
     const distanceWithScoreMatch = weatherScoreMatch
       .map((item) => {
@@ -473,7 +483,10 @@ export class RecommendationV2Service {
         // const distMiles = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
         const distMilesRadius = haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
         const distMiles = driving ? metersToMilesOneDecimal(driving.drivingDistanceMeters) : distMilesRadius;
-        const distanceScore = scoreOrSkip(item.score.distanceScore, () => scoreDistanceV2(distMiles, maxMiles));
+        // Nearby: the radius is a straight-line "around this place" check — a short road detour
+        // shouldn't drop a place that's genuinely next door.
+        const scoreMiles = isNearby ? distMilesRadius : distMiles;
+        const distanceScore = scoreOrSkip(item.score.distanceScore, () => scoreDistanceV2(scoreMiles, maxMiles));
 
         return {
           ...item,

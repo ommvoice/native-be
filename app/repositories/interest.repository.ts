@@ -1,4 +1,5 @@
 import { AssetsService } from '../services/assets.service';
+import { EnumInterestTag } from '../shared/types/assets.types';
 
 export interface InterestTagRecord {
   id: string;
@@ -46,8 +47,8 @@ export class InterestRepository {
     return this.assets.getInterestSubCategories().filter((s) => set.has(s.slug));
   }
 
-  async listInterestTags(): Promise<InterestTagRecord[]> {
+  async listInterestTags(): Promise<EnumInterestTag[]> {
     const items = this.assets.getIntrestTags()
-    return items as InterestTagRecord[];
+    return items as EnumInterestTag[];
   }
 }

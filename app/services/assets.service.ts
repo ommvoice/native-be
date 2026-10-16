@@ -1,4 +1,5 @@
 import enums from '../shared/assets/enums.json' with { type: 'json' };
+import tags from '../shared/assets/tags.json' with { type: 'json' };
 import venues from '../shared/assets/venues.json' with { type: 'json' };
 import events from '../shared/assets/events.json' with { type: 'json' };
 import routes from '../shared/assets/routes.json' with { type: 'json' };
@@ -196,7 +197,7 @@ export class AssetsService {
 
   getIntrestTags() : EnumInterestTag[]{
 
-    return enums.interestTags as EnumInterestTag[];
+    return tags.interestTags as EnumInterestTag[];
   }
 
   getSeasonalHighlights(season:string): EnumSeasonalHighlight[] {

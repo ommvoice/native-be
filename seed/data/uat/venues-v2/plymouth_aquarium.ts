@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const plymouthAquariumVenueV2: OpportunityVenueV2SeedInput = {
   id: "plymouth_aquarium",
   slug: "plymouth_aquarium",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "animal_encounters",
   themeVariantSlug: "sealife_aquarium",
   venueName: "Plymouth Aquarium",

@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const mortehoeCoastalPathRouteV2: OpportunityRouteV2SeedInput = {
   id: "mortehoe_coastal_path",
   slug: "mortehoe_coastal_path",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "coastal_walk",
   opportunityType: "route",

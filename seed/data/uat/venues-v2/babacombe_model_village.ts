@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const babacombeModelVillageVenueV2: OpportunityVenueV2SeedInput = {
   id: "babacombe_model_village",
   slug: "babacombe_model_village",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "imaginative_play",
   themeVariantSlug: "immersive_worlds",
   venueName: "Babacombe Model Village",

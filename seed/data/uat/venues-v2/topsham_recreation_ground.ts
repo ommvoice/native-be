@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const topshamRecreationGroundVenueV2: OpportunityVenueV2SeedInput = {
   id: "topsham_recreation_ground",
   slug: "topsham_recreation_ground",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Topsham Recreation Ground",

@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const exeterQuayLoopRouteV2: OpportunityRouteV2SeedInput = {
   id: "exeter_quay_loop",
   slug: "exeter_quay_loop",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "towpaths",
   opportunityType: "route",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const okehamptonCastleVenueV2: OpportunityVenueV2SeedInput = {
   id: "okehampton_castle",
   slug: "okehampton_castle",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "historical_cultural",
   themeVariantSlug: "archaeological_sites, cultural_heritage",
   venueName: "Okehampton Castle",

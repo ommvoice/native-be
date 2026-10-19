@@ -149,6 +149,32 @@ import { woodburySaltertonPlayAreaVenueV2 } from "./woodbury_salterton_play_area
 import { woodburyVillagePlayAreaVenueV2 } from "./woodbury_village_play_area.js";
 import { woolacombeBeachVenueV2 } from "./woolacombe_beach.js";
 import { worldOfCountryLifeVenueV2 } from "./world_of_country_life.js";
+import { sandyBayParkVenueV2 } from "./sandy_bay_park.js";
+import { jurassicDiscoveryVenueV2 } from "./jurassic_discovery.js";
+import { wildThingsPlayProjectVenueV2 } from "./wild_things_play_project.js";
+import { littleSandsIndoorBeachPlayVenueV2 } from "./little_sands_indoor_beach_play.js";
+import { seatonWetlandsVenueV2 } from "./seaton_wetlands.js";
+import { lymeRegisHarbourVenueV2 } from "./lyme_regis_harbour.js";
+import { shoalstoneSeawaterPoolVenueV2 } from "./shoalstone_seawater_pool.js";
+import { duckPondExmouthVenueV2 } from "./duck_pond_exmouth.js";
+import { cowCacaoCafeAtDartsFarmVenueV2 } from "./cow_cacao_cafe_at_darts_farm.js";
+import { theYardAtDartsFarmVenueV2 } from "./the_yard_at_darts_farm.js";
+import { somethingLovelyPotteryVenueV2 } from "./something_lovely_pottery.js";
+import { familyGardenExeterVenueV2 } from "./family_garden_exeter.js";
+import { torreAbbeyParkVenueV2 } from "./torre_abbey_park.js";
+import { northernhayGardensVenueV2 } from "./northernhay_gardens.js";
+import { totnesRareBreedsFarmVenueV2 } from "./totnes_rare_breeds_farm.js";
+import { crealyThemeparkVenueV2 } from "./crealy_themepark.js";
+import { chinaBluePotteryVenueV2 } from "./china_blue_pottery.js";
+import { hillcrestCommunityNatureReserveVenueV2 } from "./hillcrest_community_nature_reserve.js";
+import { southDevonMiniatureRailwayVenueV2 } from "./south_devon_miniature_railway.js";
+import { brixingtonParkVenueV2 } from "./brixington_park.js";
+import { exeFootgolfVenueV2 } from "./exe_footgolf.js";
+import { cuppaCabinVenueV2 } from "./cuppa_cabin.js";
+import { ansteysCoveVenueV2 } from "./ansteys_cove.js";
+import { mattiscombeSandsVenueV2 } from "./mattiscombe_sands.js";
+import { tenpinLaserTagVenueV2 } from "./tenpin_laser_tag.js";
+import { cherryBrookRiverBeachVenueV2 } from "./cherry_brook_river_beach.js";
 
 export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   ameliasFlowerFarmCafeVenueV2,
@@ -301,4 +327,30 @@ export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   woodburyVillagePlayAreaVenueV2,
   woolacombeBeachVenueV2,
   worldOfCountryLifeVenueV2,
+  sandyBayParkVenueV2,
+  jurassicDiscoveryVenueV2,
+  wildThingsPlayProjectVenueV2,
+  littleSandsIndoorBeachPlayVenueV2,
+  seatonWetlandsVenueV2,
+  lymeRegisHarbourVenueV2,
+  shoalstoneSeawaterPoolVenueV2,
+  duckPondExmouthVenueV2,
+  cowCacaoCafeAtDartsFarmVenueV2,
+  theYardAtDartsFarmVenueV2,
+  somethingLovelyPotteryVenueV2,
+  familyGardenExeterVenueV2,
+  torreAbbeyParkVenueV2,
+  northernhayGardensVenueV2,
+  totnesRareBreedsFarmVenueV2,
+  crealyThemeparkVenueV2,
+  chinaBluePotteryVenueV2,
+  hillcrestCommunityNatureReserveVenueV2,
+  southDevonMiniatureRailwayVenueV2,
+  brixingtonParkVenueV2,
+  exeFootgolfVenueV2,
+  cuppaCabinVenueV2,
+  ansteysCoveVenueV2,
+  mattiscombeSandsVenueV2,
+  tenpinLaserTagVenueV2,
+  cherryBrookRiverBeachVenueV2,
 ];

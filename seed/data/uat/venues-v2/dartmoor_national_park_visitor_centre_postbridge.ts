@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const dartmoorNationalParkVisitorCentrePostbridgeVenueV2: OpportunityVenueV2SeedInput = {
   id: "dartmoor_national_park_visitor_centre_postbridge",
   slug: "dartmoor_national_park_visitor_centre_postbridge",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "learning_hut",
   venueName: "Dartmoor National Park Visitor Centre, Postbridge",

@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const phearParkCircularRouteV2: OpportunityRouteV2SeedInput = {
   id: "phear_park_circular",
   slug: "phear_park_circular",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

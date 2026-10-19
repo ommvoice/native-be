@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const beckyFallsWoodlandParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "becky_falls_woodland_park",
   slug: "becky_falls_woodland_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "big_day_out",
   themeVariantSlug: "major_animal_attractions, large_scale_outdoor",
   venueName: "Becky Falls Woodland Park",

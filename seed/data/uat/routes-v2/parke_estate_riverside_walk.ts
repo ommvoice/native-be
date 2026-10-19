@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const parkeEstateRiversideWalkRouteV2: OpportunityRouteV2SeedInput = {
   id: "parke_estate_riverside_walk",
   slug: "parke_estate_riverside_walk",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "riverside_walk",
   opportunityType: "route",

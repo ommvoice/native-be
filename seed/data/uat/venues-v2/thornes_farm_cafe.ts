@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const thornesFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   id: "thornes_farm_cafe",
   slug: "thornes_farm_cafe",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "family_friendly_cafes, cafe_with_outdoor_space",
   venueName: "Thorne's Farm Cafe",

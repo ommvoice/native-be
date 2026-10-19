@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const theWizardsOfWyvernEscapeRoomVenueV2: OpportunityVenueV2SeedInput = {
   id: "the_wizards_of_wyvern_escape_room",
   slug: "the_wizards_of_wyvern_escape_room",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "indoor_entertainment",
   themeVariantSlug: "escape_room",
   venueName: "The Wizards of Wyvern Escape Room",

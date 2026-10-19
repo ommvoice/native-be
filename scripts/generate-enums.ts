@@ -27,7 +27,7 @@ import { type EnumEntry, slugify, normalizeForMatch, matchByName } from "./lib/e
 type WorkingEntry = EnumEntry & Record<string, unknown>;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const WORKBOOK_PATH = path.join(__dirname, "..", "newData.xlsx");
+const WORKBOOK_PATH = path.join(__dirname, "..", "newData3.xlsx");
 const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "enums");
 const SHEET_NAME = "Enums";
 const OVERLAY_PATH = path.join(OUTPUT_DIR, "data-discovered-additions.json");

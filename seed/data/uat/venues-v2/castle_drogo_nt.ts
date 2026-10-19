@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const castleDrogoNtVenueV2: OpportunityVenueV2SeedInput = {
   id: "castle_drogo_nt",
   slug: "castle_drogo_nt",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Castle Drogo (NT)",

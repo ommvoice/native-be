@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const summerleazeBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "summerleaze_beach",
   slug: "summerleaze_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "mixed_sand_shingle, surf_beach, wild_open_beaches",
   venueName: "Summerleaze Beach",

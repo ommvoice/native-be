@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const cliffFieldsVenueV2: OpportunityVenueV2SeedInput = {
   id: "cliff_fields",
   slug: "cliff_fields",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "green_spaces",
   themeVariantSlug: "village_greens",
   venueName: "Cliff Fields",

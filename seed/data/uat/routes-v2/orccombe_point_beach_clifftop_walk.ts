@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const orccombePointBeachClifftopWalkRouteV2: OpportunityRouteV2SeedInput = {
   id: "orccombe_point_beach_clifftop_walk",
   slug: "orccombe_point_beach_clifftop_walk",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "coastal_walk",
   opportunityType: "route",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const dartmouthHarbourVenueV2: OpportunityVenueV2SeedInput = {
   id: "dartmouth_harbour",
   slug: "dartmouth_harbour",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "harbour_beach",
   venueName: "Dartmouth Harbour",

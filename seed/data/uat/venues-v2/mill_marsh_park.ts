@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const millMarshParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "mill_marsh_park",
   slug: "mill_marsh_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "large_playgrounds, local_playgrouns",
   venueName: "Mill Marsh Park",

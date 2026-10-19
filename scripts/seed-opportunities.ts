@@ -18,6 +18,10 @@
  *
  * Clearing "prod" additionally requires --force-prod, so a stray --clear against the wrong
  * APP_ENV can't wipe production by accident.
+ *
+ * Records marked `active: false` (REMOVE rows merged in by scripts/merge-opportunity-updates.ts) are
+ * never seeded, and any copy of them already in the table from an earlier run is deleted — otherwise
+ * a removed opportunity would keep showing in the app.
  */
 import { BatchWriteCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import { db, TABLES, environment } from "../seed/config/index.js";
@@ -28,18 +32,27 @@ import routes from "../app/shared/assets/routes.json" with { type: "json" };
 
 const BATCH_WRITE_MAX = 25;
 
-async function seedTable(tableName: string, items: Record<string, unknown>[]): Promise<void> {
-  for (let i = 0; i < items.length; i += BATCH_WRITE_MAX) {
-    const chunk = items.slice(i, i + BATCH_WRITE_MAX);
+async function batchWrite(tableName: string, requests: Record<string, unknown>[]): Promise<void> {
+  for (let i = 0; i < requests.length; i += BATCH_WRITE_MAX) {
     await db.send(
       new BatchWriteCommand({
-        RequestItems: {
-          [tableName]: chunk.map((item) => ({ PutRequest: { Item: item } })),
-        },
+        RequestItems: { [tableName]: requests.slice(i, i + BATCH_WRITE_MAX) },
       }),
     );
   }
-  console.log(`  ${tableName} — seeded ${items.length} items`);
+}
+
+/** Puts every active record; deletes inactive ones (`active: false`) from the table instead. */
+async function seedTable(tableName: string, items: Record<string, unknown>[]): Promise<void> {
+  const active = items.filter((item) => item.active !== false);
+  const inactiveIds = items.filter((item) => item.active === false).map((item) => item.id as string);
+
+  await batchWrite(tableName, active.map((item) => ({ PutRequest: { Item: item } })));
+  // Deleting an id that isn't in the table is a no-op, so this is safe to repeat on every run.
+  await batchWrite(tableName, inactiveIds.map((id) => ({ DeleteRequest: { Key: { id } } })));
+
+  console.log(`  ${tableName} — seeded ${active.length} items`);
+  if (inactiveIds.length) console.log(`  ${tableName} — skipped + removed ${inactiveIds.length} inactive: ${inactiveIds.join(", ")}`);
 }
 
 /** Deletes every row currently in `tableName` — scans the whole table (id-only projection, paged
@@ -83,10 +96,12 @@ async function main(): Promise<void> {
 
     //  await clearTable(TABLES.venues);
     //  await clearTable(TABLES.routes);
-    await seedTable(TABLES.venues, venues as Record<string, unknown>[]);
+    //  await clearTable(TABLES.clubs);
+    //  await clearTable(TABLES.events);
+    // await seedTable(TABLES.venues, venues as Record<string, unknown>[]);
     // await seedTable(TABLES.events, events as Record<string, unknown>[]);
     // await seedTable(TABLES.clubs, clubs as Record<string, unknown>[]);
-    await seedTable(TABLES.routes, routes as Record<string, unknown>[]);
+    // await seedTable(TABLES.routes, routes as Record<string, unknown>[]);
 
   console.log("Done.");
 }

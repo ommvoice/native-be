@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const danesWoodRouteV2: OpportunityRouteV2SeedInput = {
   id: "danes_wood",
   slug: "danes_wood",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk",
   opportunityType: "route",

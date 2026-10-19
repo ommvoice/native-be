@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const decoyParkSplashpadVenueV2: OpportunityVenueV2SeedInput = {
   id: "decoy_park_splashpad",
   slug: "decoy_park_splashpad",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "water_play",
   venueName: "Decoy Park Splashpad",

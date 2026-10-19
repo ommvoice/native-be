@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const parkeEstateRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "parke_estate_river_beach",
   slug: "parke_estate_river_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "river_beach",
   venueName: "Parke Estate River Beach",

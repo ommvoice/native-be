@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const westDartRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "west_dart_river_beach",
   slug: "west_dart_river_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "river_beach, paddle_spot",
   venueName: "West Dart River Beach",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const budeSeaPoolVenueV2: OpportunityVenueV2SeedInput = {
   id: "bude_sea_pool",
   slug: "bude_sea_pool",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "lido",
   venueName: "Bude Sea Pool",

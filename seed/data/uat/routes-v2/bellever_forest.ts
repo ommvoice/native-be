@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const belleverForestRouteV2: OpportunityRouteV2SeedInput = {
   id: "bellever_forest",
   slug: "bellever_forest",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk",
   opportunityType: "route",

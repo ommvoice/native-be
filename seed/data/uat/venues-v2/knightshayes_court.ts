@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const knightshayesCourtVenueV2: OpportunityVenueV2SeedInput = {
   id: "knightshayes_court",
   slug: "knightshayes_court",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Knightshayes Court",

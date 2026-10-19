@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const clapperBridgePostbridgeVenueV2: OpportunityVenueV2SeedInput = {
   id: "clapper_bridge_postbridge",
   slug: "clapper_bridge_postbridge",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "river_beach, paddle_spot",
   venueName: "Clapper Bridge, Postbridge",

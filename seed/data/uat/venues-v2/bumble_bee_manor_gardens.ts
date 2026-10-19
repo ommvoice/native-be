@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const bumbleBeeManorGardensVenueV2: OpportunityVenueV2SeedInput = {
   id: "bumble_bee_manor_gardens",
   slug: "bumble_bee_manor_gardens",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "pit_stop_cafes",
   venueName: "Bumble & Bee Manor Gardens",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const oceanBowlingVenueV2: OpportunityVenueV2SeedInput = {
   id: "ocean_bowling",
   slug: "ocean_bowling",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "indoor_entertainment",
   themeVariantSlug: "bowling_alley",
   venueName: "Ocean Bowling",

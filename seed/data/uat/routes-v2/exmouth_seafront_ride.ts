@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const exmouthSeafrontRideRouteV2: OpportunityRouteV2SeedInput = {
   id: "exmouth_seafront_ride",
   slug: "exmouth_seafront_ride",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "wheels_routes",
   themeVariantSlug: "coastal_walk",
   opportunityType: "route",

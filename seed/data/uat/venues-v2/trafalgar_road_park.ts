@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const trafalgarRoadParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "trafalgar_road_park",
   slug: "trafalgar_road_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Trafalgar Road Park",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const budleighSaltertonBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "budleigh_salterton_beach",
   slug: "budleigh_salterton_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "pebble_beach",
   venueName: "Budleigh Salterton Beach",

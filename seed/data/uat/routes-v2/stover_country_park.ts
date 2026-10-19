@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const stoverCountryParkRouteV2: OpportunityRouteV2SeedInput = {
   id: "stover_country_park",
   slug: "stover_country_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk, riverside_walk",
   opportunityType: "route",

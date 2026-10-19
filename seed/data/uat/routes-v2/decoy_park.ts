@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const decoyParkRouteV2: OpportunityRouteV2SeedInput = {
   id: "decoy_park",
   slug: "decoy_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk, riverside_walk",
   opportunityType: "route",

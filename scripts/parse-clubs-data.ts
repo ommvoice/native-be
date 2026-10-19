@@ -23,6 +23,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import { type EnumEntry, slugify, matchEnumValue } from "./lib/enum-matching.js";
 import { emitTypeFile, type TypeField } from "./lib/emit-type.js";
+import { findColumn, warnMissingColumn, readRowMeta, isDirectRun, type ParsedSheetRow } from "./lib/sheet-columns.js";
 import * as ENUMS from "../seed/data/uat/enums/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,7 +77,7 @@ const ENUM_REGISTRY: Record<string, EnumEntry[]> = {
   ABILITY_LEVEL_ENUM: ENUMS.ABILITY_LEVEL_ENUM,
 };
 
-const overlay: Record<string, { name: string; slug: string }[]> = fs.existsSync(OVERLAY_PATH)
+export const overlay: Record<string, { name: string; slug: string }[]> = fs.existsSync(OVERLAY_PATH)
   ? JSON.parse(fs.readFileSync(OVERLAY_PATH, "utf8"))
   : {};
 
@@ -100,10 +101,10 @@ function resolveEnumValue(enumKey: string, rawValue: string): string {
 
 // ── Grid / cell helpers ───────────────────────────────────────────────────────
 
-function readGrid(): Cell[][] {
-  const wb = XLSX.readFile(WORKBOOK_PATH, { cellDates: true });
+function readGrid(workbookPath: string = WORKBOOK_PATH): Cell[][] {
+  const wb = XLSX.readFile(workbookPath, { cellDates: true });
   const sheet = wb.Sheets[SHEET_NAME];
-  if (!sheet) throw new Error(`Sheet "${SHEET_NAME}" not found in ${WORKBOOK_PATH}`);
+  if (!sheet) throw new Error(`Sheet "${SHEET_NAME}" not found in ${workbookPath}`);
   const ref = sheet["!ref"];
   if (!ref) throw new Error(`Sheet "${SHEET_NAME}" has no populated range`);
   const range = XLSX.utils.decode_range(ref);
@@ -334,8 +335,11 @@ function parseCell(v: Cell, kind: FieldKind): OutputValue {
 function parseRow(header: string[], row: Cell[], rowNumber: number): Record<string, OutputValue> {
   const colIdx = new Map(header.map((h, i) => [h, i]));
   const get = (field: string): Cell => {
-    const idx = colIdx.get(field);
-    if (idx === undefined) throw new Error(`Column "${field}" not found in Clubs sheet header`);
+    const idx = findColumn(colIdx, field);
+    if (idx === undefined) {
+      warnMissingColumn("Clubs", field);
+      return null;
+    }
     return row[idx] ?? null;
   };
 
@@ -373,7 +377,7 @@ function parseRow(header: string[], row: Cell[], rowNumber: number): Record<stri
 
 // ── Output file generation ──────────────────────────────────────────────────────
 
-function toCamelCase(snake: string): string {
+export function toCamelCase(snake: string): string {
   return snake
     .split("_")
     .filter(Boolean)
@@ -381,14 +385,14 @@ function toCamelCase(snake: string): string {
     .join("");
 }
 
-function serializeValue(v: OutputValue): string {
+export function serializeValue(v: OutputValue): string {
   if (v === null) return "null";
   if (v instanceof Date) return `new Date(${JSON.stringify(v.toISOString())})`;
   if (typeof v === "boolean" || typeof v === "number") return String(v);
   return JSON.stringify(v);
 }
 
-function emitClubFile(exportName: string, record: Record<string, OutputValue>): string {
+export function emitClubFile(exportName: string, record: Record<string, OutputValue>): string {
   const lines: string[] = [];
   lines.push(`import type { OpportunityClubV2SeedInput } from "../../../opportunity/clubs-v2/create_opportunity_club_v2_row.js";`);
   lines.push(``);
@@ -399,6 +403,45 @@ function emitClubFile(exportName: string, record: Record<string, OutputValue>): 
   lines.push(`};`);
   lines.push(``);
   return lines.join("\n");
+}
+
+/** Every named data row of the Clubs sheet in `workbookPath`, parsed exactly as main() does, plus the
+ * admin-tool row metadata (record_id / queued_version / developer_action). Writes nothing — used by
+ * scripts/merge-opportunity-updates.ts. Newly minted enum values accumulate in `overlay`. */
+export function parseClubsSheet(workbookPath: string): ParsedSheetRow<Record<string, OutputValue>>[] {
+  const grid = readGrid(workbookPath);
+  const header = grid[HEADER_ROW]!.map((c) => cellToStr(c) ?? "");
+  const nameColIdx = header.indexOf(NAME_FIELD);
+  if (nameColIdx === -1) throw new Error(`Column ${NAME_FIELD} not found in header row of ${workbookPath}`);
+  return grid
+    .map((row, i) => ({ row, rowNumber: i + 1 }))
+    .slice(FIRST_DATA_ROW)
+    .filter(({ row }) => cellToStr(row[nameColIdx] ?? null) !== null)
+    .map(({ row, rowNumber }) => {
+      const meta = readRowMeta(header, row, cellToStr);
+      try {
+        return { rowNumber, record: parseRow(header, row, rowNumber), meta };
+      } catch (err) {
+        return { rowNumber, record: null, meta, error: (err as Error).message };
+      }
+    });
+}
+
+/** Regenerates app/shared/assets/types/club.ts from COLUMNS (plus id/slug/record metadata). */
+export function writeTypeFile(): void {
+  const typeFields: TypeField[] = [
+    { name: "id", tsType: "string" },
+    { name: "slug", tsType: "string" },
+    { name: "recordId", tsType: "string" },
+    { name: "queuedVersion", tsType: "number" },
+    { name: "active", tsType: "boolean" },
+    { name: "themeSlug", tsType: "string" },
+    { name: "themeVariantSlug", tsType: "string" },
+    { name: "opportunityType", tsType: "string" },
+    { name: "clubName", tsType: "string" },
+    ...COLUMNS.map((c) => ({ name: c.outputField, tsType: kindToTsType(c.kind) })),
+  ];
+  emitTypeFile(TYPE_OUTPUT_PATH, "Club", "scripts/parse-clubs-data.ts", typeFields);
 }
 
 function main(): void {
@@ -422,7 +465,16 @@ function main(): void {
     usedSlugs.set(baseSlug, count);
     const fileSlug = count === 1 ? baseSlug : `${baseSlug}_${count}`;
     const exportName = `${toCamelCase(fileSlug)}ClubV2`;
-    const recordWithId = { id: fileSlug, slug: fileSlug, ...record };
+    const meta = readRowMeta(header, row, cellToStr);
+    const recordWithId = {
+      id: fileSlug,
+      slug: fileSlug,
+      // Admin-tool bookkeeping (newDate3 onwards); sheets without these columns are legacy → "0" / 0.
+      recordId: meta.recordId ?? "0",
+      queuedVersion: meta.queuedVersion ?? 0,
+      active: meta.action !== "REMOVE",
+      ...record,
+    };
 
     fs.writeFileSync(path.join(OUTPUT_DIR, `${fileSlug}.ts`), emitClubFile(exportName, recordWithId));
     generated.push({ fileName: fileSlug, exportName });
@@ -443,20 +495,11 @@ function main(): void {
 
   fs.writeFileSync(OVERLAY_PATH, JSON.stringify(overlay, null, 2) + "\n");
 
-  const typeFields: TypeField[] = [
-    { name: "id", tsType: "string" },
-    { name: "slug", tsType: "string" },
-    { name: "themeSlug", tsType: "string" },
-    { name: "themeVariantSlug", tsType: "string" },
-    { name: "opportunityType", tsType: "string" },
-    { name: "clubName", tsType: "string" },
-    ...COLUMNS.map((c) => ({ name: c.outputField, tsType: kindToTsType(c.kind) })),
-  ];
-  emitTypeFile(TYPE_OUTPUT_PATH, "Club", "scripts/parse-clubs-data.ts", typeFields);
+  writeTypeFile();
 
   console.log(`Generated ${generated.length} club files in ${path.relative(process.cwd(), OUTPUT_DIR)}`);
   const newEnumCount = Object.values(overlay).reduce((sum, arr) => sum + arr.length, 0);
   console.log(`New enum entries discovered: ${newEnumCount}`);
 }
 
-main();
+if (isDirectRun(import.meta.url)) main();

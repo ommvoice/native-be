@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const barleymowsCafeVenueV2: OpportunityVenueV2SeedInput = {
   id: "barleymows_cafe",
   slug: "barleymows_cafe",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "family_dining",
   themeVariantSlug: "casual_family_restaurants",
   venueName: "Barleymows Cafe",

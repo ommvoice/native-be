@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const fingleBridgeRiverWalk5MileLoopRouteV2: OpportunityRouteV2SeedInput = {
   id: "fingle_bridge_river_walk_5_mile_loop",
   slug: "fingle_bridge_river_walk_5_mile_loop",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk, riverside_walk",
   opportunityType: "route",

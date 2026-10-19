@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const otterValleyFieldKitchenVenueV2: OpportunityVenueV2SeedInput = {
   id: "otter_valley_field_kitchen",
   slug: "otter_valley_field_kitchen",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "family_dining",
   themeVariantSlug: "casual_family_restaurants",
   venueName: "Otter Valley Field Kitchen",

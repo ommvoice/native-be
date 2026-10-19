@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const finlakeFallsFlumesRidesVenueV2: OpportunityVenueV2SeedInput = {
   id: "finlake_falls_flumes_rides",
   slug: "finlake_falls_flumes_rides",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "water_fun",
   themeVariantSlug: "swimming_pool",
   venueName: "Finlake Falls Flumes & Rides",

@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const shellyBayToOrcombePointRouteV2: OpportunityRouteV2SeedInput = {
   id: "shelly_bay_to_orcombe_point",
   slug: "shelly_bay_to_orcombe_point",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

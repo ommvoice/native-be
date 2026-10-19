@@ -3,6 +3,9 @@ import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2
 export const ameliasFlowerFarmPyoEventV2: OpportunityEventV2SeedInput = {
   id: "amelias_flower_farm_pyo",
   slug: "amelias_flower_farm_pyo",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "seasonal",
   themeVariantSlug: "pick_your_own",
   opportunityType: "event",
@@ -87,6 +90,6 @@ export const ameliasFlowerFarmPyoEventV2: OpportunityEventV2SeedInput = {
   eventSkillArea: null,
   eventSkillAreaVariant: null,
   eventAbilityLevel: null,
-  image: "Amelia's PYO Flowers.JPG",
+  image: "Amelia_s PYO Flowers.JPG",
   ticketingRequirement: false,
 };

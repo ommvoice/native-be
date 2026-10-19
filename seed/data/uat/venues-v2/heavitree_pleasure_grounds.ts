@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const heavitreePleasureGroundsVenueV2: OpportunityVenueV2SeedInput = {
   id: "heavitree_pleasure_grounds",
   slug: "heavitree_pleasure_grounds",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Heavitree Pleasure Grounds",

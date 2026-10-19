@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const orccombePointVenueV2: OpportunityVenueV2SeedInput = {
   id: "orccombe_point",
   slug: "orccombe_point",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach, dog_friendly_beaches, rockpooling_hotspot",
   venueName: "Orccombe Point",

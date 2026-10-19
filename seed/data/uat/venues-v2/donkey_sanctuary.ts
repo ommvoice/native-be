@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const donkeySanctuaryVenueV2: OpportunityVenueV2SeedInput = {
   id: "donkey_sanctuary",
   slug: "donkey_sanctuary",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "animal_encounters",
   themeVariantSlug: "conservation_project",
   venueName: "Donkey Sanctuary",

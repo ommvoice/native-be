@@ -3,6 +3,9 @@
 export interface Club {
   id: string;
   slug: string;
+  recordId: string;
+  queuedVersion: number;
+  active: boolean;
   themeSlug: string;
   themeVariantSlug: string;
   opportunityType: string;

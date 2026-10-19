@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const bystockPoolsLakesideWalkRouteV2: OpportunityRouteV2SeedInput = {
   id: "bystock_pools_lakeside_walk",
   slug: "bystock_pools_lakeside_walk",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "riverside_walk, woodland_walk",
   opportunityType: "route",

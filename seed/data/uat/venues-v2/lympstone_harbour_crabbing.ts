@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const lympstoneHarbourCrabbingVenueV2: OpportunityVenueV2SeedInput = {
   id: "lympstone_harbour_crabbing",
   slug: "lympstone_harbour_crabbing",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "harbour_beach",
   venueName: "Lympstone Harbour Crabbing",

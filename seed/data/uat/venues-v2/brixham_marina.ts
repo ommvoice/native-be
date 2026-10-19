@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const brixhamMarinaVenueV2: OpportunityVenueV2SeedInput = {
   id: "brixham_marina",
   slug: "brixham_marina",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "harbour_beach",
   venueName: "Brixham Marina",

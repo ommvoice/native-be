@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const dartingtonTrustGardensVenueV2: OpportunityVenueV2SeedInput = {
   id: "dartington_trust_gardens",
   slug: "dartington_trust_gardens",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "historic_estate_gardens",
   venueName: "Dartington Trust Gardens",

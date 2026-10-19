@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const sidmouthLibraryVenueV2: OpportunityVenueV2SeedInput = {
   id: "sidmouth_library",
   slug: "sidmouth_library",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sensory_soothing",
   themeVariantSlug: "library",
   venueName: "Sidmouth Library",

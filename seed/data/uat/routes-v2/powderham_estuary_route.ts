@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const powderhamEstuaryRouteRouteV2: OpportunityRouteV2SeedInput = {
   id: "powderham_estuary_route",
   slug: "powderham_estuary_route",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "towpaths",
   opportunityType: "route",
@@ -40,6 +43,6 @@ export const powderhamEstuaryRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeSeasonalHighlights: null,
   routeAttractions: "rivers_and_streams, coastal_views, wildlife_spotting",
   routeExtraKit: null,
-  image: "Powerderham to Turf.jpg",
+  image: "Powderham to Turf Locks Cycle.jpg",
   routeCountry: null,
 };

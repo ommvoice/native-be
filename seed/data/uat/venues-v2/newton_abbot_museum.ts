@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const newtonAbbotMuseumVenueV2: OpportunityVenueV2SeedInput = {
   id: "newton_abbot_museum",
   slug: "newton_abbot_museum",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "interactive_museums",
   themeVariantSlug: "science_and_discovery, history_made_interactive, technology_and_innovation",
   venueName: "Newton Abbot Museum",

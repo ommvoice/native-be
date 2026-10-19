@@ -3,6 +3,9 @@ import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2
 export const thornesFarmPyoEventV2: OpportunityEventV2SeedInput = {
   id: "thornes_farm_pyo",
   slug: "thornes_farm_pyo",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "seasonal",
   themeVariantSlug: "pick_your_own",
   opportunityType: "event",
@@ -87,6 +90,6 @@ export const thornesFarmPyoEventV2: OpportunityEventV2SeedInput = {
   eventSkillArea: null,
   eventSkillAreaVariant: null,
   eventAbilityLevel: null,
-  image: "Thorne's Farm PYO.JPG",
+  image: "Thorne_s Farm PYO.JPG",
   ticketingRequirement: false,
 };

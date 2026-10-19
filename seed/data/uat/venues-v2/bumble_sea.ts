@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const bumbleSeaVenueV2: OpportunityVenueV2SeedInput = {
   id: "bumble_sea",
   slug: "bumble_sea",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "coffee_cabin",
   venueName: "Bumble & Sea",

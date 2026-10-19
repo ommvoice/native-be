@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const woodburySaltertonPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   id: "woodbury_salterton_play_area",
   slug: "woodbury_salterton_play_area",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Woodbury Salterton Play Area",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const lowerHalsdonFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   id: "lower_halsdon_farm_cafe",
   slug: "lower_halsdon_farm_cafe",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "cafe_with_outdoor_space, cafe_with_play, pit_stop_cafes",
   venueName: "Lower Halsdon Farm Cafe",

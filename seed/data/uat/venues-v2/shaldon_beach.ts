@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const shaldonBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "shaldon_beach",
   slug: "shaldon_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "mixed_sand_shingle, estuary_beach",
   venueName: "Shaldon Beach",

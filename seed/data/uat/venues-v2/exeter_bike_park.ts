@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const exeterBikeParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "exeter_bike_park",
   slug: "exeter_bike_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sporty_activities",
   themeVariantSlug: "specialist_sports_facility",
   venueName: "Exeter Bike Park",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const chardNatureReserveVenueV2: OpportunityVenueV2SeedInput = {
   id: "chard_nature_reserve",
   slug: "chard_nature_reserve",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "nature_reserves",
   venueName: "Chard Nature Reserve",

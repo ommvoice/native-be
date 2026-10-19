@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const combestoneTorVenueV2: OpportunityVenueV2SeedInput = {
   id: "combestone_tor",
   slug: "combestone_tor",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "natural_play_areas",
   venueName: "Combestone Tor",

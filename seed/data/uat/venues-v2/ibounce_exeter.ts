@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const ibounceExeterVenueV2: OpportunityVenueV2SeedInput = {
   id: "ibounce_exeter",
   slug: "ibounce_exeter",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "soft_play",
   themeVariantSlug: "trampoline_park",
   venueName: "iBounce exeter",

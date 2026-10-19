@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const orangeElephantSummerMeadowPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   id: "orange_elephant_summer_meadow_play_area",
   slug: "orange_elephant_summer_meadow_play_area",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "adventure_playgrounds",
   venueName: "Orange Elephant Summer Meadow Play Area",

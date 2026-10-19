@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const rspbBirdHydeVenueV2: OpportunityVenueV2SeedInput = {
   id: "rspb_bird_hyde",
   slug: "rspb_bird_hyde",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "hydes_cabins",
   venueName: "RSPB Bird Hyde",

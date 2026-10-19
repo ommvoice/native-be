@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const manstoneSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "manstone_skate_park",
   slug: "manstone_skate_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "skate_park",
   venueName: "Manstone Skate Park",

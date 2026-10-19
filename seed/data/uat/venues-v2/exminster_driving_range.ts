@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const exminsterDrivingRangeVenueV2: OpportunityVenueV2SeedInput = {
   id: "exminster_driving_range",
   slug: "exminster_driving_range",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sporty_activities",
   themeVariantSlug: "range",
   venueName: "Exminster Driving Range",

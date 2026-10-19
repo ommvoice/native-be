@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const exeEstuaryTrailExmouthToLowerHalsdonFarmRouteV2: OpportunityRouteV2SeedInput = {
   id: "exe_estuary_trail_exmouth_to_lower_halsdon_farm",
   slug: "exe_estuary_trail_exmouth_to_lower_halsdon_farm",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

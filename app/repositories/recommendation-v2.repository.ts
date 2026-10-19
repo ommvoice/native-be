@@ -103,6 +103,26 @@ function getClubActiveDays(c: Record<string, unknown>): string[] {
   return days;
 }
 
+export interface OpportunityRecordFilter {
+  /** Ids to leave out entirely, e.g. ['decoy_park']. */
+  removeItems?: string[];
+  /** Only keep records at this queuedVersion (admin-tool version; legacy records are 0). Omit to keep every version. */
+  versions?: number[];
+  /** Records marked `active: false` (REMOVE requests from the admin tool) are dropped unless this is true. */
+  includeInactive?: boolean;
+}
+
+/** Drops removed / inactive / other-version records from a raw opportunity list (venues, events, clubs or routes). */
+export function filterOpportunityRecords<T extends Record<string, unknown>>(records: T[], filter: OpportunityRecordFilter = {}): T[] {
+  const removeIds = new Set(filter.removeItems ?? []);
+  return records.filter((r) => {
+    if (removeIds.has(r.id as string)) return false;
+    if (!filter.includeInactive && r.active === false) return false;
+    if (filter.versions !== undefined && !filter.versions.includes(r.queuedVersion as number)) return false;
+    return true;
+  });
+}
+
 export class RecommendationV2Repository {
   private readonly assets = new AssetsService();
 
@@ -168,16 +188,20 @@ export class RecommendationV2Repository {
   }
 
   async getOpportunityCandidatesV2(): Promise<RecommendationV2Candidate[]> {
+    const filter: OpportunityRecordFilter = {
+      includeInactive: false, versions: [1]
+    };
+
     const [venuesRaw, eventsRaw, clubsRaw, routesRaw] = await Promise.all([
       this.assets.getAllVenues(),
       this.assets.getAllEvents(),
       this.assets.getAllClubs(),
       this.assets.getAllRoutes(),
     ]);
-    const venues = venuesRaw as unknown as Record<string, unknown>[];
-    const events = eventsRaw as unknown as Record<string, unknown>[];
-    const clubs  = clubsRaw  as unknown as Record<string, unknown>[];
-    const routes = routesRaw as unknown as Record<string, unknown>[];
+    const venues = filterOpportunityRecords(venuesRaw as unknown as Record<string, unknown>[], filter);
+    const events = filterOpportunityRecords(eventsRaw as unknown as Record<string, unknown>[], filter);
+    const clubs  = filterOpportunityRecords(clubsRaw  as unknown as Record<string, unknown>[], filter);
+    const routes = filterOpportunityRecords(routesRaw as unknown as Record<string, unknown>[], filter);
 
     const venueRows: RecommendationV2Candidate[] = venues.map((v) => ({
       type: 'venue' as const,

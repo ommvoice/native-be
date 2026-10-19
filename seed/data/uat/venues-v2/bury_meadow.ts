@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const buryMeadowVenueV2: OpportunityVenueV2SeedInput = {
   id: "bury_meadow",
   slug: "bury_meadow",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Bury Meadow",

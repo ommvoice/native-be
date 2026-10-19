@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const riseBakeryVenueV2: OpportunityVenueV2SeedInput = {
   id: "rise_bakery",
   slug: "rise_bakery",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "pit_stop_cafes",
   venueName: "Rise Bakery",

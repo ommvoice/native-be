@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const cranbrookPumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   id: "cranbrook_pump_track",
   slug: "cranbrook_pump_track",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "wheels_routes",
   themeVariantSlug: "skills_and_stunts",
   venueName: "Cranbrook Pump Track",

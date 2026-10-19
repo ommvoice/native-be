@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const ellerhayesToKillertonRouteV2: OpportunityRouteV2SeedInput = {
   id: "ellerhayes_to_killerton",
   slug: "ellerhayes_to_killerton",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "woodland_walk",
   opportunityType: "route",

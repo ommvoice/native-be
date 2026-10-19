@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const clipnclimbAtExeterQuayVenueV2: OpportunityVenueV2SeedInput = {
   id: "clipnclimb_at_exeter_quay",
   slug: "clipnclimb_at_exeter_quay",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sporty_activities",
   themeVariantSlug: "climbing_centre",
   venueName: "Clip'n'Climb at Exeter Quay",

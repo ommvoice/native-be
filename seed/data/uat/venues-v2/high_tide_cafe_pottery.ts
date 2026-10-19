@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const highTideCafePotteryVenueV2: OpportunityVenueV2SeedInput = {
   id: "high_tide_cafe_pottery",
   slug: "high_tide_cafe_pottery",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "creative_play",
   themeVariantSlug: "making_and_creating",
   venueName: "High Tide Cafe Pottery",

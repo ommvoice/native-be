@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const theByesRouteV2: OpportunityRouteV2SeedInput = {
   id: "the_byes",
   slug: "the_byes",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",

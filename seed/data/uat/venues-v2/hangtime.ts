@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const hangtimeVenueV2: OpportunityVenueV2SeedInput = {
   id: "hangtime",
   slug: "hangtime",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "pit_stop_cafes, coffee_cabin",
   venueName: "Hangtime",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const lukeslandGardensVenueV2: OpportunityVenueV2SeedInput = {
   id: "lukesland_gardens",
   slug: "lukesland_gardens",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "formal_landscape_gardens",
   venueName: "Lukesland Gardens",

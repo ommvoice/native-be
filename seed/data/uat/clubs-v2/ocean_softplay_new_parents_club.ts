@@ -3,6 +3,9 @@ import type { OpportunityClubV2SeedInput } from "../../../opportunity/clubs-v2/c
 export const oceanSoftplayNewParentsClubClubV2: OpportunityClubV2SeedInput = {
   id: "ocean_softplay_new_parents_club",
   slug: "ocean_softplay_new_parents_club",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   opportunityType: "club",

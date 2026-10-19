@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const ottertonMillMuseumVenueV2: OpportunityVenueV2SeedInput = {
   id: "otterton_mill_museum",
   slug: "otterton_mill_museum",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "historical_cultural",
   themeVariantSlug: "living_history",
   venueName: "Otterton Mill Museum",

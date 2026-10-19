@@ -3,6 +3,9 @@ import type { OpportunityClubV2SeedInput } from "../../../opportunity/clubs-v2/c
 export const oceanSoftplay2ClubV2: OpportunityClubV2SeedInput = {
   id: "ocean_softplay_2",
   slug: "ocean_softplay_2",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   opportunityType: "club",
@@ -98,5 +101,5 @@ export const oceanSoftplay2ClubV2: OpportunityClubV2SeedInput = {
   clubSeasonalHighlights: null,
   clubAttractions: "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
   clubExtraKit: null,
-  image: "Ocean softplay.jpg",
+  image: "Ocean Softplay.jpg",
 };

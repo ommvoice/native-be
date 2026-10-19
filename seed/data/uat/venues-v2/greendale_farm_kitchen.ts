@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const greendaleFarmKitchenVenueV2: OpportunityVenueV2SeedInput = {
   id: "greendale_farm_kitchen",
   slug: "greendale_farm_kitchen",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "family_dining",
   themeVariantSlug: "casual_family_restaurants",
   venueName: "Greendale Farm Kitchen",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const beachToyLibraryVenueV2: OpportunityVenueV2SeedInput = {
   id: "beach_toy_library",
   slug: "beach_toy_library",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "learning_hut",
   venueName: "Beach Toy Library",

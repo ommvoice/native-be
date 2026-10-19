@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const tenpinArcadeVenueV2: OpportunityVenueV2SeedInput = {
   id: "tenpin_arcade",
   slug: "tenpin_arcade",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "indoor_entertainment",
   themeVariantSlug: "gaming, arcade_hall",
   venueName: "Tenpin Arcade",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const jungleJourneyAdventureGolfVenueV2: OpportunityVenueV2SeedInput = {
   id: "jungle_journey_adventure_golf",
   slug: "jungle_journey_adventure_golf",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sporty_activities",
   themeVariantSlug: "specialist_sports_facility",
   venueName: "Jungle Journey Adventure Golf",

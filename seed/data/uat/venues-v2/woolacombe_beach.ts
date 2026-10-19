@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const woolacombeBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "woolacombe_beach",
   slug: "woolacombe_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach, surf_beach",
   venueName: "Woolacombe Beach",

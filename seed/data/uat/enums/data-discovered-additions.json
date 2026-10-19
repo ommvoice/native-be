@@ -21,6 +21,126 @@
     {
       "name": "Quiet space",
       "slug": "quiet_space"
+    },
+    {
+      "name": "Tactile materials",
+      "slug": "tactile_materials"
+    },
+    {
+      "name": "Sensory toys or games",
+      "slug": "sensory_toys_or_games"
+    },
+    {
+      "name": "Rockpooling",
+      "slug": "rockpooling"
+    },
+    {
+      "name": "Guided wildlife spotting",
+      "slug": "guided_wildlife_spotting"
+    },
+    {
+      "name": "Beach Combing",
+      "slug": "beach_combing"
+    },
+    {
+      "name": "Coastal wildlife education",
+      "slug": "coastal_wildlife_education"
+    },
+    {
+      "name": "Guided surveying",
+      "slug": "guided_surveying"
+    },
+    {
+      "name": "Marine Life Training",
+      "slug": "marine_life_training"
+    },
+    {
+      "name": "Coastal education",
+      "slug": "coastal_education"
+    },
+    {
+      "name": "Takehome artwork",
+      "slug": "takehome_artwork"
+    },
+    {
+      "name": "Snorkeling Experience",
+      "slug": "snorkeling_experience"
+    },
+    {
+      "name": "PYO Flower Bouquets",
+      "slug": "pyo_flower_bouquets"
+    },
+    {
+      "name": "Picturesque Views",
+      "slug": "picturesque_views"
+    },
+    {
+      "name": "Welcoming space",
+      "slug": "welcoming_space"
+    },
+    {
+      "name": "Storytelling",
+      "slug": "storytelling"
+    },
+    {
+      "name": "Toys, toy corners",
+      "slug": "toys_toy_corners"
+    },
+    {
+      "name": "Refreshments Provided",
+      "slug": "refreshments_provided"
+    },
+    {
+      "name": "Local parent hangout",
+      "slug": "local_parent_hangout"
+    },
+    {
+      "name": "Relaxed, child-friendly setting",
+      "slug": "relaxed_child_friendly_setting"
+    },
+    {
+      "name": "Play areas or equipment",
+      "slug": "play_areas_or_equipment"
+    },
+    {
+      "name": "Flexible timings (relaxed start/end times)",
+      "slug": "flexible_timings_relaxed_start_end_times"
+    },
+    {
+      "name": "Newbie-friendly!",
+      "slug": "newbie_friendly"
+    },
+    {
+      "name": "Craft Tables or Activities",
+      "slug": "craft_tables_or_activities"
+    },
+    {
+      "name": "Like-minded families",
+      "slug": "like_minded_families"
+    },
+    {
+      "name": "Parent-child activities",
+      "slug": "parent_child_activities"
+    },
+    {
+      "name": "Quiet environment",
+      "slug": "quiet_environment"
+    },
+    {
+      "name": "Soft Lighting",
+      "slug": "soft_lighting"
+    },
+    {
+      "name": "Bridges (wooden",
+      "slug": "bridges_wooden"
+    },
+    {
+      "name": "stone",
+      "slug": "stone"
+    },
+    {
+      "name": "suspension)",
+      "slug": "suspension"
     }
   ],
   "OPPORTUNITY_THEME_VARIANT_ENUM": [
@@ -47,6 +167,30 @@
     {
       "name": "Library",
       "slug": "library"
+    },
+    {
+      "name": "Watersports",
+      "slug": "watersports"
+    },
+    {
+      "name": "Play Cafe",
+      "slug": "play_cafe"
+    },
+    {
+      "name": "Animal Park or Zoo",
+      "slug": "animal_park_or_zoo"
+    },
+    {
+      "name": "Playgroup",
+      "slug": "playgroup"
+    },
+    {
+      "name": "Social Club",
+      "slug": "social_club"
+    },
+    {
+      "name": "Reservoir or Lake",
+      "slug": "reservoir_or_lake"
     }
   ],
   "EXTRA_KIT_ENUM": [
@@ -73,6 +217,26 @@
     {
       "name": "Water Refill",
       "slug": "water_refill"
+    },
+    {
+      "name": "Buggy Friendly",
+      "slug": "buggy_friendly"
+    },
+    {
+      "name": "Parties",
+      "slug": "parties"
+    },
+    {
+      "name": "Pushchair Friendly",
+      "slug": "pushchair_friendly"
+    },
+    {
+      "name": "Wheelchair Friendly",
+      "slug": "wheelchair_friendly"
+    },
+    {
+      "name": "Water Refills",
+      "slug": "water_refills"
     }
   ],
   "ACTIVITY_GROUP_ENUM": [
@@ -83,6 +247,84 @@
     {
       "name": "Under the Radar",
       "slug": "under_the_radar"
+    }
+  ],
+  "EVENT_TYPE_ENUM": [
+    {
+      "name": "PYO, Themed",
+      "slug": "pyo_themed"
+    }
+  ],
+  "OPPORTUNITY_THEME_ENUM": [
+    {
+      "name": "Community Groups",
+      "slug": "community_groups"
+    }
+  ],
+  "CLUB_COMMITMENT_ENUM": [
+    {
+      "name": "One-off (pay as you go), Termly blocks",
+      "slug": "one_off_pay_as_you_go_termly_blocks"
+    }
+  ],
+  "SKILL_AREA_ENUM": [
+    {
+      "name": "Swimming",
+      "slug": "swimming"
+    },
+    {
+      "name": "Martial Arts",
+      "slug": "martial_arts"
+    },
+    {
+      "name": "Climbing",
+      "slug": "climbing"
+    },
+    {
+      "name": "false",
+      "slug": "false"
+    },
+    {
+      "name": "true",
+      "slug": "true"
+    }
+  ],
+  "KIDS_FACILITY_ENUM": [
+    {
+      "name": "Indoor games (puzzles",
+      "slug": "indoor_games_puzzles"
+    },
+    {
+      "name": "boards)",
+      "slug": "boards"
+    },
+    {
+      "name": "Swings",
+      "slug": "swings"
+    },
+    {
+      "name": "Slides",
+      "slug": "slides"
+    },
+    {
+      "name": "Climbing Frames",
+      "slug": "climbing_frames"
+    }
+  ],
+  "SKILL_AREA_VARIANT_ENUM": [
+    {
+      "name": "Swimming",
+      "slug": "swimming"
+    }
+  ],
+  "ROUTE_SUITABILITY_ENUM": [
+    {
+      "name": "Off-road Buggies only",
+      "slug": "off_road_buggies_only"
+    },
+    {
+      "name": "Mountain Bikes Only",
+      "slug": "mountain_bikes_only"
     }
   ]
 }

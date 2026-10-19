@@ -3,6 +3,9 @@ import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2
 export const ashridgeCourtEventV2: OpportunityEventV2SeedInput = {
   id: "ashridge_court",
   slug: "ashridge_court",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "formal_landscape_gardens",
   opportunityType: "event",

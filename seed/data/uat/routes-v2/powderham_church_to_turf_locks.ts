@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const powderhamChurchToTurfLocksRouteV2: OpportunityRouteV2SeedInput = {
   id: "powderham_church_to_turf_locks",
   slug: "powderham_church_to_turf_locks",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "wheels_routes",
   themeVariantSlug: "longer_ride",
   opportunityType: "route",

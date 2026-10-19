@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const putsboroughBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "putsborough_beach",
   slug: "putsborough_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach",
   venueName: "Putsborough Beach",

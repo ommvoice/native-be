@@ -12,6 +12,13 @@ import { gorenFarm2EventV2 } from "./goren_farm_2.js";
 import { thornesFarmPyoEventV2 } from "./thornes_farm_pyo.js";
 import { ameliasFlowerFarmPyoEventV2 } from "./amelias_flower_farm_pyo.js";
 import { littleWildlingsEventV2 } from "./little_wildlings.js";
+import { dartsFarmPumpkinFestHalfTermFunEventV2 } from "./darts_farm_pumpkin_fest_half_term_fun.js";
+import { dartsFarmPumpkinFestWeekendEventV2 } from "./darts_farm_pumpkin_fest_weekend.js";
+import { pumpkinFestHalfTermEventV2 } from "./pumpkin_fest_half_term.js";
+import { pumpkinFestStrawberryFieldsEventV2 } from "./pumpkin_fest_strawberry_fields.js";
+import { sanctuaryFlowersEventV2 } from "./sanctuary_flowers.js";
+import { greendalePumpkinPatchEventV2 } from "./greendale_pumpkin_patch.js";
+import { ameliasFlowersEventV2 } from "./amelias_flowers.js";
 
 export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   ashridgeCourtEventV2,
@@ -27,4 +34,11 @@ export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   thornesFarmPyoEventV2,
   ameliasFlowerFarmPyoEventV2,
   littleWildlingsEventV2,
+  dartsFarmPumpkinFestHalfTermFunEventV2,
+  dartsFarmPumpkinFestWeekendEventV2,
+  pumpkinFestHalfTermEventV2,
+  pumpkinFestStrawberryFieldsEventV2,
+  sanctuaryFlowersEventV2,
+  greendalePumpkinPatchEventV2,
+  ameliasFlowersEventV2,
 ];

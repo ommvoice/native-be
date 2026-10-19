@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const mincingLakeValleyParkVenueV2: OpportunityVenueV2SeedInput = {
   id: "mincing_lake_valley_park",
   slug: "mincing_lake_valley_park",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "green_spaces",
   themeVariantSlug: "country_parks",
   venueName: "Mincing Lake Valley Park",

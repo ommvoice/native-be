@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const bictonBotanicalParkGardensVenueV2: OpportunityVenueV2SeedInput = {
   id: "bicton_botanical_park_gardens",
   slug: "bicton_botanical_park_gardens",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "gardens_outdoor",
   themeVariantSlug: "botanical_gardens, arboretum",
   venueName: "Bicton Botanical Park & Gardens",

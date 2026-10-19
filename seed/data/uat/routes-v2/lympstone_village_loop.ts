@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const lympstoneVillageLoopRouteV2: OpportunityRouteV2SeedInput = {
   id: "lympstone_village_loop",
   slug: "lympstone_village_loop",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "gentle_wander",
   opportunityType: "route",
@@ -40,6 +43,6 @@ export const lympstoneVillageLoopRouteV2: OpportunityRouteV2SeedInput = {
   routeSeasonalHighlights: null,
   routeAttractions: "rivers_and_streams, countryside_views, wildlife_spotting",
   routeExtraKit: null,
-  image: "Lympstone Village Green.jpg",
+  image: "Lympstone Village Route.jpg",
   routeCountry: null,
 };

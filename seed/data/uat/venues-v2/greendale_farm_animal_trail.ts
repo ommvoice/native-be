@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const greendaleFarmAnimalTrailVenueV2: OpportunityVenueV2SeedInput = {
   id: "greendale_farm_animal_trail",
   slug: "greendale_farm_animal_trail",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "animal_encounters",
   themeVariantSlug: "farm_and_smallholding",
   venueName: "Greendale Farm Animal Trail",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const oceanSoftplayVenueV2: OpportunityVenueV2SeedInput = {
   id: "ocean_softplay",
   slug: "ocean_softplay",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "soft_play",
   themeVariantSlug: "large_soft_play",
   venueName: "Ocean Softplay",

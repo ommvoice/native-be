@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const lympstoneVillageBeachVenueV2: OpportunityVenueV2SeedInput = {
   id: "lympstone_village_beach",
   slug: "lympstone_village_beach",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "dog_friendly_beaches",
   venueName: "Lympstone Village Beach",

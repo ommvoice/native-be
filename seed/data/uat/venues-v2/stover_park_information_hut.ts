@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const stoverParkInformationHutVenueV2: OpportunityVenueV2SeedInput = {
   id: "stover_park_information_hut",
   slug: "stover_park_information_hut",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "wildlife_spotting",
   venueName: "Stover Park Information Hut",

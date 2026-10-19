@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const makeSouthwestGalleryVenueV2: OpportunityVenueV2SeedInput = {
   id: "make_southwest_gallery",
   slug: "make_southwest_gallery",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "creative_play",
   themeVariantSlug: "gallery_or_exhbit",
   venueName: "Make Southwest Gallery",

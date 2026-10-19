@@ -50,6 +50,24 @@ import { theGoatTrailTopshamRouteV2 } from "./the_goat_trail_topsham.js";
 import { turfLocksRiversideWalkRouteV2 } from "./turf_locks_riverside_walk.js";
 import { woodburyCastleRouteV2 } from "./woodbury_castle.js";
 import { woodburyCommonRouteV2 } from "./woodbury_common.js";
+import { charmouthToLymeRegisRouteV2 } from "./charmouth_to_lyme_regis.js";
+import { haldonForestFreersLoopRouteRouteV2 } from "./haldon_forest_freers_loop_route.js";
+import { seatonWetlandsTrailsRouteV2 } from "./seaton_wetlands_trails.js";
+import { haldonForestRidgeRideRouteRouteV2 } from "./haldon_forest_ridge_ride_route.js";
+import { haldonForestKiddensRouteRouteV2 } from "./haldon_forest_kiddens_route.js";
+import { haldonForestSpicersRouteRouteV2 } from "./haldon_forest_spicers_route.js";
+import { haldonForestRaptorTrailRouteV2 } from "./haldon_forest_raptor_trail.js";
+import { haldonForestSkillsAreaRouteV2 } from "./haldon_forest_skills_area.js";
+import { haldonForestPumpTrackRouteV2 } from "./haldon_forest_pump_track.js";
+import { cadoverBridgeAndDewerstoneCircularRouteV2 } from "./cadover_bridge_and_dewerstone_circular.js";
+import { dewerstoneWoodRouteV2 } from "./dewerstone_wood.js";
+import { avonReservoirShortRouteRouteV2 } from "./avon_reservoir_short_route.js";
+import { meldonReservoirRouteV2 } from "./meldon_reservoir.js";
+import { tottifordAndTrenchfordReservoirRouteV2 } from "./tottiford_and_trenchford_reservoir.js";
+import { squabmoorReservoirRouteV2 } from "./squabmoor_reservoir.js";
+import { graniteWayOkehamptonToMeldonReservoirRouteV2 } from "./granite_way_okehampton_to_meldon_reservoir.js";
+import { millMarshParkToParkeRiverTrailRouteV2 } from "./mill_marsh_park_to_parke_river_trail.js";
+import { wrayValleyTrailBoveyToParkeRouteV2 } from "./wray_valley_trail_bovey_to_parke.js";
 
 export const opportunityRouteV2SeedRows: OpportunityRouteV2SeedInput[] = [
   aylesbereCommonRspbNatureReserveRouteV2,
@@ -103,4 +121,22 @@ export const opportunityRouteV2SeedRows: OpportunityRouteV2SeedInput[] = [
   turfLocksRiversideWalkRouteV2,
   woodburyCastleRouteV2,
   woodburyCommonRouteV2,
+  charmouthToLymeRegisRouteV2,
+  haldonForestFreersLoopRouteRouteV2,
+  seatonWetlandsTrailsRouteV2,
+  haldonForestRidgeRideRouteRouteV2,
+  haldonForestKiddensRouteRouteV2,
+  haldonForestSpicersRouteRouteV2,
+  haldonForestRaptorTrailRouteV2,
+  haldonForestSkillsAreaRouteV2,
+  haldonForestPumpTrackRouteV2,
+  cadoverBridgeAndDewerstoneCircularRouteV2,
+  dewerstoneWoodRouteV2,
+  avonReservoirShortRouteRouteV2,
+  meldonReservoirRouteV2,
+  tottifordAndTrenchfordReservoirRouteV2,
+  squabmoorReservoirRouteV2,
+  graniteWayOkehamptonToMeldonReservoirRouteV2,
+  millMarshParkToParkeRiverTrailRouteV2,
+  wrayValleyTrailBoveyToParkeRouteV2,
 ];

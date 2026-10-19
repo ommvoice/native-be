@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const killertonEstateRouteV2: OpportunityRouteV2SeedInput = {
   id: "killerton_estate",
   slug: "killerton_estate",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "estate_grounds",
   opportunityType: "route",

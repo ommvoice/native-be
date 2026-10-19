@@ -3,6 +3,9 @@
 export interface Venue {
   id: string;
   slug: string;
+  recordId: string;
+  queuedVersion: number;
+  active: boolean;
   themeSlug: string;
   themeVariantSlug: string;
   venueName: string;

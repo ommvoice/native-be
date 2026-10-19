@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const ullacombeFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   id: "ullacombe_farm_cafe",
   slug: "ullacombe_farm_cafe",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "family_dining",
   themeVariantSlug: "casual_family_restaurants",
   venueName: "Ullacombe Farm & Cafe",

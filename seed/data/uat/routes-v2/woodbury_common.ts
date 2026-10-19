@@ -3,6 +3,9 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const woodburyCommonRouteV2: OpportunityRouteV2SeedInput = {
   id: "woodbury_common",
   slug: "woodbury_common",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "heathland",
   opportunityType: "route",

@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const extonPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   id: "exton_play_area",
   slug: "exton_play_area",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "active_play",
   themeVariantSlug: "local_playgrouns",
   venueName: "Exton Play Area",

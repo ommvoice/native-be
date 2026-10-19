@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const undergroundPassagesVenueV2: OpportunityVenueV2SeedInput = {
   id: "underground_passages",
   slug: "underground_passages",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "historical_cultural",
   themeVariantSlug: "ancient_sites, living_history",
   venueName: "Underground Passages",

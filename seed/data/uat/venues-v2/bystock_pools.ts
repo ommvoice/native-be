@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const bystockPoolsVenueV2: OpportunityVenueV2SeedInput = {
   id: "bystock_pools",
   slug: "bystock_pools",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "nature_reserves",
   venueName: "Bystock Pools",

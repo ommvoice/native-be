@@ -3,6 +3,9 @@ import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2
 export const gorenFarm2EventV2: OpportunityEventV2SeedInput = {
   id: "goren_farm_2",
   slug: "goren_farm_2",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "green_spaces",
   themeVariantSlug: "open_parkland",
   opportunityType: "event",

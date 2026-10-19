@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const houseOfMarblesVenueV2: OpportunityVenueV2SeedInput = {
   id: "house_of_marbles",
   slug: "house_of_marbles",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "interactive_museums",
   themeVariantSlug: "history_made_interactive",
   venueName: "House of Marbles",

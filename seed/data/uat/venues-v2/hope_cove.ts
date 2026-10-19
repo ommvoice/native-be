@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const hopeCoveVenueV2: OpportunityVenueV2SeedInput = {
   id: "hope_cove",
   slug: "hope_cove",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "coastal_adventures",
   themeVariantSlug: "sandy_beach",
   venueName: "Hope Cove",

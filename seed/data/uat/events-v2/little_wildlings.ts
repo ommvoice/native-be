@@ -3,6 +3,9 @@ import type { OpportunityEventV2SeedInput } from "../../../opportunity/events-v2
 export const littleWildlingsEventV2: OpportunityEventV2SeedInput = {
   id: "little_wildlings",
   slug: "little_wildlings",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "nature_wildlife",
   themeVariantSlug: "den_building, natural_play_areas, forest_school",
   opportunityType: "event",
@@ -87,6 +90,6 @@ export const littleWildlingsEventV2: OpportunityEventV2SeedInput = {
   eventSkillArea: "outdoor_nature",
   eventSkillAreaVariant: null,
   eventAbilityLevel: "novice",
-  image: "Wildlings Nature Play.jpeg",
+  image: "Wildlings Nature Play.jpg",
   ticketingRequirement: true,
 };

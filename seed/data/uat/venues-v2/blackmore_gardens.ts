@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const blackmoreGardensVenueV2: OpportunityVenueV2SeedInput = {
   id: "blackmore_gardens",
   slug: "blackmore_gardens",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "green_spaces",
   themeVariantSlug: "village_parks",
   venueName: "Blackmore Gardens",

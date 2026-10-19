@@ -3,6 +3,9 @@ import type { OpportunityVenueV2SeedInput } from "../../../opportunity/venues-v2
 export const otteryStMaryLibraryVenueV2: OpportunityVenueV2SeedInput = {
   id: "ottery_st_mary_library",
   slug: "ottery_st_mary_library",
+  recordId: "0",
+  queuedVersion: 0,
+  active: true,
   themeSlug: "sensory_soothing",
   themeVariantSlug: "library",
   venueName: "Ottery St Mary Library",

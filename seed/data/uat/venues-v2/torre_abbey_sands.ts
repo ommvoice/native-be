@@ -56,7 +56,7 @@ export const torreAbbeySandsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, disabled_bays",
-  venueGeneralFacilities: "toilets, disabled_toilets, picnic_benches, benches, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, picnic_benches, benches, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

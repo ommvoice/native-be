@@ -56,7 +56,7 @@ export const rhsRosemoorVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, indoor_seating, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, indoor_seating, outdoor_seating, picnic_friendly",
   venueChildFacilities: "play_equipment, swings_slides, activity_trail, childrens_trail, activity_sheets, colouring, clues_games, ice_creams",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, gift_shop",
   venueDogFacilities: "lead_only",

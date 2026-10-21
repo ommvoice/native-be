@@ -68,7 +68,7 @@ export const sanctuaryFlowersEventV2: OpportunityEventV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   eventParkingProvision: "car_parking_free",
-  eventGeneralFacilities: "picnic_benches, dogs_allowed, outdoor_seating, byo_picnic",
+  eventGeneralFacilities: "picnic_benches, dogs_allowed, outdoor_seating, picnic_friendly",
   eventChildFacilities: "activity_sheets, activity_trail, ice_creams",
   eventAdultFacilities: "hot_drinks, snacks, drinks_stand, sweet_treats",
   eventVenueDogFacilities: null,

@@ -56,7 +56,7 @@ export const manorGardensExmouthVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, bike_racks",
-  venueGeneralFacilities: "toilets, benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "snacks, sweet_treats, drinks_stand, hot_drinks, clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

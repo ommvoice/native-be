@@ -56,7 +56,7 @@ export const queensParadePlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "benches, picnic_benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_benches, picnic_friendly",
   venueChildFacilities: "ice_creams, sandpit, swings_slides, play_equipment",
   venueAdultFacilities: null,
   venueDogFacilities: null,

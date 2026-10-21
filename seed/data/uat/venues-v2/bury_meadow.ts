@@ -56,7 +56,7 @@ export const buryMeadowVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, car_parking_paid",
-  venueGeneralFacilities: "picnic_benches, benches, dogs_allowed, toilets, byo_picnic",
+  venueGeneralFacilities: "picnic_benches, benches, dogs_allowed, toilets, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins, lead_only",

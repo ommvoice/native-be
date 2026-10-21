@@ -56,7 +56,7 @@ export const shaldonBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only",

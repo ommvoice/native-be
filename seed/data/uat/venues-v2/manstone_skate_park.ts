@@ -56,7 +56,7 @@ export const manstoneSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "toilets, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins",

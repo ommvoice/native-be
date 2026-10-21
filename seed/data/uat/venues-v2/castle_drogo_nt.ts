@@ -56,7 +56,7 @@ export const castleDrogoNtVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 3C",
   ticketVariantGroupPrice: "45",
   venueParkingProvision: "car_parking_paid, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, indoor_seating, picnic_benches, guided_tour, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, indoor_seating, picnic_benches, guided_tour, dogs_allowed, picnic_friendly",
   venueChildFacilities: "childrens_trail",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, gift_shop, book_shop",
   venueDogFacilities: null,

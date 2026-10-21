@@ -56,7 +56,7 @@ export const ferneAnimalSanctuaryVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 3C",
   ticketVariantGroupPrice: "21",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, byo_picnic, dogs_allowed, guided_tour",
+  venueGeneralFacilities: "toilets, disabled_toilets, picnic_friendly, dogs_allowed, guided_tour",
   venueChildFacilities: "ice_creams, activity_sheets, activity_trail, indoor_games, play_equipment, soft_play_space, swings_slides",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, gift_shop, comfy_seating",
   venueDogFacilities: "lead_only, dog_bins",

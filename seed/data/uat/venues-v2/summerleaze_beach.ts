@@ -56,7 +56,7 @@ export const summerleazeBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, showers_changing, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, showers_changing, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "clear_sightlines, drinks_stand, sweet_treats, hot_drinks",
   venueDogFacilities: "lead_only",

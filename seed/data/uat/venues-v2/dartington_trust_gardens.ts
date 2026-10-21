@@ -56,7 +56,7 @@ export const dartingtonTrustGardensVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 6C",
   ticketVariantGroupPrice: "10",
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "guided_tour, service_dogs_only, benches, picnic_benches, toilets, byo_picnic",
+  venueGeneralFacilities: "guided_tour, service_dogs_only, benches, picnic_benches, toilets, picnic_friendly",
   venueChildFacilities: "childrens_trail",
   venueAdultFacilities: "snacks",
   venueDogFacilities: null,

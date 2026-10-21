@@ -24,7 +24,7 @@ export const charmouthToLymeRegisRouteV2: OpportunityRouteV2SeedInput = {
   latitude: "50.734464911528",
   longitude: "-2.90030674504333",
   routeParkingProvision: "car_parking_paid",
-  routeGeneralFacilities: "byo_picnic, dogs_allowed",
+  routeGeneralFacilities: "picnic_friendly, dogs_allowed",
   routeChildFacilities: null,
   routeAdultFacilities: null,
   routeDogFacilities: null,

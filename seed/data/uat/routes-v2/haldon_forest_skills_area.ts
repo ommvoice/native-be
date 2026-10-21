@@ -13,7 +13,7 @@ export const haldonForestSkillsAreaRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "A dedicated area of purpose-built features for practising off-road technique before heading onto the wider trail network. Useful for children and teens who want to repeat sections, work on control or test specific features without committing to a full route. It sits near the pump track and main cycling hub, so it works as part of a wider Haldon visit or as a focused session for riders wanting to improve specific skills.",
   routeType: "circular",
-  routeSuitability: "mountain_bikes_only",
+  routeSuitability: "bike_route",
   routeDistance: "0.1",
   routeTerrainType: "mixed",
   routeDifficulty: "easy",

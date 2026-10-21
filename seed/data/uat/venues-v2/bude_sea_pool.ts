@@ -56,7 +56,7 @@ export const budeSeaPoolVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, showers_changing, byo_picnic",
+  venueGeneralFacilities: "toilets, showers_changing, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

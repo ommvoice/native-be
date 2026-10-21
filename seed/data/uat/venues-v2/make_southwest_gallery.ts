@@ -7,7 +7,7 @@ export const makeSouthwestGalleryVenueV2: OpportunityVenueV2SeedInput = {
   queuedVersion: 0,
   active: true,
   themeSlug: "creative_play",
-  themeVariantSlug: "gallery_or_exhbit",
+  themeVariantSlug: "art_gallery",
   venueName: "Make Southwest Gallery",
   venueActivityGroup: "simple_reset",
   venueDescription: "MAKE Southwest is a calm, creative stop rather than a run-around attraction: three gallery spaces, a large craft shop, café and family-friendly activities inside the historic Riverside Mill. It's a simple trip and would work best for children who enjoy making, looking closely, choosing materials or pottering, especially on wet days or as a gentler add-on to a trip to Bovey Tracey.",

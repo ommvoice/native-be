@@ -56,7 +56,7 @@ export const theHamPlayParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: "sandpit, zip_line, play_equipment",
   venueAdultFacilities: null,
   venueDogFacilities: null,

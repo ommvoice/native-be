@@ -56,7 +56,7 @@ export const candysFieldPlayParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, picnic_benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_benches, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

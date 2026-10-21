@@ -56,7 +56,7 @@ export const whimplePumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "dogs_allowed, toilets, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, toilets, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

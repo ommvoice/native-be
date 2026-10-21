@@ -7,7 +7,7 @@ export const littleGemsPlaygroup2ClubV2: OpportunityClubV2SeedInput = {
   queuedVersion: 1,
   active: true,
   themeSlug: "community_groups",
-  themeVariantSlug: "playgroup",
+  themeVariantSlug: "play_group",
   opportunityType: "club",
   clubName: "Little Gems Playgroup",
   clubDescription: "Gems is Christ Church Woodbury’s weekly toddler group that runs on Friday mornings during term time. A lovely, local group where you can genuinely arrive knowing no one and be assured of an uplifting welcome by the friendly volunteers that run it; women, mothers and grandparents that 'get it' and a more than happy to get stuck in playing so you can enjoy a cup of tea. A small soft play area, lots of toys, fancy dress, stories, tea, coffee (and usually a lovely homemade cake) will be waiting for you, along with a semi-structured session that allows for free play and flexible activities you'd expect at a toddler group, followed by a story and snacktime.",

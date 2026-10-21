@@ -56,7 +56,7 @@ export const ansteysCoveVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: "drinks_stand, snacks, hot_drinks",
   venueDogFacilities: null,

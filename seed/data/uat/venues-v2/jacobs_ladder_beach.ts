@@ -56,7 +56,7 @@ export const jacobsLadderBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, on_street_nearby",
-  venueGeneralFacilities: "toilets, benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "drinks_stand",
   venueDogFacilities: "lead_only",

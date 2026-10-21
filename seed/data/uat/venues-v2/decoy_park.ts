@@ -56,7 +56,7 @@ export const decoyParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, disabled_bays",
-  venueGeneralFacilities: "toilets, benches, dogs_allowed, picnic_benches, disabled_toilets, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, dogs_allowed, picnic_benches, disabled_toilets, outdoor_seating, picnic_friendly",
   venueChildFacilities: "ice_creams, activity_trail",
   venueAdultFacilities: "hot_drinks, snacks, sweet_treats",
   venueDogFacilities: "dog_bins, lead_only",

@@ -56,7 +56,7 @@ export const seatonWetlandsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "byo_picnic, picnic_benches, benches, buggy_friendly, disabled_toilets, toilets, service_dogs_only",
+  venueGeneralFacilities: "picnic_friendly, picnic_benches, benches, buggy_friendly, disabled_toilets, toilets, service_dogs_only",
   venueChildFacilities: "activity_trail",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

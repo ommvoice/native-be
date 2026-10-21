@@ -81,7 +81,7 @@ export const familySwim2ClubV2: OpportunityClubV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   clubParkingProvision: "car_parking_free, bike_racks",
-  clubGeneralFacilities: "toilets, showers_changing, byo_picnic",
+  clubGeneralFacilities: "toilets, showers_changing, picnic_friendly",
   clubChildFacilities: null,
   clubAdultFacilities: null,
   clubAgeSuitabilityUnder1S: true,

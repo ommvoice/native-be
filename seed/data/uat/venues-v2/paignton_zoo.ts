@@ -56,7 +56,7 @@ export const paigntonZooVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, disabled_bays",
-  venueGeneralFacilities: "disabled_toilets, toilets, baby_changing, benches, picnic_benches, outdoor_seating, service_dogs_only, byo_picnic",
+  venueGeneralFacilities: "disabled_toilets, toilets, baby_changing, benches, picnic_benches, outdoor_seating, service_dogs_only, picnic_friendly",
   venueChildFacilities: "ice_creams, activity_sheets, soft_play_space, play_equipment, swings_slides",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, drinks_stand",
   venueDogFacilities: null,

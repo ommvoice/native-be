@@ -56,7 +56,7 @@ export const plymouthAquariumVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "toilets, disabled_toilets, indoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, indoor_seating, picnic_friendly",
   venueChildFacilities: "soft_play_space",
   venueAdultFacilities: "hot_drinks, hot_cold_food, gift_shop, drinks_stand",
   venueDogFacilities: null,

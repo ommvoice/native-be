@@ -7,7 +7,7 @@ export const sidmouthLibraryVenueV2: OpportunityVenueV2SeedInput = {
   queuedVersion: 0,
   active: true,
   themeSlug: "sensory_soothing",
-  themeVariantSlug: "library",
+  themeVariantSlug: "public_library",
   venueName: "Sidmouth Library",
   venueActivityGroup: "simple_reset, moment_of_peace",
   venueDescription: "Sidmouth Library offers families a calm indoor setting close to Blackmore Gardens, the town and the seafront with a beautifully decorated children's section; well-stocked with plenty of variety, a small selection of toys, colouring, board games and comfy seating, this space provides a simple stop or calmer visit for anyone who loves a story. It can act as a rainy day anchor when the beach or gardens are not quite enough on their own, and with computers, printing and the usual library services, it can serve different needs within the family without everyone needing to be entertained in the same way. With donation-based squash, snacks and tea/coffee, it can also be an ideal pitstop when a simple reset in a fresh environment is needed.",

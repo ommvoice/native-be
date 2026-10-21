@@ -13,7 +13,7 @@ export const haldonForestFreersLoopRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "An optional black-graded technical loop off the Ridge Ride trail, with roots, rocks, berms, drops and a step-down feature. At approximately 1km it's a short but demanding feature section designed for skilled riders who are already comfortable on red-grade trails and want something more challenging. Not a family cycling route, this is for experienced riders only. Helmets required.",
   routeType: "circular",
-  routeSuitability: "mountain_bikes_only",
+  routeSuitability: "bike_route",
   routeDistance: "0.6",
   routeTerrainType: "steps, steep, mixed, woodland_track",
   routeDifficulty: "challenging",

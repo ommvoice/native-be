@@ -93,7 +93,7 @@ export const littleYammasMartialArtsExmouthClubV2: OpportunityClubV2SeedInput = 
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "energy_burner, low_effort",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "martial_arts",
+  clubSkillArea: "martial_arts_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: "novice",
   clubInterestTags: "Martial arts, confidence, skills development, ninja training",

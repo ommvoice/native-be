@@ -56,7 +56,7 @@ export const phearParkBasketballCourtVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, benches, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

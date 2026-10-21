@@ -56,7 +56,7 @@ export const theMaerVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, disabled_bays",
-  venueGeneralFacilities: "toilets, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, dogs_allowed, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

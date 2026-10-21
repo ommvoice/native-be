@@ -56,7 +56,7 @@ export const brixingtonParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "byo_picnic, benches, dogs_allowed, pushchair_friendly",
+  venueGeneralFacilities: "picnic_friendly, benches, dogs_allowed, pushchair_friendly",
   venueChildFacilities: "zip_line, swings_slides, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

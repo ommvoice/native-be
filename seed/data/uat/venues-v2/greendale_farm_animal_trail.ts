@@ -56,7 +56,7 @@ export const greendaleFarmAnimalTrailVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, indoor_seating, outdoor_seating, picnic_benches, byo_picnic",
+  venueGeneralFacilities: "toilets, indoor_seating, outdoor_seating, picnic_benches, picnic_friendly",
   venueChildFacilities: "ice_creams, play_equipment",
   venueAdultFacilities: "hot_drinks, wifi, hot_cold_food, drinks_stand, snacks",
   venueDogFacilities: "lead_only",

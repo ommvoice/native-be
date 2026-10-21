@@ -15,6 +15,7 @@
     "export:data-json": "tsx scripts/export-data-json.ts",
     "merge:opportunities": "tsx scripts/merge-opportunity-updates.ts",
     "seed:opportunities": "tsx scripts/seed-opportunities.ts",
+    "images:optimize": "bash scripts/optimize-images.sh",
     "test:recommendations": "tsx scripts/test-recommendations.ts",
     "migrate:data": "tsx scripts/migrate-data.ts",
     "backfill:email-verified": "tsx scripts/backfill-email-verified.ts",

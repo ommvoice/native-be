@@ -56,7 +56,7 @@ export const killertonEstateNtVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 3C",
   ticketVariantGroupPrice: "45",
   venueParkingProvision: "car_parking_paid, members_car_park, disabled_bays, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, dogs_allowed, service_dogs_only, outdoor_seating, indoor_seating, baby_changing, benches, picnic_benches, highchairs, guided_tour, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, dogs_allowed, service_dogs_only, outdoor_seating, indoor_seating, baby_changing, benches, picnic_benches, highchairs, guided_tour, picnic_friendly",
   venueChildFacilities: "play_equipment, activity_trail, childrens_trail, clues_games, treasure_hunt",
   venueAdultFacilities: "hot_drinks, snacks, hot_cold_food, sweet_treats, book_shop, gift_shop, outdoor_terrace",
   venueDogFacilities: "lead_only, dog_bins",

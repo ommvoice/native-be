@@ -13,7 +13,7 @@ export const haldonForestKiddensRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "A longer blue trail and a clear step up from Spicers, with more technical terrain, greater changes in gradient and a longer distance to manage. It suits riders who already have basic off-road skills and want a proper forest ride rather than a short confidence loop. For families, this is likely to suit older children or capable younger riders who are comfortable with singletrack, climbs and staying focused for a longer route. Helmets required.",
   routeType: "circular",
-  routeSuitability: "mountain_bikes_only",
+  routeSuitability: "bike_route",
   routeDistance: "4",
   routeTerrainType: "woodland_track, mixed, undulating, steep, uneven",
   routeDifficulty: "moderate",

@@ -68,7 +68,7 @@ export const pumpkinFestStrawberryFieldsEventV2: OpportunityEventV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   eventParkingProvision: "car_parking_free",
-  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, byo_picnic, buggy_friendly, highchairs, dogs_allowed, indoor_seating, outdoor_seating",
+  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, picnic_friendly, buggy_friendly, highchairs, dogs_allowed, indoor_seating, outdoor_seating",
   eventChildFacilities: "ice_creams, activity_sheets, activity_trail, childrens_trail, childrens_menu, swings_slides, play_equipment",
   eventAdultFacilities: "hot_drinks, comfy_seating, wifi, hot_cold_food, clear_sightlines, snacks, drinks_stand, sweet_treats, gift_shop, outdoor_terrace",
   eventVenueDogFacilities: null,

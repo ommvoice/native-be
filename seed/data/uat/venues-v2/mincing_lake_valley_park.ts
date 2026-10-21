@@ -56,7 +56,7 @@ export const mincingLakeValleyParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

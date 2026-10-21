@@ -56,7 +56,7 @@ export const chudleighSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins, lead_only",

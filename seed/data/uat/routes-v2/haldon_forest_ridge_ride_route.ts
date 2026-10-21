@@ -13,7 +13,7 @@ export const haldonForestRidgeRideRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "Haldon's red-graded mountain bike trail, following the ridge through faster, narrower singletrack with tight corners, lively descents and sections that need good control, fitness and experience. This is for confident older children, teens and adults who already ride regularly off-road; it's a proper mountain bike route, not a family progression from the blue trails. Protective equipment and an appropriate bike are expected. Helmets required.",
   routeType: "circular",
-  routeSuitability: "mountain_bikes_only",
+  routeSuitability: "bike_route",
   routeDistance: "6",
   routeTerrainType: "steep, uneven, woodland_track",
   routeDifficulty: "challenging",

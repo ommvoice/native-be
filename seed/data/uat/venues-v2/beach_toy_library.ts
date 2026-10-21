@@ -56,7 +56,7 @@ export const beachToyLibraryVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, bike_racks",
-  venueGeneralFacilities: "dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, picnic_friendly",
   venueChildFacilities: "sandpit, play_equipment",
   venueAdultFacilities: "hot_drinks, hot_cold_food, clear_sightlines, snacks, drinks_stand, sweet_treats, outdoor_terrace",
   venueDogFacilities: "lead_only",

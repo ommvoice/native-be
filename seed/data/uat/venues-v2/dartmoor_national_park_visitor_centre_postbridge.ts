@@ -56,7 +56,7 @@ export const dartmoorNationalParkVisitorCentrePostbridgeVenueV2: OpportunityVenu
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, byo_picnic, dogs_allowed, water_refill",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, picnic_friendly, dogs_allowed, water_refill",
   venueChildFacilities: "activity_sheets, clues_games",
   venueAdultFacilities: "gift_shop",
   venueDogFacilities: null,

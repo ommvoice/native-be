@@ -56,7 +56,7 @@ export const belleverRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, picnic_benches, byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "toilets, picnic_benches, picnic_friendly, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

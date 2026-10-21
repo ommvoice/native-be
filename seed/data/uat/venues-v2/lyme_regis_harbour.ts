@@ -56,7 +56,7 @@ export const lymeRegisHarbourVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "byo_picnic, buggy_friendly, benches, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, buggy_friendly, benches, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines, drinks_stand, snacks",
   venueDogFacilities: "lead_only",

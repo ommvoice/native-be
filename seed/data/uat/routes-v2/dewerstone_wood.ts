@@ -24,7 +24,7 @@ export const dewerstoneWoodRouteV2: OpportunityRouteV2SeedInput = {
   latitude: "50.4540897048859",
   longitude: "-4.06723334232849",
   routeParkingProvision: "car_parking_paid",
-  routeGeneralFacilities: "dogs_allowed, byo_picnic",
+  routeGeneralFacilities: "dogs_allowed, picnic_friendly",
   routeChildFacilities: null,
   routeAdultFacilities: null,
   routeDogFacilities: null,

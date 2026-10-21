@@ -56,7 +56,7 @@ export const riverDartCountryParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, indoor_seating, dogs_allowed, outdoor_seating, showers_changing, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, indoor_seating, dogs_allowed, outdoor_seating, showers_changing, picnic_friendly",
   venueChildFacilities: "ice_creams, activity_trail, childrens_trail, sandpit, zip_line, rope_swings, swings_slides, play_equipment",
   venueAdultFacilities: "hot_drinks, wifi, hot_cold_food, snacks, drinks_stand, sweet_treats, gift_shop, outdoor_terrace",
   venueDogFacilities: "lead_only, dog_bins",

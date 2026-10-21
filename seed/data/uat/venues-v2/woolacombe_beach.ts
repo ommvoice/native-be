@@ -56,7 +56,7 @@ export const woolacombeBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, members_car_park, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, showers_changing, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, showers_changing, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "sunloungers, clear_sightlines, snacks, drinks_stand, sweet_treats",
   venueDogFacilities: "lead_only",

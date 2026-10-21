@@ -56,7 +56,7 @@ export const canonteignFallsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 2C",
   ticketVariantGroupPrice: "42.45",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "dogs_allowed, toilets, disabled_toilets, outdoor_seating, baby_changing, benches, indoor_seating, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, toilets, disabled_toilets, outdoor_seating, baby_changing, benches, indoor_seating, picnic_friendly",
   venueChildFacilities: "ice_creams, childrens_trail, zip_line, swings_slides, play_equipment, activity_trail, activity_sheets, colouring, soft_play_space, ride_on_vehicles, indoor_games, childrens_menu",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, log_burner, sweet_treats, gift_shop, outdoor_terrace, comfy_seating",
   venueDogFacilities: "lead_only",

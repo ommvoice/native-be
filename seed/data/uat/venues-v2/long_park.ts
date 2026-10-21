@@ -56,7 +56,7 @@ export const longParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "picnic_benches, byo_picnic, benches, dogs_allowed",
+  venueGeneralFacilities: "picnic_benches, picnic_friendly, benches, dogs_allowed",
   venueChildFacilities: "swings_slides",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins, lead_only",

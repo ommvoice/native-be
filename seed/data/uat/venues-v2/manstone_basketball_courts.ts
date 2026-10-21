@@ -56,7 +56,7 @@ export const manstoneBasketballCourtsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "byo_picnic",
+  venueGeneralFacilities: "picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

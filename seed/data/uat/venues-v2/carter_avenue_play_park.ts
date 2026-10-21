@@ -56,7 +56,7 @@ export const carterAvenuePlayParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "picnic_benches, benches, byo_picnic",
+  venueGeneralFacilities: "picnic_benches, benches, picnic_friendly",
   venueChildFacilities: "swings_slides, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

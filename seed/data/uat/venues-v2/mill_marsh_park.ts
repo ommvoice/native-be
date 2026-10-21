@@ -56,7 +56,7 @@ export const millMarshParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, car_parking_paid",
-  venueGeneralFacilities: "benches, picnic_benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_benches, picnic_friendly",
   venueChildFacilities: "zip_line, swings_slides, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

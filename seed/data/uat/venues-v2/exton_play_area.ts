@@ -56,7 +56,7 @@ export const extonPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, picnic_benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_benches, picnic_friendly",
   venueChildFacilities: "swings_slides, zip_line, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

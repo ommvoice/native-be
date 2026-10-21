@@ -56,7 +56,7 @@ export const chudleighPumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

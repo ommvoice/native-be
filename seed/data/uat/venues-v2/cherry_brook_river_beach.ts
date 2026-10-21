@@ -56,7 +56,7 @@ export const cherryBrookRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

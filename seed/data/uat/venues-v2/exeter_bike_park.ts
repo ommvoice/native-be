@@ -56,7 +56,7 @@ export const exeterBikeParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, picnic_benches, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, picnic_benches, outdoor_seating, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines, snacks, sweet_treats, log_burner, outdoor_terrace",
   venueDogFacilities: null,

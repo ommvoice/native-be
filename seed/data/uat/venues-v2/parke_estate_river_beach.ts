@@ -56,7 +56,7 @@ export const parkeEstateRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, picnic_friendly",
   venueChildFacilities: "activity_trail, activity_sheets",
   venueAdultFacilities: "snacks, drinks_stand, outdoor_terrace",
   venueDogFacilities: null,

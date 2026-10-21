@@ -56,7 +56,7 @@ export const rspbBirdHydeVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "bike_racks",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

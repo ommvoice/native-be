@@ -93,7 +93,7 @@ export const swimDevonLessonsStages810RacersClubV2: OpportunityClubV2SeedInput =
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "energy_burner",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "swimming",
+  clubSkillArea: "swimming_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: "expert",
   clubInterestTags: "Swimming lessons, Learn to swim, Water confidence, Swim England stages, Stroke technique, Front crawl, Backstroke, Breaststroke, Butterfly, Water safety, Pool skills, Lane swimming, Group lessons, Structured lessons, Progression, Confidence building, Physical activity, Coordination, Fitness, Advanced swimming, Swimming lessons, Swim England Stage 8, Swim England Stage 9, Swim England Stage 10, Competitive swimming, Racing, Stroke technique, Front crawl, Backstroke, Breaststroke, Butterfly, Swimming endurance, Stamina, Speed, Fitness, Swimming skills, Personal bests, Lane swimming, Swimming progression, Sports training",

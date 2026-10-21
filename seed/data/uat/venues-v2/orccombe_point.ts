@@ -56,7 +56,7 @@ export const orccombePointVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, car_parking_paid",
-  venueGeneralFacilities: "dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

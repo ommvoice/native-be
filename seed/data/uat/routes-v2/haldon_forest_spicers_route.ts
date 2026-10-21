@@ -13,7 +13,7 @@ export const haldonForestSpicersRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "The next step after the Discovery Route, introducing a more off-road feel while staying within a moderate blue grade. The surface changes from fully tarmacked to mixed, with gentle gradients, some narrower sections and a short two-way section near the start. It's a good progression for children who have the basics but are still building control and confidence on varied terrain — more interesting than the Discovery Route without jumping straight to the harder trails. Helmets required.",
   routeType: "circular",
-  routeSuitability: "mountain_bikes_only",
+  routeSuitability: "bike_route",
   routeDistance: "2.3",
   routeTerrainType: "woodland_track, mixed, undulating",
   routeDifficulty: "easy",

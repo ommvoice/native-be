@@ -189,7 +189,7 @@ export class RecommendationV2Repository {
 
   async getOpportunityCandidatesV2(): Promise<RecommendationV2Candidate[]> {
     const filter: OpportunityRecordFilter = {
-      includeInactive: false, versions: [1]
+      includeInactive: false, versions: [0,1]
     };
 
     const [venuesRaw, eventsRaw, clubsRaw, routesRaw] = await Promise.all([

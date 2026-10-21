@@ -56,7 +56,7 @@ export const crealyThemeparkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "Mixed Family Tickets (Online only)",
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, byo_picnic, indoor_seating, outdoor_seating, dogs_allowed, water_refill, pushchair_friendly",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, picnic_friendly, indoor_seating, outdoor_seating, dogs_allowed, water_refill, pushchair_friendly",
   venueChildFacilities: "ice_creams, childrens_menu, swings_slides, play_equipment, soft_play_space",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, drinks_stand, sweet_treats, gift_shop",
   venueDogFacilities: null,

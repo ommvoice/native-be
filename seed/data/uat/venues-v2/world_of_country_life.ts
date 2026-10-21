@@ -56,7 +56,7 @@ export const worldOfCountryLifeVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 2C",
   ticketVariantGroupPrice: "70.8",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, picnic_friendly",
   venueChildFacilities: "ice_creams, tractor_rides, swings_slides, play_equipment, soft_play_space",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, drinks_stand",
   venueDogFacilities: null,

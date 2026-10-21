@@ -56,7 +56,7 @@ export const exeterArenaSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, disabled_bays",
-  venueGeneralFacilities: "benches, indoor_seating, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "benches, indoor_seating, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

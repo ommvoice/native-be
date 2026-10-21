@@ -56,7 +56,7 @@ export const woodburySaltertonPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: "zip_line, swings_slides, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins",

@@ -7,7 +7,7 @@ export const otteryStMaryLibraryVenueV2: OpportunityVenueV2SeedInput = {
   queuedVersion: 0,
   active: true,
   themeSlug: "sensory_soothing",
-  themeVariantSlug: "library",
+  themeVariantSlug: "public_library",
   venueName: "Ottery St Mary Library",
   venueActivityGroup: "low_effort, simple_reset",
   venueDescription: "Ottery St Mary Library is a small, local library that works if you're in the town-centre and want a simple indoor stop, especially when a visit needs something calmer between errands, park time or the River Otter. It has a small children's section, but paired with a couple of other errands, offers a quiet place to reset without needing to pay for an activity. The Information Centre side also makes it practical for families new to the area or visiting the town, with local knowledge and community information sitting alongside the usual library offer.",

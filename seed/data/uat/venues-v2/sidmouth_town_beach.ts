@@ -56,7 +56,7 @@ export const sidmouthTownBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, benches, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines, snacks, drinks_stand, sweet_treats",
   venueDogFacilities: "lead_only",

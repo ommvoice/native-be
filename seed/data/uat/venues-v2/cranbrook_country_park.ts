@@ -56,7 +56,7 @@ export const cranbrookCountryParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, car_parking_free, bike_racks",
-  venueGeneralFacilities: "byo_picnic, benches, picnic_benches, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, benches, picnic_benches, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins",

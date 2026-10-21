@@ -56,7 +56,7 @@ export const hopeCoveVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, on_street_nearby",
-  venueGeneralFacilities: "toilets, indoor_seating, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, indoor_seating, outdoor_seating, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "hot_drinks, hot_cold_food, clear_sightlines, snacks, sweet_treats, outdoor_terrace",
   venueDogFacilities: null,

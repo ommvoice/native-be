@@ -56,7 +56,7 @@ export const dartmouthHarbourVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, drinks_stand, sweet_treats, book_shop, gift_shop",
   venueDogFacilities: "lead_only, dog_bins",

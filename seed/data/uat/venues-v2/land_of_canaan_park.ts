@@ -56,7 +56,7 @@ export const landOfCanaanParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: "swings_slides, play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

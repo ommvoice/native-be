@@ -93,7 +93,7 @@ export const swimDevonGroupLessonStages17LympstoneClubV2: OpportunityClubV2SeedI
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "energy_burner",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "swimming",
+  clubSkillArea: "swimming_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: "novice",
   clubInterestTags: "Swimming lessons, Learn to swim, Water confidence, Swim England stages, Stroke technique, Front crawl, Backstroke, Breaststroke, Butterfly, Water safety, Pool skills, Lane swimming, Group lessons, Structured lessons, Progression, Confidence building, Physical activity, Coordination, Fitness",

@@ -56,7 +56,7 @@ export const limeKilnPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

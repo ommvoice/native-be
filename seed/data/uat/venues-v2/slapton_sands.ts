@@ -56,7 +56,7 @@ export const slaptonSandsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "toilets, picnic_friendly, dogs_allowed",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "hot_drinks, snacks, drinks_stand, sweet_treats",
   venueDogFacilities: null,

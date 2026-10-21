@@ -56,7 +56,7 @@ export const wildwoodEscotVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 2C",
   ticketVariantGroupPrice: "48.18",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, picnic_benches, indoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, picnic_benches, indoor_seating, picnic_friendly",
   venueChildFacilities: "zip_line, soft_play_space, play_equipment, rope_swings, swings_slides",
   venueAdultFacilities: "hot_drinks, snacks",
   venueDogFacilities: null,

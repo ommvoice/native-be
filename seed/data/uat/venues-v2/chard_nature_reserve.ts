@@ -56,7 +56,7 @@ export const chardNatureReserveVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "benches, byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "benches, picnic_friendly, dogs_allowed",
   venueChildFacilities: "play_equipment, childrens_trail",
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: null,

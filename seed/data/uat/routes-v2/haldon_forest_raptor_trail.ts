@@ -13,7 +13,7 @@ export const haldonForestRaptorTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeActivityGrouping: "energy_burner",
   routeDescription: "A longer surfaced forest route with more to it than the Discovery Trail — steeper climbs and descents, tall conifers, mixed woodland, rest points and a detour to the birds-of-prey viewpoint where you can watch raptors flying over the forest. It has enough gradient to feel more substantial for older children or families wanting a proper walk, while still being clearly waymarked and wide-tracked. Two road crossings and the hillier terrain make it a step up from the Discovery route, but it's still very much a family trail rather than an off-road challenge.",
   routeType: "circular",
-  routeSuitability: "off_road_buggies_only, dog_friendly, mountain_bikes_only",
+  routeSuitability: "offroad_buggy_only, dog_friendly, bike_route",
   routeDistance: "3",
   routeTerrainType: "woodland_track, mixed, undulating",
   routeDifficulty: "moderate",

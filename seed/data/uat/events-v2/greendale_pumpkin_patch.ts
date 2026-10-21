@@ -68,7 +68,7 @@ export const greendalePumpkinPatchEventV2: OpportunityEventV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   eventParkingProvision: "car_parking_free",
-  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, byo_picnic, buggy_friendly, indoor_seating, dogs_allowed, outdoor_seating, pushchair_friendly",
+  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, picnic_friendly, buggy_friendly, indoor_seating, dogs_allowed, outdoor_seating, pushchair_friendly",
   eventChildFacilities: "activity_sheets, swings_slides, play_equipment, childrens_menu, childrens_trail, colouring",
   eventAdultFacilities: "hot_drinks, hot_cold_food, clear_sightlines, snacks, sweet_treats, gift_shop, outdoor_terrace",
   eventVenueDogFacilities: null,

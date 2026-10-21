@@ -7,7 +7,7 @@ export const cakeAtTheCastleClubV2: OpportunityClubV2SeedInput = {
   queuedVersion: 1,
   active: true,
   themeSlug: "community_groups",
-  themeVariantSlug: "playgroup",
+  themeVariantSlug: "play_group",
   opportunityType: "club",
   clubName: "Cake At The Castle",
   clubDescription: "A drop-in stay-and-play for children of all ages, with enough variety that everyone tends to find something to make or play with fairly quickly. Cushioned mats and sensory toys give the littlest ones a gentler space, while older children have soft play, crafts, games and the outdoor park to keep them moving and engaged. Drop in whenever suits you, there's always cake and a hot drink waiting, and the chance to spend some time with other local military families.",

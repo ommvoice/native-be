@@ -108,6 +108,11 @@
       "name": "Special & Memorable Days Out",
       "slug": "special_memorable",
       "active": true
+    },
+    {
+      "name": "Community Connection",
+      "slug": "community_connection",
+      "active": true
     }
   ],
   "generalSkill": [
@@ -384,6 +389,26 @@
     {
       "name": "Outdoor Seating",
       "slug": "outdoor_seating",
+      "active": true
+    },
+    {
+      "name": "BYO Picnic",
+      "slug": "picnic_friendly",
+      "active": true
+    },
+    {
+      "name": "Parties",
+      "slug": "parties_available",
+      "active": true
+    },
+    {
+      "name": "Campsite",
+      "slug": "camping_site",
+      "active": true
+    },
+    {
+      "name": "Water Refill",
+      "slug": "water_refill",
       "active": true
     }
   ],
@@ -1054,6 +1079,11 @@
       "name": "All year (with exceptions)",
       "slug": "all_year_with_exceptions",
       "active": true
+    },
+    {
+      "name": "Annual",
+      "slug": "annual",
+      "active": true
     }
   ],
   "clubCommitment": [
@@ -1137,6 +1167,121 @@
     {
       "name": "Sensory or SEND",
       "slug": "sensory_play",
+      "active": true
+    },
+    {
+      "name": "Balance Biking",
+      "slug": "balance_bike_skill",
+      "active": true
+    },
+    {
+      "name": "Cycling",
+      "slug": "cycling_skill",
+      "active": true
+    },
+    {
+      "name": "Scootering",
+      "slug": "scooter_skill",
+      "active": true
+    },
+    {
+      "name": "Hiking",
+      "slug": "hiking_skill",
+      "active": true
+    },
+    {
+      "name": "Swimming",
+      "slug": "swimming_skill",
+      "active": true
+    },
+    {
+      "name": "Orienteering or Navigation",
+      "slug": "navigation_skill",
+      "active": true
+    },
+    {
+      "name": "Sailing",
+      "slug": "sailing_skill",
+      "active": true
+    },
+    {
+      "name": "Coasteering",
+      "slug": "coasteering_skill",
+      "active": true
+    },
+    {
+      "name": "Paddleboarding",
+      "slug": "paddleboarding_skill",
+      "active": true
+    },
+    {
+      "name": "Kayaking",
+      "slug": "kayaking_skill",
+      "active": true
+    },
+    {
+      "name": "Surfing",
+      "slug": "surfing_skill",
+      "active": true
+    },
+    {
+      "name": "Climbing",
+      "slug": "climbing_skill",
+      "active": true
+    },
+    {
+      "name": "Football",
+      "slug": "football_skill",
+      "active": true
+    },
+    {
+      "name": "Tennis",
+      "slug": "tennis_skill",
+      "active": true
+    },
+    {
+      "name": "Athletics",
+      "slug": "athletics_skill",
+      "active": true
+    },
+    {
+      "name": "Gymnastics",
+      "slug": "gymnastics_skill",
+      "active": true
+    },
+    {
+      "name": "Martial Arts",
+      "slug": "martial_arts_skill",
+      "active": true
+    },
+    {
+      "name": "Skateboarding",
+      "slug": "skateboarding_skill",
+      "active": true
+    },
+    {
+      "name": "Rollerblades / skates",
+      "slug": "rollerskates_skill",
+      "active": true
+    },
+    {
+      "name": "Motorcross",
+      "slug": "motorcross_skill",
+      "active": true
+    },
+    {
+      "name": "Dance",
+      "slug": "dance_skill",
+      "active": true
+    },
+    {
+      "name": "Music",
+      "slug": "music_skill",
+      "active": true
+    },
+    {
+      "name": "Creative Writing",
+      "slug": "creative_skill",
       "active": true
     }
   ],
@@ -1630,6 +1775,19 @@
         "slowing_down",
         "together_time",
         "special_memorable"
+      ],
+      "active": true
+    },
+    {
+      "name": "Community Groups",
+      "slug": "community_groups",
+      "interestCategorySlugs": [
+        "community_connection"
+      ],
+      "opportunityTypeSlugs": [
+        "venue",
+        "event",
+        "club"
       ],
       "active": true
     }
@@ -3054,6 +3212,126 @@
       "name": "Gallery",
       "slug": "gallery",
       "active": true
+    },
+    {
+      "name": "Waterfall",
+      "slug": "waterfall",
+      "opportunityThemeSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Reservoir or Lake",
+      "slug": "reservoir",
+      "opportunityThemeSlugs": [
+        "nature_wildlife"
+      ],
+      "active": true
+    },
+    {
+      "name": "Watersports",
+      "slug": "water_sports",
+      "opportunityThemeSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Fishing Spot",
+      "slug": "fishing_spot",
+      "opportunityThemeSlugs": [
+        "water_fun"
+      ],
+      "active": true
+    },
+    {
+      "name": "Gallery or Exhbit",
+      "slug": "art_gallery",
+      "opportunityThemeSlugs": [
+        "creative_play"
+      ],
+      "active": true
+    },
+    {
+      "name": "Airshow",
+      "slug": "airshow",
+      "opportunityThemeSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Regatta",
+      "slug": "regatta",
+      "opportunityThemeSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "County or Agricultural Show",
+      "slug": "county_show",
+      "opportunityThemeSlugs": [
+        "big_day_out"
+      ],
+      "active": true
+    },
+    {
+      "name": "Playgroup",
+      "slug": "play_group",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Meet-Up",
+      "slug": "meet_up",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Knitting Circle",
+      "slug": "knitting_circle",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Book Club",
+      "slug": "book_club",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Youth Group",
+      "slug": "youth_group",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Toddler Group",
+      "slug": "toddler_group",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
+    },
+    {
+      "name": "Social Club",
+      "slug": "social_club",
+      "opportunityThemeSlugs": [
+        "community_groups"
+      ],
+      "active": true
     }
   ],
   "skillAreaVariant": [
@@ -3119,6 +3397,51 @@
       "skillAreaSlugs": [
         "sport"
       ],
+      "active": true
+    },
+    {
+      "name": "Drama / Acting",
+      "slug": "acting_skill",
+      "active": true
+    },
+    {
+      "name": "Coding",
+      "slug": "coding_skill",
+      "active": true
+    },
+    {
+      "name": "Horse Riding",
+      "slug": "horse_riding_skill",
+      "active": true
+    },
+    {
+      "name": "Animal Husbandry",
+      "slug": "animal_husbandry_skill",
+      "active": true
+    },
+    {
+      "name": "Robotics",
+      "slug": "robotics_skill",
+      "active": true
+    },
+    {
+      "name": "Construction",
+      "slug": "construction_skill",
+      "active": true
+    },
+    {
+      "name": "Yoga",
+      "slug": "yoga_skill",
+      "active": true
+    },
+    {
+      "name": "Escape rooms",
+      "slug": "escape_room_skill",
+      "active": true
+    },
+    {
+      "name": "Go-Karting",
+      "slug": "karting_skill",
       "active": true
     }
   ],

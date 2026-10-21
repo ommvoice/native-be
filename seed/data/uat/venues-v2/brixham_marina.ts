@@ -56,7 +56,7 @@ export const brixhamMarinaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "drinks_stand, sweet_treats, snacks, hot_cold_food, hot_drinks",
   venueDogFacilities: "lead_only",

@@ -25,7 +25,7 @@ import { findColumn, warnMissingColumn, readRowMeta, isDirectRun, type ParsedShe
 import * as ENUMS from "../seed/data/uat/enums/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const WORKBOOK_PATH = path.join(__dirname, "..", "newData2.xlsx");
+const WORKBOOK_PATH = path.join(__dirname, "..", "newData3.xlsx");
 const SHEET_NAME = "Routes";
 const OVERLAY_PATH = path.join(__dirname, "..", "seed", "data", "uat", "enums", "data-discovered-additions.json");
 const OUTPUT_DIR = path.join(__dirname, "..", "seed", "data", "uat", "routes-v2");
@@ -86,7 +86,8 @@ function resolveEnumValue(enumKey: string, rawValue: string): string {
 
   entries.push({ name: rawValue, slug: newSlug, active: true });
   const bucket = overlay[enumKey] ?? (overlay[enumKey] = []);
-  bucket.push({ name: rawValue, slug: newSlug });
+  // Overlay entries loaded from disk aren't in `entries`, so guard against recording the same slug twice.
+  if (!bucket.some((e) => e.slug === newSlug)) bucket.push({ name: rawValue, slug: newSlug });
   console.warn(`[parse-routes-data] new enum value for ${enumKey}: "${rawValue}" -> "${newSlug}"`);
   return newSlug;
 }

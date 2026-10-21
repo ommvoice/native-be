@@ -56,7 +56,7 @@ export const dartsFarmPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "picnic_benches, outdoor_seating, benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "picnic_benches, outdoor_seating, benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams, play_equipment, swings_slides",
   venueAdultFacilities: "hot_drinks, wifi, snacks, drinks_stand, sweet_treats, clear_sightlines, hot_cold_food",
   venueDogFacilities: "lead_only",

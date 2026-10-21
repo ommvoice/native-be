@@ -56,7 +56,7 @@ export const belmontParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, car_parking_paid",
-  venueGeneralFacilities: "benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: "lead_only, dog_bins",

@@ -56,7 +56,7 @@ export const exmouthBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, bike_racks",
-  venueGeneralFacilities: "toilets, benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "hot_drinks, clear_sightlines, hot_cold_food, drinks_stand, sweet_treats",
   venueDogFacilities: "lead_only, dog_bins",

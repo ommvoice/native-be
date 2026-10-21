@@ -56,7 +56,7 @@ export const knightshayesCourtVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 3C",
   ticketVariantGroupPrice: "45",
   venueParkingProvision: "car_parking_paid, members_car_park",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, indoor_seating, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, indoor_seating, dogs_allowed, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "gift_shop, book_shop, hot_cold_food, snacks, sweet_treats, hot_drinks",
   venueDogFacilities: "lead_only",

@@ -56,7 +56,7 @@ export const northernhayGardensVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "benches, byo_picnic, wheelchair_friendly, buggy_friendly, dogs_allowed, pushchair_friendly",
+  venueGeneralFacilities: "benches, picnic_friendly, wheelchair_friendly, buggy_friendly, dogs_allowed, pushchair_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: "dog_bins, lead_only",

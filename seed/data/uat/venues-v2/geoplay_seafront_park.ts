@@ -56,7 +56,7 @@ export const geoplaySeafrontParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, disabled_bays",
-  venueGeneralFacilities: "picnic_benches, byo_picnic, benches, dogs_allowed",
+  venueGeneralFacilities: "picnic_benches, picnic_friendly, benches, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines, drinks_stand",
   venueDogFacilities: "lead_only",

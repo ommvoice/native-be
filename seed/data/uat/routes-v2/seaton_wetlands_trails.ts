@@ -24,7 +24,7 @@ export const seatonWetlandsTrailsRouteV2: OpportunityRouteV2SeedInput = {
   latitude: "50.7182007454642",
   longitude: "-3.06512158650731",
   routeParkingProvision: "car_parking_free",
-  routeGeneralFacilities: "byo_picnic, picnic_benches, benches, buggy_friendly, disabled_toilets, toilets, service_dogs_only",
+  routeGeneralFacilities: "picnic_friendly, picnic_benches, benches, buggy_friendly, disabled_toilets, toilets, service_dogs_only",
   routeChildFacilities: "activity_trail",
   routeAdultFacilities: "clear_sightlines",
   routeDogFacilities: null,

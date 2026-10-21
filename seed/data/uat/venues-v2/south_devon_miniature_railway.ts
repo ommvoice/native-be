@@ -56,7 +56,7 @@ export const southDevonMiniatureRailwayVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, byo_picnic, dogs_allowed, picnic_benches, benches, outdoor_seating, baby_changing, pushchair_friendly",
+  venueGeneralFacilities: "toilets, disabled_toilets, picnic_friendly, dogs_allowed, picnic_benches, benches, outdoor_seating, baby_changing, pushchair_friendly",
   venueChildFacilities: "swings_slides, ice_creams",
   venueAdultFacilities: "hot_drinks, snacks, drinks_stand, sweet_treats, clear_sightlines",
   venueDogFacilities: "lead_only",

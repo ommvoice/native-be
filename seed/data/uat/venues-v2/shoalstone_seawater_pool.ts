@@ -56,7 +56,7 @@ export const shoalstoneSeawaterPoolVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, showers_changing, byo_picnic, dogs_allowed, indoor_seating, water_refill",
+  venueGeneralFacilities: "toilets, showers_changing, picnic_friendly, dogs_allowed, indoor_seating, water_refill",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

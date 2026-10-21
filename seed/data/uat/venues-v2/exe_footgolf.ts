@@ -56,7 +56,7 @@ export const exeFootgolfVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, bike_racks",
-  venueGeneralFacilities: "toilets, byo_picnic, picnic_benches, dogs_allowed, outdoor_seating",
+  venueGeneralFacilities: "toilets, picnic_friendly, picnic_benches, dogs_allowed, outdoor_seating",
   venueChildFacilities: "ice_creams, childrens_menu, play_equipment",
   venueAdultFacilities: "snacks, clear_sightlines, hot_cold_food, hot_drinks",
   venueDogFacilities: "lead_only",

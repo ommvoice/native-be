@@ -56,7 +56,7 @@ export const somethingLovelyPotteryVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, baby_changing, indoor_seating, buggy_friendly, dogs_allowed, highchairs, parties",
+  venueGeneralFacilities: "toilets, baby_changing, indoor_seating, buggy_friendly, dogs_allowed, highchairs, parties_available",
   venueChildFacilities: null,
   venueAdultFacilities: "comfy_seating, snacks, hot_drinks, sweet_treats",
   venueDogFacilities: "lead_only",

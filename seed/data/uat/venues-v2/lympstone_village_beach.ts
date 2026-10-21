@@ -56,7 +56,7 @@ export const lympstoneVillageBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby, bike_racks",
-  venueGeneralFacilities: "benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "snacks",
   venueDogFacilities: null,

@@ -56,7 +56,7 @@ export const greenwayNtVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 3C",
   ticketVariantGroupPrice: "45",
   venueParkingProvision: "car_parking_paid, members_car_park, disabled_bays, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, highchairs, indoor_seating, dogs_allowed, guided_tour, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, highchairs, indoor_seating, dogs_allowed, guided_tour, outdoor_seating, picnic_friendly",
   venueChildFacilities: "activity_trail, treasure_hunt, clues_games, childrens_trail, childrens_menu, ice_creams",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, outdoor_terrace, book_shop, gift_shop, wifi",
   venueDogFacilities: null,

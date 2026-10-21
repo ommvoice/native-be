@@ -81,7 +81,7 @@ export const mudVenturesStayPlayClubV2: OpportunityClubV2SeedInput = {
   ticketVariantDefinitionGroup: "1 adult, 1 child",
   ticketVariantGroupPrice: "9.85",
   clubParkingProvision: "car_parking_free",
-  clubGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, byo_picnic, buggy_friendly, indoor_seating",
+  clubGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, picnic_friendly, buggy_friendly, indoor_seating",
   clubChildFacilities: "clues_games, sandpit, ride_on_vehicles, play_equipment",
   clubAdultFacilities: "clear_sightlines",
   clubAgeSuitabilityUnder1S: true,

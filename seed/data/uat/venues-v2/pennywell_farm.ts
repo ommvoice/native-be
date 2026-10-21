@@ -56,7 +56,7 @@ export const pennywellFarmVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, baby_changing, disabled_toilets, picnic_benches, service_dogs_only, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, baby_changing, disabled_toilets, picnic_benches, service_dogs_only, outdoor_seating, picnic_friendly",
   venueChildFacilities: "ice_creams, activity_sheets, activity_trail, tractor_rides, soft_play_space, play_equipment, swings_slides",
   venueAdultFacilities: "hot_drinks, snacks, sweet_treats, hot_cold_food, gift_shop",
   venueDogFacilities: "dog_kennels",

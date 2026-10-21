@@ -56,7 +56,7 @@ export const budleighSaltertonBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, on_street_nearby",
-  venueGeneralFacilities: "toilets, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "clear_sightlines, drinks_stand",
   venueDogFacilities: "lead_only, dog_bins",

@@ -56,7 +56,7 @@ export const westDartRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "byo_picnic, dogs_allowed",
+  venueGeneralFacilities: "picnic_friendly, dogs_allowed",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

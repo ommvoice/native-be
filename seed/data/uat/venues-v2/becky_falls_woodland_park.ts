@@ -56,7 +56,7 @@ export const beckyFallsWoodlandParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A + 2C",
   ticketVariantGroupPrice: "50",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, outdoor_seating, indoor_seating, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, outdoor_seating, indoor_seating, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams, activity_trail, childrens_trail",
   venueAdultFacilities: "hot_drinks, wifi, hot_cold_food, snacks, sweet_treats",
   venueDogFacilities: "lead_only",

@@ -93,7 +93,7 @@ export const youthClimbingClubClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "energy_burner, low_effort, moment_of_peace",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "climbing",
+  clubSkillArea: "climbing_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: "intermediate",
   clubInterestTags: "Rock climbing, strength, agility, confidence",

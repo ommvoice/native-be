@@ -93,7 +93,7 @@ export const monquaysClimbingClubClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "energy_burner, low_effort, moment_of_peace",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "climbing",
+  clubSkillArea: "climbing_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: "beginner",
   clubInterestTags: "Rock climbing, strength, agility, confidence",

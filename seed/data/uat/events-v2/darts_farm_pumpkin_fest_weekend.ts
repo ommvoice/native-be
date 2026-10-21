@@ -68,7 +68,7 @@ export const dartsFarmPumpkinFestWeekendEventV2: OpportunityEventV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   eventParkingProvision: "car_parking_free",
-  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, byo_picnic, buggy_friendly, dogs_allowed, outdoor_seating, water_refill",
+  eventGeneralFacilities: "toilets, disabled_toilets, baby_changing, benches, picnic_benches, picnic_friendly, buggy_friendly, dogs_allowed, outdoor_seating, water_refill",
   eventChildFacilities: "ice_creams, activity_trail, childrens_trail, swings_slides, play_equipment",
   eventAdultFacilities: "hot_drinks, snacks, drinks_stand, sweet_treats",
   eventVenueDogFacilities: null,

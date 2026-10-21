@@ -56,7 +56,7 @@ export const babacombeModelVillageVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "toilets, dogs_allowed, benches, outdoor_seating, byo_picnic",
+  venueGeneralFacilities: "toilets, dogs_allowed, benches, outdoor_seating, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "hot_drinks, snacks, sweet_treats, outdoor_terrace, hot_cold_food",
   venueDogFacilities: "lead_only, dog_bins",

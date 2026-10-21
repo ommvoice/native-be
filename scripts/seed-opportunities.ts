@@ -94,14 +94,14 @@ async function main(): Promise<void> {
 
     console.log("Seeding opportunity tables...");
 
-    //  await clearTable(TABLES.venues);
-    //  await clearTable(TABLES.routes);
-    //  await clearTable(TABLES.clubs);
-    //  await clearTable(TABLES.events);
-    // await seedTable(TABLES.venues, venues as Record<string, unknown>[]);
-    // await seedTable(TABLES.events, events as Record<string, unknown>[]);
-    // await seedTable(TABLES.clubs, clubs as Record<string, unknown>[]);
-    // await seedTable(TABLES.routes, routes as Record<string, unknown>[]);
+     await clearTable(TABLES.venues);
+     await clearTable(TABLES.routes);
+     await clearTable(TABLES.clubs);
+     await clearTable(TABLES.events);
+    await seedTable(TABLES.venues, venues as Record<string, unknown>[]);
+    await seedTable(TABLES.events, events as Record<string, unknown>[]);
+    await seedTable(TABLES.clubs, clubs as Record<string, unknown>[]);
+    await seedTable(TABLES.routes, routes as Record<string, unknown>[]);
 
   console.log("Done.");
 }

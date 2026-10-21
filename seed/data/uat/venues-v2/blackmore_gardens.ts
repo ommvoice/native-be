@@ -56,7 +56,7 @@ export const blackmoreGardensVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "benches, byo_picnic, water_refill",
+  venueGeneralFacilities: "benches, picnic_friendly, water_refill",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

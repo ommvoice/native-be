@@ -56,7 +56,7 @@ export const donkeySanctuaryVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, disabled_bays, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, outdoor_seating, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, outdoor_seating, dogs_allowed, picnic_friendly",
   venueChildFacilities: "play_equipment, swings_slides, ice_creams, activity_trail",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, drinks_stand, gift_shop",
   venueDogFacilities: "lead_only",

@@ -56,7 +56,7 @@ export const funderParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, bike_racks",
-  venueGeneralFacilities: "benches, byo_picnic",
+  venueGeneralFacilities: "benches, picnic_friendly",
   venueChildFacilities: "ride_on_vehicles, play_equipment, swings_slides, ice_creams",
   venueAdultFacilities: "snacks, drinks_stand",
   venueDogFacilities: null,

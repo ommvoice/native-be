@@ -56,7 +56,7 @@ export const lukeslandGardensVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, disabled_bays",
-  venueGeneralFacilities: "toilets, benches, guided_tour, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, benches, guided_tour, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "hot_drinks, snacks",
   venueDogFacilities: "lead_only",

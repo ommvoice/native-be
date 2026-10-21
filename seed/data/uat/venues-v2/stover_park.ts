@@ -56,7 +56,7 @@ export const stoverParkVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, disabled_toilets, benches, picnic_benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, benches, picnic_benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "lead_only, dog_bins",

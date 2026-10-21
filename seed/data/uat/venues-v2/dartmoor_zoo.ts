@@ -56,7 +56,7 @@ export const dartmoorZooVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: "2A +2C",
   ticketVariantGroupPrice: "67.95",
   venueParkingProvision: "car_parking_free",
-  venueGeneralFacilities: "toilets, disabled_toilets, service_dogs_only, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, service_dogs_only, picnic_friendly",
   venueChildFacilities: "play_equipment",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats",
   venueDogFacilities: null,

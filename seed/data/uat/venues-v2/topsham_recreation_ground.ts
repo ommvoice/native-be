@@ -56,7 +56,7 @@ export const topshamRecreationGroundVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "benches, dogs_allowed, highchairs, byo_picnic",
+  venueGeneralFacilities: "benches, dogs_allowed, highchairs, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "clear_sightlines",
   venueDogFacilities: "dog_bins",

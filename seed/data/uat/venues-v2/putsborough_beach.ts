@@ -56,7 +56,7 @@ export const putsboroughBeachVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, dogs_allowed, showers_changing, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, dogs_allowed, showers_changing, picnic_friendly",
   venueChildFacilities: "ice_creams",
   venueAdultFacilities: "clear_sightlines, hot_cold_food, snacks, drinks_stand, sweet_treats, hot_drinks, gift_shop",
   venueDogFacilities: "lead_only",

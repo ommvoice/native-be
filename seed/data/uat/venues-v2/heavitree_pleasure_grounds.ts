@@ -56,7 +56,7 @@ export const heavitreePleasureGroundsVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "on_street_nearby",
-  venueGeneralFacilities: "toilets, highchairs, indoor_seating, dogs_allowed, outdoor_seating, showers_changing, byo_picnic",
+  venueGeneralFacilities: "toilets, highchairs, indoor_seating, dogs_allowed, outdoor_seating, showers_changing, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, outdoor_terrace",
   venueDogFacilities: "lead_only, dog_bins",

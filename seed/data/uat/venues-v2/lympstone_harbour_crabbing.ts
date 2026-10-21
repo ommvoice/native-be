@@ -56,7 +56,7 @@ export const lympstoneHarbourCrabbingVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_paid, on_street_nearby, bike_racks",
-  venueGeneralFacilities: "dogs_allowed, benches, byo_picnic",
+  venueGeneralFacilities: "dogs_allowed, benches, picnic_friendly",
   venueChildFacilities: null,
   venueAdultFacilities: null,
   venueDogFacilities: null,

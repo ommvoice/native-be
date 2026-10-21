@@ -56,7 +56,7 @@ export const bictonBotanicalParkGardensVenueV2: OpportunityVenueV2SeedInput = {
   ticketVariantDefinitionGroup: null,
   ticketVariantGroupPrice: null,
   venueParkingProvision: "car_parking_free, bike_racks",
-  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, outdoor_seating, benches, dogs_allowed, byo_picnic",
+  venueGeneralFacilities: "toilets, disabled_toilets, baby_changing, picnic_benches, indoor_seating, outdoor_seating, benches, dogs_allowed, picnic_friendly",
   venueChildFacilities: "ice_creams, ride_on_vehicles, swings_slides, soft_play_space, play_equipment",
   venueAdultFacilities: "hot_drinks, hot_cold_food, snacks, sweet_treats, outdoor_terrace, drinks_stand, gift_shop",
   venueDogFacilities: "lead_only",

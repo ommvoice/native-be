@@ -19,7 +19,7 @@ import XLSX from "xlsx";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { type EnumEntry, slugify, matchEnumValue } from "./lib/enum-matching.js";
+import { type EnumEntry, slugify, matchEnumValue, quoteCommaNames } from "./lib/enum-matching.js";
 import { emitTypeFile, type TypeField } from "./lib/emit-type.js";
 import { findColumn, warnMissingColumn, readRowMeta, isDirectRun, type ParsedSheetRow } from "./lib/sheet-columns.js";
 import * as ENUMS from "../seed/data/uat/enums/index.js";
@@ -242,7 +242,7 @@ function parseCell(v: Cell, kind: FieldKind): OutputValue {
     case "enumMulti": {
       const s = cellToStr(v);
       if (!s) return null;
-      const tokens = splitMultiValue(s);
+      const tokens = splitMultiValue(quoteCommaNames(s, ENUM_REGISTRY[kind.enumKey] ?? []));
       if (tokens.length === 0) return null;
       return tokens.map((t) => resolveEnumValue(kind.enumKey, t)).join(", ");
     }

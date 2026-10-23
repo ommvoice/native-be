@@ -1,0 +1,421 @@
+{
+  "note": "Real candidates from app/shared/assets/*.json via RecommendationV2Repository.getOpportunityCandidatesV2, captured with the clock fixed at 2026-10-24 15:00 Europe/London (Saturday) — startTime/endTime are that day's times. Regenerate if the mapping changes; do not hand-edit.",
+  "capturedAtUk": "2026-10-24T15:00 (Saturday)",
+  "candidates": [
+    {
+      "type": "venue",
+      "id": "tenpin_bowling",
+      "name": "Tenpin Bowling",
+      "description": "Tenpin Bowling is a safe bet at Marsh Barton when you need an indoor activity that mixed ages can all do together. It gives enough structure to fill a rainy afternoon, birthday meet-up or post-school treat, without needing everyone to have the same skill level. Younger children can usually join in with lighter balls and help from adults, while older ones get the competition. There are 15+ lanes, so although it's worth calling ahead if you have specific timings in mind, it's unlikely to be a frustrating wait as the arcade/food setup means you can stretch the visit if people are still going or need to kill some time before a lane becomes available.",
+      "postcode": "EX2 8BY",
+      "latitude": "50.7162096405405",
+      "longitude": "-3.53106343111171",
+      "themeSlug": "indoor_entertainment",
+      "themeVariantSlug": "bowling_alley",
+      "ageBands": {
+        "under1": false,
+        "ages1To2": false,
+        "ages3To4": false,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": true,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "tags": [
+        "bowling",
+        "team games",
+        "ten-pin bowling",
+        "lane bumpers",
+        "bowling ramps"
+      ],
+      "physicalSetting": [
+        "inside"
+      ],
+      "weatherSuitability": [
+        "wet_rain",
+        "windy",
+        "snow_ice",
+        "overcast",
+        "storm_heavy_rain",
+        "dry_cold"
+      ],
+      "activeDays": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ],
+      "startTime": "10:00",
+      "endTime": "01:00"
+    },
+    {
+      "type": "venue",
+      "id": "exmouth_beach",
+      "name": "Exmouth Beach",
+      "description": "A broad sandy beach with a long, level promenade, watersports, rock pooling and easy food stops close by. Exmouth Beach offers plenty of variety to shape a visit: sandcastles and paddling on the beach, a seafront walk with scooters or buggies, rock pooling at the right tide, and watersports or adventure golf for older children.",
+      "postcode": "EX8 2AY",
+      "latitude": "50.611461337039",
+      "longitude": "-3.39957315819696",
+      "themeSlug": "coastal_adventures",
+      "themeVariantSlug": "sandy_beach, rnli_beach, dog_friendly_beaches",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": true,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "tags": [
+        "rockpools",
+        "sandy beach",
+        "rock pooling",
+        "swimming",
+        "sandcastles",
+        "watersports",
+        "bodyboarding",
+        "seafront promenade",
+        "beach huts",
+        "fairground rides",
+        "adventure golf",
+        "crabbing"
+      ],
+      "physicalSetting": [
+        "outside"
+      ],
+      "weatherSuitability": [
+        "windy",
+        "sunshine",
+        "snow_ice",
+        "overcast",
+        "dry_mild",
+        "dry_cold",
+        "dry_warm",
+        "dry_hot"
+      ],
+      "activeDays": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ],
+      "startTime": "00:00",
+      "endTime": "24:00"
+    },
+    {
+      "type": "venue",
+      "id": "ocean_softplay",
+      "name": "Ocean Softplay",
+      "description": "Ocean is a large soft play venue on the Exmouth seafront, home to a multi-level frame that caters for children aged 0–11, zoned to suit different ages from the smallest crawlers to confident older climbers. It's big, open (noisy!) and well set up for parents to sit directly alongside the action in the café space rather than watching from a distance. It gets busy during party season and school holidays, but the layout handles numbers well — enclosed with a single entry and exit, easy access to toilets and refreshments, and the bonus of seafront views from the upper levels. A solid rainy-day energy burner that's straightforward to manage from the moment you arrive, but be aware that it's a large, loud and lively setting so if you're in search of something for younger children who would get a bit lost with other larger children charging around, it's something to consider before booking. (Although booking ahead is necessary, you are able to do this from reception if you want to arrive and guage busyness first.)",
+      "postcode": "EX8 2AY",
+      "latitude": "50.6137224705196",
+      "longitude": "-3.41035415595493",
+      "themeSlug": "soft_play",
+      "themeVariantSlug": "large_soft_play",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": false,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "tags": [
+        "drop-slides",
+        "sensory zone",
+        "softplay"
+      ],
+      "physicalSetting": [
+        "inside"
+      ],
+      "weatherSuitability": [
+        "wet_rain",
+        "windy",
+        "sunshine",
+        "snow_ice",
+        "overcast",
+        "storm_heavy_rain",
+        "dry_mild",
+        "dry_cold",
+        "dry_warm",
+        "dry_hot"
+      ],
+      "activeDays": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ],
+      "startTime": "09:00",
+      "endTime": "18:30"
+    },
+    {
+      "type": "route",
+      "id": "exe_estuary_trail_exton_to_lympstone",
+      "name": "Exe Estuary Trail - Exton to Lympstone",
+      "description": "Starting at Exton gives this section a quieter feel and is nice direction to travel when you want Lympstone as the reward at the end: harbour wall for crabbing, village shop, café, pubs, station and Cliff Field play area all close together. Starting at Exton you can use the play area opposite the Puffing Billy as a warm-up before setting off south. Children get the simple pleasure of following the estuary between two villages, with enough railway and birdlife interest to keep it from feeling like “just a path”; birdwatching gets better as you approach Lympstone and the estuary opens out. Good for a gentle cycle, scooter run or buggy walk, especially if you build in a village stop at Lympstone.",
+      "postcode": "EX3 0PR",
+      "latitude": "50.6682733714476",
+      "longitude": "-3.44400239567381",
+      "themeSlug": "wheels_routes",
+      "themeVariantSlug": "quick_spin",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": false,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": true,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "tags": [
+        "estuary",
+        "estuary views",
+        "trains",
+        "train spotting",
+        "Avocet Line",
+        "Royal Marines",
+        "birdwatching",
+        "avocets",
+        "wading birds",
+        "herons",
+        "egrets",
+        "boats",
+        "harbour",
+        "crabbing",
+        "cycling",
+        "balance bikes",
+        "scooters",
+        "pushchair friendly",
+        "flat walks",
+        "village exploring",
+        "playground",
+        "wildlife spotting"
+      ],
+      "physicalSetting": [
+        "outside"
+      ],
+      "weatherSuitability": [
+        "windy",
+        "dry_mild",
+        "dry_cold",
+        "dry_warm",
+        "overcast",
+        "sunshine"
+      ]
+    },
+    {
+      "type": "event",
+      "id": "kia_ora_farm_gardens_3",
+      "name": "Kia-Ora Farm & Gardens",
+      "description": "A charming 10 acre garden set in beautiful countryside in the heart of Devon. The extensively planted Gardens create an idyllic, peaceful setting with vast lawns, large lakes, ponds, bog gardens and various water features including its own waterwheel and mill, a paradise for swans, ducks, geese and endless other wildlife. This is a garden full of character and charm, a wonderful place for children of all ages to enjoy and explore...topped off with homemade cakes and tea.",
+      "postcode": "EX15 1PZ",
+      "latitude": "50.8558063",
+      "longitude": "-3.4097824",
+      "themeSlug": "gardens_outdoor",
+      "themeVariantSlug": "formal_landscape_gardens",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": true,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "startDate": "2026-08-16T00:00:00.000Z",
+      "endDate": "2026-08-16T00:00:00.000Z",
+      "tags": [
+        "Rose gardens",
+        "National Garden Scheme",
+        "peacocks"
+      ],
+      "physicalSetting": [
+        "outside"
+      ],
+      "weatherSuitability": [
+        "sunshine",
+        "overcast",
+        "dry_mild",
+        "dry_cold",
+        "dry_warm",
+        "dry_hot",
+        "windy"
+      ],
+      "startTime": "14:00",
+      "endTime": "17:30"
+    },
+    {
+      "type": "club",
+      "id": "ocean_softplay",
+      "name": "Ocean Softplay",
+      "description": "Ocean is a large lesiure facility on the Exmouth Seafront, home to a large softplay venue which caters for children aged 0-11. A large, airy, open space, the softplay is zoned into areas suited to the littlest to older children up to the age of 11, with multiple levels of play, ballpits, slides, dropslides and nets. It gets busy at the obvious moments, particaurly during party season, but it's well set-up for parents to take a seat in the cafe space directly alongside and keep an easy-eye on things. Enclosed, with one entry/exit, easy access to toilets and refreshments, with the bonus of seafront views, it's an easy reset and rainy day energy burner.",
+      "postcode": "EX8 2AY",
+      "latitude": null,
+      "longitude": null,
+      "themeSlug": "soft_play",
+      "themeVariantSlug": "large_soft_play",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": false,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "startDate": "2026-01-02T00:00:00.000Z",
+      "endDate": "2028-01-02T00:00:00.000Z",
+      "activeDays": [],
+      "tags": [
+        "drop-slides",
+        "sensory zone",
+        "softplay"
+      ],
+      "physicalSetting": [
+        "inside"
+      ],
+      "weatherSuitability": [],
+      "startTime": null,
+      "endTime": null
+    },
+    {
+      "type": "club",
+      "id": "little_gems_playgroup",
+      "name": "Little Gems Playgroup",
+      "description": "Gems is Christ Church Woodbury’s weekly toddler group that runs on Friday mornings during term time. A lovely, local group where you can genuinely arrive knowing no one and be assured of an uplifting welcome by the friendly volunteers that run it; women, mothers and grandparents that 'get it' and a more than happy to get stuck in playing so you can enjoy a cup of tea. A small soft play area, lots of toys, fancy dress, stories, tea, coffee (and usually a lovely homemade cake) will be waiting for you, along with a semi-structured session that allows for free play and flexible activities you'd expect at a toddler group, followed by a story and snacktime.",
+      "postcode": "EX5 1HY",
+      "latitude": "50.6773765398751",
+      "longitude": "-3.39979098897755",
+      "themeSlug": "community_groups",
+      "themeVariantSlug": "play_group",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": false,
+        "ages8To12": false,
+        "over13": false,
+        "adults": false
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "startDate": "2026-11-06T00:00:00.000Z",
+      "endDate": "2026-12-18T00:00:00.000Z",
+      "activeDays": [
+        "friday"
+      ],
+      "tags": [
+        "local playgroup",
+        "cake",
+        "toddler group",
+        "craft",
+        "toys",
+        "soft play",
+        "dressing up",
+        "fancy dress",
+        "storytime",
+        "stories",
+        "mums groups"
+      ],
+      "physicalSetting": [
+        "inside"
+      ],
+      "weatherSuitability": [],
+      "startTime": "09:30",
+      "endTime": "11:00"
+    },
+    {
+      "type": "venue",
+      "id": "bicton_botanical_park_gardens",
+      "name": "Bicton Botanical Park & Gardens",
+      "description": "A 60-acre garden that combines formal grounds, glasshouses, a nature trail and a 25-minute narrow-gauge railway ride through the Pinetum — one of the oldest collections of conifers in the country and creates a bit of wonder for little people. The railway is the headline draw for small children and gives the visit a clear highlight to look forward to; check the running times when you first arrive to avoid any dissapointment of missing the chance to ride! Indoor and outdoor play areas, pedal tractors, the countryside museum and vintage machinery give children enough to switch between without the day feeling like a forced garden walk. The formal Italian Gardens, the cool glasshouses and the walled garden reward children with a bit of patience and curiosity alongside the more active elements. Bicton runs on a membership model and is a genuine local favourite, with a small additional cost for the indoor softplay barn — the kind of place families come back to across different seasons rather than just ticking off once.",
+      "postcode": "EX9 7BJ",
+      "latitude": "50.6643067859318",
+      "longitude": "-3.31037084645952",
+      "themeSlug": "gardens_outdoor",
+      "themeVariantSlug": "botanical_gardens, arboretum",
+      "ageBands": {
+        "under1": true,
+        "ages1To2": true,
+        "ages3To4": true,
+        "ages5To7": true,
+        "ages8To12": true,
+        "over13": true,
+        "adults": true
+      },
+      "skillAreaSlug": null,
+      "skillAreaVariant": null,
+      "tags": [
+        "greenhouses",
+        "softplay",
+        "park",
+        "train",
+        "ducks",
+        "countryside museum",
+        "train ride",
+        "tall trees",
+        "botanical gardens",
+        "woodland railway",
+        "indoor soft play",
+        "outdoor play area",
+        "pedal tractors",
+        "farmland",
+        "vintage machinery",
+        "countryside museum",
+        "nature trail",
+        "bird hide",
+        "historic glasshouses",
+        "formal gardens"
+      ],
+      "physicalSetting": [
+        "mixed_covering"
+      ],
+      "weatherSuitability": [
+        "overcast",
+        "dry_mild",
+        "dry_cold",
+        "dry_warm",
+        "dry_hot",
+        "wet_rain",
+        "sunshine",
+        "windy",
+        "storm_heavy_rain"
+      ],
+      "activeDays": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ],
+      "startTime": "10:00",
+      "endTime": "17:00"
+    }
+  ]
+}

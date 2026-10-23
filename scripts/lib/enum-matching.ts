@@ -63,5 +63,25 @@ export function matchEnumValue<T extends EnumEntry>(candidates: T[], value: stri
   const byName = matchByName(candidates, value);
   if (byName) return byName;
   const bySlug = slugify(value);
-  return candidates.find((c) => c.slug === bySlug);
+  const exactSlug = candidates.find((c) => c.slug === bySlug);
+  if (exactSlug) return exactSlug;
+  // Singular/plural drift ("Water Refills" vs the canonical water_refill) — otherwise a new
+  // near-duplicate slug gets minted and nothing keyed on the canonical one (icons, filters) matches.
+  return candidates.find((c) => c.slug + "s" === bySlug || bySlug + "s" === c.slug);
+}
+
+/**
+ * Wraps enum names that themselves contain commas (e.g. "Indoor games (puzzles, boards)",
+ * "Swings, Slides, Climbing Frames") in double quotes, so a quote-aware comma split keeps each
+ * as one value instead of minting bogus fragments like "indoor_games_puzzles" / "boards".
+ */
+export function quoteCommaNames(raw: string, candidates: EnumEntry[]): string {
+  const names = candidates
+    .map((c) => c.name)
+    .filter((n) => n.includes(","))
+    .sort((a, b) => b.length - a.length);
+  return names.reduce((s, name) => {
+    const pattern = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/,\s*/g, ",\\s*");
+    return s.replace(new RegExp(`(^|,)\\s*${pattern}\\s*(?=,|$)`, "gi"), (_m, lead: string) => `${lead}"${name}"`);
+  }, raw);
 }

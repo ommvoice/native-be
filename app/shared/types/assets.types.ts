@@ -104,6 +104,8 @@ export interface Narrowed {
     }[];
     children: {
         id: string;
+        /** "child" | "adult" | "guest" (ChildRecord.variant) — guests don't count toward the interest share. */
+        variant?: string | null;
         dateOfBirth: Date;
         interestCategories: {
             slug: string;

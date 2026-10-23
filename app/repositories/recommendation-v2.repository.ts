@@ -123,6 +123,11 @@ export function filterOpportunityRecords<T extends Record<string, unknown>>(reco
   });
 }
 
+/** The candidate filter every recommendation/plan/search endpoint uses. */
+export const DEFAULT_CANDIDATE_FILTER: OpportunityRecordFilter = {
+  includeInactive: false, versions: [0,1]
+};
+
 export class RecommendationV2Repository {
   private readonly assets = new AssetsService();
 
@@ -171,6 +176,7 @@ export class RecommendationV2Repository {
 
       return {
         id:                    item.id as string,
+        variant:               (item.variant as string | undefined) ?? null,
         dateOfBirth:           new Date(item.dateOfBirth as string),
         interestCategories:    categorySlugs.map((slug) => ({ slug })),
         interestSubCategories: subCategorySlugs.map((slug) => ({ slug })),
@@ -187,10 +193,10 @@ export class RecommendationV2Repository {
     });
   }
 
-  async getOpportunityCandidatesV2(): Promise<RecommendationV2Candidate[]> {
-    const filter: OpportunityRecordFilter = {
-      includeInactive: false, versions: [0,1]
-    };
+  /** Builds recommendation candidates from every venue/event/club/route. `filter` defaults to
+   * DEFAULT_CANDIDATE_FILTER (what every endpoint uses); scripts/explain-opportunity.ts passes its own to
+   * inspect records the default filter drops. */
+  async getOpportunityCandidatesV2(filter: OpportunityRecordFilter = DEFAULT_CANDIDATE_FILTER): Promise<RecommendationV2Candidate[]> {
 
     const [venuesRaw, eventsRaw, clubsRaw, routesRaw] = await Promise.all([
       this.assets.getAllVenues(),

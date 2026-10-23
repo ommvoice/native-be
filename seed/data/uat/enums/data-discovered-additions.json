@@ -233,10 +233,6 @@
     {
       "name": "Wheelchair Friendly",
       "slug": "wheelchair_friendly"
-    },
-    {
-      "name": "Water Refills",
-      "slug": "water_refills"
     }
   ],
   "ACTIVITY_GROUP_ENUM": [
@@ -287,28 +283,6 @@
     {
       "name": "true",
       "slug": "true"
-    }
-  ],
-  "KIDS_FACILITY_ENUM": [
-    {
-      "name": "Indoor games (puzzles",
-      "slug": "indoor_games_puzzles"
-    },
-    {
-      "name": "boards)",
-      "slug": "boards"
-    },
-    {
-      "name": "Swings",
-      "slug": "swings"
-    },
-    {
-      "name": "Slides",
-      "slug": "slides"
-    },
-    {
-      "name": "Climbing Frames",
-      "slug": "climbing_frames"
     }
   ],
   "SKILL_AREA_VARIANT_ENUM": [

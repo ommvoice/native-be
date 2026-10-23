@@ -64,7 +64,6 @@ function getOpeningStatus(
 export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   const now = new Date();
   const nowParts = AppClock.parts(now);
-  const currentHour = nowParts.hours;
   const currentDay = DAYS[nowParts.weekday]!;
 
   if (opp.opp_type === "venue") {
@@ -76,37 +75,50 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
     }
   }
 
+  const currentTime = AppClock.timeString(now);
+  const today = AppClock.isoDateString(now);
+  // Stored as UK calendar dates at UTC midnight, so the date part compares directly with `today`.
+  const startDay = opp.start_date?.slice(0, 10) ?? null;
+  const endDay = opp.end_date?.slice(0, 10) ?? startDay;
+
   if (opp.opp_type === "club" && opp.club_availability) {
-    const todaySlot = opp.club_availability[currentDay]?.[0] ?? null;
-    if (todaySlot) {
-      const [start, end] = todaySlot.split(/[-–]/).map((s) => s.trim());
-      const currentTime = `${currentHour.toString().padStart(2, "0")}:${nowParts.minutes.toString().padStart(2, "0")}`;
-      if (start && end && currentTime >= start && currentTime < end) {
-        return { variant: "open", message: `Happening Now – ${end}` };
-      }
-      if (start && end && currentTime < start) {
-        return { variant: "soon", message: `Starting Soon ${start} – ${end}` };
-      }
-      return { variant: "closed", message: "Closed Today" };
+    if (endDay && today > endDay) return { variant: "closed", message: "No Upcoming Sessions" };
+    if (startDay && today < startDay) return { variant: "closed", message: `Starts ${formatDay(startDay)}` };
+
+    const [start, end] = splitSlot(slotsFor(opp.club_availability, currentDay)?.[0]);
+    if (start && end && currentTime >= start && currentTime < end) {
+      return { variant: "open", message: `Happening Now – ${end}` };
     }
+    if (start && end && currentTime < start) {
+      return { variant: "soon", message: `Starting Soon ${start} – ${end}` };
+    }
+
+    // No session left today — point at the real next one instead of implying it's today.
+    for (let i = 1; i <= 7; i++) {
+      const dayIdx = (nowParts.weekday + i) % 7;
+      if (endDay && addDays(today, i) > endDay) break;
+      const [nextStart, nextEnd] = splitSlot(slotsFor(opp.club_availability, DAYS[dayIdx]!)?.[0]);
+      if (!nextStart) continue;
+      const label = i === 1 ? "Tomorrow" : DAY_LABELS[dayIdx];
+      return { variant: "closed", message: `Next Session ${label} ${nextStart}${nextEnd ? ` – ${nextEnd}` : ""}` };
+    }
+    return { variant: "closed", message: "No Upcoming Sessions" };
   }
 
-  if (opp.opp_type === "event" && opp.start_date) {
-    const eventDate = new Date(opp.start_date);
-    const isToday = AppClock.isSameCalendarDay(eventDate, now);
-    if (isToday) {
-      const todayTimes = opp.event_times?.[currentDay] ?? opp.event_times?.[capitalize(currentDay)];
-      const [start, end] = todayTimes?.[0]?.split(/[-–]/).map((s2) => s2.trim()) ?? [];
-      const currentTime = `${currentHour.toString().padStart(2, "0")}:${nowParts.minutes.toString().padStart(2, "0")}`;
+  if (opp.opp_type === "event" && startDay) {
+    if (endDay && today > endDay) return { variant: "closed", message: "Event Ended" };
+    if (today < startDay) return { variant: "closed", message: `Starts ${formatDay(startDay)}` };
 
-      if (start && end && currentTime >= start && currentTime < end) {
-        return { variant: "open", message: `Happening Now \u2013 ${end}` };
-      }
-      if (todayTimes && todayTimes.length > 0) {
-        return { variant: "soon", message: `Starting Soon ${todayTimes[0]}` };
-      }
-      return { variant: "soon", message: "Starting Today" };
+    const todayTimes = slotsFor(opp.event_times, currentDay);
+    const [start, end] = splitSlot(todayTimes?.[0]);
+    if (start && end && currentTime >= start && currentTime < end) {
+      return { variant: "open", message: `Happening Now – ${end}` };
     }
+    if (end && currentTime >= end) return { variant: "closed", message: "Finished Today" };
+    if (todayTimes && todayTimes.length > 0) {
+      return { variant: "soon", message: `Starting Soon ${todayTimes[0]}` };
+    }
+    return { variant: "soon", message: "Starting Today" };
   }
 
   if (opp.opp_type === "route") {
@@ -117,11 +129,31 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
     // return { variant: "soon", message: "Opens Soon 06:00" };
   }
 
-  const hash = opp.id.split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
-  const bucket = hash % 3;
-  if (bucket === 0) return { variant: "open", message: "Open Now – 17:00" };
-  if (bucket === 1) return { variant: "soon", message: "Opens Soon 09:00 – 17:00" };
-  return { variant: "closed", message: "Closed Today" };
+  // No real schedule to go on — an empty message hides the banner rather than inventing a status.
+  return { variant: "closed", message: "" };
+}
+
+/** Day-keyed time maps are built from sheet values, so keys can be "monday" or "Monday". */
+function slotsFor(times: Record<string, string[]> | null | undefined, day: string): string[] | undefined {
+  return times?.[day] ?? times?.[capitalize(day)];
+}
+
+function splitSlot(slot: string | undefined): [string | undefined, string | undefined] {
+  const [start, end] = slot?.split(/[-–]/).map((s) => s.trim()) ?? [];
+  return [start || undefined, end || undefined];
+}
+
+function addDays(isoDay: string, days: number): string {
+  const d = new Date(`${isoDay}T00:00:00.000Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** "2026-10-26" -> "Mon 26 Oct" */
+function formatDay(isoDay: string): string {
+  return new Date(`${isoDay}T00:00:00.000Z`).toLocaleDateString("en-GB", {
+    weekday: "short", day: "numeric", month: "short", timeZone: "UTC",
+  });
 }
 
 const MIN_HIGHLIGHTS = 3;

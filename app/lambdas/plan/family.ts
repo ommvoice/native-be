@@ -22,7 +22,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   // not personalisation by location/age/weather. childId (when a family member is
   // tapped) narrows the interest set to just that child instead of the whole family.
   const skipRecommendations = getInitialScore({
-    skipSchedule: true,
+    // skipSchedule: true,
     skipWeather: true,
     skipDistance: true,
   });

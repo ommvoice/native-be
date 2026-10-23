@@ -194,7 +194,7 @@ export class RecommendationV2Service {
       searchRadius: maxMiles
     }
 
-    const scoredData = await this.getItemsWithScore(narrowedParams, skipRecommendations);
+    const scoredData = await this.getItemsWithScoreV2(narrowedParams, skipRecommendations);
 
     return { data: scoredData.data, childrenAges: scoredData.childrenAges };
   }
@@ -288,7 +288,7 @@ export class RecommendationV2Service {
       },
     }
 
-    return this.getItemsWithScore(narrowedParams, skipRecommendations);
+    return this.getItemsWithScoreV2(narrowedParams, skipRecommendations);
   }
 
   async getSearchRecommendations(dto: RecommendationSearchQueryDto) {
@@ -308,7 +308,7 @@ export class RecommendationV2Service {
       ...(dto.searchRadius && { searchRadius: Number(dto.searchRadius) })
     }
 
-    return this.getItemsWithScore(narrowedParams);
+    return this.getItemsWithScoreV2(narrowedParams);
   }
 
   private parseCoords(c: RecommendationV2Candidate): { latitude: number; longitude: number } | null {

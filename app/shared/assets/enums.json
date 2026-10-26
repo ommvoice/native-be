@@ -1478,7 +1478,8 @@
         "club"
       ],
       "interestCategorySlugs": [
-        "nature_exploration"
+        "nature_exploration",
+        "movement_energy"
       ],
       "active": true
     },
@@ -1637,7 +1638,7 @@
         "club"
       ],
       "interestCategorySlugs": [
-        "movement_energy",
+        "creativity_imagination",
         "learning_curiosity"
       ],
       "active": true
@@ -1704,7 +1705,6 @@
         "event"
       ],
       "interestCategorySlugs": [
-        "creativity_imagination",
         "together_time",
         "special_memorable"
       ],

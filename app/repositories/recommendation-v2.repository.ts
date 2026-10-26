@@ -125,7 +125,7 @@ export function filterOpportunityRecords<T extends Record<string, unknown>>(reco
 
 /** The candidate filter every recommendation/plan/search endpoint uses. */
 export const DEFAULT_CANDIDATE_FILTER: OpportunityRecordFilter = {
-  includeInactive: false, versions: [0,1]
+  includeInactive: false, versions: [0,1,2,3]
 };
 
 export class RecommendationV2Repository {

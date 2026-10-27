@@ -92,4 +92,6 @@ export const ashridgeCourtEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Ashridge Court.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

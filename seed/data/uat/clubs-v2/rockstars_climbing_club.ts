@@ -102,4 +102,6 @@ export const rockstarsClimbingClubClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "early_access_introduction, confidence_building, coordination_balance, strength_agility, structured_coaching, mixed_ability_sessions, purpose_built_facilities, climbing, all_weather_options",
   clubExtraKit: "activity_specific_clothing",
   image: "Rockstars Climbing Club.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

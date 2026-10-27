@@ -77,4 +77,6 @@ export const barleymowsCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Barleymows Farm Shop.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

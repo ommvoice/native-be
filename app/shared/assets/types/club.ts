@@ -102,4 +102,6 @@ export interface Club {
   clubAttractions: string | null;
   clubExtraKit: string | null;
   image: string | null;
+  partnerCode: string | null;
+  regularTimetabled: boolean | null;
 }

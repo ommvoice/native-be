@@ -77,4 +77,6 @@ export const shaldonBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "beach_toys, sand_toys, towels, water_shoes, wetsuits, swimming_kit, wetsuit_boots",
   image: "Shaldon Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const theLostTempleEscapeRoomVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "The Lost Temple.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

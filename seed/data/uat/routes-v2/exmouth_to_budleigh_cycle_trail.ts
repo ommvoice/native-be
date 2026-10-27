@@ -45,4 +45,6 @@ export const exmouthToBudleighCycleTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Exmouth to Budleigh Cycle Route.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

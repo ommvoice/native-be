@@ -77,4 +77,6 @@ export const geoplaySeafrontParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Geoplay Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

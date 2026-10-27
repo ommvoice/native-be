@@ -45,4 +45,6 @@ export const fingleBridgeRiverWalk5MileLoopRouteV2: OpportunityRouteV2SeedInput 
   routeExtraKit: "sling_carrier, toddler_carrier, sturdy_footwear",
   image: "Fingle Bridge 5 Mile Loop.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

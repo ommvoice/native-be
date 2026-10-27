@@ -77,4 +77,6 @@ export const sidmouthLibraryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Sidmouth Library.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

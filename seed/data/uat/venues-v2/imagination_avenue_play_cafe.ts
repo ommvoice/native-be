@@ -77,4 +77,6 @@ export const imaginationAvenuePlayCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Imagination Play Cafe.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

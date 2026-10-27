@@ -102,4 +102,6 @@ export const swimDevonGroupLessonStages17LympstoneClubV2: OpportunityClubV2SeedI
   clubAttractions: "early_access_introduction, skill_progression, confidence_building, strength_agility, structured_coaching, mixed_ability_sessions, swimming",
   clubExtraKit: "swimming_kit, towels, dry_bags",
   image: "Swim Devon.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

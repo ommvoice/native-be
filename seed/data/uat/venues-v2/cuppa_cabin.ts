@@ -77,4 +77,6 @@ export const cuppaCabinVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Cuppa Cabin.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

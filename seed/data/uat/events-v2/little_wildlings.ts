@@ -92,4 +92,6 @@ export const littleWildlingsEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: "novice",
   image: "Wildlings Nature Play.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const oceanBowlingVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Ocean Bowling.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

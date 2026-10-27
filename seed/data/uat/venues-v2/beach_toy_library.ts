@@ -77,4 +77,6 @@ export const beachToyLibraryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Beach Toy Library.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

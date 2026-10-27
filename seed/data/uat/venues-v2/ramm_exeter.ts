@@ -77,4 +77,6 @@ export const rammExeterVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "RAMM.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const haldonForestButterflyTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Haldon Forest Butterfly.jpeg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

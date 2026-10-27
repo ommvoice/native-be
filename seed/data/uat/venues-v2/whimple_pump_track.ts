@@ -77,4 +77,6 @@ export const whimplePumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Whimple Pump Track.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

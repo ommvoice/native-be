@@ -102,4 +102,6 @@ export const monquaysClimbingClubClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "confidence_building, coordination_balance, strength_agility, structured_coaching, mixed_ability_sessions, purpose_built_facilities, climbing, all_weather_options, skill_progression, non_competitive_options",
   clubExtraKit: "activity_specific_clothing",
   image: "Monquays Climbing Club.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

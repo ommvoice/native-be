@@ -77,4 +77,6 @@ export const killertonEstateNtVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Killerton.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

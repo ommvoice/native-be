@@ -77,4 +77,6 @@ export const manstoneParkPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Manstone Play Area.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

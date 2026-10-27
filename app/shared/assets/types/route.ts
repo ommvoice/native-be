@@ -44,5 +44,7 @@ export interface Route {
   routeAttractions: string | null;
   routeExtraKit: string | null;
   image: string | null;
+  partnerCode: string | null;
+  regularTimetabled: boolean | null;
   routeCountry: string | null;
 }

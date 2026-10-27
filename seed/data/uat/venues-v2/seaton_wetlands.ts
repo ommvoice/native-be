@@ -77,4 +77,6 @@ export const seatonWetlandsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, binoculars",
   image: "Seaton Wetlands.jpg",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

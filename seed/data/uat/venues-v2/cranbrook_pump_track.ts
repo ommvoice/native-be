@@ -77,4 +77,6 @@ export const cranbrookPumpTrackVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Cranbrook Pump Track.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

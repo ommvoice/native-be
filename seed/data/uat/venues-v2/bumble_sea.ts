@@ -77,4 +77,6 @@ export const bumbleSeaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Bumble and Sea.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

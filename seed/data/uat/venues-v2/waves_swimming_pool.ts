@@ -77,4 +77,6 @@ export const wavesSwimmingPoolVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Waves Swim.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

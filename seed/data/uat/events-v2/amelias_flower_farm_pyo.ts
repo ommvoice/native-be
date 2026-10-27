@@ -92,4 +92,6 @@ export const ameliasFlowerFarmPyoEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Amelia_s PYO Flowers.JPG",
   ticketingRequirement: false,
+  partnerCode: null,
+  regularTimetabled: null,
 };

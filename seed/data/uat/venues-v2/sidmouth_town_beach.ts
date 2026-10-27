@@ -77,4 +77,6 @@ export const sidmouthTownBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "fishing_nets",
   image: "Sidmouth Town Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

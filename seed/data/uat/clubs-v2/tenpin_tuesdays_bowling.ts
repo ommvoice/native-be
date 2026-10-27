@@ -102,4 +102,6 @@ export const tenpinTuesdaysBowlingClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "bowling_lanes, bar_licensed_venue, arcade_games, pool_or_snooker_table, laser_tag, cafe_or_restaurant",
   clubExtraKit: null,
   image: "Tenpin Bowling.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

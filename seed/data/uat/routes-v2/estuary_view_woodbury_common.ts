@@ -45,4 +45,6 @@ export const estuaryViewWoodburyCommonRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Woodbury Estuary View.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

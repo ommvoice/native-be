@@ -77,4 +77,6 @@ export const woodburySaltertonPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Woodbury Salterton Play Area.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const budleighNatureReserveVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "binoculars",
   image: "Budleigh Nature Reserve.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

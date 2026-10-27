@@ -76,5 +76,7 @@ export interface Venue {
   venueAttractions: string | null;
   venueExtraKit: string | null;
   image: string | null;
+  partnerCode: string | null;
+  regularTimetabled: boolean | null;
   venueBankHolidays: string | null;
 }

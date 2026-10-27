@@ -45,4 +45,6 @@ export const powderhamCastleGroundsRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Powderham Grounds.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

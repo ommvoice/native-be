@@ -77,4 +77,6 @@ export const hangtimeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Hangtime.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

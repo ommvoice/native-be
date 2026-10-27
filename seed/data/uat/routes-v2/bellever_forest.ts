@@ -45,4 +45,6 @@ export const belleverForestRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "water_shoes, dry_bags, sling_carrier",
   image: "Bellever Forest Walk.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

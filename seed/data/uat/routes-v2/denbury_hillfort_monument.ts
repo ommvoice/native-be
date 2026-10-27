@@ -45,4 +45,6 @@ export const denburyHillfortMonumentRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Denbury Hillfort Momument.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

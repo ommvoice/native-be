@@ -77,4 +77,6 @@ export const chudleighSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Chudleigh Skate Park.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

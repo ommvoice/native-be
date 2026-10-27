@@ -77,4 +77,6 @@ export const tenpinEscapeRoomsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Tenpin Escape Rooms.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

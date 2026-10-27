@@ -92,4 +92,6 @@ export const thornesFarmPyoEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Thorne_s Farm PYO.JPG",
   ticketingRequirement: false,
+  partnerCode: null,
+  regularTimetabled: null,
 };

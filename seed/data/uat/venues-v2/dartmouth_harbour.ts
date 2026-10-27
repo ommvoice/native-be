@@ -77,4 +77,6 @@ export const dartmouthHarbourVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "fishing_rods_bait, fishing_nets",
   image: "Dartmouth Harbour.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

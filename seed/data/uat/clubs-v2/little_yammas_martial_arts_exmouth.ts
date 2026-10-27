@@ -102,4 +102,6 @@ export const littleYammasMartialArtsExmouthClubV2: OpportunityClubV2SeedInput = 
   clubAttractions: "early_access_introduction, confidence_building, coordination_balance, mixed_ability_sessions, friendly_competition, martial_arts",
   clubExtraKit: "activity_specific_clothing",
   image: "Little Yammas Martial Arts Exmouth.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

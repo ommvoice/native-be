@@ -77,4 +77,6 @@ export const woolacombeBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "wetsuits, sand_toys, beach_toys, towels, swimming_kit",
   image: "Woolacombe Beach.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

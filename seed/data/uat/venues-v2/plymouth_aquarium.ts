@@ -77,4 +77,6 @@ export const plymouthAquariumVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Plymouth Aquarium.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

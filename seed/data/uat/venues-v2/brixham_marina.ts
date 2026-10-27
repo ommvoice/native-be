@@ -77,4 +77,6 @@ export const brixhamMarinaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "fishing_nets, fishing_rods_bait",
   image: "Brixham Marina.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

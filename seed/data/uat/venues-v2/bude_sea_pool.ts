@@ -77,4 +77,6 @@ export const budeSeaPoolVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "swimming_kit, towels, water_shoes",
   image: "Bude Lido.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

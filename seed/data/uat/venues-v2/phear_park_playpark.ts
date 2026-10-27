@@ -77,4 +77,6 @@ export const phearParkPlayparkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Phear Park Play Park.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

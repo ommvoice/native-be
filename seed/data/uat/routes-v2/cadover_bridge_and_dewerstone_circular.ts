@@ -45,4 +45,6 @@ export const cadoverBridgeAndDewerstoneCircularRouteV2: OpportunityRouteV2SeedIn
   routeExtraKit: "sling_carrier, toddler_carrier, sturdy_footwear, waterproofs",
   image: "Cadover Bridge.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

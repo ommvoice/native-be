@@ -77,4 +77,6 @@ export const manstoneSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Manstone Skate Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

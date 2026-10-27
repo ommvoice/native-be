@@ -77,4 +77,6 @@ export const orccombePointVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "swimming_kit, towels, water_shoes, beach_toys, sand_toys, fishing_nets, wetsuit_boots, wetsuits",
   image: "Orccombe Point Beach Exmouth.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

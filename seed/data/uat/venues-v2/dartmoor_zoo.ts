@@ -77,4 +77,6 @@ export const dartmoorZooVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Dartmoor Zoo.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

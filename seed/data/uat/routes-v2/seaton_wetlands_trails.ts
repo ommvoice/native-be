@@ -45,4 +45,6 @@ export const seatonWetlandsTrailsRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "xcountry_buggy, sling_carrier, binoculars",
   image: "Seaton Wetlands Routes.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

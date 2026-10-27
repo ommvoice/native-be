@@ -77,4 +77,6 @@ export const jacobsLadderBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sling_carrier, toddler_carrier, xcountry_buggy, fishing_nets",
   image: "Jacobs Ladder Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

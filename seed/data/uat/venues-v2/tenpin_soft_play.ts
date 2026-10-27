@@ -77,4 +77,6 @@ export const tenpinSoftPlayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Tenpin Softplay.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

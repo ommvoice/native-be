@@ -45,4 +45,6 @@ export const blackburyCampBluebellWalkRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Blackberry Camp Bluebell Walk.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

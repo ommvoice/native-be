@@ -77,4 +77,6 @@ export const oceanSoftplayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Ocean Softplay.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

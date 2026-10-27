@@ -77,4 +77,6 @@ export const theCoffeeBankVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "The Coffee Bank.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

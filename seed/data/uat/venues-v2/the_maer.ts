@@ -77,4 +77,6 @@ export const theMaerVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "The Maer.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

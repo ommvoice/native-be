@@ -92,4 +92,6 @@ export const greendalePumpkinPatchEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Greendale Pumpkin Patch.JPG",
   ticketingRequirement: false,
+  partnerCode: null,
+  regularTimetabled: null,
 };

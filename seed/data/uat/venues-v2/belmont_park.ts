@@ -77,4 +77,6 @@ export const belmontParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Belmont Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

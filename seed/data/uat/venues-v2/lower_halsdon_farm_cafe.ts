@@ -77,4 +77,6 @@ export const lowerHalsdonFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Lower Halsdon Farm Cafe.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

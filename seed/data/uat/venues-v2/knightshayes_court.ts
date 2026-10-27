@@ -77,4 +77,6 @@ export const knightshayesCourtVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Knightshayes.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

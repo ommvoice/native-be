@@ -45,4 +45,6 @@ export const exeEstuaryTrailLympstoneToLowerHalsdonFarmRouteV2: OpportunityRoute
   routeExtraKit: null,
   image: "Exe Estuary Trail - Lympstone to Exmouth.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const clipnclimbAtExeterQuayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Clip'n'climb Exeter Quay.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

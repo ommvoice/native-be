@@ -77,4 +77,6 @@ export const tenpinLaserTagVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Tenpin Laser Tag.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

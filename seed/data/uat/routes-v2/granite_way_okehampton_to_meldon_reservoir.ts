@@ -45,4 +45,6 @@ export const graniteWayOkehamptonToMeldonReservoirRouteV2: OpportunityRouteV2See
   routeExtraKit: null,
   image: "Granite Way.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

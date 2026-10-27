@@ -77,4 +77,6 @@ export const orangeElephantSummerMeadowPlayAreaVenueV2: OpportunityVenueV2SeedIn
   venueExtraKit: "sand_toys",
   image: "Orange Elephant.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

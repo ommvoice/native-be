@@ -77,4 +77,6 @@ export const tenpinArcadeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Tenpin Arcade.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

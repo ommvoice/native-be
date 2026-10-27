@@ -77,4 +77,6 @@ export const riverOtterRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels, swimming_kit, warm_change_of_clothes, xcountry_buggy, sling_carrier, toddler_carrier",
   image: "River Otter River Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

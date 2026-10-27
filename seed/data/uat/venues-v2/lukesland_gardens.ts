@@ -77,4 +77,6 @@ export const lukeslandGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Lukesland Gardens.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -92,4 +92,6 @@ export const pumpkinFestHalfTermEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Pumpkinfest.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

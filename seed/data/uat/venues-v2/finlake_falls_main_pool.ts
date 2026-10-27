@@ -77,4 +77,6 @@ export const finlakeFallsMainPoolVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Finlake Pool.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const bictonBotanicalParkGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Bicton Park.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

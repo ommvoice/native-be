@@ -42,4 +42,6 @@ export const beerToBranscombeRouteV22: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Beer to Branscombe.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

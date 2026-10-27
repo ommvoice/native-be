@@ -77,4 +77,6 @@ export const okehamptonCastleVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Okehampton Castle.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

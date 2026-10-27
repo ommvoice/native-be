@@ -45,4 +45,6 @@ export const stoverCountryParkRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "binoculars",
   image: "Stover Park.jpeg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const riverDartCountryParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels, swimming_kit, fishing_nets, sturdy_footwear",
   image: "River Dart Country Park.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const danesWoodRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Danes Wood.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

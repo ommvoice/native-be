@@ -77,4 +77,6 @@ export const dartingtonTrustGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Dartington Hall Gardens.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

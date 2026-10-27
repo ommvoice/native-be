@@ -45,4 +45,6 @@ export const dewerstoneWoodRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "sling_carrier, toddler_carrier, sturdy_footwear, waterproofs",
   image: "Dewerstone.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

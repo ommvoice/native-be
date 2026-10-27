@@ -45,4 +45,6 @@ export const killertonEstateRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Killerton Estate.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const meldonReservoirRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
   image: "Meldon Reservoir.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

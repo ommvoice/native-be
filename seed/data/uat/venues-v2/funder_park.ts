@@ -77,4 +77,6 @@ export const funderParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Funder Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const manorGardensExmouthVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Manor Gardens Exmouth.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

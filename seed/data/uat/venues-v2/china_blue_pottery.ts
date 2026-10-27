@@ -77,4 +77,6 @@ export const chinaBluePotteryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "China Blue.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

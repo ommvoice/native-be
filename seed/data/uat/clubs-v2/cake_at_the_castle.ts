@@ -102,4 +102,6 @@ export const cakeAtTheCastleClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "welcoming_space, toys_toy_corners, refreshments_provided, local_parent_hangout, like_minded_families, relaxed_child_friendly_setting, play_areas_or_equipment, craft_tables_or_activities, newbie_friendly",
   clubExtraKit: null,
   image: "Cake At Castle GMC.JPG",
+  partnerCode: "P001",
+  regularTimetabled: true,
 };

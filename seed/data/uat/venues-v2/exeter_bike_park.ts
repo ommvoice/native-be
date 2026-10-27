@@ -77,4 +77,6 @@ export const exeterBikeParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exeter Bike Park.jpeg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

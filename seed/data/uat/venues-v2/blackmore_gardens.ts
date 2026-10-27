@@ -77,4 +77,6 @@ export const blackmoreGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Blackmore Gardens.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

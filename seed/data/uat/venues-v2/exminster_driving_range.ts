@@ -77,4 +77,6 @@ export const exminsterDrivingRangeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exminster Driving Range.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

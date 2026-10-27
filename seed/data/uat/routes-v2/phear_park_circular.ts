@@ -45,4 +45,6 @@ export const phearParkCircularRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Phear Park.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

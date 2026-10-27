@@ -77,4 +77,6 @@ export const combestoneTorVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sling_carrier, toddler_carrier, sturdy_footwear, kite_play",
   image: "Combestone.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const whimplePlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Whimple Play Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

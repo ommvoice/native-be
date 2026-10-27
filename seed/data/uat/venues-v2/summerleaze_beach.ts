@@ -77,4 +77,6 @@ export const summerleazeBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys, beach_toys, fishing_nets, wetsuits, swimming_kit, towels",
   image: "Summerleaze Beach.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const manstoneBasketballCourtsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Manstone Basketball Courts.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const bumbleBeeManorGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Bumble and Bee Manor Gardens.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

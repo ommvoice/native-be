@@ -45,4 +45,6 @@ export const exeEstuaryTrailExmouthToExtonRouteV2: OpportunityRouteV2SeedInput =
   routeExtraKit: null,
   image: "Exe Estuary - Exmouth to Exton.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

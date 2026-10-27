@@ -77,4 +77,6 @@ export const shellyBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Shelly Beach.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -303,6 +303,9 @@ const COLUMNS: ColumnConfig[] = [
   { sheetField: "event_skill_area_variant", outputField: "eventSkillAreaVariant", kind: enumMulti("SKILL_AREA_VARIANT_ENUM") },
   { sheetField: "event_ability_level", outputField: "eventAbilityLevel", kind: enumMulti("ABILITY_LEVEL_ENUM") },
   { sheetField: "image", outputField: "image", kind: { kind: "scalar" } },
+  // Admin-tool columns (newData3 onwards; only Events + Clubs have them so far) — null when absent.
+  { sheetField: "partner_code", outputField: "partnerCode", kind: { kind: "scalar" } },
+  { sheetField: "regular_timetabled", outputField: "regularTimetabled", kind: { kind: "bool" } },
 ];
 
 // ── Row parsing ────────────────────────────────────────────────────────────────

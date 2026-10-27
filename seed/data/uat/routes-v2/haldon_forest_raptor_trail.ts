@@ -45,4 +45,6 @@ export const haldonForestRaptorTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Haldon Raptor Trail.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

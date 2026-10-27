@@ -77,4 +77,6 @@ export const cherryBrookRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels",
   image: "Cherry Brook River.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const mincingLakeValleyParkRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Mincing Lake Valley Park.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

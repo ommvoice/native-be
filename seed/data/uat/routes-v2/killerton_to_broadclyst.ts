@@ -45,4 +45,6 @@ export const killertonToBroadclystRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Killerton to Broadclyst.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const greendaleFarmKitchenVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Greendale Kitchen.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

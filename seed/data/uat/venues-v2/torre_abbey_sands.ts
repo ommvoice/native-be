@@ -77,4 +77,6 @@ export const torreAbbeySandsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Torquay Beach.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

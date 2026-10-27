@@ -45,4 +45,6 @@ export const haldonForestDiscoveryTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier, wellies, sturdy_footwear",
   image: "Haldon Discovery Trail Walk.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

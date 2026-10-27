@@ -45,4 +45,6 @@ export const shellyBayToOrcombePointRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Exmouth Seafront Ride.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

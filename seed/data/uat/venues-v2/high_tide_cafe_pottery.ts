@@ -77,4 +77,6 @@ export const highTideCafePotteryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "High Tide Pottery.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const woodburyVillagePlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Woodbury Village Green Play Area.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const riseBakeryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Rise Bakery.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

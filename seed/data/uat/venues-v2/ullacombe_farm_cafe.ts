@@ -77,4 +77,6 @@ export const ullacombeFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Ullacombe Farm Cafe.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

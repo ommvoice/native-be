@@ -45,4 +45,6 @@ export const exeEstuaryTrailLympstoneToExtonRouteV2: OpportunityRouteV2SeedInput
   routeExtraKit: null,
   image: "Exe Estuary Trail - Lympstone to Exton.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

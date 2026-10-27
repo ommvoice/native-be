@@ -77,4 +77,6 @@ export const chardNatureReserveVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "binoculars, xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Chard Nature Reserve.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const littleSandsIndoorBeachPlayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys",
   image: "Little Sands.jpeg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

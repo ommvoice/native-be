@@ -90,7 +90,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Ashridge Court.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens",
@@ -183,7 +185,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_2",
@@ -276,7 +280,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_3",
@@ -369,7 +375,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_4",
@@ -462,7 +470,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_5",
@@ -555,7 +565,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_6",
@@ -648,7 +660,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kia_ora_farm_gardens_7",
@@ -741,7 +755,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Kia-Ora Farm & Gardens.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "goren_farm",
@@ -834,7 +850,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Goren Farm.jpg",
-    "ticketingRequirement": false
+    "ticketingRequirement": false,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "goren_farm_2",
@@ -927,7 +945,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Goren Farm.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "thornes_farm_pyo",
@@ -1020,7 +1040,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Thorne_s Farm PYO.JPG",
-    "ticketingRequirement": false
+    "ticketingRequirement": false,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "amelias_flower_farm_pyo",
@@ -1113,7 +1135,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Amelia_s PYO Flowers.JPG",
-    "ticketingRequirement": false
+    "ticketingRequirement": false,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_wildlings",
@@ -1206,7 +1230,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": "novice",
     "image": "Wildlings Nature Play.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "darts_farm_pumpkin_fest_half_term_fun",
@@ -1299,7 +1325,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Darts Farm Pumpkin.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "darts_farm_pumpkin_fest_weekend",
@@ -1392,7 +1420,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Darts Farm Pumpkin.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "pumpkin_fest_half_term",
@@ -1485,7 +1515,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Pumpkinfest.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "pumpkin_fest_strawberry_fields",
@@ -1578,7 +1610,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Pumpkinfest.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "sanctuary_flowers",
@@ -1671,7 +1705,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Sanctuary Flowers.JPG",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "greendale_pumpkin_patch",
@@ -1764,7 +1800,9 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Greendale Pumpkin Patch.JPG",
-    "ticketingRequirement": false
+    "ticketingRequirement": false,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "amelias_flowers",
@@ -1857,6 +1895,8 @@
     "eventSkillAreaVariant": null,
     "eventAbilityLevel": null,
     "image": "Amelia_s PYO Flowers.jpg",
-    "ticketingRequirement": true
+    "ticketingRequirement": true,
+    "partnerCode": null,
+    "regularTimetabled": null
   }
 ]

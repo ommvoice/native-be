@@ -77,4 +77,6 @@ export const candysFieldPlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Candy's Field Play Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

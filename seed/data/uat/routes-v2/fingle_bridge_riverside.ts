@@ -45,4 +45,6 @@ export const fingleBridgeRiversideRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Fingle Bridge Riverside.jpeg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

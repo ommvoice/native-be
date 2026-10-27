@@ -45,4 +45,6 @@ export const tottifordAndTrenchfordReservoirRouteV2: OpportunityRouteV2SeedInput
   routeExtraKit: "sling_carrier, toddler_carrier, sturdy_footwear, wellies",
   image: "Tottiford Reservoir.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

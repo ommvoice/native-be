@@ -77,4 +77,6 @@ export const wildwoodEscotVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
   image: "Wildwood.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

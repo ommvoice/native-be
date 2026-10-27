@@ -45,4 +45,6 @@ export const woodburyCommonRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Woodbury Common 1.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

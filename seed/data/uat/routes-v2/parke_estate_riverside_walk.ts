@@ -45,4 +45,6 @@ export const parkeEstateRiversideWalkRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "water_shoes, dry_bags, warm_clothes",
   image: "Parke River.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

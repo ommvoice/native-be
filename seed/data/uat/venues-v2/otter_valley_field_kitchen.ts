@@ -77,4 +77,6 @@ export const otterValleyFieldKitchenVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Otter Valley Field Kitchen.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

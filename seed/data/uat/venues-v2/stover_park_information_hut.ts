@@ -77,4 +77,6 @@ export const stoverParkInformationHutVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Stover Country Park Hut.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

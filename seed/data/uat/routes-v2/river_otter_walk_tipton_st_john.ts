@@ -45,4 +45,6 @@ export const riverOtterWalkTiptonStJohnRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "sling_carrier, toddler_carrier, towels, water_shoes, fishing_nets, wetsuit_boots",
   image: "River Otter Walk.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

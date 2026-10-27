@@ -93,7 +93,7 @@ export const teamNoSleepBabyGroupClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: true,
   clubActivityGroup: "low_effort",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "false",
+  clubSkillArea: "swimming_skill",
   clubSkillAreaVariant: null,
   clubAbilityLevel: null,
   clubInterestTags: "soft mats, low level toys, tummy time, free play, social connection, baby focused, baby group, baby toys",
@@ -102,4 +102,6 @@ export const teamNoSleepBabyGroupClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "tactile_materials, quiet_environment, soft_lighting",
   clubExtraKit: null,
   image: "Baby Group Club.JPG",
+  partnerCode: "P001",
+  regularTimetabled: true,
 };

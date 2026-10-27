@@ -77,4 +77,6 @@ export const budleighSaltertonBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "wetsuit_boots, binoculars, water_shoes",
   image: "Budleigh Salterton Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

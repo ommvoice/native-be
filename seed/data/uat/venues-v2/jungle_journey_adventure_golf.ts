@@ -77,4 +77,6 @@ export const jungleJourneyAdventureGolfVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Jungle Journey Golf.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

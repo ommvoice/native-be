@@ -77,4 +77,6 @@ export const mansandsBeachNtVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sling_carrier, toddler_carrier, swimming_kit, towels, water_shoes, wetsuit_boots",
   image: "Mansands Beach.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

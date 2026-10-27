@@ -77,4 +77,6 @@ export const sandyBayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys",
   image: "Sandy Bay Park.JPG",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

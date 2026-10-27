@@ -77,4 +77,6 @@ export const greenwayNtVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Greenway.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const avonReservoirShortRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "waterproofs, sturdy_footwear",
   image: "Avon Dam.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

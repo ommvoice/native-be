@@ -77,4 +77,6 @@ export const houseOfMarblesVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "House of Marbles.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -102,4 +102,6 @@ export const robinWoodForestSchoolUnder5sClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces",
   clubExtraKit: null,
   image: "Robin Wood.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

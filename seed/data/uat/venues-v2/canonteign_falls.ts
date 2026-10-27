@@ -77,4 +77,6 @@ export const canonteignFallsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "toddler_carrier, sling_carrier, water_shoes, activity_specific_clothing",
   image: "Canonteign Falls.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

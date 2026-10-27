@@ -77,4 +77,6 @@ export const totnesRareBreedsFarmVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Totnes Rare Breeds Farm.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

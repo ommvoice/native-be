@@ -77,4 +77,6 @@ export const exeFootgolfVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exe Footgolf.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

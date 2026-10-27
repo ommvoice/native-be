@@ -102,4 +102,6 @@ export const teenagerTuesdayAtRobinWoodClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces, guided_outdoor_learning_prompts, fire_pits_when_part_of_structured_sessions",
   clubExtraKit: null,
   image: "Teenager Tuesdays.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

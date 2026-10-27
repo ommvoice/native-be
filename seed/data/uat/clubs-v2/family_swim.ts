@@ -102,4 +102,6 @@ export const familySwimClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "confidence_building, non_competitive_options, all_weather_options, swimming",
   clubExtraKit: "swimming_kit, towels",
   image: "Family Swim.jpg",
+  partnerCode: "P001",
+  regularTimetabled: true,
 };

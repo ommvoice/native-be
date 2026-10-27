@@ -92,4 +92,6 @@ export const dartsFarmPumpkinFestHalfTermFunEventV2: OpportunityEventV2SeedInput
   eventAbilityLevel: null,
   image: "Darts Farm Pumpkin.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const otteryStMaryLibraryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Ottery St Mary Library.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

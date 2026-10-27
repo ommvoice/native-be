@@ -77,4 +77,6 @@ export const lympstoneVillageBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "fishing_nets",
   image: "Lympstone Village Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

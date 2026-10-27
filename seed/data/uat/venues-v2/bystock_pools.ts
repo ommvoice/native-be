@@ -77,4 +77,6 @@ export const bystockPoolsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Bystock Pools.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

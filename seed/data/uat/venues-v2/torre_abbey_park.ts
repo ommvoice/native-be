@@ -77,4 +77,6 @@ export const torreAbbeyParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Riveria Gardens.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

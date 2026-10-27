@@ -77,4 +77,6 @@ export const homeFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Home Farm Cafe.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const decoyParkRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Decoy Park Walk.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

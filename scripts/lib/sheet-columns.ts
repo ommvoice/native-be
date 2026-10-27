@@ -28,8 +28,12 @@ export function findColumn(colIdx: Map<string, number>, field: string): number |
 
 const warnedMissing = new Set<string>();
 
+/** Columns only some sheets have (newer admin-tool exports) — read as null without a warning when absent. */
+export const OPTIONAL_COLUMNS: ReadonlySet<string> = new Set(["partner_code", "regular_timetabled"]);
+
 /** A column the parser expects is absent from this sheet (e.g. removed in a newer export) — read as null, warn once. */
 export function warnMissingColumn(sheet: string, field: string): void {
+  if (OPTIONAL_COLUMNS.has(field)) return;
   const key = `${sheet}:${field}`;
   if (warnedMissing.has(key)) return;
   warnedMissing.add(key);

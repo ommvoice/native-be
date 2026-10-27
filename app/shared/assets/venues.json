@@ -75,7 +75,9 @@
     "venueAttractions": "farm_animals_nearby, combined_with_a_walk_or_attraction, colouring",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Amelias Flower Farm Cafe.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "babacombe_model_village",
@@ -153,7 +155,9 @@
     "venueAttractions": "themed_environments, immersive_settings, shared_imaginative_spaces",
     "venueExtraKit": null,
     "image": "Babacombe Model Village.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "barleymows_cafe",
@@ -231,7 +235,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, space_for_children_to_move_a_little, play_area_or_outdoor_play_space, outdoor_seating_or_garden, rural_or_scenic_setting",
     "venueExtraKit": null,
     "image": "Barleymows Farm Shop.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "beach_toy_library",
@@ -309,7 +315,9 @@
     "venueAttractions": "guided_outdoor_learning_prompts, immersive_natural_surroundings, quiet_or_low_intervention_spaces",
     "venueExtraKit": null,
     "image": "Beach Toy Library.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "becky_falls_woodland_park",
@@ -387,7 +395,9 @@
     "venueAttractions": "animals_or_animal_experiences, discovery_trails, play_or_activity_zones, landmark_features, water_features, scenic_or_dramatic_settings, themed_trails_e_g_halloween_christmas_easter",
     "venueExtraKit": null,
     "image": "Becky Falls.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "beer_beach",
@@ -465,7 +475,9 @@
     "venueAttractions": "seaweed_beds, boat_trips_nearby, dog_friendly_seasonal_leads, toilets_nearby, coves_inlets",
     "venueExtraKit": "water_shoes, wetsuit_boots, wetsuits, swimming_kit, towels",
     "image": "Beer Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bellever_river_beach",
@@ -543,7 +555,9 @@
     "venueAttractions": "deep_water_or_plunge_pools, shallow_water, paddling_spots, natural_swimming_spots, wildlife_spotting, river_beach, national_park",
     "venueExtraKit": "water_shoes, towels",
     "image": "Bellever River Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "belmont_park",
@@ -621,7 +635,9 @@
     "venueAttractions": "climbing_frames, slides, swings, springers_rockers, tunnels_and_crawl_spaces, open_grass_running_space, sensory_play_features",
     "venueExtraKit": null,
     "image": "Belmont Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bicton_botanical_park_gardens",
@@ -699,7 +715,9 @@
     "venueAttractions": "water_features_or_fountains, room_to_run_freely, statues_sculptures, greenhouses_tropical_plants, designed_or_sculpted_landscapes, seasonal_foliage, seasonal_or_curated_displays, lakes_or_wildlife_ponds, meandering_paths, hidden_corners_passageways_gates_gardens, historic_features, biomes_unusual_environments, conservation_displays_or_learning",
     "venueExtraKit": null,
     "image": "Bicton Park.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "blackmore_gardens",
@@ -777,7 +795,9 @@
     "venueAttractions": "open_sightlines, room_to_run_freely",
     "venueExtraKit": null,
     "image": "Blackmore Gardens.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bouldering_at_boulder_exe",
@@ -855,7 +875,9 @@
     "venueAttractions": "early_access_introduction, skill_progression, confidence_building, strength_agility, structured_coaching, mixed_ability_sessions, non_competitive_options, purpose_built_facilities, safe_enclosed_spaces, all_weather_options, climbing",
     "venueExtraKit": "activity_specific_clothing, chalk_bag",
     "image": "Boulder Exe.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "brixham_marina",
@@ -933,7 +955,9 @@
     "venueAttractions": "harbour, dog_friendly_seasonal_leads, crabbing",
     "venueExtraKit": "fishing_nets, fishing_rods_bait",
     "image": "Brixham Marina.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bude_sea_pool",
@@ -1011,7 +1035,9 @@
     "venueAttractions": "deep_water_or_plunge_pools, natural_swimming_spots",
     "venueExtraKit": "swimming_kit, towels, water_shoes",
     "image": "Bude Lido.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "budleigh_nature_reserve",
@@ -1089,7 +1115,9 @@
     "venueAttractions": "smooth_pebbles, coastal_wildlife, estuary_edges, dog_friendly_seasonal_leads, streams_or_channels",
     "venueExtraKit": "binoculars",
     "image": "Budleigh Nature Reserve.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "budleigh_salterton_beach",
@@ -1167,7 +1195,9 @@
     "venueAttractions": "smooth_pebbles, estuary_edges, coastal_wildlife, dog_friendly_seasonal_leads, beach_cafe, toilets_nearby",
     "venueExtraKit": "wetsuit_boots, binoculars, water_shoes",
     "image": "Budleigh Salterton Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bumble_bee_manor_gardens",
@@ -1245,7 +1275,9 @@
     "venueAttractions": "outdoor_play_area_nearby, combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Bumble and Bee Manor Gardens.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bumble_sea",
@@ -1323,7 +1355,9 @@
     "venueAttractions": "combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Bumble and Sea.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bury_meadow",
@@ -1401,7 +1435,9 @@
     "venueAttractions": "balance_elements, stepping_obstacles, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Bury Meadow.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bystock_pools",
@@ -1479,7 +1515,9 @@
     "venueAttractions": "mud_and_puddles, immersive_natural_surroundings, quiet_or_low_intervention_spaces",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Bystock Pools.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "candys_field_play_park",
@@ -1557,7 +1595,9 @@
     "venueAttractions": "balance_elements, stepping_obstacles, zip_wires, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Candy's Field Play Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "canonteign_falls",
@@ -1635,7 +1675,9 @@
     "venueAttractions": "water_features, scenic_or_dramatic_settings, discovery_trails, play_or_activity_zones, challenges_or_missions, landmark_features",
     "venueExtraKit": "toddler_carrier, sling_carrier, water_shoes, activity_specific_clothing",
     "image": "Canonteign Falls.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "carter_avenue_play_park",
@@ -1713,7 +1755,9 @@
     "venueAttractions": "towers_and_platforms, slides, inclusive_swings, climbing_wall, firemans_poles, mixed_difficulty_zones, seesaws, springers_rockers",
     "venueExtraKit": null,
     "image": "Carter Avenue Play Area.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "castle_drogo_nt",
@@ -1791,7 +1835,9 @@
     "venueAttractions": "designed_or_sculpted_landscapes, seasonal_foliage, room_to_run_freely, open_sightlines, hidden_corners_passageways_gates_gardens, childrens_activity_trails, statues_sculptures",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Castle Drogo Estate.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "castle_drogo_museum",
@@ -1869,7 +1915,9 @@
     "venueAttractions": "historic_buildings, period_features, recreated_environments, castles_or_fortresses, story_led_interpretation, visual_displays, audio_guides_or_trails",
     "venueExtraKit": null,
     "image": "Caslte Drogo Museum.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "chard_nature_reserve",
@@ -1947,7 +1995,9 @@
     "venueAttractions": "climbing_logs_or_balance_beams, den_building_materials, guided_outdoor_learning_prompts, marked_trails, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces",
     "venueExtraKit": "binoculars, xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Chard Nature Reserve.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "chudleigh_play_park",
@@ -2025,7 +2075,9 @@
     "venueAttractions": "rope_bridges, climbing_frames, balance_elements, stepping_obstacles, towers_and_platforms, zip_wires, firemans_poles, ropes_aerial_adventures, lookout_points, tunnels_and_crawl_spaces, mixed_difficulty_zones, clear_sightlines_for_adults, swings, open_grass_running_space, pump_track",
     "venueExtraKit": null,
     "image": "Chudleigh Park.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "chudleigh_pump_track",
@@ -2103,7 +2155,9 @@
     "venueAttractions": "traffic_free_sections, clear_sightlines, natural_jumps_ramps_or_fun_features, scooter_friendly, play_areas_en_route, short_loops, easy_parking_nearby, parkland_surroundings",
     "venueExtraKit": null,
     "image": "Chudleigh Pump Track.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "chudleigh_skate_park",
@@ -2181,7 +2235,9 @@
     "venueAttractions": "balance_elements, towers_and_platforms, mixed_difficulty_zones, clear_sightlines_for_adults, bowl, quarter_pipes, street_skating_features",
     "venueExtraKit": null,
     "image": "Chudleigh Skate Park.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "clapper_bridge_postbridge",
@@ -2259,7 +2315,9 @@
     "venueAttractions": "paddling_spots, natural_swimming_spots, wildlife_spotting, river_beach, rivers_or_estuaries, national_park, woodland_or_countryside_setting",
     "venueExtraKit": "water_shoes, towels",
     "image": "Clapper Bridge.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cliff_fields",
@@ -2337,7 +2395,9 @@
     "venueAttractions": "room_to_run_freely, open_sightlines, countryside_views, scenic_backdrops, football_or_rugby_posts",
     "venueExtraKit": null,
     "image": "Cliff Field.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "climbing_at_exeter_quay",
@@ -2415,7 +2475,9 @@
     "venueAttractions": "early_access_introduction, skill_progression, confidence_building, strength_agility, structured_coaching, mixed_ability_sessions, non_competitive_options, purpose_built_facilities, safe_enclosed_spaces, all_weather_options, climbing",
     "venueExtraKit": "activity_specific_clothing, chalk_bag",
     "image": "Climbing Centre Exeter Quay.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "clipnclimb_at_exeter_quay",
@@ -2493,7 +2555,9 @@
     "venueAttractions": "early_access_introduction, skill_progression, confidence_building, coordination_balance, strength_agility, structured_coaching, mixed_ability_sessions, non_competitive_options, purpose_built_facilities, safe_enclosed_spaces, all_weather_options, climbing",
     "venueExtraKit": null,
     "image": "Clip'n'climb Exeter Quay.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cold_harbour_field_kitchen",
@@ -2571,7 +2635,9 @@
     "venueAttractions": "flexible_seating_for_families, space_for_children_to_move_a_little, outdoor_seating_or_garden, rural_or_scenic_setting",
     "venueExtraKit": "xcountry_buggy",
     "image": "Coldharbour Field Kitchen.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "combestone_tor",
@@ -2649,7 +2715,9 @@
     "venueAttractions": "letterboxing, immersive_natural_surroundings",
     "venueExtraKit": "sling_carrier, toddler_carrier, sturdy_footwear, kite_play",
     "image": "Combestone.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cranbrook_country_park",
@@ -2727,7 +2795,9 @@
     "venueAttractions": "meadows_or_wild_grass, room_to_run_freely, natural_play_features_logs_slopes_rocks, climbable_trees, marked_trails, streams_or_ditches, grassy_banks",
     "venueExtraKit": "xcountry_buggy, binoculars",
     "image": "Cranbrook Country Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cranbrook_pump_track",
@@ -2805,7 +2875,9 @@
     "venueAttractions": "traffic_free_sections, clear_sightlines, parkland_surroundings, high_adrenaline_routes_jumps_or_terrain, natural_jumps_ramps_or_fun_features, stops_for_snacks_or_picnics, short_loops, multiple_access_points, easy_parking_nearby",
     "venueExtraKit": null,
     "image": "Cranbrook Pump Track.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dartington_trust_gardens",
@@ -2883,7 +2955,9 @@
     "venueAttractions": "seasonal_foliage, room_to_run_freely, meandering_paths, statues_sculptures, seasonal_or_curated_displays, childrens_activity_trails, designed_or_sculpted_landscapes, hidden_corners_passageways_gates_gardens",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Dartington Hall Gardens.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dartmoor_national_park_visitor_centre_postbridge",
@@ -2961,7 +3035,9 @@
     "venueAttractions": "guided_outdoor_learning_prompts, marked_trails, quiet_or_low_intervention_spaces",
     "venueExtraKit": null,
     "image": "Dartmoor Visitor Centre Postbridge.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dartmoor_zoo",
@@ -3039,7 +3115,9 @@
     "venueAttractions": "close_up_viewing, keeper_talks, multiple_species, rare_or_exotic_animals, walk_through_enclosures, outdoor_animal_areas",
     "venueExtraKit": null,
     "image": "Dartmoor Zoo.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dartmouth_harbour",
@@ -3117,7 +3195,9 @@
     "venueAttractions": "crabbing, estuary_edges, coastal_wildlife, harbour, dog_friendly_off_lead_all_year, boat_trips_nearby, toilets_nearby, promenade",
     "venueExtraKit": "fishing_rods_bait, fishing_nets",
     "image": "Dartmouth Harbour.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "darts_farm_play_area",
@@ -3195,7 +3275,9 @@
     "venueAttractions": "toy_corner_or_play_table, outdoor_play_area_nearby, farm_animals_nearby, shop_or_browsing_area_e_g_farm_shop_garden_centre",
     "venueExtraKit": null,
     "image": "Darts Farm Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "decoy_park",
@@ -3273,7 +3355,9 @@
     "venueAttractions": "climbable_trees, play_equipment, marked_trails, natural_play_features_logs_slopes_rocks, bridges, scenic_backdrops, countryside_views, room_to_run_freely, ponds_or_lakes",
     "venueExtraKit": "towels, swimming_kit, water_shoes, xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Decoy Park.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "decoy_park_splashpad",
@@ -3351,7 +3435,9 @@
     "venueAttractions": "paddling_spots, splash_friendly_areas, opportunities_to_explore",
     "venueExtraKit": "towels, swimming_kit, water_shoes, warm_change_of_clothes",
     "image": "Decoy Park Splashpad.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "donkey_sanctuary",
@@ -3429,7 +3515,9 @@
     "venueAttractions": "close_up_viewing, animal_sanctuary, conservation, keeper_talks, childrens_activity_trails, animal_feeding, hands_on_petting",
     "venueExtraKit": "pram_buggy_road, xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
     "image": "Donkey Sanctuary.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exeter_arena_skate_park",
@@ -3507,7 +3595,9 @@
     "venueAttractions": "mixed_difficulty_zones, clear_sightlines_for_adults, quarter_pipes, street_skating_features",
     "venueExtraKit": null,
     "image": "Exeter Arena Skate Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exeter_bike_park",
@@ -3585,7 +3675,9 @@
     "venueAttractions": "skill_progression, confidence_building, strength_agility, purpose_built_facilities, safe_enclosed_spaces, non_competitive_options",
     "venueExtraKit": null,
     "image": "Exeter Bike Park.jpeg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exminster_driving_range",
@@ -3663,7 +3755,9 @@
     "venueAttractions": "skill_progression, early_access_introduction, confidence_building, non_competitive_options, all_weather_options, safe_enclosed_spaces",
     "venueExtraKit": null,
     "image": "Exminster Driving Range.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exmouth_beach",
@@ -3741,7 +3835,9 @@
     "venueAttractions": "rockpools, shell_or_seaglass_collecting, diggable_sand_sandcastles, shallow_paddling, swimming, slipway, kayaking_sup, seasonally_lifeguarded, toilets_nearby, boat_trips_nearby, beach_cafe, promenade, dog_friendly_seasonal_leads, equipment_hire, watersports_lessons",
     "venueExtraKit": null,
     "image": "Exmouth Beach.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exmouth_library",
@@ -3819,7 +3915,9 @@
     "venueAttractions": "toy_corner_or_play_table, puzzles_or_games, colouring, book_swap_or_exchange_library",
     "venueExtraKit": null,
     "image": "Exmouth Library.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exton_play_area",
@@ -3897,7 +3995,9 @@
     "venueAttractions": "zip_wires, firemans_poles, tunnels_and_crawl_spaces, balance_elements, climbing_frames",
     "venueExtraKit": null,
     "image": "Exton Children's Play Area.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ferne_animal_sanctuary",
@@ -3975,7 +4075,9 @@
     "venueAttractions": "close_up_viewing, animal_sanctuary, conservation, outdoor_animal_areas, marked_trails, childrens_activity_trails",
     "venueExtraKit": null,
     "image": "Fearne Animal Sanctuary.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "finlake_falls_flumes_rides",
@@ -4053,7 +4155,9 @@
     "venueAttractions": "instructor_support, splash_friendly_areas, water_slides, water_rides",
     "venueExtraKit": null,
     "image": "Finlake Pool.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "finlake_falls_main_pool",
@@ -4131,7 +4235,9 @@
     "venueAttractions": "instructor_support, splash_friendly_areas",
     "venueExtraKit": null,
     "image": "Finlake Pool.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "funder_park",
@@ -4209,7 +4315,9 @@
     "venueAttractions": "rides_attractions",
     "venueExtraKit": null,
     "image": "Funder Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "geoplay_seafront_park",
@@ -4287,7 +4395,9 @@
     "venueAttractions": "towers_and_platforms, ropes_aerial_adventures, lookout_points, tunnels_and_crawl_spaces, scramble_nets, balance_elements, climbing_frames, fort_style_structures, mixed_difficulty_zones",
     "venueExtraKit": null,
     "image": "Geoplay Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "greendale_farm_animal_trail",
@@ -4365,7 +4475,9 @@
     "venueAttractions": "close_up_viewing, outdoor_animal_areas",
     "venueExtraKit": "xcountry_buggy",
     "image": "Greendale Farm.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "greendale_farm_kitchen",
@@ -4443,7 +4555,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, space_for_children_to_move_a_little, play_area_or_outdoor_play_space, relaxed_family_welcoming_feel, outdoor_seating_or_garden, rural_or_scenic_setting, farm_animals_or_gardens",
     "venueExtraKit": null,
     "image": "Greendale Kitchen.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "greenway_nt",
@@ -4521,7 +4635,9 @@
     "venueAttractions": "designed_or_sculpted_landscapes, seasonal_foliage, seasonal_or_curated_displays, room_to_run_freely, open_sightlines, meandering_paths, hidden_corners_passageways_gates_gardens",
     "venueExtraKit": null,
     "image": "Greenway.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "hangtime",
@@ -4599,7 +4715,9 @@
     "venueAttractions": "outdoor_play_area_nearby, combined_with_a_walk_or_attraction, farm_animals_nearby",
     "venueExtraKit": null,
     "image": "Hangtime.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "heavitree_pleasure_grounds",
@@ -4677,7 +4795,9 @@
     "venueAttractions": "climbing_frames, slides, swings, open_grass_running_space, water_play_features, bowl, quarter_pipes, street_skating_features",
     "venueExtraKit": "swimming_kit, towels, water_shoes",
     "image": "Heavitree Pleasure Grounds.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "heron_farm_cafe",
@@ -4755,7 +4875,9 @@
     "venueAttractions": "outdoor_seating_or_garden, rural_or_scenic_setting, play_area_or_outdoor_play_space, relaxed_family_welcoming_feel, flexible_seating_for_families, space_for_children_to_move_a_little, childrens_menu",
     "venueExtraKit": null,
     "image": "Heron Farm.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "heydays",
@@ -4833,7 +4955,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, rural_or_scenic_setting",
     "venueExtraKit": null,
     "image": "Heydays.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "high_tide_cafe",
@@ -4911,7 +5035,9 @@
     "venueAttractions": "colouring, combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "High Tide Cafe.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "high_tide_cafe_pottery",
@@ -4989,7 +5115,9 @@
     "venueAttractions": "open_ended_creativity, pottery_ceramics_or_clay, painting_or_brushwork, imaginative_freedom, informal_welcoming_environments",
     "venueExtraKit": null,
     "image": "High Tide Pottery.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "home_farm_cafe",
@@ -5067,7 +5195,9 @@
     "venueAttractions": "space_to_run_around, combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Home Farm Cafe.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "hope_cove",
@@ -5145,7 +5275,9 @@
     "venueAttractions": "seasonally_lifeguarded, diggable_sand_sandcastles, rockpools, seaweed_beds, shell_or_seaglass_collecting, smooth_pebbles, shallow_paddling, streams_or_channels, coves_inlets, rock_formations_coastal_adventures_attractions, caves, cliffs_or_headlands, coastal_wildlife, surfing, swimming, bodyboarding, kayaking_sup, toilets_nearby, beach_cafe, slipway",
     "venueExtraKit": null,
     "image": "Hope Cove.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "house_of_marbles",
@@ -5223,7 +5355,9 @@
     "venueAttractions": "science_and_engineering_themes",
     "venueExtraKit": null,
     "image": "House of Marbles.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ibounce_exeter",
@@ -5301,7 +5435,9 @@
     "venueAttractions": "clear_sightlines, seating_for_adults, cafe_or_refreshment_area",
     "venueExtraKit": "grip_socks",
     "image": "iBounce Exeter.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "imagination_avenue_play_cafe",
@@ -5379,7 +5515,9 @@
     "venueAttractions": "immersive_settings, dressing_up_clothes, role_based_scenarios, shared_imaginative_spaces, open_ended_play_structure",
     "venueExtraKit": null,
     "image": "Imagination Play Cafe.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "iplay_softplay",
@@ -5457,7 +5595,9 @@
     "venueAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area",
     "venueExtraKit": null,
     "image": "iplay Softplay.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "jacobs_ladder_beach",
@@ -5535,7 +5675,9 @@
     "venueAttractions": "shell_or_seaglass_collecting, smooth_pebbles, estuary_edges, toilets_nearby, beach_cafe, rockpools, seaweed_beds, cliffs_or_headlands, dog_friendly_seasonal_leads",
     "venueExtraKit": "sling_carrier, toddler_carrier, xcountry_buggy, fishing_nets",
     "image": "Jacobs Ladder Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "jungle_journey_adventure_golf",
@@ -5613,7 +5755,9 @@
     "venueAttractions": "confidence_building, friendly_competition, non_competitive_options, purpose_built_facilities",
     "venueExtraKit": null,
     "image": "Jungle Journey Golf.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "killerton_estate_nt",
@@ -5691,7 +5835,9 @@
     "venueAttractions": "room_to_run_freely, open_sightlines, meandering_paths, historic_features, hidden_corners_passageways_gates_gardens, seasonal_foliage, seasonal_or_curated_displays",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Killerton.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "knightshayes_court",
@@ -5769,7 +5915,9 @@
     "venueAttractions": "designed_or_sculpted_landscapes, seasonal_foliage, room_to_run_freely, historic_features",
     "venueExtraKit": null,
     "image": "Knightshayes.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "land_of_canaan_park",
@@ -5847,7 +5995,9 @@
     "venueAttractions": "climbing_frames, towers_and_platforms, fort_style_structures, mixed_difficulty_zones, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Land of Canaan Park.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lime_kiln_play_area",
@@ -5925,7 +6075,9 @@
     "venueAttractions": "slides, climbing_frames, towers_and_platforms, stepping_obstacles, firemans_poles, lookout_points, tunnels_and_crawl_spaces, enclosed_adventure_zones, basket_nest_swings",
     "venueExtraKit": null,
     "image": "Lime Kiln Play Area.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lime_kiln_skate_park",
@@ -6003,7 +6155,9 @@
     "venueAttractions": "clear_sightlines_for_adults, mixed_difficulty_zones, quarter_pipes, street_skating_features",
     "venueExtraKit": null,
     "image": "Lime Kiln Skate Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "long_park",
@@ -6081,7 +6235,9 @@
     "venueAttractions": "climbing_frames, balance_elements, towers_and_platforms, slides, climbing_wall, roundabouts, lookout_points, clear_sightlines_for_adults, swings",
     "venueExtraKit": null,
     "image": "Long Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lower_halsdon_farm_cafe",
@@ -6159,7 +6315,9 @@
     "venueAttractions": "space_to_run_around, combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Lower Halsdon Farm Cafe.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lukesland_gardens",
@@ -6237,7 +6395,9 @@
     "venueAttractions": "designed_or_sculpted_landscapes, seasonal_foliage, water_features_or_fountains, room_to_run_freely, meandering_paths",
     "venueExtraKit": null,
     "image": "Lukesland Gardens.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lympstone_harbour_crabbing",
@@ -6315,7 +6475,9 @@
     "venueAttractions": "crabbing, streams_or_channels, estuary_edges, coastal_wildlife, slipway, harbour, dog_friendly_off_lead_all_year, kayaking_sup",
     "venueExtraKit": "water_shoes, fishing_nets, fishing_rods_bait",
     "image": "Lympstone Harbour.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lympstone_village_beach",
@@ -6393,7 +6555,9 @@
     "venueAttractions": "slipway, harbour, crabbing, dog_friendly_off_lead_all_year",
     "venueExtraKit": "fishing_nets",
     "image": "Lympstone Village Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "make_southwest_gallery",
@@ -6471,7 +6635,9 @@
     "venueAttractions": "visual_displays, interactive_elements, craft_or_heritage_activities",
     "venueExtraKit": null,
     "image": "Makers South West Art Gallery.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "manor_gardens_exmouth",
@@ -6549,7 +6715,9 @@
     "venueAttractions": "room_to_run_freely",
     "venueExtraKit": null,
     "image": "Manor Gardens Exmouth.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mansands_beach_nt",
@@ -6627,7 +6795,9 @@
     "venueAttractions": "rockpools, seaweed_beds, shell_or_seaglass_collecting, smooth_pebbles, coves_inlets, streams_or_channels, rock_formations_coastal_adventures_attractions, cliffs_or_headlands, caves, coastal_wildlife, dog_friendly_off_lead_all_year",
     "venueExtraKit": "sling_carrier, toddler_carrier, swimming_kit, towels, water_shoes, wetsuit_boots",
     "image": "Mansands Beach.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "manstone_basketball_courts",
@@ -6705,7 +6875,9 @@
     "venueAttractions": "non_competitive_options, purpose_built_facilities",
     "venueExtraKit": null,
     "image": "Manstone Basketball Courts.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "manstone_park_play_area",
@@ -6783,7 +6955,9 @@
     "venueAttractions": "climbing_frames, rope_bridges, balance_elements",
     "venueExtraKit": null,
     "image": "Manstone Play Area.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "manstone_skate_park",
@@ -6861,7 +7035,9 @@
     "venueAttractions": "mixed_difficulty_zones, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Manstone Skate Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mill_marsh_park",
@@ -6939,7 +7115,9 @@
     "venueAttractions": "climbing_frames, stepping_obstacles, towers_and_platforms, slides, zip_wires, ropes_aerial_adventures, mixed_difficulty_zones, fort_style_structures, lookout_points, tunnels_and_crawl_spaces, swings, roundabouts, springers_rockers, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Mill Marsh Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mincing_lake_valley_park",
@@ -7017,7 +7195,9 @@
     "venueAttractions": "grassy_banks, rolling_landscapes, scenic_backdrops, countryside_views, streams_or_ditches, meadows_or_wild_grass",
     "venueExtraKit": "binoculars, sling_carrier, toddler_carrier, xcountry_buggy",
     "image": "Mincing Lake Valley Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "newton_abbot_museum",
@@ -7095,7 +7275,9 @@
     "venueAttractions": "science_and_engineering_themes, nature_and_the_environment, history_brought_to_life, technology_and_robotics, rotating_or_seasonal_exhibits",
     "venueExtraKit": null,
     "image": "Newton Abbot Museum.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ocean_bowling",
@@ -7173,7 +7355,9 @@
     "venueAttractions": "bowling",
     "venueExtraKit": null,
     "image": "Ocean Bowling.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ocean_softplay",
@@ -7251,7 +7435,9 @@
     "venueAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
     "venueExtraKit": null,
     "image": "Ocean Softplay.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "okehampton_castle",
@@ -7329,7 +7515,9 @@
     "venueAttractions": "ruins_to_explore, castles_or_fortresses",
     "venueExtraKit": null,
     "image": "Okehampton Castle.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "orange_elephant_summer_meadow_play_area",
@@ -7407,7 +7595,9 @@
     "venueAttractions": "climbing_frames, balance_elements, stepping_obstacles, obstacle_courses, clear_sightlines_for_adults",
     "venueExtraKit": "sand_toys",
     "image": "Orange Elephant.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "orccombe_point",
@@ -7485,7 +7675,9 @@
     "venueAttractions": "rockpools, diggable_sand_sandcastles, cliffs_or_headlands, coastal_wildlife, swimming, dog_friendly_off_lead_all_year, shallow_paddling",
     "venueExtraKit": "swimming_kit, towels, water_shoes, beach_toys, sand_toys, fishing_nets, wetsuit_boots, wetsuits",
     "image": "Orccombe Point Beach Exmouth.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "otter_valley_field_kitchen",
@@ -7563,7 +7755,9 @@
     "venueAttractions": "flexible_seating_for_families, space_for_children_to_move_a_little, relaxed_family_welcoming_feel, outdoor_seating_or_garden, rural_or_scenic_setting",
     "venueExtraKit": null,
     "image": "Otter Valley Field Kitchen.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "otterton_mill_museum",
@@ -7641,7 +7835,9 @@
     "venueAttractions": "historic_buildings, period_features, visual_displays, craft_or_heritage_activities",
     "venueExtraKit": null,
     "image": "Otterton Mill Museum.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "otterton_mill",
@@ -7719,7 +7915,9 @@
     "venueAttractions": "combined_with_a_walk_or_attraction, shop_or_browsing_area_e_g_farm_shop_garden_centre, farm_animals_nearby",
     "venueExtraKit": null,
     "image": "Otterton Mill.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ottery_st_mary_library",
@@ -7797,7 +7995,9 @@
     "venueAttractions": "quiet_space",
     "venueExtraKit": null,
     "image": "Ottery St Mary Library.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "paignton_zoo",
@@ -7875,7 +8075,9 @@
     "venueAttractions": "close_up_viewing, keeper_talks, animal_feeding, rare_or_exotic_animals, animal_sanctuary, conservation, walk_through_enclosures",
     "venueExtraKit": null,
     "image": "Paignton Zoo.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "parke_estate_river_beach",
@@ -7953,7 +8155,9 @@
     "venueAttractions": "shallow_water, paddling_spots, natural_swimming_spots, sheltered_or_shaded_options, splash_friendly_areas, wildlife_spotting, river_beach, rivers_or_estuaries, woodland_or_countryside_setting",
     "venueExtraKit": "water_shoes, fishing_nets, fishing_rods_bait, towels, xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Parke River Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "pennywell_farm",
@@ -8031,7 +8235,9 @@
     "venueAttractions": "animal_feeding, hands_on_petting, tractor_rides, animal_races, animal_displays_or_shows, baby_animals_seasonal, outdoor_animal_areas, close_up_viewing",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Pennywell Farm.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "phear_park_basketball_court",
@@ -8109,7 +8315,9 @@
     "venueAttractions": "outdoor_pitches, ball_sports, purpose_built_facilities",
     "venueExtraKit": null,
     "image": "Phear Park Basketball Court.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "phear_park_playpark",
@@ -8187,7 +8395,9 @@
     "venueAttractions": "climbing_frames, zip_wires, mixed_difficulty_zones, clear_sightlines_for_adults, towers_and_platforms",
     "venueExtraKit": null,
     "image": "Phear Park Play Park.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "phear_park_skate_park",
@@ -8265,7 +8475,9 @@
     "venueAttractions": "mixed_difficulty_zones, clear_sightlines_for_adults",
     "venueExtraKit": null,
     "image": "Phear Park Skate.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "phear_park",
@@ -8343,7 +8555,9 @@
     "venueAttractions": "meadows_or_wild_grass, duck_ponds, water_features_or_fountains, room_to_run_freely, open_sightlines, grassy_banks, play_equipment",
     "venueExtraKit": null,
     "image": "Phear Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "plymouth_aquarium",
@@ -8421,7 +8635,9 @@
     "venueAttractions": "guided_walks, animal_sanctuary, rare_or_exotic_animals, keeper_talks, close_up_viewing",
     "venueExtraKit": null,
     "image": "Plymouth Aquarium.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "putsborough_beach",
@@ -8499,7 +8715,9 @@
     "venueAttractions": "diggable_sand_sandcastles, shallow_paddling",
     "venueExtraKit": "sand_toys, beach_toys, fishing_nets, wetsuits, swimming_kit, towels",
     "image": "Putsborough Beach.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "queens_parade_play_area",
@@ -8577,7 +8795,9 @@
     "venueAttractions": "rope_bridges, slides_particularly_tall_or_long",
     "venueExtraKit": "sand_toys, beach_toys",
     "image": "Queen's Parade Play Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ramm_exeter",
@@ -8655,7 +8875,9 @@
     "venueAttractions": "history_brought_to_life, rotating_or_seasonal_exhibits",
     "venueExtraKit": null,
     "image": "RAMM.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "rhs_rosemoor",
@@ -8733,7 +8955,9 @@
     "venueAttractions": "designed_or_sculpted_landscapes, seasonal_foliage, seasonal_or_curated_displays, water_features_or_fountains, meadows_wild_grass, lakes_or_wildlife_ponds, room_to_run_freely, open_sightlines, vegetable_gardens_growing_spaces, historic_features, meandering_paths, hidden_corners_passageways_gates_gardens, garden_rooms, greenhouses_tropical_plants",
     "venueExtraKit": null,
     "image": "RHS Rosemoor.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "rise_bakery",
@@ -8811,7 +9035,9 @@
     "venueAttractions": "combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Rise Bakery.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "river_dart_country_park",
@@ -8889,7 +9115,9 @@
     "venueAttractions": "rope_bridges, climbing_frames, balance_elements, scramble_nets, stepping_obstacles, towers_and_platforms, slides, zip_wires, firemans_poles, ropes_aerial_adventures, climbing_rocks_or_bouldering, rope_swings, wooded_setting, swings, basket_nest_swings, water_play_features, mixed_difficulty_zones, pump_track, bmx_track, dirt_jumps, open_grass_running_space, stream_or_water_channel, natural_boulders",
     "venueExtraKit": "water_shoes, towels, swimming_kit, fishing_nets, sturdy_footwear",
     "image": "River Dart Country Park.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "river_dart_river_beach",
@@ -8967,7 +9195,9 @@
     "venueAttractions": "shallow_water, natural_swimming_spots, splash_friendly_areas, wildlife_spotting, river_beach, rivers_or_estuaries, national_park, deep_water_or_plunge_pools, paddling_spots, sheltered_or_shaded_options, river_access_for_small_boats_or_paddleboards, kayaking, paddleboarding, woodland_or_countryside_setting",
     "venueExtraKit": "water_shoes, towels",
     "image": "River Dart Informal Access.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "river_otter_river_beach",
@@ -9045,7 +9275,9 @@
     "venueAttractions": "deep_water_or_plunge_pools, paddling_spots, natural_swimming_spots, wildlife_spotting, rivers_or_estuaries, river_beach, woodland_or_countryside_setting",
     "venueExtraKit": "water_shoes, towels, swimming_kit, warm_change_of_clothes, xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "River Otter River Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "rspb_bird_hyde",
@@ -9123,7 +9355,9 @@
     "venueAttractions": "immersive_natural_surroundings, quiet_or_low_intervention_spaces",
     "venueExtraKit": "binoculars",
     "image": "RSPB Bowling Green Bird Hyde.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "sea_shore_ice_creamery",
@@ -9201,7 +9435,9 @@
     "venueAttractions": "outdoor_play_area_nearby, combined_with_a_walk_or_attraction",
     "venueExtraKit": null,
     "image": "Sea Shore Creamery.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "shaldon_beach",
@@ -9279,7 +9515,9 @@
     "venueAttractions": "diggable_sand_sandcastles, shallow_paddling, streams_or_channels, estuary_edges, dog_friendly_off_lead_all_year, toilets_nearby, coastal_wildlife",
     "venueExtraKit": "beach_toys, sand_toys, towels, water_shoes, wetsuits, swimming_kit, wetsuit_boots",
     "image": "Shaldon Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "shelly_beach",
@@ -9357,7 +9595,9 @@
     "venueAttractions": "diggable_sand_sandcastles, harbour, crabbing",
     "venueExtraKit": null,
     "image": "Shelly Beach.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "sidmouth_library",
@@ -9435,7 +9675,9 @@
     "venueAttractions": "quiet_space",
     "venueExtraKit": null,
     "image": "Sidmouth Library.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "sidmouth_town_beach",
@@ -9513,7 +9755,9 @@
     "venueAttractions": "shell_or_seaglass_collecting, rockpools, smooth_pebbles, diggable_sand_sandcastles, shallow_paddling, streams_or_channels, slipway, toilets_nearby, beach_cafe, promenade",
     "venueExtraKit": "fishing_nets",
     "image": "Sidmouth Town Beach.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "slapton_sands",
@@ -9591,7 +9835,9 @@
     "venueAttractions": "seasonally_lifeguarded, shell_or_seaglass_collecting, smooth_pebbles, coastal_wildlife, bodyboarding, kayaking_sup, toilets_nearby, equipment_hire, swimming",
     "venueExtraKit": "water_shoes, towels, fishing_nets",
     "image": "Slapton Sands.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "stover_park_information_hut",
@@ -9669,7 +9915,9 @@
     "venueAttractions": "guided_outdoor_learning_prompts, quiet_or_low_intervention_spaces, immersive_natural_surroundings",
     "venueExtraKit": null,
     "image": "Stover Country Park Hut.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "stover_park",
@@ -9747,7 +9995,9 @@
     "venueAttractions": "ponds_or_lakes, duck_ponds, room_to_run_freely, open_sightlines, countryside_views, natural_play_features_logs_slopes_rocks, climbable_trees, marked_trails",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, binoculars",
     "image": "Stover Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "summerleaze_beach",
@@ -9825,7 +10075,9 @@
     "venueAttractions": "swimming, bodyboarding, surfing, seasonally_lifeguarded",
     "venueExtraKit": "sand_toys, beach_toys, fishing_nets, wetsuits, swimming_kit, towels",
     "image": "Summerleaze Beach.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_arcade",
@@ -9903,7 +10155,9 @@
     "venueAttractions": null,
     "venueExtraKit": null,
     "image": "Tenpin Arcade.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_bowling",
@@ -9981,7 +10235,9 @@
     "venueAttractions": "bowling_lanes, bar_licensed_venue, private_hire_party_packages",
     "venueExtraKit": null,
     "image": "Tenpin Bowling.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_escape_rooms",
@@ -10059,7 +10315,9 @@
     "venueAttractions": "escape_room",
     "venueExtraKit": null,
     "image": "Tenpin Escape Rooms.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_soft_play",
@@ -10137,7 +10395,9 @@
     "venueAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
     "venueExtraKit": null,
     "image": "Tenpin Softplay.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_coffee_bank",
@@ -10215,7 +10475,9 @@
     "venueAttractions": "dedicated_play_area, toy_corner_or_play_table, colouring",
     "venueExtraKit": null,
     "image": "The Coffee Bank.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_ham_play_park",
@@ -10293,7 +10555,9 @@
     "venueAttractions": "balance_elements, slides_particularly_tall_or_long, climbing_wall, zip_wires",
     "venueExtraKit": "sand_toys",
     "image": "The Ham Play Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_lost_temple_escape_room",
@@ -10371,7 +10635,9 @@
     "venueAttractions": "immersive_experience",
     "venueExtraKit": null,
     "image": "The Lost Temple.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_maer",
@@ -10449,7 +10715,9 @@
     "venueAttractions": "meadows_or_wild_grass, room_to_run_freely, open_sightlines, scenic_backdrops, play_equipment, natural_play_features_logs_slopes_rocks, grassy_banks",
     "venueExtraKit": null,
     "image": "The Maer.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_wizards_of_wyvern_escape_room",
@@ -10527,7 +10795,9 @@
     "venueAttractions": "immersive_experience",
     "venueExtraKit": null,
     "image": "The Wizards of Wyvern.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "thornes_farm_cafe",
@@ -10605,7 +10875,9 @@
     "venueAttractions": "dedicated_play_area, toy_corner_or_play_table, puzzles_or_games, colouring, shop_or_browsing_area_e_g_farm_shop_garden_centre",
     "venueExtraKit": null,
     "image": "Thorne's Cafe.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "topsham_recreation_ground",
@@ -10683,7 +10955,9 @@
     "venueAttractions": "slides, zip_wires, clear_sightlines_for_adults, swings, open_grass_running_space",
     "venueExtraKit": null,
     "image": "Topsham Recreation Ground.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "torre_abbey_sands",
@@ -10761,7 +11035,9 @@
     "venueAttractions": "diggable_sand_sandcastles, swimming, toilets_nearby, promenade",
     "venueExtraKit": null,
     "image": "Torquay Beach.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "trafalgar_road_park",
@@ -10839,7 +11115,9 @@
     "venueAttractions": "climbing_frames, zip_wires, firemans_poles, swings, basket_nest_swings, roundabouts, springers_rockers",
     "venueExtraKit": null,
     "image": "Trafalgar Road Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ullacombe_farm_cafe",
@@ -10917,7 +11195,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, space_for_children_to_move_a_little, play_area_or_outdoor_play_space, relaxed_family_welcoming_feel, outdoor_seating_or_garden, rural_or_scenic_setting, farm_animals_or_gardens",
     "venueExtraKit": null,
     "image": "Ullacombe Farm Cafe.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "underground_passages",
@@ -10995,7 +11275,9 @@
     "venueAttractions": "ruins_to_explore, hidden_rooms_or_passages, audio_guides_or_trails",
     "venueExtraKit": null,
     "image": "Underground Passages.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "waves_swimming_pool",
@@ -11073,7 +11355,9 @@
     "venueAttractions": "instructor_support, water_slides, wave_machines, lifeguarded_areas_where_applicable",
     "venueExtraKit": null,
     "image": "Waves Swim.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "west_dart_river_beach",
@@ -11151,7 +11435,9 @@
     "venueAttractions": "shallow_water, deep_water_or_plunge_pools, paddling_spots, natural_swimming_spots, sheltered_or_shaded_options, opportunities_to_explore, wildlife_spotting, river_access_for_small_boats_or_paddleboards, paddleboarding, rivers_or_estuaries, river_beach, woodland_or_countryside_setting",
     "venueExtraKit": "water_shoes, towels",
     "image": "West River Dart.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "whimple_play_park",
@@ -11229,7 +11515,9 @@
     "venueAttractions": "climbing_frames, rope_bridges, balance_elements, scramble_nets, stepping_obstacles, towers_and_platforms, slides, swings, basket_nest_swings, roundabouts, seesaws, ground_trampolines, wheelchair_accessible_equipment, inclusive_swings",
     "venueExtraKit": null,
     "image": "Whimple Play Park.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "whimple_pump_track",
@@ -11307,7 +11595,9 @@
     "venueAttractions": "pump_track, bmx_track, open_grass_running_space, stepping_obstacles, balance_elements, obstacle_courses",
     "venueExtraKit": null,
     "image": "Whimple Pump Track.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "wildwood_escot",
@@ -11385,7 +11675,9 @@
     "venueAttractions": "close_up_viewing, keeper_talks, rare_or_exotic_animals, multiple_species, conservation, outdoor_animal_areas, walk_through_enclosures",
     "venueExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
     "image": "Wildwood.jpg",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "woodbury_salterton_play_area",
@@ -11463,7 +11755,9 @@
     "venueAttractions": "clear_sightlines_for_adults, climbing_frames, zip_wires, fort_style_structures, balance_elements",
     "venueExtraKit": null,
     "image": "Woodbury Salterton Play Area.JPG",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "woodbury_village_play_area",
@@ -11541,7 +11835,9 @@
     "venueAttractions": "clear_sightlines_for_adults, climbing_frames",
     "venueExtraKit": null,
     "image": "Woodbury Village Green Play Area.jpg",
-    "venueBankHolidays": "false"
+    "venueBankHolidays": "false",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "woolacombe_beach",
@@ -11619,7 +11915,9 @@
     "venueAttractions": "diggable_sand_sandcastles, equipment_hire, seasonally_lifeguarded, surfing, swimming, bodyboarding, watersports_lessons",
     "venueExtraKit": "wetsuits, sand_toys, beach_toys, towels, swimming_kit",
     "image": "Woolacombe Beach.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "world_of_country_life",
@@ -11697,7 +11995,9 @@
     "venueAttractions": "rides_attractions, animals_or_animal_experiences, play_or_activity_zones, live_shows_or_performances, large_interactive_exhibits",
     "venueExtraKit": null,
     "image": "World of Countrylife.JPG",
-    "venueBankHolidays": "true"
+    "venueBankHolidays": "true",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "sandy_bay_park",
@@ -11775,7 +12075,9 @@
     "venueAttractions": "basket_nest_swings, sensory_play_features, towers_and_platforms, climbing_frames",
     "venueExtraKit": "sand_toys",
     "image": "Sandy Bay Park.JPG",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "jurassic_discovery",
@@ -11853,7 +12155,9 @@
     "venueAttractions": "nature_and_the_environment, history_brought_to_life",
     "venueExtraKit": null,
     "image": "Jurrasic Discovery Centre.jpeg",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "wild_things_play_project",
@@ -11931,7 +12235,9 @@
     "venueAttractions": "tunnels_and_crawl_spaces, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas, soft_climbing_structures",
     "venueExtraKit": null,
     "image": "Wild Things Play Project.jpeg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_sands_indoor_beach_play",
@@ -12009,7 +12315,9 @@
     "venueAttractions": "tactile_materials, sensory_toys_or_games",
     "venueExtraKit": "sand_toys",
     "image": "Little Sands.jpeg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "seaton_wetlands",
@@ -12087,7 +12395,9 @@
     "venueAttractions": "guided_outdoor_learning_prompts, marked_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces, climbing_logs_or_balance_beams",
     "venueExtraKit": "xcountry_buggy, binoculars",
     "image": "Seaton Wetlands.jpg",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lyme_regis_harbour",
@@ -12165,7 +12475,9 @@
     "venueAttractions": "crabbing, harbour, coastal_wildlife, toilets_nearby, beach_cafe, slipway, kayaking_sup, equipment_hire",
     "venueExtraKit": "toddler_carrier, sling_carrier, fishing_nets, fishing_rods_bait",
     "image": "Lyme Regis Harbour.jpg",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "shoalstone_seawater_pool",
@@ -12243,7 +12555,9 @@
     "venueAttractions": "deep_water_or_plunge_pools, natural_swimming_spots, lifeguarded_areas_where_applicable, wildlife_spotting",
     "venueExtraKit": "swimming_kit, towels, water_shoes, dry_bags, wetsuits, warm_clothes",
     "image": "Brixham Sea Pool.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "duck_pond_exmouth",
@@ -12321,7 +12635,9 @@
     "venueAttractions": "paddling_spots, sheltered_or_shaded_options, predictable_tides_or_flow, wildlife_spotting, river_access_for_small_boats_or_paddleboards, paddleboarding",
     "venueExtraKit": "towels, water_shoes, tide_times, dry_bags, wetsuit_boots",
     "image": "Duck Pond Exmouth.JPG",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cow_cacao_cafe_at_darts_farm",
@@ -12399,7 +12715,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, space_for_children_to_move_a_little, play_area_or_outdoor_play_space, on_site_grounds_to_explore, farm_animals_or_gardens",
     "venueExtraKit": null,
     "image": "Cow and Cacao.JPG",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_yard_at_darts_farm",
@@ -12477,7 +12795,9 @@
     "venueAttractions": "childrens_menu, flexible_seating_for_families, space_for_children_to_move_a_little, relaxed_family_welcoming_feel, farm_animals_or_gardens, on_site_grounds_to_explore",
     "venueExtraKit": null,
     "image": "The Yard Darts Farm.JPG",
-    "venueBankHolidays": "Open"
+    "venueBankHolidays": "Open",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "something_lovely_pottery",
@@ -12555,7 +12875,9 @@
     "venueAttractions": "take_home_creations, open_ended_creativity, pottery_ceramics_or_clay, painting_or_brushwork, imaginative_freedom, calm_focused_spaces, creative_studios, informal_welcoming_environments, messy_hands_on_crafts",
     "venueExtraKit": null,
     "image": "Something Lovely Pottery.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "family_garden_exeter",
@@ -12633,7 +12955,9 @@
     "venueAttractions": "enclosed_space, clear_sightlines, seating_for_adults, calm_or_quieter_zones, cafe_or_refreshment_area, separate_toddler_area",
     "venueExtraKit": null,
     "image": "Family Garden Exeter.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "torre_abbey_park",
@@ -12711,7 +13035,9 @@
     "venueAttractions": "seasonal_foliage, seasonal_or_curated_displays, room_to_run_freely, open_sightlines",
     "venueExtraKit": null,
     "image": "Riveria Gardens.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "northernhay_gardens",
@@ -12789,7 +13115,9 @@
     "venueAttractions": "room_to_run_freely, scenic_backdrops",
     "venueExtraKit": null,
     "image": "Northernhay Gardens.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "totnes_rare_breeds_farm",
@@ -12867,7 +13195,9 @@
     "venueAttractions": "hands_on_petting, animal_feeding, close_up_viewing, keeper_talks, animal_experience_day, multiple_species, animal_sanctuary, rare_or_exotic_animals, conservation, baby_animals_seasonal",
     "venueExtraKit": null,
     "image": "Totnes Rare Breeds Farm.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "crealy_themepark",
@@ -12945,7 +13275,9 @@
     "venueAttractions": "rides_attractions, animals_or_animal_experiences, live_shows_or_performances, immersive_or_themed_environments, play_or_activity_zones, iconic_structures_or_rides, water_features, themed_trails_e_g_halloween_christmas_easter",
     "venueExtraKit": null,
     "image": "Crealy.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "china_blue_pottery",
@@ -13023,7 +13355,9 @@
     "venueAttractions": "messy_hands_on_crafts, take_home_creations, open_ended_creativity, drop_in_creative_tables, pottery_ceramics_or_clay, painting_or_brushwork, imaginative_freedom, creative_studios, informal_welcoming_environments",
     "venueExtraKit": null,
     "image": "China Blue.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "hillcrest_community_nature_reserve",
@@ -13101,7 +13435,9 @@
     "venueAttractions": "meadows_or_wild_grass, room_to_run_freely, open_sightlines, rolling_landscapes, grassy_banks, climbable_trees, football_or_rugby_posts",
     "venueExtraKit": null,
     "image": "Hillcrest Nature Reserve.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "south_devon_miniature_railway",
@@ -13179,7 +13515,9 @@
     "venueAttractions": "trains_and_locomotives, vintage_vehicles, rides_or_journeys, vehicles_in_operation, engineering_features",
     "venueExtraKit": null,
     "image": "South Devon Miniature Railway.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "brixington_park",
@@ -13257,7 +13595,9 @@
     "venueAttractions": "climbing_frames, balance_elements, stepping_obstacles, towers_and_platforms, slides, firemans_poles, zip_wires, fort_style_structures, mixed_difficulty_zones, enclosed_adventure_zones, swings, basket_nest_swings, log_balance_trail, open_grass_running_space, inclusive_swings, wheelchair_accessible_equipment",
     "venueExtraKit": null,
     "image": "Brixington Park.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_footgolf",
@@ -13335,7 +13675,9 @@
     "venueAttractions": "early_access_introduction, skill_progression, confidence_building, coordination_balance, strength_agility, friendly_competition, outdoor_pitches, ball_sports",
     "venueExtraKit": null,
     "image": "Exe Footgolf.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cuppa_cabin",
@@ -13413,7 +13755,9 @@
     "venueAttractions": "toy_corner_or_play_table, colouring, book_swap_or_exchange_library",
     "venueExtraKit": null,
     "image": "Cuppa Cabin.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ansteys_cove",
@@ -13491,7 +13835,9 @@
     "venueAttractions": "rockpools, shell_or_seaglass_collecting, crabbing, coastal_wildlife, dog_friendly_off_lead_all_year",
     "venueExtraKit": "sling_carrier, toddler_carrier, towels, water_shoes, tide_times, fishing_nets, snorkel_mask, wetsuit_boots, fishing_rods_bait",
     "image": "Antsys Cove.jpg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mattiscombe_sands",
@@ -13569,7 +13915,9 @@
     "venueAttractions": "rockpools, diggable_sand_sandcastles, streams_or_channels, coastal_wildlife, kayaking_sup, bodyboarding, swimming, dog_friendly_off_lead_all_year",
     "venueExtraKit": "sturdy_footwear, toddler_carrier, sling_carrier, towels, water_shoes, beach_toys, sand_toys, tide_times, fishing_nets",
     "image": "Mattiscombe Sands.jpeg",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_laser_tag",
@@ -13647,7 +13995,9 @@
     "venueAttractions": "laser_tag, bar_licensed_venue, cafe_or_restaurant, immersive_experience",
     "venueExtraKit": null,
     "image": "Tenpin Laser Tag.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cherry_brook_river_beach",
@@ -13725,6 +14075,8 @@
     "venueAttractions": "shallow_water, natural_swimming_spots, splash_friendly_areas, wildlife_spotting, river_beach, rivers_or_estuaries, national_park, paddling_spots",
     "venueExtraKit": "water_shoes, towels",
     "image": "Cherry Brook River.JPG",
-    "venueBankHolidays": null
+    "venueBankHolidays": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   }
 ]

@@ -77,4 +77,6 @@ export const carterAvenuePlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Carter Avenue Play Area.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

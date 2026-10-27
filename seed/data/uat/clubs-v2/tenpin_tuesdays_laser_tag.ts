@@ -102,4 +102,6 @@ export const tenpinTuesdaysLaserTagClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "laser_tag, cafe_or_restaurant, immersive_experience",
   clubExtraKit: null,
   image: "Tenpin Laser Tag.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

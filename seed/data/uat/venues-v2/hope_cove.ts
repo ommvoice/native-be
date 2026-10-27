@@ -77,4 +77,6 @@ export const hopeCoveVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Hope Cove.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

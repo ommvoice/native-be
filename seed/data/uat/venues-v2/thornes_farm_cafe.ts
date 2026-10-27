@@ -77,4 +77,6 @@ export const thornesFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Thorne's Cafe.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

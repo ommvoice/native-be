@@ -102,4 +102,6 @@ export const littleFarmersDrakesFarmClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "mud_kitchens, sand_soil_and_loose_materials, farming_school_activities, immersive_natural_surroundings, quiet_or_low_intervention_spaces, enclosed_or_defined_play_zones",
   clubExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier, waterproofs, wellies, warm_clothes",
   image: "Drakes Farm.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

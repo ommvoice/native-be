@@ -77,4 +77,6 @@ export const cranbrookCountryParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, binoculars",
   image: "Cranbrook Country Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

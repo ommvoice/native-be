@@ -92,4 +92,6 @@ export const sanctuaryFlowersEventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Sanctuary Flowers.JPG",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

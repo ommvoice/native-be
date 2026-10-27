@@ -77,4 +77,6 @@ export const castleDrogoNtVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Castle Drogo Estate.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

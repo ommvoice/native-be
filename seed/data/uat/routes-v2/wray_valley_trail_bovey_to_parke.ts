@@ -45,4 +45,6 @@ export const wrayValleyTrailBoveyToParkeRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier, water_shoes, towels",
   image: "Wray Valley Trail.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

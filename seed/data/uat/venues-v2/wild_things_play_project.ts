@@ -77,4 +77,6 @@ export const wildThingsPlayProjectVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Wild Things Play Project.jpeg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

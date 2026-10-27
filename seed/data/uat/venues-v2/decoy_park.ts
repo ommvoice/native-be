@@ -77,4 +77,6 @@ export const decoyParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "towels, swimming_kit, water_shoes, xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Decoy Park.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

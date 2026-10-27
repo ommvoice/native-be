@@ -77,4 +77,6 @@ export const theWizardsOfWyvernEscapeRoomVenueV2: OpportunityVenueV2SeedInput = 
   venueExtraKit: null,
   image: "The Wizards of Wyvern.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

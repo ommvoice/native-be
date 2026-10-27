@@ -102,4 +102,6 @@ export const littleGemsPlaygroup2ClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "welcoming_space, storytelling, toys_toy_corners, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, play_areas_or_equipment, flexible_timings_relaxed_start_end_times, newbie_friendly",
   clubExtraKit: null,
   image: "Little Gems.JPG",
+  partnerCode: null,
+  regularTimetabled: null,
 };

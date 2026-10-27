@@ -77,4 +77,6 @@ export const beerBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, wetsuit_boots, wetsuits, swimming_kit, towels",
   image: "Beer Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

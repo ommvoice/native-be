@@ -45,4 +45,6 @@ export const exmouthDinosaurTrailRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Exmouth Dinosaur Trail.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const ellerhayesToKillertonRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Ellerhayes.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

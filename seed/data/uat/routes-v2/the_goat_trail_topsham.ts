@@ -45,4 +45,6 @@ export const theGoatTrailTopshamRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "binoculars",
   image: "The Goat Trail.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

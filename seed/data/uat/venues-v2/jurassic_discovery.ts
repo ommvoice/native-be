@@ -77,4 +77,6 @@ export const jurassicDiscoveryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Jurrasic Discovery Centre.jpeg",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

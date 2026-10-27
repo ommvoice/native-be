@@ -45,4 +45,6 @@ export const charmouthToLymeRegisRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "toddler_carrier, sling_carrier",
   image: "Charmouth to Lyme.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

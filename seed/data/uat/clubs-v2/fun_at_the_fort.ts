@@ -102,4 +102,6 @@ export const funAtTheFortClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "welcoming_space, craft_tables_or_activities, toys_toy_corners, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, play_areas_or_equipment, parent_child_activities, newbie_friendly",
   clubExtraKit: null,
   image: "Fun At The Fort.jpg",
+  partnerCode: "P001",
+  regularTimetabled: true,
 };

@@ -45,4 +45,6 @@ export const haldonForestPumpTrackRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Haldon Pump Track.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

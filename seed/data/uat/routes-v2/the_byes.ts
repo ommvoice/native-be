@@ -45,4 +45,6 @@ export const theByesRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "The Byes.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

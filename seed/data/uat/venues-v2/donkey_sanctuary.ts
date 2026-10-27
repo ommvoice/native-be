@@ -77,4 +77,6 @@ export const donkeySanctuaryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "pram_buggy_road, xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
   image: "Donkey Sanctuary.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

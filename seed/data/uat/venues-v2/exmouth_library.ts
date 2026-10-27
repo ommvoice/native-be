@@ -77,4 +77,6 @@ export const exmouthLibraryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exmouth Library.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

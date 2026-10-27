@@ -77,4 +77,6 @@ export const iplaySoftplayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "iplay Softplay.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

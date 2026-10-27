@@ -77,4 +77,6 @@ export const newtonAbbotMuseumVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Newton Abbot Museum.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

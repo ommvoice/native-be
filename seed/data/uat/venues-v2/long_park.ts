@@ -77,4 +77,6 @@ export const longParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Long Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

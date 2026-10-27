@@ -45,4 +45,6 @@ export const exeterQuayLoopRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Exeter Quayside walk.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

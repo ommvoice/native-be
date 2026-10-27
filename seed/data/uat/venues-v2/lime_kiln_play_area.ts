@@ -77,4 +77,6 @@ export const limeKilnPlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Lime Kiln Play Area.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

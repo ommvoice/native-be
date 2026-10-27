@@ -92,4 +92,6 @@ export const gorenFarm2EventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Goren Farm.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const trafalgarRoadParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Trafalgar Road Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

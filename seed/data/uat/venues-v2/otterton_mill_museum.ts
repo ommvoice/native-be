@@ -77,4 +77,6 @@ export const ottertonMillMuseumVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Otterton Mill Museum.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

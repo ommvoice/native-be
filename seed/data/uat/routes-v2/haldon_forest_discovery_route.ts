@@ -45,4 +45,6 @@ export const haldonForestDiscoveryRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Haldon Bike Discovery.jpeg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -45,4 +45,6 @@ export const haldonForestRidgeRideRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Haldon Ridge Ride Route.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

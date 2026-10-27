@@ -77,4 +77,6 @@ export const queensParadePlayAreaVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys, beach_toys",
   image: "Queen's Parade Play Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

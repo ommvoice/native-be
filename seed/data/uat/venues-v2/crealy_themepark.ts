@@ -77,4 +77,6 @@ export const crealyThemeparkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Crealy.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

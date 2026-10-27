@@ -77,4 +77,6 @@ export const theHamPlayParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys",
   image: "The Ham Play Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

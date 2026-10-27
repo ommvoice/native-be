@@ -92,4 +92,6 @@ export const kiaOraFarmGardens7EventV2: OpportunityEventV2SeedInput = {
   eventAbilityLevel: null,
   image: "Kia-Ora Farm & Gardens.jpg",
   ticketingRequirement: true,
+  partnerCode: null,
+  regularTimetabled: null,
 };

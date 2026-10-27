@@ -77,4 +77,6 @@ export const undergroundPassagesVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Underground Passages.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

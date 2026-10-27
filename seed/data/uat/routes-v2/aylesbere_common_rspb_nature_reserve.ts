@@ -45,4 +45,6 @@ export const aylesbereCommonRspbNatureReserveRouteV2: OpportunityRouteV2SeedInpu
   routeExtraKit: "xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Aylesbere Common.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

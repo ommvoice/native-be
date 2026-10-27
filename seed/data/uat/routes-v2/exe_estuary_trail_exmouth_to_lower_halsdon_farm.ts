@@ -45,4 +45,6 @@ export const exeEstuaryTrailExmouthToLowerHalsdonFarmRouteV2: OpportunityRouteV2
   routeExtraKit: null,
   image: "Exe Estuary - Exmouth to Lower Halsdon.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const greendaleFarmAnimalTrailVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy",
   image: "Greendale Farm.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

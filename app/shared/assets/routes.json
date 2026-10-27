@@ -43,7 +43,9 @@
     "routeAttractions": "panoramic_views, countryside_views, elevated_viewpoints, wildlife_spotting",
     "routeExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier",
     "image": "Aylesbere Common.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "beer_to_branscombe",
@@ -89,7 +91,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Beer to Branscombe.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bellever_forest",
@@ -135,7 +139,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, ancient_trees, stepping_stones, countryside_views, wildlife_spotting",
     "routeExtraKit": "water_shoes, dry_bags, sling_carrier",
     "image": "Bellever Forest Walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "blackbury_camp_bluebell_walk",
@@ -181,7 +187,9 @@
     "routeAttractions": "countryside_views, elevated_viewpoints",
     "routeExtraKit": null,
     "image": "Blackberry Camp Bluebell Walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "budleigh_nature_reserve_to_otterton",
@@ -227,7 +235,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, coastal_views, wildlife_spotting",
     "routeExtraKit": "binoculars",
     "image": "Budleigh NR to Otterton.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "budleigh_to_exmouth_cycle_trail",
@@ -273,7 +283,9 @@
     "routeAttractions": "traffic_free_sections, wide_pathways, clear_sightlines, scooter_friendly, multiple_access_points",
     "routeExtraKit": null,
     "image": "Budleigh to Exmouth Cycle Route.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "bystock_pools_lakeside_walk",
@@ -319,7 +331,9 @@
     "routeAttractions": "lakes_reservoirs, countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Bystock Pools Walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "castle_feature_woodbury_common",
@@ -365,7 +379,9 @@
     "routeAttractions": "panoramic_views, countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Castle Feature Woodbury.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "columbjohn_walk",
@@ -411,7 +427,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Columbjohn Walk.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "danes_wood",
@@ -457,7 +475,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Danes Wood.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dartmeet",
@@ -503,7 +523,9 @@
     "routeAttractions": "stepping_stones, bridges, ancient_trees, lakes_reservoirs, rivers_and_streams, countryside_views, elevated_viewpoints, scenic_valleys, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Dartmeet.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "decoy_park",
@@ -549,7 +571,9 @@
     "routeAttractions": "panoramic_views, countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Decoy Park Walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "denbury_hillfort_monument",
@@ -595,7 +619,9 @@
     "routeAttractions": "ancient_trees, historic_ruins, wildlife_spotting, elevated_viewpoints, panoramic_views, scenic_valleys",
     "routeExtraKit": null,
     "image": "Denbury Hillfort Momument.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ellerhayes_to_killerton",
@@ -641,7 +667,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Ellerhayes.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "estuary_view_woodbury_common",
@@ -687,7 +715,9 @@
     "routeAttractions": "panoramic_views, countryside_views, wildlife_spotting, coastal_views",
     "routeExtraKit": null,
     "image": "Woodbury Estuary View.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_exmouth_to_exton",
@@ -733,7 +763,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points, stops_for_snacks_or_picnics, play_areas_en_route",
     "routeExtraKit": null,
     "image": "Exe Estuary - Exmouth to Exton.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_exmouth_to_lower_halsdon_farm",
@@ -779,7 +811,9 @@
     "routeAttractions": "coastal_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Exe Estuary - Exmouth to Lower Halsdon.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_exmouth_to_lympstone",
@@ -825,7 +859,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points, stops_for_snacks_or_picnics",
     "routeExtraKit": null,
     "image": "Exe Estuary Trail - Exmouth to Lympstone.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_exton_to_lympstone",
@@ -871,7 +907,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points, stops_for_snacks_or_picnics",
     "routeExtraKit": null,
     "image": "Exe Estuary Trail - Exton to Lympstone.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_lympstone_to_exmouth",
@@ -917,7 +955,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points, play_areas_en_route",
     "routeExtraKit": null,
     "image": "Exe Estuary Trail - Lympstone to Exmouth.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_lympstone_to_exton",
@@ -963,7 +1003,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points",
     "routeExtraKit": null,
     "image": "Exe Estuary Trail - Lympstone to Exton.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exe_estuary_trail_lympstone_to_lower_halsdon_farm",
@@ -1009,7 +1051,9 @@
     "routeAttractions": "traffic_free_sections, clear_sightlines, coastal_promenades, scooter_friendly, multiple_access_points, stops_for_snacks_or_picnics",
     "routeExtraKit": null,
     "image": "Exe Estuary Trail - Lympstone to Exmouth.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exeter_quay_loop",
@@ -1055,7 +1099,9 @@
     "routeAttractions": "bridges, scenic_valleys, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Exeter Quayside walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exmouth_seafront_ride",
@@ -1101,7 +1147,9 @@
     "routeAttractions": "coastal_views",
     "routeExtraKit": null,
     "image": "Exmouth Seafront Ride.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exmouth_dinosaur_trail",
@@ -1147,7 +1195,9 @@
     "routeAttractions": "waymarked_features",
     "routeExtraKit": null,
     "image": "Exmouth Dinosaur Trail.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "exmouth_to_budleigh_cycle_trail",
@@ -1193,7 +1243,9 @@
     "routeAttractions": "traffic_free_sections, wide_pathways, clear_sightlines, scooter_friendly, multiple_access_points",
     "routeExtraKit": null,
     "image": "Exmouth to Budleigh Cycle Route.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "fingle_bridge_river_walk_5_mile_loop",
@@ -1239,7 +1291,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "sling_carrier, toddler_carrier, sturdy_footwear",
     "image": "Fingle Bridge 5 Mile Loop.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "fingle_bridge_riverside",
@@ -1285,7 +1339,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, scenic_valleys, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Fingle Bridge Riverside.jpeg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_butterfly_trail",
@@ -1331,7 +1387,9 @@
     "routeAttractions": "panoramic_views, countryside_views, elevated_viewpoints",
     "routeExtraKit": null,
     "image": "Haldon Forest Butterfly.jpeg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_discovery_route",
@@ -1377,7 +1435,9 @@
     "routeAttractions": "traffic_free_sections, short_loops, easy_parking_nearby, cafes_or_facilities_along_the_route",
     "routeExtraKit": null,
     "image": "Haldon Bike Discovery.jpeg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_discovery_trail",
@@ -1423,7 +1483,9 @@
     "routeAttractions": "countryside_views, elevated_viewpoints, wildlife_spotting, waymarked_features",
     "routeExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, wellies, sturdy_footwear",
     "image": "Haldon Discovery Trail Walk.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "killerton_estate",
@@ -1469,7 +1531,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting, waymarked_features",
     "routeExtraKit": null,
     "image": "Killerton Estate.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "killerton_to_broadclyst",
@@ -1515,7 +1579,9 @@
     "routeAttractions": "traffic_free_sections, wide_pathways, parkland_surroundings",
     "routeExtraKit": null,
     "image": "Killerton to Broadclyst.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "lympstone_village_loop",
@@ -1561,7 +1627,9 @@
     "routeAttractions": "rivers_and_streams, countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Lympstone Village Route.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mincing_lake_valley_park",
@@ -1607,7 +1675,9 @@
     "routeAttractions": "wildlife_spotting, scenic_valleys",
     "routeExtraKit": null,
     "image": "Mincing Lake Valley Park.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mortehoe_coastal_path",
@@ -1653,7 +1723,9 @@
     "routeAttractions": null,
     "routeExtraKit": null,
     "image": "Morthehoe Coastal Path.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mortehoe_walk_woolacombe",
@@ -1699,7 +1771,9 @@
     "routeAttractions": null,
     "routeExtraKit": null,
     "image": "Morthehoe Walk Woolacombe.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "orccombe_point_beach_clifftop_walk",
@@ -1745,7 +1819,9 @@
     "routeAttractions": "panoramic_views, coastal_views, rock_formations, beaches_coves, elevated_viewpoints",
     "routeExtraKit": null,
     "image": "Orccombe Point Beach Walk.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "parke_estate_riverside_walk",
@@ -1791,7 +1867,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "water_shoes, dry_bags, warm_clothes",
     "image": "Parke River.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "phear_park_circular",
@@ -1837,7 +1915,9 @@
     "routeAttractions": "countryside_views, wildlife_spotting, rivers_and_streams",
     "routeExtraKit": null,
     "image": "Phear Park.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "powderham_castle_grounds",
@@ -1883,7 +1963,9 @@
     "routeAttractions": "countryside_views, coastal_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Powderham Grounds.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "powderham_church_to_turf_locks",
@@ -1929,7 +2011,9 @@
     "routeAttractions": "riverside_stretches, scooter_friendly, traffic_free_sections",
     "routeExtraKit": null,
     "image": "Powderham to Turf Locks Cycle.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "powderham_estuary_route",
@@ -1975,7 +2059,9 @@
     "routeAttractions": "rivers_and_streams, coastal_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Powderham to Turf Locks Cycle.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "river_otter_walk_tipton_st_john",
@@ -2021,7 +2107,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, bridges, countryside_views, wildlife_spotting",
     "routeExtraKit": "sling_carrier, toddler_carrier, towels, water_shoes, fishing_nets, wetsuit_boots",
     "image": "River Otter Walk.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "shelly_bay_to_orcombe_point",
@@ -2067,7 +2155,9 @@
     "routeAttractions": "natural_paddling, beaches_coves, coastal_views, rock_formations, elevated_viewpoints",
     "routeExtraKit": null,
     "image": "Exmouth Seafront Ride.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "stover_country_park",
@@ -2113,7 +2203,9 @@
     "routeAttractions": "lakes_reservoirs, countryside_views, wildlife_spotting",
     "routeExtraKit": "binoculars",
     "image": "Stover Park.jpeg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_byes",
@@ -2159,7 +2251,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, bridges, wildlife_spotting",
     "routeExtraKit": null,
     "image": "The Byes.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "the_goat_trail_topsham",
@@ -2205,7 +2299,9 @@
     "routeAttractions": "rivers_and_streams, coastal_views, wildlife_spotting",
     "routeExtraKit": "binoculars",
     "image": "The Goat Trail.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "turf_locks_riverside_walk",
@@ -2251,7 +2347,9 @@
     "routeAttractions": "rivers_and_streams, coastal_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Turf Locks Riverside.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "woodbury_castle",
@@ -2297,7 +2395,9 @@
     "routeAttractions": "panoramic_views, elevated_viewpoints, scenic_valleys, wildlife_spotting, historic_ruins",
     "routeExtraKit": null,
     "image": "Woodbury Castle.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "woodbury_common",
@@ -2343,7 +2443,9 @@
     "routeAttractions": "panoramic_views, countryside_views, wildlife_spotting",
     "routeExtraKit": null,
     "image": "Woodbury Common 1.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "charmouth_to_lyme_regis",
@@ -2389,7 +2491,9 @@
     "routeAttractions": "cliffs_headlands, beaches_coves, panoramic_views, coastal_views, elevated_viewpoints, wildlife_spotting",
     "routeExtraKit": "toddler_carrier, sling_carrier",
     "image": "Charmouth to Lyme.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_freers_loop_route",
@@ -2435,7 +2539,9 @@
     "routeAttractions": "high_adrenaline_routes_jumps_or_terrain, easy_parking_nearby, cafes_or_facilities_along_the_route, natural_jumps_ramps_or_fun_features",
     "routeExtraKit": null,
     "image": "Haldon Freers Loop.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "seaton_wetlands_trails",
@@ -2481,7 +2587,9 @@
     "routeAttractions": "rivers_and_streams, lakes_reservoirs, countryside_views, coastal_views, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "xcountry_buggy, sling_carrier, binoculars",
     "image": "Seaton Wetlands Routes.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_ridge_ride_route",
@@ -2527,7 +2635,9 @@
     "routeAttractions": "traffic_free_sections, natural_jumps_ramps_or_fun_features, high_adrenaline_routes_jumps_or_terrain, easy_parking_nearby, cafes_or_facilities_along_the_route",
     "routeExtraKit": null,
     "image": "Haldon Ridge Ride Route.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_kiddens_route",
@@ -2573,7 +2683,9 @@
     "routeAttractions": "natural_jumps_ramps_or_fun_features, high_adrenaline_routes_jumps_or_terrain, easy_parking_nearby, cafes_or_facilities_along_the_route",
     "routeExtraKit": null,
     "image": "Haldon Kiddens Route.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_spicers_route",
@@ -2619,7 +2731,9 @@
     "routeAttractions": "traffic_free_sections, easy_parking_nearby, cafes_or_facilities_along_the_route, natural_jumps_ramps_or_fun_features, high_adrenaline_routes_jumps_or_terrain",
     "routeExtraKit": null,
     "image": "Haldon Spicers Route.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_raptor_trail",
@@ -2665,7 +2779,9 @@
     "routeAttractions": "panoramic_views, countryside_views, elevated_viewpoints",
     "routeExtraKit": null,
     "image": "Haldon Raptor Trail.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_skills_area",
@@ -2711,7 +2827,9 @@
     "routeAttractions": "natural_jumps_ramps_or_fun_features, traffic_free_sections, clear_sightlines, parkland_surroundings, easy_parking_nearby, cafes_or_facilities_along_the_route, short_loops",
     "routeExtraKit": null,
     "image": "Haldon Skills Area.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "haldon_forest_pump_track",
@@ -2757,7 +2875,9 @@
     "routeAttractions": "high_adrenaline_routes_jumps_or_terrain, easy_parking_nearby, cafes_or_facilities_along_the_route, short_loops, natural_jumps_ramps_or_fun_features",
     "routeExtraKit": null,
     "image": "Haldon Pump Track.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cadover_bridge_and_dewerstone_circular",
@@ -2803,7 +2923,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, ancient_trees, bridges, countryside_views, scenic_valleys, wildlife_spotting, historic_ruins, elevated_viewpoints, stepping_stones",
     "routeExtraKit": "sling_carrier, toddler_carrier, sturdy_footwear, waterproofs",
     "image": "Cadover Bridge.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "dewerstone_wood",
@@ -2849,7 +2971,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, ancient_trees, bridges, countryside_views, scenic_valleys, wildlife_spotting, historic_ruins",
     "routeExtraKit": "sling_carrier, toddler_carrier, sturdy_footwear, waterproofs",
     "image": "Dewerstone.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "avon_reservoir_short_route",
@@ -2895,7 +3019,9 @@
     "routeAttractions": "lakes_reservoirs, waterfalls, rivers_and_streams",
     "routeExtraKit": "waterproofs, sturdy_footwear",
     "image": "Avon Dam.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "meldon_reservoir",
@@ -2941,7 +3067,9 @@
     "routeAttractions": "lakes_reservoirs, panoramic_views, countryside_views, elevated_viewpoints, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, sturdy_footwear",
     "image": "Meldon Reservoir.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tottiford_and_trenchford_reservoir",
@@ -2987,7 +3115,9 @@
     "routeAttractions": "lakes_reservoirs, countryside_views, elevated_viewpoints, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "sling_carrier, toddler_carrier, sturdy_footwear, wellies",
     "image": "Tottiford Reservoir.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "squabmoor_reservoir",
@@ -3033,7 +3163,9 @@
     "routeAttractions": "lakes_reservoirs, bridges_wooden, stone, suspension, countryside_views, wildlife_spotting",
     "routeExtraKit": "sling_carrier, toddler_carrier, wellies",
     "image": "Squabmoor Reservoir.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "granite_way_okehampton_to_meldon_reservoir",
@@ -3079,7 +3211,9 @@
     "routeAttractions": "traffic_free_sections, bridges_and_landmarks, points_of_interest_along_the_way, multiple_access_points, easy_parking_nearby, cafes_or_facilities_along_the_route",
     "routeExtraKit": null,
     "image": "Granite Way.jpg",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mill_marsh_park_to_parke_river_trail",
@@ -3125,7 +3259,9 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, wildlife_spotting",
     "routeExtraKit": "water_shoes, towels",
     "image": "Mill Marsh Park Trail.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "wray_valley_trail_bovey_to_parke",
@@ -3171,6 +3307,8 @@
     "routeAttractions": "rivers_and_streams, natural_paddling, countryside_views, scenic_valleys, wildlife_spotting",
     "routeExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, water_shoes, towels",
     "image": "Wray Valley Trail.JPG",
-    "routeCountry": null
+    "routeCountry": null,
+    "partnerCode": null,
+    "regularTimetabled": null
   }
 ]

@@ -77,4 +77,6 @@ export const castleDrogoMuseumVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Caslte Drogo Museum.jpg",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

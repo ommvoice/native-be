@@ -77,4 +77,6 @@ export const ibounceExeterVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "grip_socks",
   image: "iBounce Exeter.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

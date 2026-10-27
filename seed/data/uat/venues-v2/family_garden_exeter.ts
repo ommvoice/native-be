@@ -77,4 +77,6 @@ export const familyGardenExeterVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Family Garden Exeter.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

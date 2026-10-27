@@ -221,6 +221,9 @@ const COLUMNS: ColumnConfig[] = [
   { sheetField: "route_attractions", outputField: "routeAttractions", kind: enumMulti("THEME_ATTRACTION_ENUM") },
   { sheetField: "route_extra_kit", outputField: "routeExtraKit", kind: enumMulti("EXTRA_KIT_ENUM") },
   { sheetField: "image", outputField: "image", kind: { kind: "scalar" } },
+  // Admin-tool columns (newData3 onwards; only Events + Clubs have them so far) — null when absent.
+  { sheetField: "partner_code", outputField: "partnerCode", kind: { kind: "scalar" } },
+  { sheetField: "regular_timetabled", outputField: "regularTimetabled", kind: { kind: "bool" } },
 ];
 
 // ── Row parsing ────────────────────────────────────────────────────────────────

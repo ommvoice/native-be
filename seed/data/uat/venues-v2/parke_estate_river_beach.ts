@@ -77,4 +77,6 @@ export const parkeEstateRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, fishing_nets, fishing_rods_bait, towels, xcountry_buggy, sling_carrier, toddler_carrier",
   image: "Parke River Beach.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

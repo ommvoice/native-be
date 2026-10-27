@@ -77,4 +77,6 @@ export const exeterArenaSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exeter Arena Skate Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

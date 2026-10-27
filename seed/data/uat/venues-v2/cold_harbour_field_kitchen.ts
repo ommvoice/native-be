@@ -77,4 +77,6 @@ export const coldHarbourFieldKitchenVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "xcountry_buggy",
   image: "Coldharbour Field Kitchen.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

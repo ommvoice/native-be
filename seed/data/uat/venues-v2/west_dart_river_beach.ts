@@ -77,4 +77,6 @@ export const westDartRiverBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels",
   image: "West River Dart.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

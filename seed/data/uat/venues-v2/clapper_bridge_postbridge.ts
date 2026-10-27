@@ -77,4 +77,6 @@ export const clapperBridgePostbridgeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels",
   image: "Clapper Bridge.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

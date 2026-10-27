@@ -77,4 +77,6 @@ export const landOfCanaanParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Land of Canaan Park.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

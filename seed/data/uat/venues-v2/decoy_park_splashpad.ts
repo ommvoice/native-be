@@ -77,4 +77,6 @@ export const decoyParkSplashpadVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "towels, swimming_kit, water_shoes, warm_change_of_clothes",
   image: "Decoy Park Splashpad.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

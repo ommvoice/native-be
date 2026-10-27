@@ -77,4 +77,6 @@ export const putsboroughBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sand_toys, beach_toys, fishing_nets, wetsuits, swimming_kit, towels",
   image: "Putsborough Beach.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

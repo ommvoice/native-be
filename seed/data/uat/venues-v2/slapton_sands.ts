@@ -77,4 +77,6 @@ export const slaptonSandsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, towels, fishing_nets",
   image: "Slapton Sands.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

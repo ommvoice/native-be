@@ -77,4 +77,6 @@ export const seaShoreIceCreameryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Sea Shore Creamery.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

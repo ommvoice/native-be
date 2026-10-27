@@ -77,4 +77,6 @@ export const dartmoorNationalParkVisitorCentrePostbridgeVenueV2: OpportunityVenu
   venueExtraKit: null,
   image: "Dartmoor Visitor Centre Postbridge.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

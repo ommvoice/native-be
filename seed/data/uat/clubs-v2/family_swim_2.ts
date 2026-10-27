@@ -93,7 +93,7 @@ export const familySwim2ClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: true,
   clubActivityGroup: "energy_burner",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "true",
+  clubSkillArea: "swimming_skill",
   clubSkillAreaVariant: "swimming",
   clubAbilityLevel: "novice",
   clubInterestTags: "swimming, family swim, indoor swimming, lifeguarded swim, diving boards, floats, swimming practice, swimming confidence, free play",
@@ -102,4 +102,6 @@ export const familySwim2ClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "confidence_building, non_competitive_options, all_weather_options, swimming",
   clubExtraKit: "swimming_kit, towels",
   image: "Family Swim.jpg",
+  partnerCode: "P001",
+  regularTimetabled: true,
 };

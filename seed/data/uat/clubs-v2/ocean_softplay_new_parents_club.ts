@@ -102,4 +102,6 @@ export const oceanSoftplayNewParentsClubClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas, calm_or_quieter_zones",
   clubExtraKit: null,
   image: "Ocean New Parents.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

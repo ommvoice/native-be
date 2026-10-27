@@ -77,4 +77,6 @@ export const boulderingAtBoulderExeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "activity_specific_clothing, chalk_bag",
   image: "Boulder Exe.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

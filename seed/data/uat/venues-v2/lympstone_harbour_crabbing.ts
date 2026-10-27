@@ -77,4 +77,6 @@ export const lympstoneHarbourCrabbingVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "water_shoes, fishing_nets, fishing_rods_bait",
   image: "Lympstone Harbour.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

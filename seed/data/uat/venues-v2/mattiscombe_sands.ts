@@ -77,4 +77,6 @@ export const mattiscombeSandsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sturdy_footwear, toddler_carrier, sling_carrier, towels, water_shoes, beach_toys, sand_toys, tide_times, fishing_nets",
   image: "Mattiscombe Sands.jpeg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

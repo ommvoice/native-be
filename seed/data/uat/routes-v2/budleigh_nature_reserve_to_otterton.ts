@@ -45,4 +45,6 @@ export const budleighNatureReserveToOttertonRouteV2: OpportunityRouteV2SeedInput
   routeExtraKit: "binoculars",
   image: "Budleigh NR to Otterton.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

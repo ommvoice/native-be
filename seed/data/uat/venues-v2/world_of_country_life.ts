@@ -77,4 +77,6 @@ export const worldOfCountryLifeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "World of Countrylife.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

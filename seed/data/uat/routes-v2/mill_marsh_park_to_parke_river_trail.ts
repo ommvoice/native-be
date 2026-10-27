@@ -45,4 +45,6 @@ export const millMarshParkToParkeRiverTrailRouteV2: OpportunityRouteV2SeedInput 
   routeExtraKit: "water_shoes, towels",
   image: "Mill Marsh Park Trail.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

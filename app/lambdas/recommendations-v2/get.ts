@@ -15,7 +15,9 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
   const service = new RecommendationV2Service();
   // const { data: raw, childrenAges } = await service.getRecommendations({ parentId, childId, searchRadius });
-  const skipRecommendations = getInitialScore({skipWeather: true});
+  const skipRecommendations = getInitialScore({
+    // skipWeather: true
+  });
   const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
   const data = toOpportunityList(raw as any, childrenAges);
   return ok({ count: data.length, data });

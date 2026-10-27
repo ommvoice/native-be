@@ -77,4 +77,6 @@ export const rspbBirdHydeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "binoculars",
   image: "RSPB Bowling Green Bird Hyde.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

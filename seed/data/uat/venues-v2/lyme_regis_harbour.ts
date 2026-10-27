@@ -77,4 +77,6 @@ export const lymeRegisHarbourVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "toddler_carrier, sling_carrier, fishing_nets, fishing_rods_bait",
   image: "Lyme Regis Harbour.jpg",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -38,6 +38,11 @@
   ],
   "activityGroup": [
     {
+      "name": "All",
+      "slug": "all",
+      "active": true
+    },
+    {
       "name": "Moment of Peace",
       "slug": "moment_of_peace",
       "active": true

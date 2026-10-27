@@ -77,4 +77,6 @@ export const topshamRecreationGroundVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Topsham Recreation Ground.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

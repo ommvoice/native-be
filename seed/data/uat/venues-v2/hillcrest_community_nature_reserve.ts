@@ -77,4 +77,6 @@ export const hillcrestCommunityNatureReserveVenueV2: OpportunityVenueV2SeedInput
   venueExtraKit: null,
   image: "Hillcrest Nature Reserve.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

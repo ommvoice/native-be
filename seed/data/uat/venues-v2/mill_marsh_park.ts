@@ -77,4 +77,6 @@ export const millMarshParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Mill Marsh Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

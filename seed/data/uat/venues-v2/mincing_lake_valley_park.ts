@@ -77,4 +77,6 @@ export const mincingLakeValleyParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "binoculars, sling_carrier, toddler_carrier, xcountry_buggy",
   image: "Mincing Lake Valley Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const duckPondExmouthVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "towels, water_shoes, tide_times, dry_bags, wetsuit_boots",
   image: "Duck Pond Exmouth.JPG",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const limeKilnSkateParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Lime Kiln Skate Park.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -91,5 +91,7 @@ export interface Event {
   eventSkillAreaVariant: string | null;
   eventAbilityLevel: string | null;
   image: string | null;
+  partnerCode: string | null;
+  regularTimetabled: boolean | null;
   ticketingRequirement: boolean | null;
 }

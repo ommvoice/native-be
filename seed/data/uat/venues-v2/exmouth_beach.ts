@@ -77,4 +77,6 @@ export const exmouthBeachVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Exmouth Beach.jpg",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

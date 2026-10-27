@@ -77,4 +77,6 @@ export const climbingAtExeterQuayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "activity_specific_clothing, chalk_bag",
   image: "Climbing Centre Exeter Quay.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

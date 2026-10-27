@@ -102,4 +102,6 @@ export const swimDevonLessonsStages810RacersClubV2: OpportunityClubV2SeedInput =
   clubAttractions: "skill_progression, confidence_building, strength_agility, structured_coaching, swimming",
   clubExtraKit: "swimming_kit, towels, dry_bags",
   image: "Swim Devon.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

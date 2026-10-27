@@ -102,4 +102,6 @@ export const mudVenturesStayPlayClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "mud_kitchens, sand_soil_and_loose_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, guided_outdoor_learning_prompts, quiet_or_low_intervention_spaces, enclosed_or_defined_play_zones",
   clubExtraKit: "wellies, waterproofs, warm_clothes",
   image: "Mud Ventures.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

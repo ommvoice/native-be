@@ -102,4 +102,6 @@ export const kingdomClubClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "welcoming_space, craft_tables_or_activities, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, flexible_timings_relaxed_start_end_times, newbie_friendly",
   clubExtraKit: null,
   image: "Kingdom Club.jpeg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

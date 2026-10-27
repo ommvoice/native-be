@@ -102,4 +102,6 @@ export const oceanSoftplay2ClubV2: OpportunityClubV2SeedInput = {
   clubAttractions: "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
   clubExtraKit: null,
   image: "Ocean Softplay.jpg",
+  partnerCode: null,
+  regularTimetabled: null,
 };

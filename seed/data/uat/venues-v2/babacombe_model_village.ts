@@ -77,4 +77,6 @@ export const babacombeModelVillageVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Babacombe Model Village.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

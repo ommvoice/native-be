@@ -45,4 +45,6 @@ export const squabmoorReservoirRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: "sling_carrier, toddler_carrier, wellies",
   image: "Squabmoor Reservoir.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

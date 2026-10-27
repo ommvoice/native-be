@@ -77,4 +77,6 @@ export const brixingtonParkVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Brixington Park.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

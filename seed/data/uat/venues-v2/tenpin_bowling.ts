@@ -77,4 +77,6 @@ export const tenpinBowlingVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Tenpin Bowling.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

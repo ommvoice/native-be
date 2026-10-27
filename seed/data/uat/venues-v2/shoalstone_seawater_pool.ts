@@ -77,4 +77,6 @@ export const shoalstoneSeawaterPoolVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "swimming_kit, towels, water_shoes, dry_bags, wetsuits, warm_clothes",
   image: "Brixham Sea Pool.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

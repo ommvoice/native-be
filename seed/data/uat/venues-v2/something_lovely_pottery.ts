@@ -77,4 +77,6 @@ export const somethingLovelyPotteryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Something Lovely Pottery.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

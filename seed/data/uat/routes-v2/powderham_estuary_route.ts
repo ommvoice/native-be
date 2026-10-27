@@ -45,4 +45,6 @@ export const powderhamEstuaryRouteRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Powderham to Turf Locks Cycle.jpg",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const heronFarmCafeVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Heron Farm.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

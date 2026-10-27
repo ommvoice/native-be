@@ -77,4 +77,6 @@ export const ansteysCoveVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "sling_carrier, toddler_carrier, towels, water_shoes, tide_times, fishing_nets, snorkel_mask, wetsuit_boots, fishing_rods_bait",
   image: "Antsys Cove.jpg",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const ferneAnimalSanctuaryVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Fearne Animal Sanctuary.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

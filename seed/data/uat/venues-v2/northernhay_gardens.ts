@@ -77,4 +77,6 @@ export const northernhayGardensVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Northernhay Gardens.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

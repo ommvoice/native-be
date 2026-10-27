@@ -77,4 +77,6 @@ export const theYardAtDartsFarmVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "The Yard Darts Farm.JPG",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

@@ -77,4 +77,6 @@ export const cowCacaoCafeAtDartsFarmVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Cow and Cacao.JPG",
   venueBankHolidays: "Open",
+  partnerCode: null,
+  regularTimetabled: null,
 };

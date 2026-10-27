@@ -77,4 +77,6 @@ export const buryMeadowVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Bury Meadow.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

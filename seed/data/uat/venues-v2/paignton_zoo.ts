@@ -77,4 +77,6 @@ export const paigntonZooVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "Paignton Zoo.JPG",
   venueBankHolidays: "true",
+  partnerCode: null,
+  regularTimetabled: null,
 };

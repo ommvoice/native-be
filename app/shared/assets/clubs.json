@@ -100,7 +100,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
     "clubExtraKit": null,
-    "image": "Ocean Softplay.jpg"
+    "image": "Ocean Softplay.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ocean_softplay",
@@ -203,7 +205,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
     "clubExtraKit": null,
-    "image": "Ocean Softplay.jpg"
+    "image": "Ocean Softplay.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ocean_softplay_2",
@@ -306,7 +310,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "soft_climbing_structures, slides, tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas",
     "clubExtraKit": null,
-    "image": "Ocean Softplay.jpg"
+    "image": "Ocean Softplay.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "ocean_softplay_new_parents_club",
@@ -409,7 +415,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "tunnels_and_crawl_spaces, ball_pools, enclosed_space, clear_sightlines, seating_for_adults, cafe_or_refreshment_area, separate_toddler_area, age_zoned_play_areas, calm_or_quieter_zones",
     "clubExtraKit": null,
-    "image": "Ocean New Parents.jpg"
+    "image": "Ocean New Parents.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_gems_playgroup",
@@ -512,7 +520,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, storytelling, toys_toy_corners, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, play_areas_or_equipment, flexible_timings_relaxed_start_end_times, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Little Gems.JPG"
+    "image": "Little Gems.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_gems_playgroup_2",
@@ -615,7 +625,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, storytelling, toys_toy_corners, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, play_areas_or_equipment, flexible_timings_relaxed_start_end_times, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Little Gems.JPG"
+    "image": "Little Gems.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kingdom_club",
@@ -718,7 +730,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, craft_tables_or_activities, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, flexible_timings_relaxed_start_end_times, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Kingdom Club.jpeg"
+    "image": "Kingdom Club.jpeg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "kingdom_club_2",
@@ -821,7 +835,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, craft_tables_or_activities, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, flexible_timings_relaxed_start_end_times, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Kingdom Club.jpeg"
+    "image": "Kingdom Club.jpeg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "teenager_tuesday_at_robin_wood",
@@ -924,7 +940,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces, guided_outdoor_learning_prompts, fire_pits_when_part_of_structured_sessions",
     "clubExtraKit": null,
-    "image": "Teenager Tuesdays.jpg"
+    "image": "Teenager Tuesdays.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "make_it_monday_at_robin_wood",
@@ -1027,7 +1045,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces, guided_outdoor_learning_prompts, fire_pits_when_part_of_structured_sessions",
     "clubExtraKit": null,
-    "image": "Make It Mondays.jpg"
+    "image": "Make It Mondays.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "swim_devon_lessons_stages_8_10_racers",
@@ -1130,7 +1150,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "skill_progression, confidence_building, strength_agility, structured_coaching, swimming",
     "clubExtraKit": "swimming_kit, towels, dry_bags",
-    "image": "Swim Devon.jpg"
+    "image": "Swim Devon.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "swim_devon_group_lesson_stages_1_7_lympstone",
@@ -1233,7 +1255,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "early_access_introduction, skill_progression, confidence_building, strength_agility, structured_coaching, mixed_ability_sessions, swimming",
     "clubExtraKit": "swimming_kit, towels, dry_bags",
-    "image": "Swim Devon.jpg"
+    "image": "Swim Devon.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "family_home_ed_at_robin_wood",
@@ -1336,7 +1360,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces, guided_outdoor_learning_prompts, fire_pits_when_part_of_structured_sessions",
     "clubExtraKit": null,
-    "image": "Robin Wood Home Ed.JPG"
+    "image": "Robin Wood Home Ed.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_yammas_martial_arts_exmouth",
@@ -1439,7 +1465,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "early_access_introduction, confidence_building, coordination_balance, mixed_ability_sessions, friendly_competition, martial_arts",
     "clubExtraKit": "activity_specific_clothing",
-    "image": "Little Yammas Martial Arts Exmouth.JPG"
+    "image": "Little Yammas Martial Arts Exmouth.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "rockstars_climbing_club",
@@ -1542,7 +1570,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "early_access_introduction, confidence_building, coordination_balance, strength_agility, structured_coaching, mixed_ability_sessions, purpose_built_facilities, climbing, all_weather_options",
     "clubExtraKit": "activity_specific_clothing",
-    "image": "Rockstars Climbing Club.JPG"
+    "image": "Rockstars Climbing Club.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "monquays_climbing_club",
@@ -1645,7 +1675,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "confidence_building, coordination_balance, strength_agility, structured_coaching, mixed_ability_sessions, purpose_built_facilities, climbing, all_weather_options, skill_progression, non_competitive_options",
     "clubExtraKit": "activity_specific_clothing",
-    "image": "Monquays Climbing Club.JPG"
+    "image": "Monquays Climbing Club.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "youth_climbing_club",
@@ -1748,7 +1780,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "confidence_building, strength_agility, structured_coaching, purpose_built_facilities, climbing, all_weather_options, skill_progression, non_competitive_options",
     "clubExtraKit": "activity_specific_clothing",
-    "image": "Youth Climbing Club.JPG"
+    "image": "Youth Climbing Club.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "robin_wood_forest_school_under_5s",
@@ -1851,7 +1885,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "climbing_logs_or_balance_beams, mud_kitchens, sand_soil_and_loose_materials, den_building_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, childrens_activity_trails, immersive_natural_surroundings, quiet_or_low_intervention_spaces",
     "clubExtraKit": null,
-    "image": "Robin Wood.JPG"
+    "image": "Robin Wood.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "little_farmers_drakes_farm",
@@ -1954,7 +1990,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "mud_kitchens, sand_soil_and_loose_materials, farming_school_activities, immersive_natural_surroundings, quiet_or_low_intervention_spaces, enclosed_or_defined_play_zones",
     "clubExtraKit": "xcountry_buggy, sling_carrier, toddler_carrier, waterproofs, wellies, warm_clothes",
-    "image": "Drakes Farm.jpg"
+    "image": "Drakes Farm.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_tuesdays_laser_tag",
@@ -2057,7 +2095,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "laser_tag, cafe_or_restaurant, immersive_experience",
     "clubExtraKit": null,
-    "image": "Tenpin Laser Tag.JPG"
+    "image": "Tenpin Laser Tag.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "tenpin_tuesdays_bowling",
@@ -2160,7 +2200,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "bowling_lanes, bar_licensed_venue, arcade_games, pool_or_snooker_table, laser_tag, cafe_or_restaurant",
     "clubExtraKit": null,
-    "image": "Tenpin Bowling.JPG"
+    "image": "Tenpin Bowling.JPG",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "mud_ventures_stay_play",
@@ -2263,7 +2305,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "mud_kitchens, sand_soil_and_loose_materials, natural_construction_zones, mud_and_puddles, forest_school_activities, guided_outdoor_learning_prompts, quiet_or_low_intervention_spaces, enclosed_or_defined_play_zones",
     "clubExtraKit": "wellies, waterproofs, warm_clothes",
-    "image": "Mud Ventures.jpg"
+    "image": "Mud Ventures.jpg",
+    "partnerCode": null,
+    "regularTimetabled": null
   },
   {
     "id": "cake_at_the_castle",
@@ -2366,7 +2410,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, toys_toy_corners, refreshments_provided, local_parent_hangout, like_minded_families, relaxed_child_friendly_setting, play_areas_or_equipment, craft_tables_or_activities, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Cake At Castle GMC.JPG"
+    "image": "Cake At Castle GMC.JPG",
+    "partnerCode": "P001",
+    "regularTimetabled": true
   },
   {
     "id": "fun_at_the_fort",
@@ -2469,7 +2515,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "welcoming_space, craft_tables_or_activities, toys_toy_corners, refreshments_provided, local_parent_hangout, relaxed_child_friendly_setting, play_areas_or_equipment, parent_child_activities, newbie_friendly",
     "clubExtraKit": null,
-    "image": "Fun At The Fort.jpg"
+    "image": "Fun At The Fort.jpg",
+    "partnerCode": "P001",
+    "regularTimetabled": true
   },
   {
     "id": "family_swim",
@@ -2572,7 +2620,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "confidence_building, non_competitive_options, all_weather_options, swimming",
     "clubExtraKit": "swimming_kit, towels",
-    "image": "Family Swim.jpg"
+    "image": "Family Swim.jpg",
+    "partnerCode": "P001",
+    "regularTimetabled": true
   },
   {
     "id": "family_swim_2",
@@ -2675,7 +2725,9 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "confidence_building, non_competitive_options, all_weather_options, swimming",
     "clubExtraKit": "swimming_kit, towels",
-    "image": "Family Swim.jpg"
+    "image": "Family Swim.jpg",
+    "partnerCode": "P001",
+    "regularTimetabled": true
   },
   {
     "id": "team_no_sleep_baby_group",
@@ -2778,6 +2830,8 @@
     "clubSeasonalHighlights": null,
     "clubAttractions": "tactile_materials, quiet_environment, soft_lighting",
     "clubExtraKit": null,
-    "image": "Baby Group Club.JPG"
+    "image": "Baby Group Club.JPG",
+    "partnerCode": "P001",
+    "regularTimetabled": true
   }
 ]

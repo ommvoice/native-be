@@ -77,4 +77,6 @@ export const southDevonMiniatureRailwayVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: null,
   image: "South Devon Miniature Railway.JPG",
   venueBankHolidays: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

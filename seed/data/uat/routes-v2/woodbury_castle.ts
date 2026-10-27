@@ -45,4 +45,6 @@ export const woodburyCastleRouteV2: OpportunityRouteV2SeedInput = {
   routeExtraKit: null,
   image: "Woodbury Castle.JPG",
   routeCountry: null,
+  partnerCode: null,
+  regularTimetabled: null,
 };

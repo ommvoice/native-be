@@ -77,4 +77,6 @@ export const heavitreePleasureGroundsVenueV2: OpportunityVenueV2SeedInput = {
   venueExtraKit: "swimming_kit, towels, water_shoes",
   image: "Heavitree Pleasure Grounds.JPG",
   venueBankHolidays: "false",
+  partnerCode: null,
+  regularTimetabled: null,
 };

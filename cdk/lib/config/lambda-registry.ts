@@ -480,8 +480,12 @@ const mapboxLambdas: LambdaDefinition[] = [
 const communityLambdas: LambdaDefinition[] = [
   {
     key: 'communityGetHub', name: 'community-get-hub', entry: 'community/get-hub.ts',
-    env: { cognito: true },
+    // buildOpportunities -> getRecommendations2: Mapbox for travel time (MAPBOX_ACCESS_TOKEN) and
+    // weatherapi.com (WEATHER_API_KEY). Weather scoring is skipped today, but keep the key so
+    // turning it on later doesn't fail.
+    env: { cognito: true, externalApi: true },
     permissions: { dynamodb: 'readWrite', cognito: false },
+    overrides: { timeoutSeconds: 60, memoryMb: 1024 },
     routes: [{ path: ['community', 'hub'], method: 'GET', auth: true }],
   },
 ];

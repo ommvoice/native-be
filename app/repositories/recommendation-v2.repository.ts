@@ -234,6 +234,7 @@ export class RecommendationV2Repository {
       physicalSetting:   splitList(v.venuePhysicalSetting),
       weatherSuitability:splitList(v.venueDetailedWeatherSuitability),
       activeDays:       getVenueActiveDays(v),
+      original:         v,
       ...getVenueTodayTimes(v),
     }));
 
@@ -263,6 +264,7 @@ export class RecommendationV2Repository {
       tags:             splitList(e.eventInterestTags),
       physicalSetting:   splitList(e.eventPhysicalSetting),
       weatherSuitability:splitList(e.eventDetailedWeatherSuitability),
+      original:         e,
       ...getEventTodayTimes(e),
     }));
 
@@ -294,6 +296,7 @@ export class RecommendationV2Repository {
       physicalSetting:   splitList(c.clubPhysicalSetting),
       // Clubs have no weather-suitability field at all — always empty, unlike venue/event/route.
       weatherSuitability: [],
+      original:         c,
       ...getClubTodayTimes(c),
     }));
 
@@ -321,6 +324,7 @@ export class RecommendationV2Repository {
       tags:             splitList(r.routeInterestTags),
       physicalSetting:   splitList(r.routePhysicalSetting),
       weatherSuitability:splitList(r.routeDetailedWeatherSuitability),
+      original:         r,
     }));
 
     return [...venueRows, ...eventRows, ...clubRows, ...routeRows];

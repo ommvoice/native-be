@@ -671,7 +671,10 @@ export class RecommendationV2Service {
     // Step 5: weather — rain/storm/snow hides outside opportunities (score 0 → dropped), keeps mixed
     // ones at a lower score and inside ones in full; good weather shows everything. One
     // weatherapi.com call per request (cached 10 minutes per postcode). See ScoringV3.scoreWeatherSuitability.
-    const liveWeatherSlugs = await ScoringV3.getCachedWeatherSuitabilitySlugs(narrowed.postCode);
+    // Weather pre-set to 100 (skipped) never reads the slugs, so don't call weatherapi.com for it.
+    const liveWeatherSlugs = initialScores.weatherScore === 100
+      ? []
+      : await ScoringV3.getCachedWeatherSuitabilitySlugs(narrowed.postCode);
 
     const weatherScoreMatch = scheduleScoreMatch
       .map((item) => {

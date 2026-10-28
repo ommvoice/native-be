@@ -38,3 +38,6 @@ Thumbs.db
 /generated/prisma
 
 /downloads
+
+# Local script output (scripts/test-recommendations.ts)
+/tmp

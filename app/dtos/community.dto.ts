@@ -1,3 +1,8 @@
+import type { Opportunity } from '../shared/utils/formatter/recommendation-formatter';
+
+export const COMMUNITY_WEEKDAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
+export type CommunityWeekday = (typeof COMMUNITY_WEEKDAYS)[number];
+
 export interface GetCommunityHubQueryDto {
   parentId: string;
 }
@@ -22,48 +27,6 @@ export interface ProviderDto {
   serviceBranch: string | null;
   affiliatedBaseId: string | null;
   isVerified: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface CommunityFixedOpportunityDto {
-  id: string;
-  providerId: string;
-  name: string;
-  description: string | null;
-  category: string;
-  subcategory: string | null;
-  openingHours: Record<string, string> | null;
-  address: string | null;
-  city: string | null;
-  postcode: string | null;
-  isFree: boolean;
-  priceInfo: string | null;
-  minAge: number | null;
-  maxAge: number | null;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface CommunityFluidOpportunityDto {
-  id: string;
-  providerId: string;
-  name: string;
-  description: string | null;
-  category: string;
-  subcategory: string | null;
-  startDate: string;
-  endDate: string;
-  eventTimes: { start?: string; end?: string } | null;
-  venueName: string | null;
-  address: string | null;
-  city: string | null;
-  isFree: boolean;
-  priceInfo: string | null;
-  requiresBooking: boolean;
-  isActive: boolean;
-  isExpired: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -95,8 +58,10 @@ export interface TeamMemberScheduleEntry {
 export interface CommunityHubResponse {
   baseId: string | null;
   provider: ProviderDto | null;
-  fixedOpportunities: CommunityFixedOpportunityDto[];
-  fluidOpportunities: CommunityFluidOpportunityDto[];
+  /** P001 events/clubs whose date range overlaps the current month. */
+  thisMonth: Opportunity[];
+  /** P001 regular-timetabled clubs, keyed by each day in their clubDailySchedule. */
+  regulars: Record<CommunityWeekday, Opportunity[]>;
   teamMembers: ProviderTeamMemberDto[];
   schedulesByTeamMemberId: Record<string, TeamMemberScheduleEntry[]>;
 }

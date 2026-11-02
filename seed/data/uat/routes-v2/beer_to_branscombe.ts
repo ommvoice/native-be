@@ -3,8 +3,8 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const beerToBranscombeRouteV2: OpportunityRouteV2SeedInput = {
   id: "beer_to_branscombe",
   slug: "beer_to_branscombe",
-  recordId: "0",
-  queuedVersion: 0,
+  recordId: "ROU-00002",
+  queuedVersion: 2,
   active: true,
   themeSlug: "scenic_walks",
   themeVariantSlug: "coastal_walk",

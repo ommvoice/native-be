@@ -175,6 +175,13 @@ import { ansteysCoveVenueV2 } from "./ansteys_cove.js";
 import { mattiscombeSandsVenueV2 } from "./mattiscombe_sands.js";
 import { tenpinLaserTagVenueV2 } from "./tenpin_laser_tag.js";
 import { cherryBrookRiverBeachVenueV2 } from "./cherry_brook_river_beach.js";
+import { custardTownVenueV2 } from "./custard_town.js";
+import { exeterLibraryVenueV2 } from "./exeter_library.js";
+import { southBeachCafeVenueV2 } from "./south_beach_cafe.js";
+import { boathouseCafeCreperieVenueV2 } from "./boathouse_cafe_creperie.js";
+import { littleAdventuresPlayCafeVenueV2 } from "./little_adventures_play_cafe.js";
+import { exmouthLeisureCentreGymVenueV2 } from "./exmouth_leisure_centre_gym.js";
+import { vertexeClimbingWallVenueV2 } from "./vertexe_climbing_wall.js";
 
 export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   ameliasFlowerFarmCafeVenueV2,
@@ -353,4 +360,11 @@ export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   mattiscombeSandsVenueV2,
   tenpinLaserTagVenueV2,
   cherryBrookRiverBeachVenueV2,
+  custardTownVenueV2,
+  exeterLibraryVenueV2,
+  southBeachCafeVenueV2,
+  boathouseCafeCreperieVenueV2,
+  littleAdventuresPlayCafeVenueV2,
+  exmouthLeisureCentreGymVenueV2,
+  vertexeClimbingWallVenueV2,
 ];

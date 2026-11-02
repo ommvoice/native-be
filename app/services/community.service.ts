@@ -559,6 +559,7 @@ export class CommunityService {
   /** The hub's "This Month" and "Regular Activities & Clubs" sections, built from the partner's
    * (P001) events and clubs. Scoring is skipped (skipAll), so nothing is dropped for interests,
    * age, weather, schedule or distance — the pipeline is only used for travel time and card text.
+   * Items whose end date has passed are left out of both sections.
    *
    * - thisMonth: the item's start→end date range overlaps the current UK month (so an event that
    *   started last month or ends next month still shows).
@@ -579,11 +580,12 @@ export class CommunityService {
       throw err;
     }
 
+    const today = AppClock.isoDateString();
     const partnerItems = raw.filter(
-      (r) => (r.opportunityType === 'event' || r.opportunityType === 'club') && r.partnerCode === COMMUNITY_PARTNER_CODE,
+      (r) => (r.opportunityType === 'event' || r.opportunityType === 'club') && r.partnerCode === COMMUNITY_PARTNER_CODE && !hasEnded(r, today),
     );
 
-    const currentMonth = AppClock.isoDateString().slice(0, 7); // "YYYY-MM"
+    const currentMonth = today.slice(0, 7); // "YYYY-MM"
     const thisMonth = toOpportunityList(partnerItems.filter((r) => overlapsMonth(r, currentMonth)), childrenAges);
 
     const regularItems = partnerItems.filter((r) => r.opportunityType === 'club' && r.regularTimetabled === true);
@@ -596,6 +598,13 @@ export class CommunityService {
 }
 
 const COMMUNITY_PARTNER_CODE = 'P001';
+
+/** Whether an event/club's end date is before `today` ("YYYY-MM-DD"). It still counts on its last
+ * day, and an item with no end date hasn't ended. */
+function hasEnded(r: EnrichedScoredRecommendationV2, today: string): boolean {
+  const end = (r.opportunityType === 'event' ? r.eventEndDate : r.clubEndDate) as string | null | undefined;
+  return !!end && end.slice(0, 10) < today;
+}
 
 /** Whether an event/club's start→end range touches `month` ("YYYY-MM"). A missing end means a
  * single-day item; an item with no dates at all can't be placed in a month, so it's left out. */

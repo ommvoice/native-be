@@ -141,6 +141,62 @@
     {
       "name": "suspension)",
       "slug": "suspension"
+    },
+    {
+      "name": "imaginative play",
+      "slug": "imaginative_play"
+    },
+    {
+      "name": "sensory play",
+      "slug": "sensory_play"
+    },
+    {
+      "name": "role play",
+      "slug": "role_play"
+    },
+    {
+      "name": "art studio",
+      "slug": "art_studio"
+    },
+    {
+      "name": "mess-free crafts",
+      "slug": "mess_free_crafts"
+    },
+    {
+      "name": "teddy bears picnic",
+      "slug": "teddy_bears_picnic"
+    },
+    {
+      "name": "disco",
+      "slug": "disco"
+    },
+    {
+      "name": "toddler play",
+      "slug": "toddler_play"
+    },
+    {
+      "name": "baby friendly",
+      "slug": "baby_friendly"
+    },
+    {
+      "name": "SEND friendly",
+      "slug": "send_friendly"
+    },
+    {
+      "name": "inclusive play",
+      "slug": "inclusive_play"
+    },
+    {
+      "name": "community play",
+      "slug": "community_play"
+    },
+    {
+      "name": "indoor play",
+      "slug": "indoor_play"
+    },
+    {
+      "name": "all weather",
+      "slug": "all_weather"
     }
   ],
   "OPPORTUNITY_THEME_VARIANT_ENUM": [
@@ -261,6 +317,10 @@
     {
       "name": "One-off (pay as you go), Termly blocks",
       "slug": "one_off_pay_as_you_go_termly_blocks"
+    },
+    {
+      "name": "One-off (pay as you go), Membership",
+      "slug": "one_off_pay_as_you_go_membership"
     }
   ],
   "SKILL_AREA_ENUM": [
@@ -299,6 +359,12 @@
     {
       "name": "Mountain Bikes Only",
       "slug": "mountain_bikes_only"
+    }
+  ],
+  "SEASONAL_TAG_ENUM": [
+    {
+      "name": "Spring flowers",
+      "slug": "spring_flowers"
     }
   ]
 }

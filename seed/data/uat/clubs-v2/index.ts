@@ -26,6 +26,11 @@ import { funAtTheFortClubV2 } from "./fun_at_the_fort.js";
 import { familySwimClubV2 } from "./family_swim.js";
 import { familySwim2ClubV2 } from "./family_swim_2.js";
 import { teamNoSleepBabyGroupClubV2 } from "./team_no_sleep_baby_group.js";
+import { teenVirtualSpin1116ClubV2 } from "./teen_virtual_spin_11_16.js";
+import { rawWrigglersGymnasticsClubV2 } from "./raw_wrigglers_gymnastics.js";
+import { getActiveSessions1113ClubV2 } from "./get_active_sessions_11_13.js";
+import { tickTockLympstonePlaygroupClubV2 } from "./tick_tock_lympstone_playgroup.js";
+import { tickTockLympstonePlaygroup2ClubV2 } from "./tick_tock_lympstone_playgroup_2.js";
 
 export const opportunityClubV2SeedRows: OpportunityClubV2SeedInput[] = [
   oceanSoftplayAfterschoolClubClubV2,
@@ -55,4 +60,9 @@ export const opportunityClubV2SeedRows: OpportunityClubV2SeedInput[] = [
   familySwimClubV2,
   familySwim2ClubV2,
   teamNoSleepBabyGroupClubV2,
+  teenVirtualSpin1116ClubV2,
+  rawWrigglersGymnasticsClubV2,
+  getActiveSessions1113ClubV2,
+  tickTockLympstonePlaygroupClubV2,
+  tickTockLympstonePlaygroup2ClubV2,
 ];

@@ -19,6 +19,7 @@ import { pumpkinFestStrawberryFieldsEventV2 } from "./pumpkin_fest_strawberry_fi
 import { sanctuaryFlowersEventV2 } from "./sanctuary_flowers.js";
 import { greendalePumpkinPatchEventV2 } from "./greendale_pumpkin_patch.js";
 import { ameliasFlowersEventV2 } from "./amelias_flowers.js";
+import { halloweenFamilyFunAtDrakesFarmEventV2 } from "./halloween_family_fun_at_drakes_farm.js";
 
 export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   ashridgeCourtEventV2,
@@ -41,4 +42,5 @@ export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   sanctuaryFlowersEventV2,
   greendalePumpkinPatchEventV2,
   ameliasFlowersEventV2,
+  halloweenFamilyFunAtDrakesFarmEventV2,
 ];

@@ -18,7 +18,12 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   // Everything Local tab — every scoring dimension is skipped, so this is the
   // full local opportunity pool, unranked/unfiltered by interests, age,
   // weather, schedule or distance, just grouped by interest for display.
-  const skipRecommendations = getInitialScore({ skipAll: true });
+  const skipRecommendations = getInitialScore({ 
+    skipInterests: true, 
+    skipAges: true,
+    skipWeather: true, 
+    // skipSchedule: true, 
+    skipDistance: true });
   const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
   const opportunities = toOpportunityList(raw as any, childrenAges);
   const data = groupOpportunitiesByInterest(opportunities);

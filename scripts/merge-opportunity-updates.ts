@@ -14,14 +14,22 @@
  *                                             else, incl. manual fixes, is kept. id/slug never change.
  * Legacy records get recordId "0", queuedVersion 0, active true.
  *
+ * --base can be repeated, because no single sheet holds every record's previous row: the first base
+ * with a row for the record wins. A record with no base row is listed as such and gets every field
+ * that differs overwritten, so check for those in the dry run.
+ *
+ * Sheet values are matched against app/shared/assets/enums.json. Values from the incoming sheet that
+ * nothing matches are added there on --apply.
+ *
  * Usage:
- *   npx tsx scripts/merge-opportunity-updates.ts --base newData2.xlsx --incoming newDate3.xlsx          # dry run
- *   npx tsx scripts/merge-opportunity-updates.ts --base newData2.xlsx --incoming newDate3.xlsx --apply
+ *   npx tsx scripts/merge-opportunity-updates.ts --base newData4.xlsx --base newData3.xlsx --incoming newData5.xlsx          # dry run
+ *   npx tsx scripts/merge-opportunity-updates.ts --base newData4.xlsx --base newData3.xlsx --incoming newData5.xlsx --apply
  * Then: npm run export:data-json  (JSON assets)  →  APP_ENV=uat npm run seed:opportunities  (DynamoDB)
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import { appendToEnumsJson, mintedEnums } from "./lib/asset-enums.js";
 import { slugify } from "./lib/enum-matching.js";
 import type { ParsedSheetRow } from "./lib/sheet-columns.js";
 import * as venues from "./parse-venues-data.js";
@@ -65,17 +73,19 @@ const TYPES: TypeConfig[] = [
 
 // ── CLI ───────────────────────────────────────────────────────────────────────
 
-function arg(name: string): string {
-  const i = process.argv.indexOf(name);
-  const value = i === -1 ? undefined : process.argv[i + 1];
-  if (!value) throw new Error(`Missing ${name} <file.xlsx>`);
-  const resolved = path.resolve(ROOT, value);
-  if (!fs.existsSync(resolved)) throw new Error(`${name}: ${resolved} not found`);
-  return resolved;
+/** Every value passed for `name`, which can be repeated. */
+function args(name: string): string[] {
+  const values = process.argv.flatMap((a, i) => (a === name ? [process.argv[i + 1]] : []));
+  if (!values.length || values.some((v) => !v)) throw new Error(`Missing ${name} <file.xlsx>`);
+  return values.map((value) => {
+    const resolved = path.resolve(ROOT, value!);
+    if (!fs.existsSync(resolved)) throw new Error(`${name}: ${resolved} not found`);
+    return resolved;
+  });
 }
 const apply = process.argv.includes("--apply");
-const basePath = arg("--base");
-const incomingPath = arg("--incoming");
+const basePaths = args("--base");
+const [incomingPath] = args("--incoming") as [string];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -149,7 +159,21 @@ interface Plan {
   warnings: string[];
 }
 
-function planType(t: TypeConfig): Plan {
+/** A record's previous sheet row: by record_id across every base first, then by name. */
+function findBaseRows(t: TypeConfig, recordId: string, name: string): ParsedSheetRow<Rec>[] {
+  const bases = basePaths.map((p) => t.parse(p).filter((row) => row.record));
+  for (const rows of bases) {
+    const row = rows.find((r) => r.meta.recordId === recordId);
+    if (row) return [row];
+  }
+  for (const rows of bases) {
+    const byName = rows.filter((r) => nameSlug(r.record!, t) === name);
+    if (byName.length) return byName;
+  }
+  return [];
+}
+
+function planType(t: TypeConfig, incoming: ParsedSheetRow<Rec>[]): Plan {
   const plan: Plan = { creates: [], updates: [], removes: [], unchanged: [], legacy: [], warnings: [] };
   const existing = t.existing;
   const takenIds = new Set(existing.map((r) => String(r.id)));
@@ -157,11 +181,7 @@ function planType(t: TypeConfig): Plan {
   const legacyByName = groupBy(existing.filter((r) => !r.recordId || r.recordId === "0"), (r) => nameSlug(r, t));
   plan.legacy = existing.filter((r) => r.recordId === undefined).map((r) => String(r.id));
 
-  const baseByName = groupBy(t.parse(basePath).filter((row) => row.record), (row) => nameSlug(row.record!, t));
-  const baseByRecordId = new Map<string, ParsedSheetRow<Rec>>();
-  for (const rows of baseByName.values()) for (const row of rows) if (row.meta.recordId) baseByRecordId.set(row.meta.recordId, row);
-
-  for (const row of t.parse(incomingPath)) {
+  for (const row of incoming) {
     if (!row.record) {
       plan.warnings.push(`row ${row.rowNumber} (${row.meta.recordId ?? "no record_id"}): ${row.error} — skipped, fix in the sheet`);
       continue;
@@ -207,7 +227,7 @@ function planType(t: TypeConfig): Plan {
     }
 
     // Only the fields the sheet actually changed between base and incoming — manual fixes elsewhere survive.
-    const baseCandidates = baseByRecordId.has(meta.recordId) ? [baseByRecordId.get(meta.recordId)!] : baseByName.get(nameSlug(record, t)) ?? [];
+    const baseCandidates = findBaseRows(t, meta.recordId, nameSlug(record, t));
     const base = baseCandidates.length === 1 ? baseCandidates[0]!.record! : null;
     if (baseCandidates.length > 1) plan.warnings.push(`${label}: ${baseCandidates.length} base rows share this name — treating as full replace`);
     const merged: Rec = { ...target };
@@ -267,11 +287,17 @@ function writeOverlay(): void {
 }
 
 function main(): void {
-  console.log(`base:     ${path.relative(ROOT, basePath)}\nincoming: ${path.relative(ROOT, incomingPath)}\nmode:     ${apply ? "APPLY" : "dry run (pass --apply to write)"}`);
-  const plans = TYPES.map((t) => [t, planType(t)] as const);
+  console.log(`base:     ${basePaths.map((p) => path.relative(ROOT, p)).join(", ")}\nincoming: ${path.relative(ROOT, incomingPath)}\nmode:     ${apply ? "APPLY" : "dry run (pass --apply to write)"}`);
+  // Incoming sheet parsed first: only its unmatched values belong in enums.json, not a base sheet's.
+  const incoming = TYPES.map((t) => t.parse(incomingPath));
+  const newEnums = [...mintedEnums];
+  const plans = TYPES.map((t, i) => [t, planType(t, incoming[i]!)] as const);
   for (const [t, plan] of plans) report(t, plan);
+  console.log(`\n══ New enums.json entries — ${newEnums.length}`);
+  for (const e of newEnums) console.log(`  + ${e.enumKey}: "${e.name}" → ${e.slug}`);
   if (!apply) return;
   for (const [t, plan] of plans) applyPlan(t, plan);
+  appendToEnumsJson(newEnums);
   writeOverlay();
   console.log("\nApplied. Next: npm run export:data-json, then review the JSON diff before seeding.");
 }

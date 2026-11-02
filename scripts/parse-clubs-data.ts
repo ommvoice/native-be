@@ -25,6 +25,7 @@ import { type EnumEntry, slugify, matchEnumValue, quoteCommaNames } from "./lib/
 import { emitTypeFile, type TypeField } from "./lib/emit-type.js";
 import { findColumn, warnMissingColumn, readRowMeta, isDirectRun, type ParsedSheetRow } from "./lib/sheet-columns.js";
 import * as ENUMS from "../seed/data/uat/enums/index.js";
+import { mintedEnums, useAssetEnums } from "./lib/asset-enums.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WORKBOOK_PATH = path.join(__dirname, "..", "newData3.xlsx");
@@ -53,7 +54,7 @@ type Cell = RawCell | null;
 
 // ── Enum registry (keys double as the overlay JSON's top-level keys) ────────
 
-const ENUM_REGISTRY: Record<string, EnumEntry[]> = {
+const ENUM_REGISTRY = useAssetEnums({
   OPPORTUNITY_TYPE_ENUM: ENUMS.OPPORTUNITY_TYPE_ENUM,
   OPPORTUNITY_THEME_ENUM: ENUMS.OPPORTUNITY_THEME_ENUM,
   OPPORTUNITY_THEME_VARIANT_ENUM: ENUMS.OPPORTUNITY_THEME_VARIANT_ENUM,
@@ -75,7 +76,7 @@ const ENUM_REGISTRY: Record<string, EnumEntry[]> = {
   SKILL_AREA_ENUM: ENUMS.SKILL_AREA_ENUM,
   SKILL_AREA_VARIANT_ENUM: ENUMS.SKILL_AREA_VARIANT_ENUM,
   ABILITY_LEVEL_ENUM: ENUMS.ABILITY_LEVEL_ENUM,
-};
+});
 
 export const overlay: Record<string, { name: string; slug: string }[]> = fs.existsSync(OVERLAY_PATH)
   ? JSON.parse(fs.readFileSync(OVERLAY_PATH, "utf8"))
@@ -93,6 +94,7 @@ function resolveEnumValue(enumKey: string, rawValue: string): string {
   if (alreadyMinted) return alreadyMinted.slug;
 
   entries.push({ name: rawValue, slug: newSlug, active: true });
+  mintedEnums.push({ enumKey, name: rawValue, slug: newSlug });
   const bucket = overlay[enumKey] ?? (overlay[enumKey] = []);
   // Overlay entries loaded from disk aren't in `entries`, so guard against recording the same slug twice.
   if (!bucket.some((e) => e.slug === newSlug)) bucket.push({ name: rawValue, slug: newSlug });
@@ -327,6 +329,7 @@ function parseCell(v: Cell, kind: FieldKind): OutputValue {
       return s ? resolveEnumValue(kind.enumKey, s) : null;
     }
     case "enumMulti": {
+      if (typeof v?.v === "boolean") return null; // TRUE/FALSE in a skill column means "none", not a value
       const s = cellToStr(v);
       if (!s) return null;
       const tokens = splitMultiValue(quoteCommaNames(s, ENUM_REGISTRY[kind.enumKey] ?? []));

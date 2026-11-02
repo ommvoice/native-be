@@ -415,6 +415,21 @@
       "name": "Water Refill",
       "slug": "water_refill",
       "active": true
+    },
+    {
+      "name": "Pushchair Friendly",
+      "slug": "pushchair_friendly",
+      "active": true
+    },
+    {
+      "name": "Wheelchair Friendly",
+      "slug": "wheelchair_friendly",
+      "active": true
+    },
+    {
+      "name": "Buggy Friendly",
+      "slug": "buggy_friendly",
+      "active": true
     }
   ],
   "parentFacility": [
@@ -1115,6 +1130,11 @@
     {
       "name": "Membership",
       "slug": "membership",
+      "active": true
+    },
+    {
+      "name": "One-off (pay as you go), Membership",
+      "slug": "one_off_pay_as_you_go_membership",
       "active": true
     }
   ],
@@ -7466,6 +7486,141 @@
     {
       "name": "Escape Room",
       "slug": "escape_room",
+      "active": true
+    },
+    {
+      "name": "imaginative play",
+      "slug": "imaginative_play",
+      "active": true
+    },
+    {
+      "name": "sensory play",
+      "slug": "sensory_play",
+      "active": true
+    },
+    {
+      "name": "role play",
+      "slug": "role_play",
+      "active": true
+    },
+    {
+      "name": "art studio",
+      "slug": "art_studio",
+      "active": true
+    },
+    {
+      "name": "mess-free crafts",
+      "slug": "mess_free_crafts",
+      "active": true
+    },
+    {
+      "name": "teddy bears picnic",
+      "slug": "teddy_bears_picnic",
+      "active": true
+    },
+    {
+      "name": "disco",
+      "slug": "disco",
+      "active": true
+    },
+    {
+      "name": "toddler play",
+      "slug": "toddler_play",
+      "active": true
+    },
+    {
+      "name": "baby friendly",
+      "slug": "baby_friendly",
+      "active": true
+    },
+    {
+      "name": "SEND friendly",
+      "slug": "send_friendly",
+      "active": true
+    },
+    {
+      "name": "inclusive play",
+      "slug": "inclusive_play",
+      "active": true
+    },
+    {
+      "name": "community play",
+      "slug": "community_play",
+      "active": true
+    },
+    {
+      "name": "indoor play",
+      "slug": "indoor_play",
+      "active": true
+    },
+    {
+      "name": "all weather",
+      "slug": "all_weather",
+      "active": true
+    },
+    {
+      "name": "Quiet environment",
+      "slug": "quiet_environment",
+      "active": true
+    },
+    {
+      "name": "Sensory toys or games",
+      "slug": "sensory_toys_or_games",
+      "active": true
+    },
+    {
+      "name": "Welcoming space",
+      "slug": "welcoming_space",
+      "active": true
+    },
+    {
+      "name": "Storytelling",
+      "slug": "storytelling",
+      "active": true
+    },
+    {
+      "name": "Toys, toy corners",
+      "slug": "toys_toy_corners",
+      "active": true
+    },
+    {
+      "name": "Refreshments Provided",
+      "slug": "refreshments_provided",
+      "active": true
+    },
+    {
+      "name": "Local parent hangout",
+      "slug": "local_parent_hangout",
+      "active": true
+    },
+    {
+      "name": "Relaxed, child-friendly setting",
+      "slug": "relaxed_child_friendly_setting",
+      "active": true
+    },
+    {
+      "name": "Play areas or equipment",
+      "slug": "play_areas_or_equipment",
+      "active": true
+    },
+    {
+      "name": "Flexible timings (relaxed start/end times)",
+      "slug": "flexible_timings_relaxed_start_end_times",
+      "active": true
+    },
+    {
+      "name": "Newbie-friendly!",
+      "slug": "newbie_friendly",
+      "active": true
+    },
+    {
+      "name": "Tactile materials",
+      "slug": "tactile_materials",
+      "active": true
+    },
+    {
+      "name": "Soft Lighting",
+      "slug": "soft_lighting",
       "active": true
     }
   ]

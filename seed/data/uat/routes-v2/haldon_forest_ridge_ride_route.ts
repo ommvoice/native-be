@@ -4,7 +4,7 @@ export const haldonForestRidgeRideRouteRouteV2: OpportunityRouteV2SeedInput = {
   id: "haldon_forest_ridge_ride_route",
   slug: "haldon_forest_ridge_ride_route",
   recordId: "ROU-00058",
-  queuedVersion: 1,
+  queuedVersion: 2,
   active: true,
   themeSlug: "wheels_routes",
   themeVariantSlug: "longer_ride",

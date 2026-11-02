@@ -4,7 +4,7 @@ export const littleGemsPlaygroupClubV2: OpportunityClubV2SeedInput = {
   id: "little_gems_playgroup",
   slug: "little_gems_playgroup",
   recordId: "CLU-00118",
-  queuedVersion: 1,
+  queuedVersion: 2,
   active: true,
   themeSlug: "community_groups",
   themeVariantSlug: "play_group",

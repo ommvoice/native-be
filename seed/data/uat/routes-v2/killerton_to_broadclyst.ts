@@ -3,8 +3,8 @@ import type { OpportunityRouteV2SeedInput } from "../../../opportunity/routes-v2
 export const killertonToBroadclystRouteV2: OpportunityRouteV2SeedInput = {
   id: "killerton_to_broadclyst",
   slug: "killerton_to_broadclyst",
-  recordId: "0",
-  queuedVersion: 0,
+  recordId: "ROU-00033",
+  queuedVersion: 2,
   active: true,
   themeSlug: "wheels_routes",
   themeVariantSlug: "longer_ride",

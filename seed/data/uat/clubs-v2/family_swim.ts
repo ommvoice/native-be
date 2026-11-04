@@ -93,7 +93,7 @@ export const familySwimClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: true,
   clubActivityGroup: "energy_burner",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "true",
+  clubSkillArea: "swimming_skill",
   clubSkillAreaVariant: "swimming",
   clubAbilityLevel: "novice",
   clubInterestTags: "swimming, family swim, indoor swimming, lifeguarded swim, diving boards, floats, swimming practice, swimming confidence, free play",

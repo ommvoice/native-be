@@ -93,7 +93,7 @@ export const cakeAtTheCastleClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "simple_reset",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "false",
+  clubSkillArea: null,
   clubSkillAreaVariant: null,
   clubAbilityLevel: null,
   clubInterestTags: "crafting, soft play, free play, playground, cake, coffee, socialising, local mum's groups",

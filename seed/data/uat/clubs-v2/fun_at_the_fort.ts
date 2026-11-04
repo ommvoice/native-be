@@ -93,7 +93,7 @@ export const funAtTheFortClubV2: OpportunityClubV2SeedInput = {
   clubAgeSuitabilityAdults: false,
   clubActivityGroup: "simple_reset",
   clubPhysicalSetting: "inside",
-  clubSkillArea: "true",
+  clubSkillArea: null,
   clubSkillAreaVariant: null,
   clubAbilityLevel: null,
   clubInterestTags: "after school, energy burn off, kids clubs, afterschool clubs, softplay, playgrounds, parks, coffee, cake",

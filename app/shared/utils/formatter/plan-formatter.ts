@@ -1,8 +1,16 @@
 import type { Opportunity } from "./recommendation-formatter.js";
 import type { SlugName } from "../slug-name.js";
 import { AssetsService } from "../../../services/assets.service.js";
+import { AppClock } from "../app-clock.js";
 
 const assets = new AssetsService();
+
+/** Whether an event/club's end date (schedule.endDate) is before today's UK date. It still shows
+ * on its last day. Venues and routes have no end date, so they never count as ended. */
+function hasEnded(opp: Opportunity, today: string): boolean {
+  const end = opp.schedule?.endDate;
+  return !!end && end.slice(0, 10) < today;
+}
 
 export interface PlanGroupTheme {
   name: string;
@@ -44,12 +52,15 @@ function resolveThemesForInterest(interestSlug: string): PlanGroupTheme[] {
  * recommendation-formatter's resolveInterestCategories()) is dropped — it can't be placed in any group.
  * An opportunity whose theme spans multiple interest categories appears in every matching group's
  * `list`, not just one — see resolveInterestCategories().
+ * Events and clubs whose end date has passed are left out of every group.
  */
 export function groupOpportunitiesByInterest(opportunities: Opportunity[]): PlanGroup[] {
+  const today = AppClock.isoDateString();
+  const current = opportunities.filter((opp) => !hasEnded(opp, today));
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
-    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
+    list: current.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }
 

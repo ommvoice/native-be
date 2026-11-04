@@ -46,6 +46,7 @@ export interface ProviderTeamMemberDto {
   isAggie: boolean;
   createdAt: string;
   updatedAt: string;
+  providerLogoUrl?: string | null;
 }
 
 export interface TeamMemberScheduleEntry {

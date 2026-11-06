@@ -19,11 +19,8 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   // full local opportunity pool, unranked/unfiltered by interests, age,
   // weather, schedule or distance, just grouped by interest for display.
   const skipRecommendations = getInitialScore({ 
-    skipInterests: true, 
-    skipAges: true,
-    skipWeather: true, 
-    // skipSchedule: true, 
-    skipDistance: true });
+    skipAll: true,
+  });
   const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
   const opportunities = toOpportunityList(raw as any, childrenAges);
   const data = groupOpportunitiesByInterest(opportunities);

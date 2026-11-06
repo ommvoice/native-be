@@ -20,6 +20,16 @@ import { sanctuaryFlowersEventV2 } from "./sanctuary_flowers.js";
 import { greendalePumpkinPatchEventV2 } from "./greendale_pumpkin_patch.js";
 import { ameliasFlowersEventV2 } from "./amelias_flowers.js";
 import { halloweenFamilyFunAtDrakesFarmEventV2 } from "./halloween_family_fun_at_drakes_farm.js";
+import { socialArtClubRoyalMarinesArtSocietyEventV2 } from "./social_art_club_royal_marines_art_society.js";
+import { socialArtClubRoyalMarinesArtSociety2EventV2 } from "./social_art_club_royal_marines_art_society_2.js";
+import { socialArtClubRoyalMarinesArtSociety3EventV2 } from "./social_art_club_royal_marines_art_society_3.js";
+import { fireworksNightEventV2 } from "./fireworks_night.js";
+import { endOfTermChristmasBandConcertEventV2 } from "./end_of_term_christmas_band_concert.js";
+import { whoLetTheDadsOutChristmasEditionEventV2 } from "./who_let_the_dads_out_christmas_edition.js";
+import { christingleEventV2 } from "./christingle.js";
+import { wreathMakingEveningEventV2 } from "./wreath_making_evening.js";
+import { wreathMakingAfternoonEventV2 } from "./wreath_making_afternoon.js";
+import { christmasPartyEventV2 } from "./christmas_party.js";
 
 export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   ashridgeCourtEventV2,
@@ -43,4 +53,14 @@ export const opportunityEventV2SeedRows: OpportunityEventV2SeedInput[] = [
   greendalePumpkinPatchEventV2,
   ameliasFlowersEventV2,
   halloweenFamilyFunAtDrakesFarmEventV2,
+  socialArtClubRoyalMarinesArtSocietyEventV2,
+  socialArtClubRoyalMarinesArtSociety2EventV2,
+  socialArtClubRoyalMarinesArtSociety3EventV2,
+  fireworksNightEventV2,
+  endOfTermChristmasBandConcertEventV2,
+  whoLetTheDadsOutChristmasEditionEventV2,
+  christingleEventV2,
+  wreathMakingEveningEventV2,
+  wreathMakingAfternoonEventV2,
+  christmasPartyEventV2,
 ];

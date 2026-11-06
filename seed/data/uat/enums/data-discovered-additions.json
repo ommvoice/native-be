@@ -197,6 +197,10 @@
     {
       "name": "all weather",
       "slug": "all_weather"
+    },
+    {
+      "name": "Live Events",
+      "slug": "live_events"
     }
   ],
   "OPPORTUNITY_THEME_VARIANT_ENUM": [
@@ -247,6 +251,10 @@
     {
       "name": "Reservoir or Lake",
       "slug": "reservoir_or_lake"
+    },
+    {
+      "name": "Festive Activity",
+      "slug": "festive_activity"
     }
   ],
   "EXTRA_KIT_ENUM": [

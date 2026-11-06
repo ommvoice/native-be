@@ -3357,6 +3357,14 @@
         "community_groups"
       ],
       "active": true
+    },
+    {
+      "name": "Festive Activity",
+      "slug": "festive_activity",
+      "opportunityThemeSlugs": [
+        "seasonal"
+      ],
+      "active": true
     }
   ],
   "skillAreaVariant": [
@@ -7621,6 +7629,21 @@
     {
       "name": "Soft Lighting",
       "slug": "soft_lighting",
+      "active": true
+    },
+    {
+      "name": "Live Events",
+      "slug": "live_events",
+      "active": true
+    },
+    {
+      "name": "Craft Tables or Activities",
+      "slug": "craft_tables_or_activities",
+      "active": true
+    },
+    {
+      "name": "Like-minded families",
+      "slug": "like_minded_families",
       "active": true
     }
   ]

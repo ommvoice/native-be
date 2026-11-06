@@ -86,6 +86,11 @@ function args(name: string): string[] {
 const apply = process.argv.includes("--apply");
 const basePaths = args("--base");
 const [incomingPath] = args("--incoming") as [string];
+/** --only venues,events → merge just those sheets (labels, case-insensitive); default is all four. */
+const onlyArg = process.argv[process.argv.indexOf("--only") + 1];
+const only = process.argv.includes("--only") && onlyArg ? onlyArg.toLowerCase().split(",").map((s) => s.trim()) : null;
+const types = only ? TYPES.filter((t) => only.includes(t.label.toLowerCase())) : TYPES;
+if (only && types.length !== only.length) throw new Error(`--only: unknown sheet in "${onlyArg}" (use ${TYPES.map((t) => t.label.toLowerCase()).join(", ")})`);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -289,9 +294,9 @@ function writeOverlay(): void {
 function main(): void {
   console.log(`base:     ${basePaths.map((p) => path.relative(ROOT, p)).join(", ")}\nincoming: ${path.relative(ROOT, incomingPath)}\nmode:     ${apply ? "APPLY" : "dry run (pass --apply to write)"}`);
   // Incoming sheet parsed first: only its unmatched values belong in enums.json, not a base sheet's.
-  const incoming = TYPES.map((t) => t.parse(incomingPath));
+  const incoming = types.map((t) => t.parse(incomingPath));
   const newEnums = [...mintedEnums];
-  const plans = TYPES.map((t, i) => [t, planType(t, incoming[i]!)] as const);
+  const plans = types.map((t, i) => [t, planType(t, incoming[i]!)] as const);
   for (const [t, plan] of plans) report(t, plan);
   console.log(`\n══ New enums.json entries — ${newEnums.length}`);
   for (const e of newEnums) console.log(`  + ${e.enumKey}: "${e.name}" → ${e.slug}`);

@@ -182,6 +182,8 @@ import { boathouseCafeCreperieVenueV2 } from "./boathouse_cafe_creperie.js";
 import { littleAdventuresPlayCafeVenueV2 } from "./little_adventures_play_cafe.js";
 import { exmouthLeisureCentreGymVenueV2 } from "./exmouth_leisure_centre_gym.js";
 import { vertexeClimbingWallVenueV2 } from "./vertexe_climbing_wall.js";
+import { dartsFarmPlayParkVenueV2 } from "./darts_farm_play_park.js";
+import { exmoorZooVenueV2 } from "./exmoor_zoo.js";
 
 export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   ameliasFlowerFarmCafeVenueV2,
@@ -367,4 +369,6 @@ export const opportunityVenuesV2SeedItems: OpportunityVenueV2SeedInput[] = [
   littleAdventuresPlayCafeVenueV2,
   exmouthLeisureCentreGymVenueV2,
   vertexeClimbingWallVenueV2,
+  dartsFarmPlayParkVenueV2,
+  exmoorZooVenueV2,
 ];

@@ -5,7 +5,7 @@ export const decoyParkSplashpadVenueV2: OpportunityVenueV2SeedInput = {
   slug: "decoy_park_splashpad",
   recordId: "0",
   queuedVersion: 0,
-  active: true,
+  active: false,
   themeSlug: "water_fun",
   themeVariantSlug: "water_play",
   venueName: "Decoy Park Splashpad",

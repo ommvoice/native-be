@@ -220,7 +220,8 @@ function buildInfoData(data: OpportunityClubV2): any[] | null {
 
   if (data.clubFormat || data.clubFrequency) {
     infoList.push({
-      icon: data.theme.slug,
+      icon: "",
+      // icon: data.theme.slug,
       title: data.clubFormat ? toSlugName(data.clubFormat).name : "—",
       subtitle: data.clubFrequency ? toSlugName(data.clubFrequency).name : "—",
       label: "Format",

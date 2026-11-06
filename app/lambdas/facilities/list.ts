@@ -4,14 +4,18 @@ import { FacilityRepository } from '../../repositories/facility.repository';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { ok } from '../../shared/utils/response';
 
+const FILTERED_FACILITY_SLUGS = ['camping_site'];
+
 const baseHandler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const list =  await new FacilityRepository().list();
   const allUniqueFacilities = [
   ...new Map(list.map(item => [item.slug, item])).values(),
 ];
 
- const filteredFacilities = allUniqueFacilities.filter((facility) => facility.type !== 'DOG');
+ const filteredFacilitiesByType = allUniqueFacilities.filter((facility) => facility.type !== 'DOG'); // don't show dogs facilities
 
+ const filteredFacilities = filteredFacilitiesByType.filter((facility) => !FILTERED_FACILITY_SLUGS.includes(facility.slug));
+ 
   return ok(filteredFacilities);
 };
 

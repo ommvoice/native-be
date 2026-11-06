@@ -82,10 +82,30 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
   const endDay = opp.end_date?.slice(0, 10) ?? startDay;
 
   if (opp.opp_type === "club" && opp.club_availability) {
-    if (endDay && today > endDay) return { variant: "closed", message: "No Upcoming Sessions" };
-    if (startDay && today < startDay) return { variant: "closed", message: `Starts ${formatDay(startDay)}` };
+    const availability = opp.club_availability;
+    // First session in the 7 days from `fromDay + firstOffset`, never past the end date.
+    const nextSession = (fromDay: string, firstOffset: number): LiveStatus | null => {
+      for (let i = firstOffset; i < firstOffset + 7; i++) {
+        const date = addDays(fromDay, i);
+        if (endDay && date > endDay) break;
+        const dayIdx = new Date(`${date}T00:00:00.000Z`).getUTCDay();
+        const [nextStart, nextEnd] = splitSlot(slotsFor(availability, DAYS[dayIdx]!)?.[0]);
+        if (!nextStart) continue;
+        return {
+          variant: "closed",
+          message: `Next Session ${sessionDayLabel(today, date)} ${nextStart}${nextEnd ? ` – ${nextEnd}` : ""}`,
+        };
+      }
+      return null;
+    };
 
-    const [start, end] = splitSlot(slotsFor(opp.club_availability, currentDay)?.[0]);
+    if (endDay && today > endDay) return { variant: "closed", message: "No Upcoming Sessions" };
+    // Not started yet: point at the first real session from the start date (falls back to the date).
+    if (startDay && today < startDay) {
+      return nextSession(startDay, 0) ?? { variant: "closed", message: "No Upcoming Sessions" };
+    }
+
+    const [start, end] = splitSlot(slotsFor(availability, currentDay)?.[0]);
     if (start && end && currentTime >= start && currentTime < end) {
       return { variant: "open", message: `Happening Now – ${end}` };
     }
@@ -94,15 +114,7 @@ export function resolveLiveStatus(opp: OpportunityDetail): LiveStatus {
     }
 
     // No session left today — point at the real next one instead of implying it's today.
-    for (let i = 1; i <= 7; i++) {
-      const dayIdx = (nowParts.weekday + i) % 7;
-      if (endDay && addDays(today, i) > endDay) break;
-      const [nextStart, nextEnd] = splitSlot(slotsFor(opp.club_availability, DAYS[dayIdx]!)?.[0]);
-      if (!nextStart) continue;
-      const label = i === 1 ? "Tomorrow" : DAY_LABELS[dayIdx];
-      return { variant: "closed", message: `Next Session ${label} ${nextStart}${nextEnd ? ` – ${nextEnd}` : ""}` };
-    }
-    return { variant: "closed", message: "No Upcoming Sessions" };
+    return nextSession(today, 1) ?? { variant: "closed", message: "No Upcoming Sessions" };
   }
 
   if (opp.opp_type === "event" && startDay) {
@@ -147,6 +159,12 @@ function addDays(isoDay: string, days: number): string {
   const d = new Date(`${isoDay}T00:00:00.000Z`);
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
+}
+
+/** "Tomorrow" when the session is the next day, otherwise its weekday name ("Friday"). */
+function sessionDayLabel(today: string, date: string): string {
+  if (addDays(today, 1) === date) return "Tomorrow";
+  return DAY_LABELS[new Date(`${date}T00:00:00.000Z`).getUTCDay()]!;
 }
 
 /** "2026-10-26" -> "Mon 26 Oct" */

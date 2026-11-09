@@ -228,6 +228,36 @@ export function scoreInterestMatch(members: InterestMemberV3[], opp: Opportunity
   return { score, share, members: rows };
 }
 
+/** Themes (picked sub-category slugs) that EVERY counted member picked — the intersection of all
+ * members' picks. Empty when there are no members or they share no theme. */
+export function commonThemesOf(members: InterestMemberV3[]): Set<string> {
+  if (members.length === 0) return new Set();
+  const [first, ...rest] = members;
+  return new Set(first.picks.filter((t) => rest.every((m) => m.picks.includes(t))));
+}
+
+/**
+ * Strict interest score: only themes common to ALL counted members count.
+ *   - opportunity theme is one of the common themes → 100 (every member matches)
+ *   - otherwise → 0 (dropped)
+ * No counted members (nobody picked interests) → neutral 50, same as scoreInterestMatch.
+ * Pass `common` (from commonThemesOf) to avoid recomputing the intersection per opportunity.
+ */
+export function scoreCommonThemeMatch(
+  members: InterestMemberV3[],
+  opp: OpportunityInterestV3,
+  common: Set<string> = commonThemesOf(members),
+): InterestMatchV3 {
+  if (members.length === 0) return { score: 0, share: 0, members: [] };
+  const matched = opp.themes.some((t) => common.has(t));
+  const kind: InterestMatchKind = matched ? 'theme' : 'none';
+  return {
+    score: matched ? 100 : 0,
+    share: matched ? 1 : 0,
+    members: members.map((m) => ({ id: m.id, kind, level: matched ? 100 : 0 })),
+  };
+}
+
 /** Counts how many children (each deduped against themselves) picked each free-text interestTag —
  * unlike a flat Set this preserves "shared-ness": a tag 2 children both picked outranks one only
  * 1 child picked. Tags are child-only (no parent-level interestTags field, unlike theme slugs). */

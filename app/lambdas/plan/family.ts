@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { RecommendationV2Service } from '../../services/recommendation-v2.service.js';
 import { toOpportunityList } from '../../shared/utils/formatter/recommendation-formatter.js';
-import { groupOpportunitiesByInterest } from '../../shared/utils/formatter/plan-formatter.js';
 import { errorHandler } from '../../shared/middleware/error-handler.js';
 import { AppError } from '../../shared/errors/app-error.js';
 import { ok } from '../../shared/utils/response.js';

@@ -21,7 +21,7 @@ export class PlanService {
       themes= child?.interestSubCategories.map((x) => x.slug) ?? [];
     }
 
-  const activeGroups = groupOpportunitiesByInterest(list)
+  const activeGroups = groupOpportunitiesByInterest(list, true)
     .filter((group) => intrestCategories.includes(group.interest.slug));
 
     return activeGroups;

@@ -35,6 +35,7 @@ import {
 } from './scoring-v2.service';
 // getItemsWithScoreV2 only — kept separate from scoring.service / scoring-v2.service so V2 logic can change independently.
 import * as ScoringV3 from './scoring-v3.service';
+import * as ScoringV4 from './scoring-v4.service';
 import type { RecommendationQueryDto, RecommendationSearchQueryDto, Score, RecommendationCandidateWithScore } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { Narrowed } from '../shared/types/assets.types';
@@ -192,12 +193,6 @@ export class RecommendationV2Service {
     let narrowedParams: Narrowed = {
       ...narrowed,
       searchRadius: maxMiles
-    }
-
-    if(dto.childId) {
-        const scoredData = await this.getItemsWithScoreV2(narrowedParams, skipRecommendations);
-
-       return { data: scoredData.data, childrenAges: scoredData.childrenAges };
     }
 
     const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations);
@@ -775,7 +770,7 @@ export class RecommendationV2Service {
     return { data, childrenAges: childAges };
   }
 
-  async getItemsWithScoreV3(narrowed: Narrowed, skipRecommendations?: ScoringV3.ScoreV3) {
+  async getItemsWithScoreV3(narrowed: Narrowed, skipRecommendations?: ScoringV4.ScoreV4, childId?: string) {
     // console.log("NarrowedData : ",JSON.stringify(narrowed));
 
     let lat = Number.parseFloat(narrowed.latitude);
@@ -790,45 +785,50 @@ export class RecommendationV2Service {
       throw new AppError(400, 'Location is invalid');
     }
 
-    const childAges = narrowed.children.map((c) => ScoringV3.getAgeInYears(c.dateOfBirth));
     const maxMiles = narrowed.searchRadius;
-    // Every recommendation/plan/search endpoint funnels through here, so this one filter hides a
+    const children = childId ? narrowed.children.filter((c) => c.id === childId) : narrowed.children;
+    const childAges = children.map((c) => ScoringV4.getAgeInYears(c.dateOfBirth));
+    // Everyone going — the parent (always an adult) plus the selected members (all children, adults and
+    // guests for the whole family; just that child for parent + 1 child). Used by the age step only.
+    const memberAges = ScoringV4.membersAgesOf(children);
+    const childTagWeights = ScoringV4.buildChildTagWeights(children.map((ch) => ch.interestTags ?? []));
+
+
+
+
+    // Step 1: interest match by SHARE of family members — each counted member (parent + children/adults
+    // with interests, no guests) gets a level for this opportunity: category+theme 100 · theme 90 ·
+    // variant 80 · category 70. Every opportunity any member matches is kept and scored by the members'
+    // average level; only 10% or fewer members matching drops it. See ScoringV4.scoreInterestMatch.
+    // V3 uses the strict ScoringV4.scoreCommonThemeMatch: 100 only when the opportunity's theme is one
+    // EVERY counted member picked, otherwise 0 (dropped).
+    const interestAllMembers = ScoringV4.interestMembersOf(narrowed);
+    const interestMembers = childId? interestAllMembers.filter((m) => m.id === childId) : interestAllMembers;
+    const commonThemes = ScoringV4.commonThemesOf(interestMembers);
+    const themeCategories = themeCategoryMap();
+
+    const initialScores = {
+      ...ScoringV4.getInitialScore({}), // all asigned to 0 consider for scoring
+      ...(skipRecommendations && {...skipRecommendations}) // asigned 100 to skip scoring
+    }
+
+       // Every recommendation/plan/search endpoint funnels through here, so this one filter hides a
     // "Not for us" opportunity (opportunity-interactions, not_interested) from all of them for 90 days.
     const [allCandidates, suppressed] = await Promise.all([
       this.repo.getOpportunityCandidatesV2(),
       this.getSuppressedRefKeys(narrowed.id),
     ]);
     const candidates = allCandidates.filter((c) => !suppressed.has(opportunityRefKey(c.type, c.id)));
-    // Free-text tags (e.g. "Cats", "Dogs") the selected children picked directly —
-    // separate from the slug-based interest categories/sub-categories above. Weighted so a tag
-    // 2 or more children picked scores higher than one only 1 child picked.
-    const childTagWeights = ScoringV3.buildChildTagWeights(narrowed.children.map((ch) => ch.interestTags ?? []));
 
-    // Step 1: interest match by SHARE of family members — each counted member (parent + children/adults
-    // with interests, no guests) gets a level for this opportunity: category+theme 100 · theme 90 ·
-    // variant 80 · category 70. Every opportunity any member matches is kept and scored by the members'
-    // average level; only 10% or fewer members matching drops it. See ScoringV3.scoreInterestMatch.
-    // V3 uses the strict ScoringV3.scoreCommonThemeMatch: 100 only when the opportunity's theme is one
-    // EVERY counted member picked, otherwise 0 (dropped).
-    const interestMembers = ScoringV3.interestMembersOf(narrowed);
-    const commonThemes = ScoringV3.commonThemesOf(interestMembers);
-    const themeCategories = themeCategoryMap();
-
-    const initialScores = {
-      ...ScoringV3.getInitialScore({}), // all asigned to 0 consider for scoring
-      ...(skipRecommendations && {...skipRecommendations}) // asigned 100 to skip scoring
-    }
-
-    
     // A dimension pre-set to 100 (via skipRecommendations/initialScores) means
     // "don't score this — treat it as already maxed", so each step below must
     // leave it at 100 instead of recomputing and clobbering it with a real score.
     const scoreOrSkip = (current: number, compute: () => number): number =>
       current === 100 ? 100 : compute();
 
-    const interestThemeScoreMatch: ScoringV3.CandidateWithScoreV3[] = candidates.map((c) => {
+    const interestThemeScoreMatch: ScoringV4.CandidateWithScoreV4[] = candidates.map((c) => {
       const intrestScore = scoreOrSkip(initialScores.intrestScore, () =>
-        ScoringV3.scoreCommonThemeMatch(interestMembers, ScoringV3.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories), commonThemes).score
+        ScoringV4.scoreCommonThemeMatch(interestMembers, ScoringV4.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories), commonThemes).score
       );
 
       return {
@@ -845,7 +845,7 @@ export class RecommendationV2Service {
     // higher than one only 1 child picked.
     const interestTagsScoreMatch = interestThemeScoreMatch.map((item) => {
       const interestTagsScore = scoreOrSkip(item.score.interestTagsScore, () =>
-        ScoringV3.scoreInterestTagsWeighted(childTagWeights, item.tags)
+        ScoringV4.scoreInterestTagsWeighted(childTagWeights, item.tags)
       );
       return {
         ...item,
@@ -856,9 +856,10 @@ export class RecommendationV2Service {
       }
     }).filter((item) => item.score.intrestScore !== 0); // will never be 0 as we are send 50
 
-    // Step 3: age match — how well each candidate's ageBands suit the family's children's ages.
+    // Step 3: age match — every member going (parent, adults, selected children) must fit the
+    // candidate's ageBands, otherwise it's dropped. See ScoringV4.scoreMembersAge.
     const ageScoreMatch = interestTagsScoreMatch.map((item) => {
-      const ageScore = scoreOrSkip(item.score.ageScore, () => ScoringV3.scoreAge(childAges, item.ageBands));
+      const ageScore = scoreOrSkip(item.score.ageScore, () => ScoringV4.scoreMembersAge(memberAges, item.ageBands));
       return {
         ...item,
         score: {
@@ -875,7 +876,7 @@ export class RecommendationV2Service {
       .map((item) => {
         const c = item;
         const scheduleScore = scoreOrSkip(item.score.scheduleScore, () =>
-          ScoringV3.scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime)
+          ScoringV4.scoreSchedule(c.type, c.startDate, c.endDate, c.activeDays, c.startTime, c.endTime)
         );
         return {
           ...item,
@@ -889,17 +890,17 @@ export class RecommendationV2Service {
 
     // Step 5: weather — rain/storm/snow hides outside opportunities (score 0 → dropped), keeps mixed
     // ones at a lower score and inside ones in full; good weather shows everything. One
-    // weatherapi.com call per request (cached 10 minutes per postcode). See ScoringV3.scoreWeatherSuitability.
+    // weatherapi.com call per request (cached 10 minutes per postcode). See ScoringV4.scoreWeatherSuitability.
     // Weather pre-set to 100 (skipped) never reads the slugs, so don't call weatherapi.com for it.
     const liveWeatherSlugs = initialScores.weatherScore === 100
       ? []
-      : await ScoringV3.getCachedWeatherSuitabilitySlugs(narrowed.postCode);
+      : await ScoringV4.getCachedWeatherSuitabilitySlugs(narrowed.postCode);
 
     const weatherScoreMatch = scheduleScoreMatch
       .map((item) => {
         const { physicalSetting } = item;
         const weatherScore = scoreOrSkip(item.score.weatherScore, () =>
-          ScoringV3.scoreWeatherSuitability(liveWeatherSlugs, physicalSetting)
+          ScoringV4.scoreWeatherSuitability(liveWeatherSlugs, physicalSetting)
         );
         return { ...item, score: { ...item.score, weatherScore } };
       })
@@ -926,7 +927,7 @@ export class RecommendationV2Service {
     const drivingMap = isNearby
       ? await this.drivingLegs.computeLegsFrom(
           { lat, lon },
-          routable.filter((leg) => ScoringV3.haversineDistanceMiles(lat, lon, leg.lat, leg.lon) <= maxMiles),
+          routable.filter((leg) => ScoringV4.haversineDistanceMiles(lat, lon, leg.lat, leg.lon) <= maxMiles),
         )
       : await this.drivingLegs.ensureLegsCached(narrowed.id, routable);
 
@@ -937,18 +938,18 @@ export class RecommendationV2Service {
         if (!coords) return null;
 
         const driving = drivingMap.get(legKey(c.type, c.id));
-        // const distMiles = ScoringV3.haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
-        const distMilesRadius = ScoringV3.haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
-        const distMiles = driving ? ScoringV3.metersToMilesOneDecimal(driving.drivingDistanceMeters) : distMilesRadius;
+        // const distMiles = ScoringV4.haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
+        const distMilesRadius = ScoringV4.haversineDistanceMiles(lat, lon, coords.latitude, coords.longitude);
+        const distMiles = driving ? ScoringV4.metersToMilesOneDecimal(driving.drivingDistanceMeters) : distMilesRadius;
         // Nearby: the radius is a straight-line "around this place" check — a short road detour
         // shouldn't drop a place that's genuinely next door.
         const scoreMiles = isNearby ? distMilesRadius : distMiles;
-        const distanceScore = scoreOrSkip(item.score.distanceScore, () => ScoringV3.scoreDistance(scoreMiles, maxMiles));
+        const distanceScore = scoreOrSkip(item.score.distanceScore, () => ScoringV4.scoreDistance(scoreMiles, maxMiles));
 
         return {
           ...item,
           distanceMiles: Math.round(distMiles * 10) / 10,
-          drivingDistanceMiles: driving ? ScoringV3.metersToMilesOneDecimal(driving.drivingDistanceMeters) : null,
+          drivingDistanceMiles: driving ? ScoringV4.metersToMilesOneDecimal(driving.drivingDistanceMeters) : null,
           drivingDurationSeconds: driving?.drivingDurationSeconds ?? null,
           score: { ...item.score, distanceScore }
         };
@@ -961,7 +962,7 @@ export class RecommendationV2Service {
     const finalScoreMatch = distanceWithScoreMatch
       .map((c) => {
         const score = c.score;
-        const { total, totalWeighted } = ScoringV3.combineWeighted(score);
+        const { total, totalWeighted } = ScoringV4.combineWeighted(score);
         if (totalWeighted === 0) return null;
 
         return {
@@ -979,7 +980,7 @@ export class RecommendationV2Service {
       .sort((a, b) => b!.score.interestTagsScore - a!.score.interestTagsScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
 
 
-    const scoredShuffled = ScoringV3.rankWithShuffle(finalScoreMatch as unknown as { score: { total: number, totalWeighted: number, interestTagsScore: number } }[]);
+    const scoredShuffled = ScoringV4.rankWithShuffle(finalScoreMatch as unknown as { score: { total: number, totalWeighted: number, interestTagsScore: number } }[]);
 
     //-----------
     // return scoredShuffled.splice(0, 3)

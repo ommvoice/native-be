@@ -54,20 +54,12 @@ function resolveThemesForInterest(interestSlug: string): PlanGroupTheme[] {
  * `list`, not just one — see resolveInterestCategories().
  * Events and clubs whose end date has passed are left out of every group.
  */
-export function groupOpportunitiesByInterest(opportunities: Opportunity[]): PlanGroup[] {
+export function groupOpportunitiesByInterest(opportunities: Opportunity[], skipEnded?: boolean): PlanGroup[] {
   const today = AppClock.isoDateString();
-  const current = opportunities.filter((opp) => !hasEnded(opp, today));
+  const list = skipEnded ? opportunities.filter((opp) => !hasEnded(opp, today)) :  opportunities;
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
-    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
-  }));
-}
-
-export function groupOpportunitiesByFamilyInterest(opportunities: Opportunity[], interestSlugs: string[],themeSLugs: string[]): PlanGroup[] {
-  return assets.getInterestCategories().map((interest): PlanGroup => ({
-    interest: { slug: interest.slug, name: interest.name },
-    themes: resolveThemesForInterest(interest.slug),
-    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
+    list: list.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }

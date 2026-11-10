@@ -195,7 +195,9 @@ export class RecommendationV2Service {
       searchRadius: maxMiles
     }
 
-    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations);
+    // childId: with one child selected, every step looks at that child only — the parent's interests
+    // and age aren't considered (getItemsWithScoreV3 filters interestMembers/children by it).
+    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations, dto.childId);
 
     return { data: scoredData.data, childrenAges: scoredData.childrenAges };
   }
@@ -788,8 +790,8 @@ export class RecommendationV2Service {
     const maxMiles = narrowed.searchRadius;
     const children = childId ? narrowed.children.filter((c) => c.id === childId) : narrowed.children;
     const childAges = children.map((c) => ScoringV4.getAgeInYears(c.dateOfBirth));
-    // Everyone going — the parent (always an adult) plus the selected members (all children, adults and
-    // guests for the whole family; just that child for parent + 1 child). Used by the age step only.
+    // Ages the age step checks — children only (the parent and adult members always pass): every child
+    // for the whole family, just that child when a childId was sent (narrowed in getRecommendations2).
     const memberAges = ScoringV4.membersAgesOf(children);
     const childTagWeights = ScoringV4.buildChildTagWeights(children.map((ch) => ch.interestTags ?? []));
 
@@ -856,8 +858,8 @@ export class RecommendationV2Service {
       }
     }).filter((item) => item.score.intrestScore !== 0); // will never be 0 as we are send 50
 
-    // Step 3: age match — every member going (parent, adults, selected children) must fit the
-    // candidate's ageBands, otherwise it's dropped. See ScoringV4.scoreMembersAge.
+    // Step 3: age match — every child going must fit the candidate's ageBands, otherwise it's dropped.
+    // The parent and adult members always pass. See ScoringV4.scoreMembersAge.
     const ageScoreMatch = interestTagsScoreMatch.map((item) => {
       const ageScore = scoreOrSkip(item.score.ageScore, () => ScoringV4.scoreMembersAge(memberAges, item.ageBands));
       return {

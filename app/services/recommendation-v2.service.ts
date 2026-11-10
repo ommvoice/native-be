@@ -962,12 +962,13 @@ export class RecommendationV2Service {
     const finalScoreMatch = distanceWithScoreMatch
       .map((c) => {
         const score = c.score;
+        const weatherTagsScore = Number(score.weatherScore + score.interestTagsScore).toFixed(2);
         const { total, totalWeighted } = ScoringV4.combineWeighted(score);
         if (totalWeighted === 0) return null;
 
         return {
           ...c,
-          score: { ...score, total, totalWeighted },
+          score: { ...score, total: weatherTagsScore, totalWeighted },
           schedule: {
             startTime: c.startTime ?? null, endTime: c.endTime ?? null,
             startDate: c.startDate ?? null, endDate: c.endDate ?? null,
@@ -975,12 +976,11 @@ export class RecommendationV2Service {
             timeAndDate: AppClock.dateTimeString()
           },
         }
-      }).filter((item): item is NonNullable<typeof item> => !!item)         // remove null items due to totalWeighted === 0
-      .sort((a, b) => b!.score.totalWeighted - a!.score.totalWeighted)
-      .sort((a, b) => b!.score.interestTagsScore - a!.score.interestTagsScore) as NonNullable<ReturnType<typeof this.scoreOne>>[];
+      }).filter((item): item is NonNullable<typeof item> => !!item);         // remove null items due to totalWeighted === 0
 
-
-    const scoredShuffled = ScoringV4.rankWithShuffle(finalScoreMatch as unknown as { score: { total: number, totalWeighted: number, interestTagsScore: number } }[]);
+    // Final order: interest tags + weather score only (highest first); equal scores are shuffled
+    // fresh on every request. See ScoringV4.rankByTagsAndWeather.
+    const scoredShuffled = ScoringV4.rankByTagsAndWeather(finalScoreMatch);
 
     //-----------
     // return scoredShuffled.splice(0, 3)

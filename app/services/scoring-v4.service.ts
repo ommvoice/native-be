@@ -592,6 +592,22 @@ export function combineWeighted(score: ScoreV4): { total: number, totalWeighted:
   return { total, totalWeighted };
 }
 
+/**
+ * Final order for Today: interest tags score + weather score, highest first. Nothing else (distance,
+ * schedule, …) affects the order — those steps only filter. Opportunities with an equal score come
+ * out in a fresh random order on every call: the list is shuffled first (Fisher–Yates), and the
+ * stable sort then keeps that random order within each equal-score group.
+ */
+export function rankByTagsAndWeather<T extends { score: { interestTagsScore: number; weatherScore: number } }>(items: T[]): T[] {
+  const key = (x: T) => x.score.interestTagsScore + x.score.weatherScore;
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const r = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[r]] = [shuffled[r]!, shuffled[i]!];
+  }
+  return shuffled.sort((a, b) => key(b) - key(a));
+}
+
 export function rankWithShuffle<T extends { score: { total: number, totalWeighted: number, interestTagsScore: number } }>(items: T[]): T[] {
   const sorted = [...items].sort((a, b) => b.score.total - a.score.total || b.score.interestTagsScore - a.score.interestTagsScore);
   let i = 0;

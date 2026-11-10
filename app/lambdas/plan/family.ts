@@ -17,12 +17,9 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
   const service = new RecommendationV2Service();
   const planService = new PlanService();
-  // Family Interests tab — only interest-theme overlap drives ranking/filtering;
-  // age/schedule/weather/distance are skipped so it reflects pure interest match,
-  // not personalisation by location/age/weather. childId (when a family member is
-  // tapped) narrows the interest set to just that child instead of the whole family.
+
   const skipRecommendations = getInitialScore({
-    // skipSchedule: true,
+    skipSchedule: true,
     skipWeather: true,
     skipDistance: true,
   });

@@ -60,7 +60,7 @@ export function groupOpportunitiesByInterest(opportunities: Opportunity[]): Plan
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
-    list: current.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
+    list: opportunities.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }
 

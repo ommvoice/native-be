@@ -18,11 +18,13 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   const planService = new PlanService();
 
   const skipRecommendations = getInitialScore({
+    // skipAges:true,
     skipSchedule: true,
     skipWeather: true,
     skipDistance: true,
   });
   const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
+  
   const opportunities = toOpportunityList(raw as any, childrenAges);
 
   const data = await planService.getSingleFamilyMemberRecommendations({parentId, childId}, opportunities);

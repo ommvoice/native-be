@@ -23,7 +23,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   });
   const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
   const opportunities = toOpportunityList(raw as any, childrenAges);
-  const data = groupOpportunitiesByInterest(opportunities);
+  const data = await groupOpportunitiesByInterest(opportunities);
   return ok({ count: data.length, data });
 };
 

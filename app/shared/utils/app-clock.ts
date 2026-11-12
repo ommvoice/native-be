@@ -103,6 +103,28 @@ export class AppClock {
     return new Date(Date.UTC(p.year, p.month, p.day));
   }
 
+  /**
+   * The instant a UK wall clock shows `minutesSinceMidnight` on the UK calendar day `isoDate`
+   * ("YYYY-MM-DD") — the inverse of `isoDateString()` + `minutesSinceMidnight()`. GMT/BST is handled,
+   * so "2026-07-01" at 16:00 is 15:00Z and "2026-12-07" at 16:00 is 16:00Z. Minutes past 24:00 roll
+   * into the next day. Null when `isoDate` isn't a valid "YYYY-MM-DD".
+   */
+  static fromWallClock(isoDate: string, minutesSinceMidnight = 0): Date | null {
+    const m = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    const wallAsUtc = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 0, minutesSinceMidnight);
+    if (Number.isNaN(wallAsUtc)) return null;
+    // Offset of the UK zone from UTC at a given instant, in ms (0 in GMT, +1h in BST).
+    const offsetAt = (t: number) => {
+      const p = AppClock.parts(new Date(t));
+      return Date.UTC(p.year, p.month, p.day, p.hours, p.minutes, p.seconds) - t;
+    };
+    // Two passes so a time on a clock-change day settles on the offset in force at that instant.
+    let t = wallAsUtc - offsetAt(wallAsUtc);
+    t = wallAsUtc - offsetAt(t);
+    return new Date(t);
+  }
+
   /** Whether `a` and `b` fall on the same UK calendar day. */
   static isSameCalendarDay(a: Date, b: Date): boolean {
     return AppClock.calendarDay(a).getTime() === AppClock.calendarDay(b).getTime();

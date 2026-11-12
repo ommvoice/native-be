@@ -85,7 +85,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
 
   const skipRecommendations = buildSkipRecommendationsScore(dto.skipRecommendations);
   
-  const { data: raw, childrenAges } = await recService.getItemsWithScore(narrowedParams, skipRecommendations)
+  const { data: raw, childrenAges } = await recService.getItemsWithScoreV3(narrowedParams, skipRecommendations)
   const data = toOpportunityList(raw as any, childrenAges);
   
   

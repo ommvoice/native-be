@@ -8,6 +8,8 @@ import { RecommendationV2Service } from './recommendation-v2.service';
 import { getInitialScore } from './scoring-v2.service';
 import { AppError } from '../shared/errors/app-error';
 import { AppClock } from '../shared/utils/app-clock';
+import { isEventVisible, type EventVisibilityFields } from '../shared/utils/event-visibility';
+import { isClubVisible, type ClubVisibilityFields } from '../shared/utils/club-visibility';
 
 export class CommunityService {
   private readonly parentRepo: ParentRepository;
@@ -560,7 +562,8 @@ export class CommunityService {
   /** The hub's "This Month" and "Regular Activities & Clubs" sections, built from the partner's
    * (P001) events and clubs. Scoring is skipped (skipAll), so nothing is dropped for interests,
    * age, weather, schedule or distance — the pipeline is only used for travel time and card text.
-   * Items whose end date has passed are left out of both sections.
+   * Events and clubs outside their visibility window (see isVisible() below) are left out of both
+   * sections.
    *
    * - thisMonth: the item's start→end date range overlaps the current UK month (so an event that
    *   started last month or ends next month still shows).
@@ -581,9 +584,10 @@ export class CommunityService {
       throw err;
     }
 
-    const today = AppClock.isoDateString();
+    const now = new Date();
+    const today = AppClock.isoDateString(now);
     const partnerItems = raw.filter(
-      (r) => (r.opportunityType === 'event' || r.opportunityType === 'club') && r.partnerCode === COMMUNITY_PARTNER_CODE && !hasEnded(r, today),
+      (r) => (r.opportunityType === 'event' || r.opportunityType === 'club') && r.partnerCode === COMMUNITY_PARTNER_CODE && isVisible(r, now),
     );
 
     const currentMonth = today.slice(0, 7); // "YYYY-MM"
@@ -600,11 +604,16 @@ export class CommunityService {
 
 const COMMUNITY_PARTNER_CODE = 'P001';
 
-/** Whether an event/club's end date is before `today` ("YYYY-MM-DD"). It still counts on its last
- * day, and an item with no end date hasn't ended. */
-function hasEnded(r: EnrichedScoredRecommendationV2, today: string): boolean {
-  const end = (r.opportunityType === 'event' ? r.eventEndDate : r.clubEndDate) as string | null | undefined;
-  return !!end && end.slice(0, 10) < today;
+/** Whether an event/club is inside its visibility window at `now` — `r` is the full enriched record,
+ * so the raw date/time fields are already on it.
+ *   - Events: from their promotion start (ticketSalesStartDate 00:00) until 1 hour before they finish
+ *     on their end date — see isEventVisible().
+ *   - Clubs: from 7 days before their start date (00:00) until their last session finishes on their
+ *     end date — see isClubVisible(). */
+function isVisible(r: EnrichedScoredRecommendationV2, now: Date): boolean {
+  if (r.opportunityType === 'event') return isEventVisible(r as EventVisibilityFields, now);
+  if (r.opportunityType === 'club') return isClubVisible(r as ClubVisibilityFields, now);
+  return true;
 }
 
 /** Whether an event/club's start→end range touches `month` ("YYYY-MM"). A missing end means a

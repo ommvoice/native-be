@@ -5,8 +5,9 @@ import { getWeatherByPostcode } from './weather.service';
 /**
  * Scoring for RecommendationV2Service.getItemsWithScoreV3 (Today: /recommendations-v2) — a copy of
  * scoring-v3.service.ts (which getItemsWithScoreV2 keeps using), so V3-path changes don't affect the
- * other endpoints. Differs from V3 in the age step (every child going must fit the opportunity's age bands; the parent
- * and adult members always pass — see membersAgesOf / scoreMembersAge) and in the final order
+ * other endpoints. Differs from V3 in the age step (everyone going must fit the opportunity's age bands — the whole
+ * family incl. the parent and adults, or just the child when a childId is given; see membersAgesOf /
+ * scoreMembersAge) and in the final order
  * (rankByTagsAndWeather).
  */
 
@@ -317,29 +318,42 @@ export function scoreAge(childAges: number[], bands: AgeBandsV4): number {
   return sum / childAges.length;
 }
 
-/** Age at or above which a family member is an adult. Adults (like the parent) always pass the age step. */
+/** Age at or above which a family member is an adult — an adult fits only the `adults` band. */
 export const ADULT_AGE = 18;
 
+/** The parent has no date of birth on record; they count as an adult. */
+const PARENT_AGE = ADULT_AGE;
+
 /**
- * Ages the age step checks: the children going, nobody else. The parent is never included (they
- * always pass — they have no date of birth on record and count as fitting any age range, Adults
- * ticked or not), and nor is any adult family member (18+). The caller decides who is going:
- *   - parent + 1 child (childId): just that child
- *   - whole family (no childId): every child (incl. same-day guests under 18)
+ * Ages the age step checks — everyone going:
+ *   - whole family (no childId): the parent (as an adult) plus every member — children, adult
+ *     members (18+) and same-day guests. Pass `includeParent: true`.
+ *   - parent + 1 child (childId): just that child; the parent isn't checked. Pass `includeParent: false`.
  * A member whose date of birth is missing or invalid is left out rather than guessed.
  */
-export function membersAgesOf(members: { dateOfBirth?: Date | null }[], asOf = new Date()): number[] {
-  return members
+export function membersAgesOf(
+  members: { dateOfBirth?: Date | null }[],
+  includeParent: boolean,
+  asOf = new Date(),
+): number[] {
+  const ages = members
     .filter((m) => m.dateOfBirth instanceof Date && !Number.isNaN(m.dateOfBirth.getTime()))
-    .map((m) => getAgeInYears(m.dateOfBirth as Date, asOf))
-    .filter((age) => age < ADULT_AGE);
+    .map((m) => getAgeInYears(m.dateOfBirth as Date, asOf));
+  return includeParent ? [PARENT_AGE, ...ages] : ages;
 }
 
-/** 100 when EVERY child's age fits the opportunity's bands (V3's childAgeMatchesBands: no band ticked =
- * no restriction; a 16–17 year-old also fits `adults`), otherwise 0 (dropped). No children to check
- * (e.g. only adults) → 100. */
-export function scoreMembersAge(childAges: number[], bands: AgeBandsV4): number {
-  return childAges.every((age) => childAgeMatchesBands(age, bands)) ? 100 : 0;
+/** Whether one person's age fits the bands. Adults (18+, incl. the parent) fit only when `adults` is
+ * ticked; under-18s use the child bands (V3's childAgeMatchesBands, where a 16–17 year-old also fits
+ * `adults`). No band ticked at all means no age restriction recorded — everyone fits. */
+export function memberAgeMatchesBands(age: number, b: AgeBandsV4): boolean {
+  if (!anyBandSelected(b)) return true;
+  if (age >= ADULT_AGE) return band(b.adults);
+  return childAgeMatchesBands(age, b);
+}
+
+/** 100 when EVERY age fits the opportunity's bands, otherwise 0 (dropped). Nobody to check → 100. */
+export function scoreMembersAge(memberAges: number[], bands: AgeBandsV4): number {
+  return memberAges.every((age) => memberAgeMatchesBands(age, bands)) ? 100 : 0;
 }
 
 // ── Schedule ──────────────────────────────────────────────────────────────────────────────────

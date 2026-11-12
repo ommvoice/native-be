@@ -1,15 +1,35 @@
 import type { Opportunity } from "./recommendation-formatter.js";
 import type { SlugName } from "../slug-name.js";
 import { AssetsService } from "../../../services/assets.service.js";
-import { AppClock } from "../app-clock.js";
+import { isEventVisible, type EventVisibilityFields } from "../event-visibility.js";
+import { isClubVisible, type ClubVisibilityFields } from "../club-visibility.js";
 
 const assets = new AssetsService();
 
-/** Whether an event/club's end date (schedule.endDate) is before today's UK date. It still shows
- * on its last day. Venues and routes have no end date, so they never count as ended. */
-function hasEnded(opp: Opportunity, today: string): boolean {
-  const end = opp.schedule?.endDate;
-  return !!end && end.slice(0, 10) < today;
+/**
+ * Whether an opportunity belongs in the plan at `now`. The formatted Opportunity doesn't carry the
+ * date/time fields this needs, so the raw record is looked up by id (Opportunity.id is the asset id).
+ *   - Events: shown from their promotion start (ticket_sales_start_date 00:00) until 1 hour before
+ *     they finish on their end date — see isEventVisible().
+ *   - Clubs: shown from 7 days before their start date (00:00) until their last session finishes on
+ *     their end date — see isClubVisible().
+ *   - Venues, routes, and events/clubs missing from the assets: always shown.
+ */
+function isOpportunityVisible(
+  opp: Opportunity,
+  eventsById: Map<string, EventVisibilityFields>,
+  clubsById: Map<string, ClubVisibilityFields>,
+  now: Date,
+): boolean {
+  if (opp.type === "event") {
+    const raw = eventsById.get(opp.id);
+    return raw ? isEventVisible(raw, now) : true;
+  }
+  if (opp.type === "club") {
+    const raw = clubsById.get(opp.id);
+    return raw ? isClubVisible(raw, now) : true;
+  }
+  return true;
 }
 
 export interface PlanGroupTheme {
@@ -52,14 +72,22 @@ function resolveThemesForInterest(interestSlug: string): PlanGroupTheme[] {
  * recommendation-formatter's resolveInterestCategories()) is dropped — it can't be placed in any group.
  * An opportunity whose theme spans multiple interest categories appears in every matching group's
  * `list`, not just one — see resolveInterestCategories().
- * Events and clubs whose end date has passed are left out of every group.
+ * Events and clubs outside their visibility window are left out of every group — see
+ * isOpportunityVisible(). `now` is only overridden in tests.
  */
-export function groupOpportunitiesByInterest(opportunities: Opportunity[], skipEnded?: boolean): PlanGroup[] {
-  const today = AppClock.isoDateString();
-  const list = skipEnded ? opportunities.filter((opp) => !hasEnded(opp, today)) :  opportunities;
+
+
+export async function groupOpportunitiesByInterest(opportunities: Opportunity[], now: Date = new Date()): Promise<PlanGroup[]> {
+  // Loaded once per call (not per opportunity) — getEventBySlug/getClubBySlug would re-scan every record each time.
+  const [events, clubs] = await Promise.all([assets.getAllEvents(), assets.getAllClubs()]);
+  const eventsById = new Map<string, EventVisibilityFields>(events.map((e) => [e.id, e as EventVisibilityFields]));
+  const clubsById = new Map<string, ClubVisibilityFields>(clubs.map((c) => [c.id, c as ClubVisibilityFields]));
+  const list = opportunities.filter((opp) => isOpportunityVisible(opp, eventsById, clubsById, now));
+  
   return assets.getInterestCategories().map((interest): PlanGroup => ({
     interest: { slug: interest.slug, name: interest.name },
     themes: resolveThemesForInterest(interest.slug),
     list: list.filter((opp) => opp.searchTags.interestCategories.some((c) => c.slug === interest.slug)),
   }));
 }
+

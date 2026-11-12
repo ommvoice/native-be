@@ -41,7 +41,13 @@ export class RecommendationV2Service {
     );
   }
 
-  async getRecommendations2(dto: RecommendationQueryDto, skipRecommendations?: Score) {
+  /**
+   * `parentOnly` (only used without a childId, e.g. Plan → parent tab): the list is for the parent
+   * alone — age checks just the parent (an adult → Adults must be ticked), interest uses the parent's
+   * picks only, no child tags, and pricing counts one adult. A parent with no children is allowed.
+   */
+  async getRecommendations2(dto: RecommendationQueryDto, skipRecommendations?: Score, opts: { parentOnly?: boolean } = {}) {
+    const parentOnly = !!opts.parentOnly && !dto.childId;
     const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
@@ -49,7 +55,7 @@ export class RecommendationV2Service {
       ? { ...parent, children: parent.children.filter((c) => c.id === dto.childId) }
       : parent;
 
-    if (!narrowed.children.length) {
+    if (!parentOnly && !narrowed.children.length) {
       throw new AppError(400, 'No children found for this query. Add a child or remove childId filter.');
     }
 
@@ -63,7 +69,7 @@ export class RecommendationV2Service {
 
     // childId: with one child selected, every step looks at that child only — the parent's interests
     // and age aren't considered (getItemsWithScoreV3 filters interestMembers/children by it).
-    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations, dto.childId);
+    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations, { childId: dto.childId, parentOnly });
 
     return { data: scoredData.data, childrenAges: scoredData.childrenAges };
   }
@@ -158,7 +164,13 @@ export class RecommendationV2Service {
     });
   }
 
-  async getItemsWithScoreV3(narrowed: Narrowed, skipRecommendations?: ScoringV4.ScoreV4, childId?: string) {
+  async getItemsWithScoreV3(
+    narrowed: Narrowed,
+    skipRecommendations?: ScoringV4.ScoreV4,
+    scope: { childId?: string; parentOnly?: boolean } = {},
+  ) {
+    const { childId } = scope;
+    const parentOnly = !!scope.parentOnly && !childId;
     // console.log("NarrowedData : ",JSON.stringify(narrowed));
 
     let lat = Number.parseFloat(narrowed.latitude);
@@ -174,10 +186,11 @@ export class RecommendationV2Service {
     }
 
     const maxMiles = narrowed.searchRadius;
-    const children = childId ? narrowed.children.filter((c) => c.id === childId) : narrowed.children;
+    // Members this request is for — parentOnly: nobody but the parent (no children/adults/guests).
+    const children = parentOnly ? [] : childId ? narrowed.children.filter((c) => c.id === childId) : narrowed.children;
     const childAges = children.map((c) => ScoringV4.getAgeInYears(c.dateOfBirth));
     // Ages the age step checks — whole family: the parent (as an adult) + every member (children, adults,
-    // guests); with a childId: just that child, the parent isn't checked.
+    // guests); with a childId: just that child, the parent isn't checked; parentOnly: just the parent (18).
     const memberAges = ScoringV4.membersAgesOf(children, !childId);
     const childTagWeights = ScoringV4.buildChildTagWeights(children.map((ch) => ch.interestTags ?? []));
 
@@ -191,7 +204,11 @@ export class RecommendationV2Service {
     // V3 uses the strict ScoringV4.scoreCommonThemeMatch: 100 only when the opportunity's theme is one
     // EVERY counted member picked, otherwise 0 (dropped).
     const interestAllMembers = ScoringV4.interestMembersOf(narrowed);
-    const interestMembers = childId ? interestAllMembers.filter((m) => m.id === childId) : interestAllMembers;
+    const interestMembers = parentOnly
+      ? interestAllMembers.filter((m) => m.id === narrowed.id)
+      : childId
+        ? interestAllMembers.filter((m) => m.id === childId)
+        : interestAllMembers;
     const commonThemes = ScoringV4.commonThemesOf(interestMembers);
     const themeCategories = themeCategoryMap();
 

@@ -23,7 +23,12 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
     skipWeather: true,
     skipDistance: true,
   });
-  const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
+  // No childId → the parent tab: only the parent's age (Adults ticked) and interests count, not the family's.
+  const { data: raw, childrenAges } = await service.getRecommendations2(
+    { parentId, childId, searchRadius },
+    skipRecommendations,
+    { parentOnly: !childId },
+  );
   
   const opportunities = toOpportunityList(raw as any, childrenAges);
 

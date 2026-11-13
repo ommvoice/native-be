@@ -58,6 +58,11 @@ export class AppConfig {
   }
 
   get layerName(): string       { return this.prefix('shared-layer'); }
+  /** Private S3 bucket for user uploads (e.g. Share A Tip photos). Bucket names are global,
+   *  so the account id is appended when known. */
+  get uploadsBucketName(): string {
+    return this.awsAccount ? this.prefix(`uploads-${this.awsAccount}`) : this.prefix('uploads');
+  }
   get apiName(): string         { return this.prefix('api'); }
   get apiStageName(): string    { return this.env; }
 
@@ -92,6 +97,7 @@ export const TABLE_ENV_VARS = {
   wishlistItems:            'TABLE_WISHLIST_ITEMS',
   visitIntentions:          'TABLE_VISIT_INTENTIONS',
   opportunityInteractions:  'TABLE_OPPORTUNITY_INTERACTIONS',
+  sharedTips:               'TABLE_SHARED_TIPS',
   venues:                   'TABLE_VENUES',
   events:                   'TABLE_EVENTS',
   clubs:                    'TABLE_CLUBS',

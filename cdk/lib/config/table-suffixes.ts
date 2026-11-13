@@ -11,6 +11,7 @@ export const TABLE_SUFFIXES = {
   wishlistItems:            'wishlist-items',
   visitIntentions:          'visit-intentions',
   opportunityInteractions:  'opportunity-interactions',
+  sharedTips:               'shared-tips',
   venues:                   'venues',
   events:                   'events',
   clubs:                    'clubs',

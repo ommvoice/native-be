@@ -72,7 +72,7 @@ export const LAYER_EXTERNAL_MODULES: string[] = [
  * All layer packages are marked external — esbuild emits `import '...'` statements
  * that resolve from /opt/nodejs/node_modules at runtime.
  */
-export function getBundlingOptions(appEnv: string) {
+export function getBundlingOptions(appEnv: string, bundledModules: string[] = []) {
   const isProd = appEnv === 'prod';
   return {
     format:          OutputFormat.ESM,
@@ -80,9 +80,23 @@ export function getBundlingOptions(appEnv: string) {
     sourceMap:       !isProd,
     sourcesContent:  !isProd,
     target:          'es2022',
-    externalModules: LAYER_EXTERNAL_MODULES,
+    externalModules: LAYER_EXTERNAL_MODULES.filter(m => !bundledModules.includes(m)),
   };
 }
+
+/**
+ * Packages bundled INTO the functions that use S3 instead of living in the shared layer.
+ * Adding them to the layer would publish a new layer version, and the layer ARN is a
+ * cross-stack export imported by the api-stack authorizer — CloudFormation refuses to change
+ * an export that is in use ("Cannot update export ... in use by native-be-<env>-api-stack").
+ * @smithy/* is bundled too so client-s3 gets the smithy versions it was built against rather
+ * than the (older) ones in the layer.
+ */
+export const S3_BUNDLED_MODULES: string[] = [
+  '@aws-sdk/client-s3',
+  '@aws-sdk/s3-request-presigner',
+  '@smithy/*',
+];
 
 // ── CloudWatch log retention ───────────────────────────────────────────────────
 

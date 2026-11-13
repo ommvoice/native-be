@@ -288,5 +288,69 @@
         "skills": []
       }
     ]
+  },
+    "narrowedV3": {
+    "id": "040167fc-d670-4836-9d11-89ba0121f824",
+    "postCode": "EX8 5JG",
+    "latitude": "50.651162",
+    "longitude": "-3.42354",
+    "searchRadius": 10,
+    "interestCategories": [
+      {
+        "slug": "nature_exploration"
+      }
+    ],
+    "interestSubCategories": [
+      {
+        "slug": "scenic_walks"
+      }
+    ],
+    "children": [
+      {
+        "id": "3bd50c63-9e95-4763-9043-9d587bd8321a",
+        "dateOfBirth": "2018-01-01T00:00:00.000Z",
+        "interestCategories": [
+
+          {
+            "slug": "creativity_imagination"
+          }
+        ],
+        "interestSubCategories": [
+           {
+        "slug": "scenic_walks"
+      },
+          {
+            "slug": "creative_play"
+          }
+        ],
+        "interestTags": [
+          "birdwatching",
+          "clifftop"
+        ],
+        "skills": []
+      },
+      {
+        "id": "3bd50c63-9e95-4763-9043-9d587bd8321ab",
+        "dateOfBirth": "2018-01-01T00:00:00.000Z",
+        "interestCategories": [
+
+          {
+            "slug": "creativity_imagination"
+          }
+        ],
+        "interestSubCategories": [
+           {
+        "slug": "scenic_walks"
+      },
+          {
+            "slug": "creative_play"
+          }
+        ],
+        "interestTags": [
+          "birdwatching"
+        ],
+        "skills": []
+      }
+    ]
   }
 }

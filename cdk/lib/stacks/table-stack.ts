@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 import type { AppConfig } from '../config/app-config';
 
@@ -7,9 +8,11 @@ export interface TableStackProps extends cdk.StackProps {
   config: AppConfig;
 }
 
-/** All DynamoDB tables — named from config.tableNames so no value is hardcoded. */
+/** All DynamoDB tables — named from config.tableNames so no value is hardcoded —
+ *  plus the private S3 uploads bucket (user-submitted photos). */
 export class TableStack extends cdk.Stack {
   readonly tables: Record<string, dynamodb.Table>;
+  readonly uploadsBucket: s3.Bucket;
 
   constructor(scope: Construct, id: string, props: TableStackProps) {
     super(scope, id, props);
@@ -100,6 +103,35 @@ export class TableStack extends cdk.Stack {
     const opportunityInteractions = t('OpportunityInteractions', tableNames.opportunityInteractions, 'id');
     gsi(opportunityInteractions, 'parentId-index', 'parentId');
 
+    // ── Shared tips ("Share A Tip" submissions from parents) ────────────────────
+
+    const sharedTips = t('SharedTips', tableNames.sharedTips, 'id');
+    gsi(sharedTips, 'parentId-index', 'parentId');
+
+    // ── Uploads bucket (private; objects reached via presigned URLs only) ───────
+
+    this.uploadsBucket = new s3.Bucket(this, 'UploadsBucket', {
+      bucketName:        props.config.uploadsBucketName,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      encryption:        s3.BucketEncryption.S3_MANAGED,
+      enforceSSL:        true,
+      removalPolicy:     removal,
+      autoDeleteObjects: props.config.env !== 'prod',
+      // Browser/web clients PUT straight to S3 with a presigned URL (native apps don't need CORS).
+      cors: [{
+        allowedMethods: [s3.HttpMethods.PUT, s3.HttpMethods.GET],
+        allowedOrigins: ['*'],
+        allowedHeaders: ['*'],
+        maxAge:         3000,
+      }],
+      lifecycleRules: [{ abortIncompleteMultipartUploadAfter: cdk.Duration.days(1) }],
+    });
+
+    new cdk.CfnOutput(this, 'UploadsBucketName', {
+      value:      this.uploadsBucket.bucketName,
+      exportName: `${props.config.prefix('uploads')}-bucket-name`,
+    });
+
     this.tables = {
       users,
       parents,
@@ -113,6 +145,7 @@ export class TableStack extends cdk.Stack {
       wishlistItems,
       visitIntentions,
       opportunityInteractions,
+      sharedTips,
     };
 
     // ── Outputs ───────────────────────────────────────────────────────────────

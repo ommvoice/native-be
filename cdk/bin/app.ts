@@ -41,6 +41,7 @@ const tableStack = new TableStack(app, config.stackNames.tables, { config, env: 
 const lambdaStack = new LambdaStack(app, config.stackNames.lambdas, {
   config,
   tables: tableStack.tables,
+  uploadsBucket: tableStack.uploadsBucket,
   cognito: cognitoStack,          // User Pool ID + Client ID injected here
   env: cdkEnv,
 });

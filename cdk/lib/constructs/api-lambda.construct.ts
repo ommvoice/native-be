@@ -36,6 +36,8 @@ export interface ApiLambdaProps {
   description?: string;
   /** Deployment environment — controls minification and source maps. */
   appEnv: string;
+  /** Layer-external packages to bundle into this function instead (see S3_BUNDLED_MODULES). */
+  bundledModules?: string[];
 }
 
 /** Reusable construct: NodejsFunction + dedicated CloudWatch log group. */
@@ -67,11 +69,16 @@ export class ApiLambda extends Construct {
       projectRoot:      REPO_ROOT,
       depsLockFilePath: path.join(REPO_ROOT, 'package-lock.json'),
       bundling: {
-        ...getBundlingOptions(props.appEnv),
+        ...getBundlingOptions(props.appEnv, props.bundledModules),
         tsconfig: path.join(REPO_ROOT, 'app', 'tsconfig.json'),
         // Polyfill __dirname / __filename for any transitive dep that still uses them
         // (ESM removes these globals; this shim restores them via import.meta.url)
-        banner: 'import{fileURLToPath}from"node:url";import{dirname}from"node:path";const __filename=fileURLToPath(import.meta.url);const __dirname=dirname(__filename);',
+        banner: 'import{fileURLToPath}from"node:url";import{dirname}from"node:path";const __filename=fileURLToPath(import.meta.url);const __dirname=dirname(__filename);'
+          // Bundled CJS packages (e.g. @aws-sdk/client-s3's dist-cjs) call require("node:https"), which
+          // esbuild's ESM output can't satisfy ("Dynamic require ... is not supported") — give them a real require.
+          + (props.bundledModules?.length
+            ? 'import{createRequire}from"node:module";const require=createRequire(import.meta.url);'
+            : ''),
       },
     });
   }

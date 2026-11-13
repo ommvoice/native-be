@@ -21,11 +21,16 @@ export const env = {
     wishlistItems:            () => required('TABLE_WISHLIST_ITEMS'),
     visitIntentions:          () => required('TABLE_VISIT_INTENTIONS'),
     opportunityInteractions:  () => required('TABLE_OPPORTUNITY_INTERACTIONS'),
+    sharedTips:               () => required('TABLE_SHARED_TIPS'),
     venues:                   () => required('TABLE_VENUES'),
     events:                   () => required('TABLE_EVENTS'),
     clubs:                    () => required('TABLE_CLUBS'),
     routes:                   () => required('TABLE_ROUTES'),
   },
+
+  // S3 uploads bucket — injected by CDK LambdaStack for lambdas with `env.uploads`
+  uploadsBucket: () => required('UPLOADS_BUCKET'),
+  awsRegion:     () => optional('AWS_REGION', 'eu-west-3'),
 
   // Auth
   cognitoUserPoolId: () => required('COGNITO_USER_POOL_ID'),

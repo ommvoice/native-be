@@ -14,6 +14,7 @@ export const TABLES = {
   get wishlistItems()            { return env.tables.wishlistItems(); },
   get visitIntentions()          { return env.tables.visitIntentions(); },
   get opportunityInteractions()  { return env.tables.opportunityInteractions(); },
+  get sharedTips()               { return env.tables.sharedTips(); },
   get venues()                   { return env.tables.venues(); },
   get events()                   { return env.tables.events(); },
   get clubs()                    { return env.tables.clubs(); },

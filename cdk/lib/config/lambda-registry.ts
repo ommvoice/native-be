@@ -22,11 +22,14 @@ export interface LambdaDefinition {
   env?: {
     cognito?:     boolean;   // COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID
     externalApi?: boolean;   // MAPBOX_ACCESS_TOKEN, WEATHER_API_KEY
+    uploads?:     boolean;   // UPLOADS_BUCKET
   };
 
   permissions: {
     dynamodb: 'none' | 'read' | 'readWrite';
     cognito:  boolean;   // AdminInitiateAuth / AdminCreateUser
+    /** Access to the uploads bucket (omitted = none). */
+    s3?:      'put' | 'read' | 'readWrite';
   };
 
   overrides?: {
@@ -430,6 +433,29 @@ const opportunityInteractionsLambdas: LambdaDefinition[] = [
   },
 ];
 
+// ── Shared tips ("Share A Tip": presigned photo upload + submission) ──────────
+
+const sharedTipsLambdas: LambdaDefinition[] = [
+  {
+    key: 'sharedTipsPhotoUploadUrl', name: 'shared-tips-photo-upload-url', entry: 'shared-tips/photo-upload-url.ts',
+    env: { uploads: true },
+    permissions: { dynamodb: 'read', cognito: false, s3: 'put' },
+    routes: [{ path: ['shared-tips', 'photo-upload-url'], method: 'POST', auth: true }],
+  },
+  {
+    key: 'sharedTipsCreate', name: 'shared-tips-create', entry: 'shared-tips/create.ts',
+    env: { uploads: true },
+    permissions: { dynamodb: 'readWrite', cognito: false, s3: 'read' },
+    routes: [{ path: ['shared-tips'], method: 'POST', auth: true }],
+  },
+  {
+    key: 'sharedTipsList', name: 'shared-tips-list', entry: 'shared-tips/list.ts',
+    env: { uploads: true },
+    permissions: { dynamodb: 'read', cognito: false, s3: 'read' },
+    routes: [{ path: ['shared-tips'], method: 'GET', auth: true }],
+  },
+];
+
 // ── Search ────────────────────────────────────────────────────────────────────
 
 const searchLambdas: LambdaDefinition[] = [
@@ -509,6 +535,7 @@ export const allLambdas: LambdaDefinition[] = [
   ...wishlistsLambdas,
   ...visitIntentionsLambdas,
   ...opportunityInteractionsLambdas,
+  ...sharedTipsLambdas,
   ...searchLambdas,
   ...weatherLambdas,
   ...mapboxLambdas,

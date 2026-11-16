@@ -21,7 +21,13 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   const skipRecommendations = getInitialScore({ 
     skipAll: true,
   });
-  const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
+  // Nothing is filtered out, but interest + tags still rank it: no childId → the parent's interests
+  // (parent only); childId → that member's. Prices always count every family member.
+  const { data: raw, childrenAges } = await service.getRecommendations2(
+    { parentId, childId, searchRadius },
+    skipRecommendations,
+    { parentOnly: !childId, priceAllMembers: true },
+  );
   const opportunities = toOpportunityList(raw as any, childrenAges);
   const data = await groupOpportunitiesByInterest(opportunities);
   return ok({ count: data.length, data });

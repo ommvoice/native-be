@@ -152,15 +152,15 @@ const slugList = (raw: string | null | undefined): string[] =>
 
 /**
  * Who counts toward the interest share: the parent plus children/adults — but only members who picked
- * at least one interest, and never same-day guests (variant "guest"), so neither can pull a family
- * into dropping an opportunity.
+ * at least one interest, and no same-day guests (variant "guest") unless `includeGuests` (nearby),
+ * so neither can pull a family into dropping an opportunity.
  */
 export function interestMembersOf(family: {
   id: string;
   interestCategories: { slug: string }[];
   interestSubCategories: { slug: string }[];
   children: { id: string; variant?: string | null; interestCategories: { slug: string }[]; interestSubCategories: { slug: string }[] }[];
-}): InterestMemberV4[] {
+}, { includeGuests = false }: { includeGuests?: boolean } = {}): InterestMemberV4[] {
   const toMember = (id: string, cats: { slug: string }[], subs: { slug: string }[]): InterestMemberV4 => ({
     id,
     categories: [...new Set(cats.map((x) => x.slug.trim().toLowerCase()).filter(Boolean))],
@@ -169,7 +169,7 @@ export function interestMembersOf(family: {
   return [
     toMember(family.id, family.interestCategories, family.interestSubCategories),
     ...family.children
-      .filter((c) => c.variant !== 'guest')
+      .filter((c) => includeGuests || c.variant !== 'guest')
       .map((c) => toMember(c.id, c.interestCategories, c.interestSubCategories)),
   ].filter((m) => m.categories.length > 0 || m.picks.length > 0);
 }
@@ -236,6 +236,12 @@ export function commonThemesOf(members: InterestMemberV4[]): Set<string> {
   if (members.length === 0) return new Set();
   const [first, ...rest] = members;
   return new Set(first.picks.filter((t) => rest.every((m) => m.picks.includes(t))));
+}
+
+/** Every theme ANY counted member picked (the union) — pass to scoreCommonThemeMatch instead of
+ * commonThemesOf when an opportunity only has to match one member's interests. */
+export function anyThemesOf(members: InterestMemberV4[]): Set<string> {
+  return new Set(members.flatMap((m) => m.picks));
 }
 
 /**
@@ -608,6 +614,25 @@ export function combineWeighted(score: ScoreV4): { total: number, totalWeighted:
  */
 export function rankByTagsAndWeather<T extends { score: { interestTagsScore: number; weatherScore: number } }>(items: T[]): T[] {
   const key = (x: T) => x.score.interestTagsScore + x.score.weatherScore;
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const r = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[r]] = [shuffled[r]!, shuffled[i]!];
+  }
+  return shuffled.sort((a, b) => key(b) - key(a));
+}
+
+/**
+ * Final order: interest score + interest tags score + weather score, highest first. Nothing else
+ * (age, distance, schedule, …) affects the order — those steps only filter. Interest and tags are
+ * scored even when their filter is skipped (Plan → Everything Local, community), so matches with the
+ * member's interests/tags come first there too. Equal scores come out in a fresh random order on
+ * every call (shuffle, then a stable sort).
+ */
+export function rankByInterestTagsAndWeather<
+  T extends { score: { intrestScore: number; interestTagsScore: number; weatherScore: number } },
+>(items: T[]): T[] {
+  const key = (x: T) => x.score.intrestScore + x.score.interestTagsScore + x.score.weatherScore;
   const shuffled = [...items];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const r = Math.floor(Math.random() * (i + 1));

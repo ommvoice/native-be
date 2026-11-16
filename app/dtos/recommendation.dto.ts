@@ -1,6 +1,20 @@
+/**
+ * Where the opportunity whose "Nearby ideas" row is being loaded was opened from:
+ *   - today-everyone: Today → Works For Everyone — the parent + the members ticked in "Have We Got
+ *     Everyone" (childId = comma list); an opportunity matching ANY of their interests is kept.
+ *   - today-member:   Today → With Someone In Mind — that one member (childId) only, parent excluded.
+ *   - plan-member:    Plan → Family Interests — the selected member (childId), or the parent alone
+ *     when no childId; no schedule/weather check (planning, not "right now").
+ *   - plan-all:       Plan → Everything Local — everything within the radius, nothing else checked.
+ */
+export type NearbySource = 'today-everyone' | 'today-member' | 'plan-member' | 'plan-all';
+
 export interface RecommendationQueryDto {
   parentId: string;
   childId?: string;
+  /** Whole-family list only (no childId): comma list of the profiles included in "Have We Got
+   * Everyone" (children, adults, guests). The parent always counts; other members are left out. */
+  memberIds?: string;
   opportunityLat? :  string;
   opportunityLong? :  string;
   searchRadius?: string; 

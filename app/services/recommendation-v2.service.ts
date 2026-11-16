@@ -6,7 +6,7 @@ import { legKey } from '../repositories/driving-leg.repository';
 import { OpportunityInteractionRepository, isSuppressed } from '../repositories/opportunity-interaction.repository';
 import { opportunityRefKey } from '../shared/utils/opportunity-ref';
 import * as ScoringV4 from './scoring-v4.service';
-import type { RecommendationQueryDto, RecommendationSearchQueryDto, Score, RecommendationCandidateWithScore } from '../dtos/recommendation.dto';
+import type { NearbySource, RecommendationQueryDto, RecommendationSearchQueryDto, Score, RecommendationCandidateWithScore } from '../dtos/recommendation.dto';
 import type { RecommendationV2Candidate } from '../dtos/recommendation.dto';
 import type { Narrowed } from '../shared/types/assets.types';
 import { AssetsService } from './assets.service';
@@ -45,17 +45,33 @@ export class RecommendationV2Service {
    * `parentOnly` (only used without a childId, e.g. Plan → parent tab): the list is for the parent
    * alone — age checks just the parent (an adult → Adults must be ticked), interest uses the parent's
    * picks only, no child tags, and pricing counts one adult. A parent with no children is allowed.
+   * `priceAllMembers` (Plan → Everything Local): prices still count every family member, whoever
+   * the scoring was for.
    */
-  async getRecommendations2(dto: RecommendationQueryDto, skipRecommendations?: Score, opts: { parentOnly?: boolean } = {}) {
+  async getRecommendations2(
+    dto: RecommendationQueryDto,
+    skipRecommendations?: Score,
+    opts: { parentOnly?: boolean; priceAllMembers?: boolean } = {},
+  ) {
     const parentOnly = !!opts.parentOnly && !dto.childId;
-    const parent = await this.repo.getParentForRecommendations(dto.parentId, dto.childId);
+    // priceAllMembers needs every member's age, so don't let the repo narrow to childId (done below anyway).
+    const parent = await this.repo.getParentForRecommendations(dto.parentId, opts.priceAllMembers ? undefined : dto.childId);
     if (!parent) throw new AppError(404, 'Parent not found');
+
+    // memberIds (Today → Works For Everyone after "Have We Got Everyone" → Apply): only the parent +
+    // those profiles count — their common interests (guests' included) and every one of their ages.
+    const memberIds = !dto.childId && dto.memberIds != null
+      ? dto.memberIds.split(',').map((id) => id.trim()).filter(Boolean)
+      : null;
 
     const narrowed = dto.childId
       ? { ...parent, children: parent.children.filter((c) => c.id === dto.childId) }
-      : parent;
+      : memberIds
+        ? { ...parent, children: parent.children.filter((c) => memberIds.includes(c.id)) }
+        : parent;
 
-    if (!parentOnly && !narrowed.children.length) {
+    // With memberIds, just the parent (nobody else ticked) is a valid selection.
+    if (!parentOnly && !memberIds && !narrowed.children.length) {
       throw new AppError(400, 'No children found for this query. Add a child or remove childId filter.');
     }
 
@@ -69,19 +85,53 @@ export class RecommendationV2Service {
 
     // childId: with one child selected, every step looks at that child only — the parent's interests
     // and age aren't considered (getItemsWithScoreV3 filters interestMembers/children by it).
-    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations, { childId: dto.childId, parentOnly });
+    const scoredData = await this.getItemsWithScoreV3(narrowedParams, skipRecommendations, {
+      childId: dto.childId,
+      parentOnly,
+      includeGuests: !!memberIds,
+    });
 
-    return { data: scoredData.data, childrenAges: scoredData.childrenAges };
+    const childrenAges = opts.priceAllMembers
+      ? parent.children.map((c) => ScoringV4.getAgeInYears(c.dateOfBirth))
+      : scoredData.childrenAges;
+
+    return { data: scoredData.data, childrenAges };
   }
 
-  async getNearby(dto: RecommendationQueryDto, skipRecommendations?: Score) {
+  /**
+   * "Nearby ideas" (1 mile around the opportunity being viewed). Who counts depends on `source`
+   * (see NearbySource); without one, the old behaviour: the members in `childId` (comma list) or the
+   * whole family, strict common-interest match.
+   */
+  async getNearby(dto: RecommendationQueryDto & { source?: NearbySource }, skipRecommendations?: Score) {
     const parent = await this.repo.getParentForRecommendations(dto.parentId);
     if (!parent) throw new AppError(404, 'Parent not found');
 
-    const childIds = dto.childId?.split(',').map((id) => id.trim());
-    const narrowed = childIds
-      ? { ...parent, children: parent.children.filter((c) => childIds?.includes(c.id)) }
-      : parent;
+    const childIds = dto.childId?.split(',').map((id) => id.trim()).filter(Boolean);
+    const onlyMembers = (ids: string[]) => ({ ...parent, children: parent.children.filter((c) => ids.includes(c.id)) });
+
+    let narrowed: typeof parent = parent;
+    let scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any'; includeGuests?: boolean } = {};
+    switch (dto.source) {
+      case 'today-everyone':
+        // Parent + the "Have We Got Everyone" members (none sent → just the parent); any member's interest.
+        narrowed = onlyMembers(childIds ?? []);
+        scope = { interestMatch: 'any' };
+        break;
+      case 'today-member':
+      case 'plan-member': {
+        // One member only — their interests and age, the parent isn't counted. No member → the parent alone.
+        const memberId = childIds?.[0];
+        narrowed = memberId ? onlyMembers([memberId]) : parent;
+        scope = memberId ? { childId: memberId } : { parentOnly: true };
+        break;
+      }
+      case 'plan-all':
+        // Everything within the radius — every step but distance is skipped by the caller.
+        break;
+      default:
+        narrowed = childIds?.length ? onlyMembers(childIds) : parent;
+    }
 
     // if (!narrowed.children.length) {
     //   throw new AppError(400, 'No children found for this query.');
@@ -96,7 +146,9 @@ export class RecommendationV2Service {
       },
     }
 
-    return this.getItemsWithScoreV3(narrowedParams, skipRecommendations);
+    // Nearby counts guests' interests too (a guest is a real member of today's outing) — elsewhere
+    // guests only count for age.
+    return this.getItemsWithScoreV3(narrowedParams, skipRecommendations, { ...scope, includeGuests: true });
   }
 
   async getSearchRecommendations(dto: RecommendationSearchQueryDto) {
@@ -116,7 +168,7 @@ export class RecommendationV2Service {
       ...(dto.searchRadius && { searchRadius: Number(dto.searchRadius) })
     }
 
-    return this.getItemsWithScoreV2(narrowedParams);
+    return this.getItemsWithScoreV3(narrowedParams);
   }
 
   private parseCoords(c: RecommendationV2Candidate): { latitude: number; longitude: number } | null {
@@ -167,7 +219,7 @@ export class RecommendationV2Service {
   async getItemsWithScoreV3(
     narrowed: Narrowed,
     skipRecommendations?: ScoringV4.ScoreV4,
-    scope: { childId?: string; parentOnly?: boolean } = {},
+    scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any'; includeGuests?: boolean } = {},
   ) {
     const { childId } = scope;
     const parentOnly = !!scope.parentOnly && !childId;
@@ -203,13 +255,18 @@ export class RecommendationV2Service {
     // average level; only 10% or fewer members matching drops it. See ScoringV4.scoreInterestMatch.
     // V3 uses the strict ScoringV4.scoreCommonThemeMatch: 100 only when the opportunity's theme is one
     // EVERY counted member picked, otherwise 0 (dropped).
-    const interestAllMembers = ScoringV4.interestMembersOf(narrowed);
+    // includeGuests (nearby only): guests with interests count like any other member.
+    const interestAllMembers = ScoringV4.interestMembersOf(narrowed, { includeGuests: scope.includeGuests });
     const interestMembers = parentOnly
       ? interestAllMembers.filter((m) => m.id === narrowed.id)
       : childId
         ? interestAllMembers.filter((m) => m.id === childId)
         : interestAllMembers;
-    const commonThemes = ScoringV4.commonThemesOf(interestMembers);
+    // interestMatch 'any' (nearby from Today → Works For Everyone): a theme ANY counted member picked
+    // is enough; default 'all': only themes every counted member picked.
+    const commonThemes = scope.interestMatch === 'any'
+      ? ScoringV4.anyThemesOf(interestMembers)
+      : ScoringV4.commonThemesOf(interestMembers);
     const themeCategories = themeCategoryMap();
 
     const initialScores = {
@@ -231,10 +288,17 @@ export class RecommendationV2Service {
     const scoreOrSkip = (current: number, compute: () => number): number =>
       current === 100 ? 100 : compute();
 
+    // Interest and interest tags are the exception: they drive the final order, so they're ALWAYS
+    // scored — a skip only turns off the interest filter (nothing is dropped), so e.g. Plan →
+    // Everything Local still lists the opportunities matching the member's interests/tags first.
+    const skipInterestFilter = initialScores.intrestScore === 100;
+
     const interestThemeScoreMatch: ScoringV4.CandidateWithScoreV4[] = candidates.map((c) => {
-      const intrestScore = scoreOrSkip(initialScores.intrestScore, () =>
-        ScoringV4.scoreCommonThemeMatch(interestMembers, ScoringV4.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories), commonThemes).score
-      );
+      const intrestScore = ScoringV4.scoreCommonThemeMatch(
+        interestMembers,
+        ScoringV4.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories),
+        commonThemes,
+      ).score;
 
       return {
         ...c,
@@ -243,15 +307,14 @@ export class RecommendationV2Service {
           intrestScore,
         },
       }
-    }).filter((item) => item.score.intrestScore !== 0);
+    }).filter((item) => skipInterestFilter || item.score.intrestScore !== 0);
 
     // Step 2: interest tags match — how many of the family's free-text interestTags show up on
     // each candidate's own tag list, weighted so a tag shared by 2 or more children scores
     // higher than one only 1 child picked.
     const interestTagsScoreMatch = interestThemeScoreMatch.map((item) => {
-      const interestTagsScore = scoreOrSkip(item.score.interestTagsScore, () =>
-        ScoringV4.scoreInterestTagsWeighted(childTagWeights, item.tags)
-      );
+      // Always scored (see skipInterestFilter above) — tags never drop anything, they only rank.
+      const interestTagsScore = ScoringV4.scoreInterestTagsWeighted(childTagWeights, item.tags);
       return {
         ...item,
         score: {
@@ -259,7 +322,7 @@ export class RecommendationV2Service {
           interestTagsScore,
         },
       }
-    }).filter((item) => item.score.intrestScore !== 0); // will never be 0 as we are send 50
+    });
 
     // Step 3: age match — everyone going must fit the candidate's ageBands, otherwise it's dropped. Adults
     // (parent included, whole-family only) need the Adults band ticked. See ScoringV4.scoreMembersAge.
@@ -367,13 +430,13 @@ export class RecommendationV2Service {
     const finalScoreMatch = distanceWithScoreMatch
       .map((c) => {
         const score = c.score;
-        const weatherTagsScore = Number(score.weatherScore + score.interestTagsScore).toFixed(2);
+        const rankScore = Number(score.intrestScore + score.interestTagsScore + score.weatherScore).toFixed(2);
         const { total, totalWeighted } = ScoringV4.combineWeighted(score);
         if (totalWeighted === 0) return null;
 
         return {
           ...c,
-          score: { ...score, total: weatherTagsScore, totalWeighted },
+          score: { ...score, total: rankScore, totalWeighted },
           schedule: {
             startTime: c.startTime ?? null, endTime: c.endTime ?? null,
             startDate: c.startDate ?? null, endDate: c.endDate ?? null,
@@ -383,9 +446,9 @@ export class RecommendationV2Service {
         }
       }).filter((item): item is NonNullable<typeof item> => !!item);         // remove null items due to totalWeighted === 0
 
-    // Final order: interest tags + weather score only (highest first); equal scores are shuffled
-    // fresh on every request. See ScoringV4.rankByTagsAndWeather.
-    const scoredShuffled = ScoringV4.rankByTagsAndWeather(finalScoreMatch);
+    // Final order: interest + interest tags + weather score only (highest first); equal scores are
+    // shuffled fresh on every request. See ScoringV4.rankByInterestTagsAndWeather.
+    const scoredShuffled = ScoringV4.rankByInterestTagsAndWeather(finalScoreMatch);
 
     const data = await this.attachPayloads(scoredShuffled)
 

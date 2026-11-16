@@ -32,9 +32,10 @@ export class PlanService {
       ...group,
       // Theme filter chips and the opportunities themselves: selected themes only (none picked → nothing).
       themes: group.themes.filter((theme) => themes.has(theme.slug)),
-      list: group.list
+      // Kept in the backend's rank order (interest + tags + weather, see rankByInterestTagsAndWeather) —
+      // `score` is the score breakdown object, not a number, so sorting on it did nothing reliable.
+      list: group.list,
         // .filter((opp) => !!opp.theme && themes.has(opp.theme.slug))
-        .sort((a, b) => (b.score || 0) - (a.score || 0)),
     }));
 
     return activeGroups;

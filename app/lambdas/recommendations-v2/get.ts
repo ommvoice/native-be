@@ -11,6 +11,8 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   const parentId     = event.queryStringParameters?.['parentId'];
   const childId      = event.queryStringParameters?.['childId'];
   const searchRadius = event.queryStringParameters?.['searchRadius'];
+  // Whole-family list: the profiles ticked in "Have We Got Everyone" (comma list; the parent always counts).
+  const memberIds    = event.queryStringParameters?.['memberIds'];
   if (!parentId) throw new AppError(400, 'parentId query parameter is required');
 
   const service = new RecommendationV2Service();
@@ -18,7 +20,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   const skipRecommendations = getInitialScore({
     // skipWeather: true
   });
-  const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius }, skipRecommendations);
+  const { data: raw, childrenAges } = await service.getRecommendations2({ parentId, childId, searchRadius, memberIds }, skipRecommendations);
   const data = toOpportunityList(raw as any, childrenAges);
   return ok({ count: data.length, data });
 };

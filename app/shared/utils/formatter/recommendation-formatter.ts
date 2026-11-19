@@ -550,7 +550,7 @@ function resolveCardDisplay(
       const bookingLable = bookingTypes.length > 1 ? "Check Booking" : bookingTypes[0] ?? undefined;
      const costBooking = bookingLable
         ? cost.toLowerCase() === "free"
-          ? bookingLable === "Open (Free) Access"
+          ? bookingLable === "Just Turn Up"
             ? bookingLable
             : `Free (${bookingLable})`
           : `${cost} (${bookingLable})`

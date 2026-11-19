@@ -5,7 +5,7 @@ export const totnesRareBreedsFarmVenueV2: OpportunityVenueV2SeedInput = {
   slug: "totnes_rare_breeds_farm",
   recordId: "VEN-00230",
   queuedVersion: 2,
-  active: true,
+  active: false,
   themeSlug: "animal_encounters",
   themeVariantSlug: "animal_park_or_zoo, animal_sanctuary, birds_of_prey, farm_and_smallholding",
   venueName: "Totnes Rare Breeds Farm",

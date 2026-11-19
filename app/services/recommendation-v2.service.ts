@@ -111,7 +111,7 @@ export class RecommendationV2Service {
     const onlyMembers = (ids: string[]) => ({ ...parent, children: parent.children.filter((c) => ids.includes(c.id)) });
 
     let narrowed: typeof parent = parent;
-    let scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any'; includeGuests?: boolean } = {};
+    let scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any' | 'share'; includeGuests?: boolean; weatherRankOnly?: boolean } = {};
     switch (dto.source) {
       case 'today-everyone':
         // Parent + the "Have We Got Everyone" members (none sent → just the parent); any member's interest.
@@ -127,7 +127,9 @@ export class RecommendationV2Service {
         break;
       }
       case 'plan-all':
-        // Everything within the radius — every step but distance is skipped by the caller.
+        // Everything within the radius — every step but distance is skipped by the caller (nothing is
+        // dropped). Interest still ranks it: a theme any member picked counts, more members → higher.
+        scope = { interestMatch: 'share' };
         break;
       default:
         narrowed = childIds?.length ? onlyMembers(childIds) : parent;
@@ -139,7 +141,7 @@ export class RecommendationV2Service {
 
     let narrowedParams: Narrowed = {
       ...narrowed,
-      searchRadius: 1, // use miles .....1 = 1miles
+      searchRadius: 2, // use miles .....2 = 2miles
       opp: {
         lat: dto.opportunityLat || '0',
         long: dto.opportunityLong || '0',
@@ -147,8 +149,9 @@ export class RecommendationV2Service {
     }
 
     // Nearby counts guests' interests too (a guest is a real member of today's outing) — elsewhere
-    // guests only count for age.
-    return this.getItemsWithScoreV3(narrowedParams, skipRecommendations, { ...scope, includeGuests: true });
+    // guests only count for age. Weather never hides a nearby place (Today → Works For Everyone /
+    // With Someone In Mind): it's still scored, so weather-suited places come first.
+    return this.getItemsWithScoreV3(narrowedParams, skipRecommendations, { ...scope, includeGuests: true, weatherRankOnly: true });
   }
 
   async getSearchRecommendations(dto: RecommendationSearchQueryDto) {
@@ -219,7 +222,7 @@ export class RecommendationV2Service {
   async getItemsWithScoreV3(
     narrowed: Narrowed,
     skipRecommendations?: ScoringV4.ScoreV4,
-    scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any'; includeGuests?: boolean } = {},
+    scope: { childId?: string; parentOnly?: boolean; interestMatch?: 'all' | 'any' | 'share'; includeGuests?: boolean; weatherRankOnly?: boolean } = {},
   ) {
     const { childId } = scope;
     const parentOnly = !!scope.parentOnly && !childId;
@@ -294,11 +297,12 @@ export class RecommendationV2Service {
     const skipInterestFilter = initialScores.intrestScore === 100;
 
     const interestThemeScoreMatch: ScoringV4.CandidateWithScoreV4[] = candidates.map((c) => {
-      const intrestScore = ScoringV4.scoreCommonThemeMatch(
-        interestMembers,
-        ScoringV4.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories),
-        commonThemes,
-      ).score;
+      const oppInterest = ScoringV4.opportunityInterestOf(c.themeSlug, c.themeVariantSlug, themeCategories);
+      // 'share' (nearby from Plan → Everything Local): picked by any one member matches, picked by
+      // more members scores higher; otherwise 100/0 against commonThemes ('all' or 'any').
+      const intrestScore = scope.interestMatch === 'share'
+        ? ScoringV4.scoreThemeShare(interestMembers, oppInterest)
+        : ScoringV4.scoreCommonThemeMatch(interestMembers, oppInterest, commonThemes).score;
 
       return {
         ...c,
@@ -372,7 +376,8 @@ export class RecommendationV2Service {
         );
         return { ...item, score: { ...item.score, weatherScore } };
       })
-      .filter((item) => item.score.weatherScore !== 0);
+      // weatherRankOnly (nearby): scored for the order only — a bad-weather 0 doesn't drop it.
+      .filter((item) => scope.weatherRankOnly || item.score.weatherScore !== 0);
 
     // Step 6: distance match 
     const routable = weatherScoreMatch

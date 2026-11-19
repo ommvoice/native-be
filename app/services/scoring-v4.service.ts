@@ -238,6 +238,19 @@ export function commonThemesOf(members: InterestMemberV4[]): Set<string> {
   return new Set(first.picks.filter((t) => rest.every((m) => m.picks.includes(t))));
 }
 
+/**
+ * Share-of-members interest score: the opportunity's theme only has to be picked by ONE counted
+ * member to match, and the more members picked it, the higher it scores —
+ *   score = 100 × (members who picked the theme ÷ counted members), best of the opportunity's themes.
+ * e.g. 4 members: picked by 1 → 25, by 2 → 50, by all 4 → 100; picked by nobody → 0.
+ * No counted members (nobody picked interests) → 0.
+ */
+export function scoreThemeShare(members: InterestMemberV4[], opp: OpportunityInterestV4): number {
+  if (members.length === 0) return 0;
+  const best = Math.max(0, ...opp.themes.map((t) => members.filter((m) => m.picks.includes(t)).length));
+  return Math.round((best / members.length) * 10000) / 100;
+}
+
 /** Every theme ANY counted member picked (the union) — pass to scoreCommonThemeMatch instead of
  * commonThemesOf when an opportunity only has to match one member's interests. */
 export function anyThemesOf(members: InterestMemberV4[]): Set<string> {

@@ -373,7 +373,7 @@ export function opportunityEventV2SeedRows(): Row[] {
     ...emptyMixedTimings(),
     ticketSalesStartDate: uk("26/05/2026"),
     eventEntryCost: false,
-    eventBookingType: "Open (Free) Access",
+    eventBookingType: "open_access",
     ticketingVariants: null,
     ticketVariantDefinitionBaby: null,
     ticketVariantBabyPrice: null,

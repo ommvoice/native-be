@@ -5,7 +5,7 @@ export const worldOfCountryLifeVenueV2: OpportunityVenueV2SeedInput = {
   slug: "world_of_country_life",
   recordId: "0",
   queuedVersion: 0,
-  active: true,
+  active: false,
   themeSlug: "big_day_out",
   themeVariantSlug: "large_scale_outdoor",
   venueName: "World of Country Life",

@@ -51,9 +51,9 @@ const providers: Record<string, unknown>[] = [
     description:
       "The Gordon Messenger Centre is the heart of community life at CTCRM Lympstone. Named after Corporal Gordon Messenger VC, we've been supporting Royal Marines families since 1985. Our welcoming centre offers activities for all ages, welfare support, social events and a café. Whether you're newly posted or a long-standing member of our Corps family, we're here to help you thrive.",
     logoUrl: null,
-    websiteUrl: 'https://www.royalmarines.mod.uk/community',
-    contactEmail: 'gordonmessenger@ctcrm.mod.uk',
-    contactPhone: '01395 264180',
+    websiteUrl: 'https://www.royalnavy.mod.uk/families-and-veterans/local-community-centres/gordon-messenger-centre',
+    contactEmail: 'NAVYTRGCTCRM-GMCMAILBOX@mod.gov.uk',
+    contactPhone: '07866 075 074',
     contactName: 'Lisa Joy',
     addressLine1: 'The Gordon Messenger Centre',
     addressLine2: 'Commando Training Centre Royal Marines',

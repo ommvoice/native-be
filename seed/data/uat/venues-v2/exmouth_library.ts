@@ -5,7 +5,7 @@ export const exmouthLibraryVenueV2: OpportunityVenueV2SeedInput = {
   slug: "exmouth_library",
   recordId: "0",
   queuedVersion: 0,
-  active: true,
+  active: false,
   themeSlug: "relaxed_cafe",
   themeVariantSlug: "library_or_reading_nook",
   venueName: "Exmouth Library",

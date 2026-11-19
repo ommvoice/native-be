@@ -10,7 +10,8 @@ import type { NearbySource } from '../../dtos/recommendation.dto.js';
 
 const NEARBY_SOURCES: NearbySource[] = ['today-everyone', 'today-member', 'plan-member', 'plan-all'];
 
-/** Steps each source skips. Today: every step runs (interest, tags, age, schedule, weather, distance).
+/** Steps each source skips. Today: every step runs (interest, tags, age, schedule, weather, distance)
+ * — but weather only orders the row, it never hides a place (getNearby's weatherRankOnly).
  * Plan → Family Interests: no schedule/weather (same as /plan/family). Plan → Everything Local:
  * distance only. */
 function nearbySkips(source?: NearbySource) {

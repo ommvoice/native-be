@@ -2198,7 +2198,8 @@
       "name": "Swimming Pool",
       "slug": "swimming_pool",
       "opportunityThemeSlugs": [
-        "sporty_activities"
+        "sporty_activities",
+        "water_fun"
       ],
       "active": true
     },
@@ -3094,7 +3095,8 @@
       "name": "Coastal or Clifftop Walk",
       "slug": "coastal_walk",
       "opportunityThemeSlugs": [
-        "scenic_walks"
+        "scenic_walks",
+        "wheels_routes"
       ],
       "active": true
     },
@@ -3221,16 +3223,25 @@
     {
       "name": "Rockpooling Hotspot",
       "slug": "rockpooling_hotspot",
+      "opportunityThemeSlugs": [
+        "coastal_adventures"
+      ],
       "active": true
     },
     {
       "name": "Library or Reading Nook",
       "slug": "library_or_reading_nook",
+      "opportunityThemeSlugs": [
+        "relaxed_cafe"
+      ],
       "active": true
     },
     {
       "name": "Lido",
       "slug": "lido",
+      "opportunityThemeSlugs": [
+        "water_fun"
+      ],
       "active": true
     },
     {

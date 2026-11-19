@@ -34,7 +34,7 @@ export const tenpinTuesdaysLaserTagClubV2: OpportunityClubV2SeedInput = {
   clubMixedTimingsMondayStartTime: null,
   clubMixedTimingsMondayEndTime: null,
   clubMixedTimingsTuesdayStartTime: "10:00",
-  clubMixedTimingsTuesdayEndTime: "00:00",
+  clubMixedTimingsTuesdayEndTime: "23:59",
   clubMixedTimingsWednesdayStartTime: null,
   clubMixedTimingsWednesdayEndTime: null,
   clubMixedTimingsThursdayStartTime: null,

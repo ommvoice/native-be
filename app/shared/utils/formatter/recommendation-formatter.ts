@@ -13,6 +13,8 @@ import { buildScheduleInfo as buildEventScheduleInfo } from "./event-to-opportun
 import { resolveCardTotalPrice, resolveFamilyEstimatedTotal, resolveTicketPricing } from "./pricing";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 import { AssetsService } from "../../../services/assets.service";
+import { AppClock } from "../app-clock";
+import { eventCountdownLabel, eventStartDateLabel, eventSessionTime } from "./event-dates";
 
 const assets = new AssetsService();
 
@@ -532,6 +534,125 @@ interface CardDisplayInputs {
   clubSkillArea: string | null;
   requiresBooking: boolean;
   eventType: string | null;
+  /** Small club card: "09:30-11:00 • Friday" (see clubSessionDayLabel). */
+  clubSessionDay: string | undefined;
+  /** Medium/large club card: session time "10:00-12:00", club type slug, booking provision slugs. */
+  clubSessionTime: string | undefined;
+  clubFormatSlug: string | null;
+  clubBookingProvision: string | null;
+  /** Medium/large event card: start-finish time "10:00-12:00" (see eventSessionTime). */
+  eventSessionTime: string | undefined;
+  /** Event dates — a Date (enriched payload) or "YYYY-MM-DD…" string; only the calendar day is used. */
+  eventStartDate: Date | string | null;
+  eventEndDate: Date | string | null;
+}
+
+export { eventCountdownLabel, eventStartDateLabel, eventSessionTime } from "./event-dates";
+
+const WEEKDAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const;
+const WEEKDAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
+
+/** "Monday" / "monday" / "Mon" → 0 (Monday) .. 6 (Sunday); anything else → -1. */
+function weekdayIndex(raw: string): number {
+  const key = raw.trim().slice(0, 3).toLowerCase();
+  return WEEKDAY_SHORT.findIndex((d) => d.toLowerCase() === key);
+}
+
+/** One day → "Friday"; every day → "Daily"; a run of 3+ days in a row → "Mon-Fri"; else "Tue, Thu". */
+function formatClubDays(days: number[]): string {
+  const sorted = [...new Set(days)].sort((a, b) => a - b);
+  if (sorted.length === 1) return WEEKDAY_NAMES[sorted[0]!];
+  if (sorted.length === 7) return "Daily";
+  const isRun = sorted.every((d, i) => i === 0 || d === sorted[i - 1]! + 1);
+  if (isRun && sorted.length >= 3) return `${WEEKDAY_SHORT[sorted[0]!]}-${WEEKDAY_SHORT[sorted[sorted.length - 1]!]}`;
+  return sorted.map((d) => WEEKDAY_SHORT[d]).join(", ");
+}
+
+/**
+ * Small club card line: session time • the day(s) it runs — "09:30-11:00 • Friday",
+ * "15:30-18:00 • Mon-Fri". Sessions come from the fixed daily timings (clubDailySchedule days +
+ * clubDailyStartTime/EndTime) or, failing that, the per-day mixed timings. When the days have
+ * different times, the next session (today onwards, UK time) is shown: "16:00-17:00 • Thursday".
+ * Days but no times → just the days ("Saturday"); nothing at all → undefined.
+ */
+export function clubSessionDayLabel(club: OpportunityClubV2, now: Date = new Date()): string | undefined {
+  const sessions = clubSessionsOf(club);
+  if (sessions.length === 0) return undefined;
+
+  const times = [...new Set(sessions.map((s) => s.time))];
+  if (times.length <= 1) {
+    return [times[0], formatClubDays(sessions.map((s) => s.day))].filter(Boolean).join(CARD_LINE_SEPARATOR);
+  }
+  const next = nextClubSession(sessions, now);
+  return [next.time, WEEKDAY_NAMES[next.day]].filter(Boolean).join(CARD_LINE_SEPARATOR);
+}
+
+/** The club's session time — "10:00-12:00". Different times on different days → the next session's. */
+export function clubSessionTime(club: OpportunityClubV2, now: Date = new Date()): string | undefined {
+  const sessions = clubSessionsOf(club);
+  if (sessions.length === 0) return undefined;
+  const times = [...new Set(sessions.map((s) => s.time))];
+  return (times.length <= 1 ? times[0] : nextClubSession(sessions, now).time) ?? undefined;
+}
+
+/** The first session from today onwards (AppClock weekday: 0 = Sunday; sessions: 0 = Monday). */
+function nextClubSession(sessions: { day: number; time: string | null }[], now: Date) {
+  const today = (AppClock.weekday(now) + 6) % 7;
+  return [...sessions].sort((a, b) => ((a.day - today + 7) % 7) - ((b.day - today + 7) % 7))[0]!;
+}
+
+/** Every weekly session: day (0 = Monday) + "start-end" time (null when only the days are known). */
+function clubSessionsOf(club: OpportunityClubV2): { day: number; time: string | null }[] {
+  const slot = (start: string | null | undefined, end: string | null | undefined) =>
+    start ? (end ? `${start}-${end}` : start) : null;
+  const scheduleDays = (club.clubDailySchedule ?? "").split(",").map(weekdayIndex).filter((d) => d >= 0);
+
+  let sessions: { day: number; time: string | null }[] = [];
+  if (club.clubFixedDailyTimings && club.clubDailyStartTime) {
+    const time = slot(club.clubDailyStartTime, club.clubDailyEndTime);
+    sessions = (scheduleDays.length ? scheduleDays : [0, 1, 2, 3, 4, 5, 6]).map((day) => ({ day, time }));
+  } else {
+    const mixed: [string | null, string | null][] = [
+      [club.clubMixedTimingsMondayStartTime, club.clubMixedTimingsMondayEndTime],
+      [club.clubMixedTimingsTuesdayStartTime, club.clubMixedTimingsTuesdayEndTime],
+      [club.clubMixedTimingsWednesdayStartTime, club.clubMixedTimingsWednesdayEndTime],
+      [club.clubMixedTimingsThursdayStartTime, club.clubMixedTimingsThursdayEndTime],
+      [club.clubMixedTimingsFridayStartTime, club.clubMixedTimingsFridayEndTime],
+      [club.clubMixedTimingsSaturdayStartTime, club.clubMixedTimingsSaturdayEndTime],
+      [club.clubMixedTimingsSundayStartTime, club.clubMixedTimingsSundayEndTime],
+    ];
+    sessions = mixed.flatMap(([start, end], day) => (start ? [{ day, time: slot(start, end) }] : []));
+    if (sessions.length === 0) sessions = scheduleDays.map((day) => ({ day, time: null }));
+  }
+  return sessions;
+}
+
+/** Card label per clubFormat slug (club type), from enums.json clubFormat names. */
+const clubTypeLabels = assets.getClubFormats();
+const CLUB_TYPE_CARD_LABELS: Record<string, string> = Object.fromEntries(
+  clubTypeLabels.map((format) => [format.slug, format.name]),
+);
+
+/** Card label per clubBookingProvision slug, from enums.json bookingType names (open_access → "Just Turn Up"). */
+const bookingLabels = assets.getBookingTypes();
+const CLUB_BOOKING_CARD_LABELS: Record<string, string> = Object.fromEntries(
+  bookingLabels.map((booking) => [booking.slug, booking.name]),
+);
+
+/** "Stay & Play" — unknown slugs fall back to Title Case. */
+export function clubTypeCardLabel(clubFormat: string | null | undefined): string | undefined {
+  const slug = clubFormat?.split(",")[0]?.trim();
+  if (!slug) return undefined;
+  return CLUB_TYPE_CARD_LABELS[slug] ?? formatCardLabel(slug);
+}
+
+/** "Just Turn Up" / "Advance Book"; several booking types → "Check Booking" (same as venues). */
+export function clubBookingCardLabel(bookingProvision: string | null | undefined, isFree: boolean): string | undefined {
+  const slugs = [...new Set((bookingProvision ?? "").split(",").map((s) => s.trim()).filter(Boolean))];
+  if (slugs.length === 0) return undefined;
+  if (slugs.length > 1) return "Check Booking";
+  const slug = slugs[0]!;
+  return CLUB_BOOKING_CARD_LABELS[slug] ?? formatCardLabel(slug);
 }
 
 function resolveCardDisplay(
@@ -583,19 +704,39 @@ function resolveCardDisplay(
       const timeFreq = [duration, fields.clubFrequency].filter(Boolean).join(CARD_LINE_SEPARATOR);
       const bookingLabel = fields.requiresBooking ? "Book Ahead" : (fields.clubCommitment || fields.clubFormat);
       const costBooking = bookingLabel ? `${cost} (${bookingLabel})` : cost;
+      // Medium/large: "10:00-12:00 • Stay & Play" then "Free • Just Turn Up".
+      const timeType = [fields.clubSessionTime, clubTypeCardLabel(fields.clubFormatSlug)].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      const clubBooking = clubBookingCardLabel(fields.clubBookingProvision, cost.toLowerCase() === "free");
+      const costClubBooking = [cost, clubBooking].filter(Boolean).join(CARD_LINE_SEPARATOR);
       return {
-        compact: { line1: sessionSkillCompact || undefined, line2: journey, line2IsJourney: true },
-        full: { line1: timeFreq || undefined, line2: costBooking, line3: journey, line3IsJourney: true },
+        // Small card: "09:30-11:00 • Friday" (falls back to the old session • skill line without timings).
+        compact: { line1: fields.clubSessionDay || sessionSkillCompact || undefined, line2: journey, line2IsJourney: true },
+        full: {
+          line1: timeType || timeFreq || undefined,
+          line2: clubBooking ? costClubBooking : costBooking,
+          line3: journey,
+          line3IsJourney: true,
+        },
       };
     }
 
     case "event": {
-      const costStatusCompact = [cost, duration].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      // Small card: "Free • 10 days left" / "£5 • Coming Soon" (falls back to the times without dates).
+      const status = eventCountdownLabel(fields.eventStartDate, fields.eventEndDate) ?? duration;
+      const costStatusCompact = [cost, status].filter(Boolean).join(CARD_LINE_SEPARATOR);
       const formattedEventType = formatCardLabel(fields.eventType);
       const costType = [cost, formattedEventType].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      // Medium/large: "10:00-12:00 • Sat 28th Nov" then "Free • Coming Soon" / "Free • 10 days left".
+      const timeDate = [fields.eventSessionTime, eventStartDateLabel(fields.eventStartDate)].filter(Boolean).join(CARD_LINE_SEPARATOR);
+      const countdown = eventCountdownLabel(fields.eventStartDate, fields.eventEndDate);
       return {
         compact: { line1: costStatusCompact || undefined, line2: journey, line2IsJourney: true },
-        full: { line1: duration || undefined, line2: costType || undefined, line3: journey, line3IsJourney: true },
+        full: {
+          line1: timeDate || duration || undefined,
+          line2: countdown ? [cost, countdown].join(CARD_LINE_SEPARATOR) : costType || undefined,
+          line3: journey,
+          line3IsJourney: true,
+        },
       };
     }
   }
@@ -688,6 +829,13 @@ export function toOpportunity(rec: EnrichedScoredRecommendationV2, familyChildAg
     clubSkillArea: resolveClubSkillArea(rec),
     requiresBooking: resolveRequiresBooking(rec),
     eventType: resolveEventType(rec),
+    clubSessionDay: type === "club" ? clubSessionDayLabel(rec as unknown as OpportunityClubV2) : undefined,
+    clubSessionTime: type === "club" ? clubSessionTime(rec as unknown as OpportunityClubV2) : undefined,
+    clubFormatSlug: type === "club" ? ((rec as unknown as OpportunityClubV2).clubFormat ?? null) : null,
+    clubBookingProvision: type === "club" ? ((rec as unknown as OpportunityClubV2).clubBookingProvision ?? null) : null,
+    eventSessionTime: type === "event" ? eventSessionTime(rec as unknown as OpportunityEventV2) : undefined,
+    eventStartDate: type === "event" ? ((rec.eventStartDate as Date | string | null | undefined) ?? null) : null,
+    eventEndDate: type === "event" ? ((rec.eventEndDate as Date | string | null | undefined) ?? null) : null,
   });
 
   return {

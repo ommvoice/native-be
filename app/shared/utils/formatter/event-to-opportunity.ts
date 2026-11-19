@@ -5,6 +5,7 @@ import { resolveTicketPricing } from "./pricing";
 import { resolveLiveStatus, resolveSeasonalHighlight } from "./opportunity-status";
 import { toSlugName, toSlugNameList, type SlugName } from "../slug-name";
 import { AppClock } from "../app-clock";
+import { eventNextSessionLabel } from "./event-dates";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -161,12 +162,23 @@ function buildInfoData(data: OpportunityEventV2): any[] | null {
 
   const schedule = buildScheduleInfo(data);
   if (schedule) {
-    infoList.push({ icon: "today", title: schedule.title, subtitle: schedule.subtitle, label: "Schedule" });
+    // Title: always the next session's time and day — "10:00-12:00, Fri 20th Nov". For an event that
+    // only runs on certain weekdays that's the next of those days (today while its session is still on).
+    // No session left (ended) → buildScheduleInfo's own title ("Ended").
+    // Subtitle, not started yet: "Starts in 9 days" (buildScheduleInfo would count down to the END date).
+    const today = AppClock.calendarDay();
+    const startDay = data.eventStartDate ? AppClock.calendarDay(new Date(data.eventStartDate)) : null;
+    const notStarted = !!startDay && startDay > today;
+    const title = eventNextSessionLabel(data) ?? schedule.title;
+    const daysUntil = notStarted ? Math.round((startDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : 0;
+    const subtitle = notStarted ? `Starts in ${daysUntil} day${daysUntil === 1 ? "" : "s"}` : schedule.subtitle;
+    infoList.push({ icon: "today", title, subtitle, label: "Schedule" });
   }
 
   if (data.eventType || data.eventSkillArea) {
     infoList.push({
-      icon: data.theme.slug,
+      // icon: data.theme.slug,
+      icon: "",
       title: data.eventType ? toSlugName(data.eventType).name : "—",
       subtitle: toSlugNameList(data.eventSkillArea)?.map((e) => e.name).join(", ") ?? "—",
       label: "Event Details",

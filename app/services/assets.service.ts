@@ -11,7 +11,7 @@ import type { InterestCategoryRecord, InterestSubCategoryRecord } from '../repos
 import type { ThemeRecord, ThemeVariantRecord } from '../repositories/theme.repository';
 import type { SkillRecord } from '../repositories/skill.repository';
 import type { FacilityRecord } from '../repositories/facility.repository';
-import type { EnumEntry, EnumSeasonalHighlight, EnumInterestTag } from '../shared/types/assets.types';
+import type { EnumEntry, EnumSeasonalHighlight, EnumInterestTag, EnumClubFormat, EnumBookingType } from '../shared/types/assets.types';
 import { OpportunityService } from './opportunity.service';
 
 // Enum-sourced records (`{name, slug, active}`) have no real createdAt/updatedAt —
@@ -198,6 +198,16 @@ export class AssetsService {
   getIntrestTags() : EnumInterestTag[]{
 
     return tags.interestTags as EnumInterestTag[];
+  }
+
+  getClubFormats() : EnumClubFormat[]{
+
+    return enums.clubFormat as EnumClubFormat[];
+  }
+
+  getBookingTypes() : EnumBookingType[]{
+
+    return enums.bookingType as EnumBookingType[];
   }
 
   getSeasonalHighlights(season:string): EnumSeasonalHighlight[] {

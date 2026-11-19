@@ -7,7 +7,7 @@ export const powderhamCastleGroundsRouteV2: OpportunityRouteV2SeedInput = {
   queuedVersion: 0,
   active: true,
   themeSlug: "scenic_walks",
-  themeVariantSlug: "estate_grounds",
+  themeVariantSlug: "estate_grounds_scenic_walks_trails",
   opportunityType: "route",
   routeName: "Powderham Castle Grounds",
   routeActivityGrouping: "energy_burner, simple_reset",

@@ -3,6 +3,7 @@ import type { SlugName } from "../slug-name.js";
 import { AssetsService } from "../../../services/assets.service.js";
 import { isEventVisible, type EventVisibilityFields } from "../event-visibility.js";
 import { isClubVisible, type ClubVisibilityFields } from "../club-visibility.js";
+import { activityDay, clubRunsOn, eventRunsOn } from "../activity-day.js";
 
 const assets = new AssetsService();
 
@@ -75,6 +76,46 @@ function resolveThemesForInterest(interestSlug: string): PlanGroupTheme[] {
  * Events and clubs outside their visibility window are left out of every group — see
  * isOpportunityVisible(). `now` is only overridden in tests.
  */
+
+export async function filterOpportunitiesEventClub(opportunities: Opportunity[], now: Date = new Date()): Promise<Opportunity[]> {
+  const [events, clubs] = await Promise.all([assets.getAllEvents(), assets.getAllClubs()]);
+  const eventsById = new Map<string, EventVisibilityFields>(events.map((e) => [e.id, e as EventVisibilityFields]));
+  const clubsById = new Map<string, ClubVisibilityFields>(clubs.map((c) => [c.id, c as ClubVisibilityFields]));
+  const list = opportunities.filter((opp) => isOpportunityVisible(opp, eventsById, clubsById, now));
+  return list;
+}
+
+/**
+ * Nearby ideas: the visibility filter above, plus events and clubs must run on the same day as the
+ * viewed activity — its next session day for an event/club, today for a venue/route (see
+ * activityDay). Venues and routes in the list are kept. No viewed activity sent → today.
+ */
+export async function filterNearbyToActivityDay(
+  opportunities: Opportunity[],
+  viewed: { type?: string | null; id?: string | null } | null,
+  now: Date = new Date(),
+): Promise<Opportunity[]> {
+  const [events, clubs] = await Promise.all([assets.getAllEvents(), assets.getAllClubs()]);
+  const eventsById = new Map(events.map((e) => [e.id, e as unknown as Record<string, unknown>]));
+  const clubsById = new Map(clubs.map((c) => [c.id, c as unknown as Record<string, unknown>]));
+
+  const viewedRecord = viewed?.id
+    ? viewed.type === "event" ? eventsById.get(viewed.id) : viewed.type === "club" ? clubsById.get(viewed.id) : undefined
+    : undefined;
+  const day = activityDay(viewed?.type, viewedRecord, now);
+
+  return opportunities.filter((opp) => {
+    if (opp.type === "event") {
+      const raw = eventsById.get(opp.id);
+      return raw ? isEventVisible(raw as EventVisibilityFields, now) && eventRunsOn(raw, day, now) : true;
+    }
+    if (opp.type === "club") {
+      const raw = clubsById.get(opp.id);
+      return raw ? isClubVisible(raw as ClubVisibilityFields, now) && clubRunsOn(raw, day, now) : true;
+    }
+    return true;
+  });
+}
 
 
 export async function groupOpportunitiesByInterest(opportunities: Opportunity[], now: Date = new Date()): Promise<PlanGroup[]> {

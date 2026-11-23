@@ -1,5 +1,6 @@
 import { OpportunityInteractionRepository, opportunityInteractionKey, isSuppressed, suppressedUntil, suppressionEndFrom } from '../repositories/opportunity-interaction.repository';
 import { enrichOpportunityRefs, opportunityRefKey } from '../shared/utils/opportunity-enrichment';
+import { AppError } from '../shared/errors/app-error';
 import type { CreateOpportunityInteractionDto, GetOpportunityInteractionsQueryDto } from '../dtos/opportunity-interaction.dto';
 
 export class OpportunityInteractionService {
@@ -56,7 +57,10 @@ export class OpportunityInteractionService {
     });
   }
 
-  async remove(id: string) {
+  /** Ids are `${parentId}#${type}#${opportunityId}` (opportunityInteractionKey) — only the owner's
+   * prefix may be deleted. */
+  async remove(id: string, ownerParentId: string) {
+    if (!id.startsWith(`${ownerParentId}#`)) throw new AppError(404, 'Interaction not found');
     await this.repo.delete(id);
   }
 }

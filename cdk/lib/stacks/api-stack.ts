@@ -3,12 +3,15 @@ import * as cdk from 'aws-cdk-lib';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaNode from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as wafv2 from 'aws-cdk-lib/aws-wafv2';
 import { Construct } from 'constructs';
 import type { AppConfig } from '../config/app-config';
 import {
   API_CORS_OPTIONS,
   API_STAGE_OPTIONS,
   LAMBDA_INTEGRATION_OPTIONS,
+  WAF_RATE_LIMIT_ALL,
+  WAF_RATE_LIMIT_AUTH,
 } from '../config/api-gateway-config';
 import { logRetentionDays } from '../config/lambda-config';
 import { allLambdas } from '../config/lambda-registry';
@@ -36,7 +39,12 @@ export class ApiStack extends cdk.Stack {
       description:                  `${config.appName} ${config.env} REST API`,
       deployOptions:                { stageName: config.apiStageName, ...API_STAGE_OPTIONS },
       defaultCorsPreflightOptions:  API_CORS_OPTIONS,
+      // Only the custom domain(s) serve the API — the raw execute-api URL would bypass anything
+      // configured on the domain and is one more endpoint to probe.
+      disableExecuteApiEndpoint:    true,
     });
+
+    if (config.enableWaf) this.addWaf();
 
 
     const stage = `api-family-${config.env}`;
@@ -166,6 +174,77 @@ export class ApiStack extends cdk.Stack {
       value: `https://${stage}.${config.domain}`,
       description: `${config.appName} ${config.env} API custom domain URL`,
       exportName: config.prefix('api-domain-url'),
+    });
+  }
+
+  /**
+   * AWS WAF on the API stage: AWS managed rule groups (common exploits, known-bad inputs, IP
+   * reputation) plus per-IP rate limits — stricter on /auth/* (credential stuffing / sign-up
+   * abuse). Disable per environment with `"enableWaf": false` in the cdk.json context.
+   */
+  private addWaf(): void {
+    const metric = (name: string): wafv2.CfnWebACL.VisibilityConfigProperty => ({
+      cloudWatchMetricsEnabled: true,
+      metricName:               name,
+      sampledRequestsEnabled:   true,
+    });
+    const managed = (name: string, priority: number, excludedRules: string[] = []): wafv2.CfnWebACL.RuleProperty => ({
+      name,
+      priority,
+      overrideAction: { none: {} },
+      statement: {
+        managedRuleGroupStatement: {
+          vendorName: 'AWS',
+          name,
+          // Count-only (not block) for rules that would break legitimate app traffic.
+          ruleActionOverrides: excludedRules.map((r) => ({ name: r, actionToUse: { count: {} } })),
+        },
+      },
+      visibilityConfig: metric(name),
+    });
+
+    const acl = new wafv2.CfnWebACL(this, 'ApiWaf', {
+      scope:            'REGIONAL',
+      defaultAction:    { allow: {} },
+      visibilityConfig: metric('api-waf'),
+      rules: [
+        {
+          name:     'rate-limit-auth',
+          priority: 0,
+          action:   { block: {} },
+          statement: {
+            rateBasedStatement: {
+              limit:            WAF_RATE_LIMIT_AUTH,
+              aggregateKeyType: 'IP',
+              scopeDownStatement: {
+                byteMatchStatement: {
+                  fieldToMatch:         { uriPath: {} },
+                  positionalConstraint: 'CONTAINS',
+                  searchString:         '/auth/',
+                  textTransformations:  [{ priority: 0, type: 'LOWERCASE' }],
+                },
+              },
+            },
+          },
+          visibilityConfig: metric('rate-limit-auth'),
+        },
+        {
+          name:      'rate-limit-all',
+          priority:  1,
+          action:    { block: {} },
+          statement: { rateBasedStatement: { limit: WAF_RATE_LIMIT_ALL, aggregateKeyType: 'IP' } },
+          visibilityConfig: metric('rate-limit-all'),
+        },
+        managed('AWSManagedRulesAmazonIpReputationList', 2),
+        // SizeRestrictions_BODY (8 KB) is counted, not blocked: onboarding/tip bodies can exceed it.
+        managed('AWSManagedRulesCommonRuleSet', 3, ['SizeRestrictions_BODY']),
+        managed('AWSManagedRulesKnownBadInputsRuleSet', 4),
+      ],
+    });
+
+    new wafv2.CfnWebACLAssociation(this, 'ApiWafAssociation', {
+      resourceArn: this.api.deploymentStage.stageArn,
+      webAclArn:   acl.attrArn,
     });
   }
 }

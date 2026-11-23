@@ -6,10 +6,11 @@ import { queryValidator } from '../../shared/middleware/body-validator.js';
 import { ok } from '../../shared/utils/response.js';
 import { getVisitIntentionsQuerySchema } from '../../schemas/visit-intention.schema.js';
 import type { GetVisitIntentionsQueryDto } from '../../dtos/visit-intention.dto';
+import { resolveParentId } from '../../shared/auth/current-parent.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const query = event.queryStringParameters as unknown as GetVisitIntentionsQueryDto;
-  const data = await new VisitIntentionService().listEnriched(query);
+  const data = await new VisitIntentionService().listEnriched({ ...query, parentId: await resolveParentId(event, query?.parentId) });
   return ok({ count: data.length, data });
 };
 

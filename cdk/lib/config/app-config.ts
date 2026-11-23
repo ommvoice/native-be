@@ -3,9 +3,10 @@ import { TABLE_SUFFIXES } from './table-suffixes';
 export interface AppConfigOptions {
   appName: string;
   env: string;
-  mapboxAccessToken: string;
-  weatherApiKey: string;
-  googleMapsApiKey: string;
+  /** Secrets Manager secret name holding { mapboxAccessToken, weatherApiKey, googleMapsApiKey }. */
+  thirdPartySecretName: string;
+  /** Attach AWS WAF (managed rules + per-IP rate limits) to the API. Default true. */
+  enableWaf?: boolean;
   /** SES-verified sender for Cognito emails (password reset, future signup codes). */
   fromEmail: string;
   awsAccount?: string;
@@ -19,9 +20,8 @@ export interface AppConfigOptions {
 export class AppConfig {
   readonly appName: string;
   readonly env: string;
-  readonly mapboxAccessToken: string;
-  readonly weatherApiKey: string;
-  readonly googleMapsApiKey: string;
+  readonly thirdPartySecretName: string;
+  readonly enableWaf: boolean;
   readonly fromEmail: string;
   readonly awsAccount: string | undefined;
   readonly awsRegion: string | undefined;
@@ -35,9 +35,8 @@ export class AppConfig {
   constructor(opts: AppConfigOptions) {
     this.appName           = opts.appName;
     this.env               = opts.env;
-    this.mapboxAccessToken = opts.mapboxAccessToken;
-    this.weatherApiKey     = opts.weatherApiKey;
-    this.googleMapsApiKey  = opts.googleMapsApiKey;
+    this.thirdPartySecretName = opts.thirdPartySecretName;
+    this.enableWaf            = opts.enableWaf ?? true;
     this.fromEmail         = opts.fromEmail;
     this.awsAccount        = opts.awsAccount;
     this.awsRegion         = opts.awsRegion;

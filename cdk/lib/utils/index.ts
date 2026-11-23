@@ -31,12 +31,17 @@ const getAppContext = (app: Construct) => {
     hostedZoneId: getContextProperty(context, 'hostedZoneId'),
     fromEmail: getContextProperty(context, 'fromEmail'),
     toEmail: getContextProperty(context, 'toEmail'),
-    mapboxAccessToken: getContextProperty(context, 'mapboxAccessToken'),
-    weatherApiKey: getContextProperty(context, 'weatherApiKey'),
-    googleMapsApiKey: getContextProperty(context, 'googleMapsApiKey'),
+    // Third-party API keys live in AWS Secrets Manager, never in cdk.json / CloudFormation.
+    // Secret JSON: { mapboxAccessToken, weatherApiKey, googleMapsApiKey } — see scripts/push-third-party-secret.ts.
+    // AWS WAF on the API (≈ $10/month per env). Set "enableWaf": false in the context to skip.
+    enableWaf: context['enableWaf'] !== false && context['enableWaf'] !== 'false',
+    thirdPartySecretName:
+      (typeof context['thirdPartySecretName'] === 'string' && context['thirdPartySecretName'].trim()) ||
+      `${getContextProperty(context, 'appName')}/${getContextProperty(context, 'environment')}/third-party`,
   };
 
-  console.log('App context:', buildConfig);
+  // Never print the whole context (it used to dump API keys into terminal/CI logs).
+  console.log('App context:', { env, appName: buildConfig.appName, environment: buildConfig.environment, region: buildConfig.awsProfileRegion });
 
   return buildConfig;
 };

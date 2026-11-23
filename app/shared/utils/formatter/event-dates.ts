@@ -99,16 +99,19 @@ function addDays(isoDay: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
-/**
- * The event's next session: the first day from today (or from the start date, if later) up to the
- * end date that it actually runs — one of its eventTimetableWeekly days (none listed → every day) and,
- * with per-day timings, a day that has times. Today only counts while today's session hasn't finished
- * (UK time). Null when there's no session left (ended) or no dates.
- */
-export function eventNextSession(event: OpportunityEventV2, now: Date = new Date()): { day: string; time?: string } | null {
+/** The event's session on `day` ("YYYY-MM-DD", UK): its time ("10:00-12:00", undefined when no
+ * times are recorded), or null when it doesn't run that day — outside its start/end dates, not one of
+ * its eventTimetableWeekly days (none listed → every day), a per-day-timings day without times, or
+ * today's session has already finished (UK time). */
+export function eventSessionOn(
+  event: OpportunityEventV2,
+  day: string,
+  now: Date = new Date(),
+): { time?: string } | null {
   const start = eventDay(event.eventStartDate);
   const end = eventDay(event.eventEndDate) ?? start;
   if (!start && !end) return null;
+  if ((start && day < start) || (end && day > end)) return null;
 
   const slot = (s: unknown, e: unknown) =>
     typeof s === "string" && s ? (typeof e === "string" && e ? `${s}-${e}` : s) : undefined;
@@ -121,23 +124,36 @@ export function eventNextSession(event: OpportunityEventV2, now: Date = new Date
     String(event.eventTimetableWeekly ?? "").split(",").map(weekdayIndex).filter((d) => d >= 0),
   );
 
+  const weekday = (new Date(`${day}T00:00:00.000Z`).getUTCDay() + 6) % 7;
+  if (runDays.size > 0 && !runDays.has(weekday)) return null;
+  if (hasMixed && !mixed[weekday]) return null;
+  const time = fixed ?? mixed[weekday];
+  if (day === AppClock.isoDateString(now) && time) {
+    const finish = AppClock.parseTimeToMinutes(time.split("-")[1] ?? time.split("-")[0]!);
+    if (finish != null && finish > 0 && AppClock.minutesSinceMidnight(now) >= finish) return null; // today's session is over
+  }
+  return time ? { time } : {};
+}
+
+/**
+ * The event's next session: the first day from today (or from the start date, if later) up to the
+ * end date that it actually runs (see eventSessionOn). Null when there's no session left (ended) or
+ * no dates.
+ */
+export function eventNextSession(event: OpportunityEventV2, now: Date = new Date()): { day: string; time?: string } | null {
+  const start = eventDay(event.eventStartDate);
+  const end = eventDay(event.eventEndDate) ?? start;
+  if (!start && !end) return null;
+
   const today = AppClock.isoDateString(now);
-  const nowMinutes = AppClock.minutesSinceMidnight(now);
   const from = start && start > today ? start : today;
 
   // Up to a year ahead — enough for any real event; stops at the end date.
   for (let i = 0; i < 366; i++) {
     const day = addDays(from, i);
     if (end && day > end) break;
-    const weekday = (new Date(`${day}T00:00:00.000Z`).getUTCDay() + 6) % 7;
-    if (runDays.size > 0 && !runDays.has(weekday)) continue;
-    if (hasMixed && !mixed[weekday]) continue;
-    const time = fixed ?? mixed[weekday];
-    if (day === today && time) {
-      const finish = AppClock.parseTimeToMinutes(time.split("-")[1] ?? time.split("-")[0]!);
-      if (finish != null && finish > 0 && nowMinutes >= finish) continue; // today's session is over
-    }
-    return { day, time };
+    const session = eventSessionOn(event, day, now);
+    if (session) return { day, ...session };
   }
   return null;
 }

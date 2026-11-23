@@ -1,4 +1,5 @@
 import { VisitIntentionRepository } from '../repositories/visit-intention.repository';
+import { AppError } from '../shared/errors/app-error';
 import { enrichOpportunityRefs, opportunityRefKey } from '../shared/utils/opportunity-enrichment';
 import type { CreateVisitIntentionDto, GetVisitIntentionsQueryDto } from '../dtos/visit-intention.dto';
 
@@ -29,7 +30,10 @@ export class VisitIntentionService {
     return this.repo.upsert(dto);
   }
 
-  async remove(id: string) {
+  /** Ids are `${parentId}#${type}#${opportunityId}` (visitIntentionKey) — only the owner's prefix
+   * may be deleted. */
+  async remove(id: string, ownerParentId: string) {
+    if (!id.startsWith(`${ownerParentId}#`)) throw new AppError(404, 'Visit intention not found');
     await this.repo.delete(id);
   }
 }

@@ -1,5 +1,6 @@
 import { env } from '../shared/config/env';
 import { AppError } from '../shared/errors/app-error';
+import { logger } from '../shared/utils/logger';
 
 function parseApiError(body: unknown): string | undefined {
   if (!body || typeof body !== 'object') return undefined;
@@ -9,7 +10,7 @@ function parseApiError(body: unknown): string | undefined {
 }
 
 export async function getWeatherByPostcode(postcode: string) {
-  const key = env.weatherApiKey();
+  const key = await env.weatherApiKey();
   if (!key) throw new AppError(500, 'Weather service is not configured.');
 
   const url = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${encodeURIComponent(`${postcode}, GB`)}`;
@@ -23,8 +24,9 @@ export async function getWeatherByPostcode(postcode: string) {
   }
 
   if (!res.ok) {
-    const message = parseApiError(body) ?? `Weather request failed (${res.status}).`;
-    throw new AppError(res.status >= 500 ? 502 : 400, message);
+    // Provider error text stays in our logs, not in the client response.
+    logger.warn('Weather provider error', { status: res.status, message: parseApiError(body) });
+    throw new AppError(res.status >= 500 ? 502 : 400, 'Weather is unavailable for this postcode right now.');
   }
 
   return {

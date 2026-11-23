@@ -7,7 +7,7 @@ const stringArray = () =>
     .default([]);
 
 export const opportunitySearchQuerySchema = yup.object({
-  parentId:                yup.string().required('parentId is required'),
+  parentId:                yup.string().optional(), // ignored: derived from the auth token (must match if sent)
   childId:                 yup.string(),
   interestSubCategorySlug: yup.string(),
   facility: yup

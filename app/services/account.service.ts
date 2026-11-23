@@ -4,6 +4,8 @@ import { batchDeleteItems, queryAllByIndex } from '../shared/db/dynamo-helpers';
 import { UserRepository } from '../repositories/user.repository';
 import { ParentRepository } from '../repositories/parent.repository';
 import { AuthService } from './auth.service';
+import { deletePrefix } from '../shared/storage/s3-client';
+import { photoPrefix } from './shared-tip.service';
 
 const ids = (items: Record<string, unknown>[], pkField = 'id') => items.map((i) => i[pkField] as string);
 
@@ -17,7 +19,7 @@ export class AccountService {
   /**
    * Permanently deletes the signed-in account and everything hanging off it:
    * wishlist items → wishlists → opportunity interactions → visit intentions → driving legs
-   * → children → parent → user → Cognito login.
+   * → shared tips (+ their photos in S3) → children → parent → user → Cognito login.
    *
    * Children-first / Cognito-last on purpose: if any step fails the user can still log in and
    * retry, instead of being left with orphaned data they can no longer reach. Every step is
@@ -32,12 +34,13 @@ export class AccountService {
     if (parent) {
       const parentId = parent.id;
 
-      const [wishlists, interactions, visitIntentions, drivingLegs, children] = await Promise.all([
+      const [wishlists, interactions, visitIntentions, drivingLegs, children, sharedTips] = await Promise.all([
         queryAllByIndex(TABLES.wishlists, 'parentId-index', 'parentId', parentId),
         queryAllByIndex(TABLES.opportunityInteractions, 'parentId-index', 'parentId', parentId),
         queryAllByIndex(TABLES.visitIntentions, 'parentId-index', 'parentId', parentId),
         queryAllByIndex(TABLES.drivingLegs, 'parentId-index', 'parentId', parentId),
         queryAllByIndex(TABLES.children, 'parentId-index', 'parentId', parentId),
+        queryAllByIndex(TABLES.sharedTips, 'parentId-index', 'parentId', parentId),
       ]);
 
       const wishlistItems = (
@@ -54,6 +57,9 @@ export class AccountService {
         batchDeleteItems(TABLES.opportunityInteractions, ids(interactions)),
         batchDeleteItems(TABLES.visitIntentions, ids(visitIntentions)),
         batchDeleteItems(TABLES.drivingLegs, ids(drivingLegs, 'typeId'), 'typeId'),
+        batchDeleteItems(TABLES.sharedTips, ids(sharedTips)),
+        // Erasure includes the photos the parent uploaded with their tips.
+        deletePrefix(photoPrefix(parentId)),
       ]);
       await batchDeleteItems(TABLES.children, ids(children));
       await batchDeleteItems(TABLES.parents, [parentId]);

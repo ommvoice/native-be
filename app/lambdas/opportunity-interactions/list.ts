@@ -6,10 +6,11 @@ import { queryValidator } from '../../shared/middleware/body-validator.js';
 import { ok } from '../../shared/utils/response.js';
 import { getOpportunityInteractionsQuerySchema } from '../../schemas/opportunity-interaction.schema.js';
 import type { GetOpportunityInteractionsQueryDto } from '../../dtos/opportunity-interaction.dto';
+import { resolveParentId } from '../../shared/auth/current-parent.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const query = event.queryStringParameters as unknown as GetOpportunityInteractionsQueryDto;
-  const data = await new OpportunityInteractionService().listEnriched(query);
+  const data = await new OpportunityInteractionService().listEnriched({ ...query, parentId: await resolveParentId(event, query?.parentId) });
   return ok({ count: data.length, data });
 };
 

@@ -1,5 +1,14 @@
-import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectsCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  PutObjectTaggingCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { env } from '../config/env';
 
 /** Single S3 client per Lambda container (region comes from the Lambda runtime's AWS_REGION). */
@@ -21,8 +30,59 @@ export async function presignPut(key: string, contentType: string, expiresIn: nu
   );
 }
 
+/** Uploads start tagged `upload-status=pending`; a lifecycle rule (TableStack) deletes pending
+ *  objects after a day, so files that never get attached to a record don't pile up. */
+export const UPLOAD_STATUS_TAG = 'upload-status';
+const PENDING_TAGGING = `<Tagging><TagSet><Tag><Key>${UPLOAD_STATUS_TAG}</Key><Value>pending</Value></Tag></TagSet></Tagging>`;
+
+/**
+ * Presigned POST (multipart form upload). Unlike a presigned PUT, the signed policy enforces the
+ * size range and exact Content-Type, so a client can't push a multi-GB or non-image file.
+ */
+export async function presignPost(key: string, contentType: string, maxBytes: number, expiresIn: number) {
+  return createPresignedPost(s3, {
+    Bucket: env.uploadsBucket(),
+    Key: key,
+    Expires: expiresIn,
+    Fields: { 'Content-Type': contentType, tagging: PENDING_TAGGING },
+    Conditions: [
+      ['content-length-range', 1, maxBytes],
+      ['eq', '$Content-Type', contentType],
+      ['eq', '$tagging', PENDING_TAGGING],
+    ],
+  });
+}
+
+/** Marks an upload as attached to a record, so the pending-upload lifecycle rule leaves it alone. */
+export async function confirmUpload(key: string): Promise<void> {
+  await s3.send(new PutObjectTaggingCommand({
+    Bucket: env.uploadsBucket(),
+    Key: key,
+    Tagging: { TagSet: [{ Key: UPLOAD_STATUS_TAG, Value: 'confirmed' }] },
+  }));
+}
+
+/** First `n` bytes of an object (magic-number sniffing). */
+export async function readObjectStart(key: string, n = 16): Promise<Uint8Array> {
+  const res = await s3.send(new GetObjectCommand({ Bucket: env.uploadsBucket(), Key: key, Range: `bytes=0-${n - 1}` }));
+  return res.Body ? new Uint8Array(await res.Body.transformToByteArray()) : new Uint8Array();
+}
+
+/** Deletes every object under a prefix (account deletion). */
+export async function deletePrefix(prefix: string): Promise<void> {
+  let token: string | undefined;
+  do {
+    const page = await s3.send(new ListObjectsV2Command({ Bucket: env.uploadsBucket(), Prefix: prefix, ContinuationToken: token }));
+    const keys = (page.Contents ?? []).map((o) => ({ Key: o.Key! }));
+    if (keys.length) {
+      await s3.send(new DeleteObjectsCommand({ Bucket: env.uploadsBucket(), Delete: { Objects: keys, Quiet: true } }));
+    }
+    token = page.IsTruncated ? page.NextContinuationToken : undefined;
+  } while (token);
+}
+
 /** Short-lived viewable link for a private object. */
-export async function presignGet(key: string, expiresIn = 3600): Promise<string> {
+export async function presignGet(key: string, expiresIn = 15 * 60): Promise<string> {
   return getSignedUrl(s3, new GetObjectCommand({ Bucket: env.uploadsBucket(), Key: key }), { expiresIn });
 }
 

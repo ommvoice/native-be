@@ -7,10 +7,11 @@ import { bodyValidator } from '../../shared/middleware/body-validator.js';
 import { ok } from '../../shared/utils/response.js';
 import { setVisitIntentionSchema } from '../../schemas/visit-intention.schema.js';
 import type { CreateVisitIntentionDto } from '../../dtos/visit-intention.dto';
+import { resolveParentId } from '../../shared/auth/current-parent.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dto = event.body as unknown as CreateVisitIntentionDto;
-  const record = await new VisitIntentionService().set(dto);
+  const record = await new VisitIntentionService().set({ ...dto, parentId: await resolveParentId(event, dto.parentId) });
   return ok(record);
 };
 

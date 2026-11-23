@@ -8,7 +8,11 @@ import { ok } from '../../shared/utils/response';
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const postcode = event.queryStringParameters?.['postcode'];
   if (!postcode) throw new AppError(400, 'postcode query parameter is required');
-  return ok(await getWeatherByPostcode(postcode));
+  // UK postcode (full or outward code only) — nothing else is forwarded to the weather provider.
+  if (!/^[A-Z]{1,2}\d[A-Z\d]?(\s*\d[A-Z]{2})?$/i.test(postcode.trim())) {
+    throw new AppError(400, 'postcode must be a valid UK postcode');
+  }
+  return ok(await getWeatherByPostcode(postcode.trim()));
 };
 
 export const handler = middy(baseHandler)

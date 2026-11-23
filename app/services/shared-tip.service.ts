@@ -3,7 +3,7 @@ import { AppError } from '../shared/errors/app-error';
 import { UserRepository } from '../repositories/user.repository';
 import { ParentRepository, type ParentRecord } from '../repositories/parent.repository';
 import { SharedTipRepository, type SharedTipRecord } from '../repositories/shared-tip.repository';
-import { headObject, objectUrl, presignGet, presignPut } from '../shared/storage/s3-client';
+import { confirmUpload, headObject, objectUrl, presignGet, presignPost, readObjectStart } from '../shared/storage/s3-client';
 import type {
   CreateSharedTipDto,
   CreateSharedTipPhotoUploadUrlDto,
@@ -22,7 +22,22 @@ const EXTENSIONS: Record<SharedTipPhotoContentType, string> = {
 };
 
 /** Photos live under shared-tips/<parentId>/ so a submission can only reference its own uploads. */
-const photoPrefix = (parentId: string) => `shared-tips/${parentId}/`;
+export const photoPrefix = (parentId: string) => `shared-tips/${parentId}/`;
+
+/** Checks the file's real format from its first bytes — the client-declared Content-Type alone
+ * proves nothing about what was uploaded. */
+export function looksLikeImage(bytes: Uint8Array, contentType: string | undefined): boolean {
+  const at = (i: number, ...vals: number[]) => vals.every((v, j) => bytes[i + j] === v);
+  const ascii = (i: number, s: string) => at(i, ...[...s].map((c) => c.charCodeAt(0)));
+  switch (contentType) {
+    case 'image/jpeg': return at(0, 0xff, 0xd8, 0xff);
+    case 'image/png':  return at(0, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a);
+    case 'image/webp': return ascii(0, 'RIFF') && ascii(8, 'WEBP');
+    case 'image/heic':
+    case 'image/heif': return ascii(4, 'ftyp') && ['heic', 'heix', 'hevc', 'hevx', 'mif1', 'msf1', 'heim', 'heis'].some((b) => ascii(8, b));
+    default:           return false;
+  }
+}
 
 export class SharedTipService {
   constructor(
@@ -40,15 +55,17 @@ export class SharedTipService {
     return parent;
   }
 
-  /** Step 1 of a photo upload: a presigned PUT the app sends the image bytes to. */
+  /** Step 1 of a photo upload: a presigned POST (multipart form) the app sends the image to. The
+   * signed policy caps the size at MAX_PHOTO_BYTES and pins the Content-Type. */
   async createPhotoUploadUrl(sub: string, dto: CreateSharedTipPhotoUploadUrlDto) {
     const parent = await this.parentFor(sub);
     const key = `${photoPrefix(parent.id)}${uuidv4()}.${EXTENSIONS[dto.contentType]}`;
-    const uploadUrl = await presignPut(key, dto.contentType, UPLOAD_URL_TTL_SECONDS);
+    const { url, fields } = await presignPost(key, dto.contentType, MAX_PHOTO_BYTES, UPLOAD_URL_TTL_SECONDS);
     return {
-      uploadUrl,
-      method: 'PUT' as const,
-      headers: { 'Content-Type': dto.contentType },
+      uploadUrl: url,
+      method: 'POST' as const,
+      /** Form fields to send (in this order) before the `file` field. */
+      fields,
       photoKey: key,
       photoUrl: objectUrl(key),
       expiresIn: UPLOAD_URL_TTL_SECONDS,
@@ -65,6 +82,10 @@ export class SharedTipService {
       const head = await headObject(dto.photoKey);
       if (!head) throw new AppError(422, 'Photo upload not found — upload the file before submitting');
       if ((head.size ?? 0) > MAX_PHOTO_BYTES) throw new AppError(422, 'Photo is too large (max 15 MB)');
+      if (!looksLikeImage(await readObjectStart(dto.photoKey), head.contentType)) {
+        throw new AppError(422, 'Photo is not a valid image');
+      }
+      await confirmUpload(dto.photoKey);
       photoKey = dto.photoKey;
     }
 

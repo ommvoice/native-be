@@ -1,4 +1,4 @@
-import { AppError } from '../shared/errors/app-error';
+import { assertOwned } from '../shared/auth/current-parent';
 import { ChildRepository, type ChildRecord } from '../repositories/child.repository';
 import { InterestRepository } from '../repositories/interest.repository';
 import { ParentRepository } from '../repositories/parent.repository';
@@ -75,40 +75,39 @@ export class ChildService {
     const expired = children.filter((c) => c.variant === 'guest' && !!c.expireDate && c.expireDate < today);
     if (expired.length === 0) return [];
 
-    const results = await Promise.allSettled(expired.map((c) => this.delete(c.id)));
+    const results = await Promise.allSettled(expired.map((c) => this.delete(c.id, parentId)));
     return expired.filter((_, i) => results[i].status === 'fulfilled').map((c) => c.id);
   }
 
-  async getById(id: string) {
-    const child = await this.childRepo.getById(id);
-    if (!child) throw new AppError(404, 'Child not found');
-    return this.enrich(child);
+  /** Loads a child and checks it belongs to `ownerParentId` (404 otherwise, so ids can't be probed). */
+  private async getOwned(id: string, ownerParentId: string): Promise<ChildRecord> {
+    return assertOwned(await this.childRepo.getById(id), ownerParentId, 'Child not found');
   }
 
-  async update(id: string, dto: UpdateChildDto) {
-    const child = await this.childRepo.getById(id);
-    if (!child) throw new AppError(404, 'Child not found');
+  async getById(id: string, ownerParentId: string) {
+    return this.enrich(await this.getOwned(id, ownerParentId));
+  }
+
+  async update(id: string, dto: UpdateChildDto, ownerParentId: string) {
+    await this.getOwned(id, ownerParentId);
     await this.childRepo.update(id, dto);
-    return this.getById(id);
+    return this.getById(id, ownerParentId);
   }
 
-  async updateInterests(id: string, categoryIds: string[], subCategoryIds: string[]) {
-    const child = await this.childRepo.getById(id);
-    if (!child) throw new AppError(404, 'Child not found');
+  async updateInterests(id: string, categoryIds: string[], subCategoryIds: string[], ownerParentId: string) {
+    await this.getOwned(id, ownerParentId);
     await this.childRepo.updateInterests(id, categoryIds, subCategoryIds);
-    return this.getById(id);
+    return this.getById(id, ownerParentId);
   }
 
-  async updateInterestTags(id: string, tags: string[]) {
-    const child = await this.childRepo.getById(id);
-    if (!child) throw new AppError(404, 'Child not found');
+  async updateInterestTags(id: string, tags: string[], ownerParentId: string) {
+    await this.getOwned(id, ownerParentId);
     await this.childRepo.updateInterestTags(id, tags);
-    return this.getById(id);
+    return this.getById(id, ownerParentId);
   }
 
-  async delete(id: string) {
-    const child = await this.childRepo.getById(id);
-    if (!child) throw new AppError(404, 'Child not found');
+  async delete(id: string, ownerParentId: string) {
+    const child = await this.getOwned(id, ownerParentId);
     // Cascade: the child's default (and any other) wishlist, plus each wishlist's items.
     await this.wishlistService.deleteAllForChild(child.parentId, id);
     await this.childRepo.delete(id);

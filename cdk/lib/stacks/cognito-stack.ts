@@ -137,10 +137,10 @@ export class CognitoStack extends cdk.Stack {
    * Grant a Lambda the Cognito admin actions defined in COGNITO_ADMIN_IAM_ACTIONS.
    * Called by LambdaStack after functions are registered.
    */
-  grantAdminActions(fn: lambdaNode.NodejsFunction): void {
+  grantAdminActions(fn: lambdaNode.NodejsFunction, actions?: string[]): void {
     fn.addToRolePolicy(
       new iam.PolicyStatement({
-        actions:   COGNITO_ADMIN_IAM_ACTIONS,
+        actions:   actions ? actions.map((a) => `cognito-idp:${a}`) : COGNITO_ADMIN_IAM_ACTIONS,
         resources: [this.userPool.userPoolArn],
       }),
     );

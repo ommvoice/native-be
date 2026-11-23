@@ -13,11 +13,9 @@
       "domain": "reporting-tool.co.uk",
       "hostedZoneId": "Z03848251AQJ2LXYFX72H",
       "certificateArn": "arn:aws:acm:eu-west-3:664876795774:certificate/42cafbe7-19d8-4007-80fb-62508e50374b",
+      "enableWaf": false,
       "fromEmail":"holypulse@gmail.com",
-      "toEmail":"yasir.iqbal414@gmail.com",
-      "mapboxAccessToken": "",
-      "weatherApiKey": "",
-      "googleMapsApiKey": ""
+      "toEmail":"yasir.iqbal414@gmail.com"
     },
     "uat": {
       "awsAccountId" : "664876795774",
@@ -30,11 +28,9 @@
       "domain": "reporting-tool.co.uk",
       "hostedZoneId": "Z03848251AQJ2LXYFX72H",
       "certificateArn": "arn:aws:acm:eu-west-3:664876795774:certificate/42cafbe7-19d8-4007-80fb-62508e50374b",
+      "enableWaf": false,
       "fromEmail":"holypulse@gmail.com",
-      "toEmail":"yasir.iqbal414@gmail.com",
-      "mapboxAccessToken": "",
-      "weatherApiKey": "",
-      "googleMapsApiKey": ""
+      "toEmail":"yasir.iqbal414@gmail.com"
     },
     "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": true,
     "@aws-cdk/aws-cloudwatch-actions:changeLambdaPermissionLogicalIdForLambdaAction": true,

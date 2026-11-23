@@ -11,13 +11,15 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { createGuestChildSchema } from '../../schemas/child.schema';
 import { created } from '../../shared/utils/response';
 import type { CreateGuestChildDto } from '../../dtos/child.dto';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 // "Include someone extra today" — same body/validation as POST /children, but always created as a
 // same-day guest (variant: 'guest', expireDate: today). See ChildService.createGuest().
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dto     = event.body as unknown as CreateGuestChildDto;
   const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
-  const child   = await service.createGuest(dto);
+  const parentId = await resolveParentId(event, dto.parentId);
+  const child   = await service.createGuest({ ...dto, parentId });
   return created({ ids: [child.id] });
 };
 

@@ -13,7 +13,7 @@
     { "key": "childId",    "value": "", "type": "string" },
     { "key": "wishlistId", "value": "", "type": "string" },
     { "key": "email",      "value": "a@a.com", "type": "string" },
-    { "key": "password",   "value": "Password123!", "type": "string" }
+    { "key": "password",   "value": "{{testPassword}}", "type": "string" }
   ],
 
   "auth": {

@@ -11,12 +11,14 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { updateChildSchema } from '../../schemas/child.schema';
 import { ok } from '../../shared/utils/response';
 import type { UpdateChildDto } from '../../dtos/child.dto';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id      = event.pathParameters?.['id']!;
+  const parentId = await resolveParentId(event);
   const dto     = event.body as unknown as UpdateChildDto;
   const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
-  return ok(await service.update(id, dto));
+  return ok(await service.update(id, dto, parentId));
 };
 
 export const handler = middy(baseHandler)

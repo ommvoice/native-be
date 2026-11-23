@@ -117,14 +117,19 @@ export class TableStack extends cdk.Stack {
       enforceSSL:        true,
       removalPolicy:     removal,
       autoDeleteObjects: props.config.env !== 'prod',
-      // Browser/web clients PUT straight to S3 with a presigned URL (native apps don't need CORS).
+      // Browser/web clients POST straight to S3 with a presigned form (native apps don't need CORS).
       cors: [{
-        allowedMethods: [s3.HttpMethods.PUT, s3.HttpMethods.GET],
+        allowedMethods: [s3.HttpMethods.POST, s3.HttpMethods.GET],
         allowedOrigins: ['*'],
         allowedHeaders: ['*'],
         maxAge:         3000,
       }],
-      lifecycleRules: [{ abortIncompleteMultipartUploadAfter: cdk.Duration.days(1) }],
+      lifecycleRules: [
+        { abortIncompleteMultipartUploadAfter: cdk.Duration.days(1) },
+        // Uploads are tagged pending until a record claims them (s3-client confirmUpload) — drop
+        // orphans after a day instead of keeping them forever.
+        { id: 'expire-unconfirmed-uploads', tagFilters: { 'upload-status': 'pending' }, expiration: cdk.Duration.days(1) },
+      ],
     });
 
     new cdk.CfnOutput(this, 'UploadsBucketName', {

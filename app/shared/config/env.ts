@@ -1,3 +1,5 @@
+import { thirdPartySecrets } from './secrets';
+
 /** Typed, validated access to Lambda environment variables. */
 
 function required(name: string): string {
@@ -36,10 +38,11 @@ export const env = {
   cognitoUserPoolId: () => required('COGNITO_USER_POOL_ID'),
   cognitoClientId:   () => required('COGNITO_CLIENT_ID'),
 
-  // External services
-  mapboxToken:     () => optional('MAPBOX_ACCESS_TOKEN'),
-  weatherApiKey:   () => optional('WEATHER_API_KEY'),
-  googleMapsApiKey:() => optional('GOOGLE_MAPS_API_KEY'),
+  // External services — loaded from Secrets Manager (THIRD_PARTY_SECRET_ID) when deployed,
+  // plain env vars locally. Async: see shared/config/secrets.ts.
+  mapboxToken:      async () => (await thirdPartySecrets()).mapboxAccessToken,
+  weatherApiKey:    async () => (await thirdPartySecrets()).weatherApiKey,
+  googleMapsApiKey: async () => (await thirdPartySecrets()).googleMapsApiKey,
 
   appName: () => optional('APP_NAME', 'native-be'),
   appEnv:  () => optional('APP_ENV', 'dev'),

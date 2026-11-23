@@ -95,6 +95,14 @@ export function getBundlingOptions(appEnv: string, bundledModules: string[] = []
 export const S3_BUNDLED_MODULES: string[] = [
   '@aws-sdk/client-s3',
   '@aws-sdk/s3-request-presigner',
+  '@aws-sdk/s3-presigned-post',
+  '@smithy/*',
+];
+
+/** Bundled into functions that read third-party API keys (env.externalApi) — same reason as
+ * S3_BUNDLED_MODULES: adding to the shared layer would change its in-use cross-stack export. */
+export const SECRETS_BUNDLED_MODULES: string[] = [
+  '@aws-sdk/client-secrets-manager',
   '@smithy/*',
 ];
 

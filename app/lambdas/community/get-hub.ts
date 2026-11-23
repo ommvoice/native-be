@@ -5,9 +5,10 @@ import { queryValidator } from '../../shared/middleware/body-validator';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { getCommunityHubQuerySchema } from '../../schemas/community.schema';
 import { ok } from '../../shared/utils/response';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const parentId = event.queryStringParameters?.['parentId']!;
+  const parentId = await resolveParentId(event, event.queryStringParameters?.['parentId']);
   return ok(await new CommunityService().getHub(parentId));
 };
 

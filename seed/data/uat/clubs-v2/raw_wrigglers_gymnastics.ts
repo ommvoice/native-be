@@ -23,7 +23,7 @@ export const rawWrigglersGymnasticsClubV2: OpportunityClubV2SeedInput = {
   latitude: "50.6689303987699",
   longitude: "-3.41254808161326",
   clubStartDate: new Date("2026-10-23T00:00:00.000Z"),
-  clubEndDate: new Date("2026-04-10T00:00:00.000Z"),
+  clubEndDate: new Date("2027-04-10T00:00:00.000Z"),
   clubRepeatSession: false,
   clubDailyFixedSessionTotal: null,
   clubDailyFixedSessionSchedule: null,

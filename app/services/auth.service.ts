@@ -3,10 +3,12 @@ import {
   AdminDeleteUserCommand,
   AdminInitiateAuthCommand,
   AdminSetUserPasswordCommand,
+  AdminUserGlobalSignOutCommand,
   CognitoIdentityProviderClient,
   ConfirmForgotPasswordCommand,
   ForgotPasswordCommand,
   MessageActionType,
+  RevokeTokenCommand,
 } from '@aws-sdk/client-cognito-identity-provider';
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import { AppError } from '../shared/errors/app-error';
@@ -109,7 +111,8 @@ export class AuthService {
     }
   }
 
-  /** Completes the reset with the emailed code. Existing sessions/refresh tokens are left as-is. */
+  /** Completes the reset with the emailed code, then signs the account out everywhere so any
+   * session an attacker may hold (the usual reason for a reset) stops refreshing. */
   async resetPassword(email: string, code: string, newPassword: string): Promise<void> {
     try {
       await getCognito().send(
@@ -129,7 +132,7 @@ export class AuthService {
         case 'ExpiredCodeException':
           throw new AppError(400, 'That code has expired. Please request a new one.');
         case 'InvalidPasswordException':
-          throw new AppError(400, (err as Error).message || 'Password does not meet the requirements.');
+          throw new AppError(400, 'Password must be at least 12 characters and include an uppercase letter, a number and a symbol.');
         case 'LimitExceededException':
         case 'TooManyFailedAttemptsException':
         case 'TooManyRequestsException':
@@ -137,6 +140,31 @@ export class AuthService {
         default:
           throw err;
       }
+    }
+    await this.signOutEverywhere(email);
+  }
+
+  /**
+   * POST /auth/logout — revokes the refresh token (and the tokens issued from it) so a copied token
+   * can't keep the session alive. Idempotent: an unknown/already-revoked token is still a success.
+   */
+  async logout(refreshToken: string): Promise<void> {
+    try {
+      await getCognito().send(new RevokeTokenCommand({ ClientId: env.cognitoClientId(), Token: refreshToken }));
+    } catch (err: unknown) {
+      const name = (err as { name?: string }).name;
+      if (name === 'TooManyRequestsException') throw new AppError(429, 'Too many requests. Please try again later.');
+      // Invalid / expired / already revoked → nothing left to revoke.
+      logger.warn('Logout: token not revoked', { name });
+    }
+  }
+
+  /** Invalidates every refresh token for the user (password reset). Best effort — never fails the caller. */
+  async signOutEverywhere(username: string): Promise<void> {
+    try {
+      await getCognito().send(new AdminUserGlobalSignOutCommand({ UserPoolId: env.cognitoUserPoolId(), Username: username }));
+    } catch (err: unknown) {
+      logger.warn('Global sign-out failed', { name: (err as { name?: string }).name });
     }
   }
 
@@ -149,8 +177,8 @@ export class AuthService {
   /**
    * Exchanges a still-valid refresh token for a new id token, without the user re-entering their
    * password. Cognito doesn't rotate the refresh token on this flow — the same one keeps working
-   * until it hits its own 30-day validity (see COGNITO_TOKEN_VALIDITY), so the client just keeps
-   * calling this each time the short-lived id token (24h) expires.
+   * until it hits its own validity (10 years, see COGNITO_TOKEN_VALIDITY) or is revoked by
+   * logout()/signOutEverywhere(); the client calls this each time the short-lived id token (1h) expires.
    */
   async refresh(refreshToken: string) {
     let result;

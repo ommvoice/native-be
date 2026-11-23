@@ -15,7 +15,10 @@ build
 # CDK
 cdk/cdk.out
 cdk.out
-cdk/cdk.json
+# cdk/cdk.json IS tracked (app command + non-secret context) — never put API keys in it.
+# Local secret values / alternate account configs stay untracked:
+cdk/cdk_*.json
+cdk/secrets*.local.json
 *.d.ts
 
 # AWS

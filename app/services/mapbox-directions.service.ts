@@ -32,7 +32,7 @@ export async function getDirections(
   destLat: number,
   destLng: number,
 ): Promise<RouteInfo> {
-  const token = env.mapboxToken();
+  const token = await env.mapboxToken();
   if (!token) throw new AppError(503, 'Mapbox token not configured');
 
   const coords = `${originLng},${originLat};${destLng},${destLat}`;

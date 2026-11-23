@@ -2,7 +2,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const s3 = vi.hoisted(() => ({
   headObject: vi.fn(),
-  presignPut: vi.fn(async (key: string) => `https://signed.example/put/${key}`),
+  presignPost: vi.fn(async (key: string, contentType: string) => ({
+    url: 'https://bucket.s3.eu-west-3.amazonaws.com/',
+    fields: { key, 'Content-Type': contentType, Policy: 'p', 'X-Amz-Signature': 's' },
+  })),
+  confirmUpload: vi.fn(async () => {}),
+  readObjectStart: vi.fn(async () => new Uint8Array([0xff, 0xd8, 0xff, 0xe0])),
   presignGet: vi.fn(async (key: string) => `https://signed.example/get/${key}`),
   objectUrl: (key: string) => `https://bucket.s3.eu-west-3.amazonaws.com/${key}`,
 }));
@@ -29,12 +34,13 @@ const baseTip = { kind: 'venue' as const, placeName: 'Haldon Forest Park', tip: 
 describe('SharedTipService', () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it('issues an upload URL under the parent prefix with a matching extension', async () => {
+  it('issues a size-capped presigned POST under the parent prefix with a matching extension', async () => {
     const { service } = makeService();
     const res = await service.createPhotoUploadUrl('sub-1', { contentType: 'image/jpeg' });
     expect(res.photoKey).toMatch(/^shared-tips\/parent-1\/[0-9a-f-]{36}\.jpg$/);
-    expect(res.uploadUrl).toContain(res.photoKey);
-    expect(res.headers).toEqual({ 'Content-Type': 'image/jpeg' });
+    expect(res.method).toBe('POST');
+    expect(res.fields).toMatchObject({ key: res.photoKey, 'Content-Type': 'image/jpeg' });
+    expect(s3.presignPost).toHaveBeenCalledWith(res.photoKey, 'image/jpeg', 15 * 1024 * 1024, expect.any(Number));
     expect(res.photoUrl).toBe(s3.objectUrl(res.photoKey));
   });
 
@@ -47,6 +53,16 @@ describe('SharedTipService', () => {
       parentId: 'parent-1', userId: 'user-1', photoKey: key, photoUrl: s3.objectUrl(key), worksFor: ['Low Effort'],
     }));
     expect(res.photoViewUrl).toBe(`https://signed.example/get/${key}`);
+    expect(s3.confirmUpload).toHaveBeenCalledWith(key);
+  });
+
+  it('rejects an upload whose bytes are not the declared image type', async () => {
+    const { service, repo } = makeService();
+    s3.headObject.mockResolvedValue({ contentType: 'image/jpeg', size: 1000 });
+    s3.readObjectStart.mockResolvedValueOnce(new Uint8Array([0x3c, 0x68, 0x74, 0x6d])); // "<htm"
+    await expect(service.create('sub-1', { ...baseTip, photoKey: 'shared-tips/parent-1/x.jpg' })).rejects.toMatchObject({ statusCode: 422 });
+    expect(repo.create).not.toHaveBeenCalled();
+    expect(s3.confirmUpload).not.toHaveBeenCalled();
   });
 
   it("rejects another parent's photo key", async () => {

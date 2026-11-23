@@ -21,13 +21,15 @@ export interface LambdaDefinition {
   /** Which extra env var groups to inject (tableEnv is always injected). */
   env?: {
     cognito?:     boolean;   // COGNITO_USER_POOL_ID, COGNITO_CLIENT_ID
-    externalApi?: boolean;   // MAPBOX_ACCESS_TOKEN, WEATHER_API_KEY
+    externalApi?: boolean;   // THIRD_PARTY_SECRET_ID (Mapbox / WeatherAPI / Google keys via Secrets Manager)
     uploads?:     boolean;   // UPLOADS_BUCKET
   };
 
   permissions: {
     dynamodb: 'none' | 'read' | 'readWrite';
-    cognito:  boolean;   // AdminInitiateAuth / AdminCreateUser
+    /** Cognito admin actions (without the `cognito-idp:` prefix). `true` = every action in
+     * COGNITO_ADMIN_IAM_ACTIONS (legacy); prefer listing exactly what the handler calls. */
+    cognito:  boolean | string[];
     /** Access to the uploads bucket (omitted = none). */
     s3?:      'put' | 'read' | 'readWrite';
   };
@@ -46,27 +48,35 @@ const authLambdas: LambdaDefinition[] = [
   {
     key: 'authRegister', name: 'auth-register', entry: 'auth/register.ts',
     env: { cognito: true },
-    permissions: { dynamodb: 'readWrite', cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: ['AdminCreateUser', 'AdminSetUserPassword', 'AdminInitiateAuth'] },
     routes: [{ path: ['auth', 'register'], method: 'POST', auth: false }],
   },
   {
     key: 'authLogin', name: 'auth-login', entry: 'auth/login.ts',
     env: { cognito: true },
-    permissions: { dynamodb: 'readWrite', cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: ['AdminInitiateAuth'] },
     routes: [{ path: ['auth', 'login'], method: 'POST', auth: false }],
   },
   {
     key: 'authMe', name: 'auth-me', entry: 'auth/me.ts',
     env: { cognito: true },
-    permissions: { dynamodb: 'readWrite', cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: false },
     routes: [{ path: ['auth', 'me'], method: 'GET', auth: true }],
   },
   {
     key: 'authRefresh', name: 'auth-refresh', entry: 'auth/refresh.ts',
     env: { cognito: true },
-    permissions: { dynamodb: 'none', cognito: true },
+    permissions: { dynamodb: 'none', cognito: ['AdminInitiateAuth'] },
     // Public: authenticates via the refresh token in the body, not the API's bearer-token authorizer.
     routes: [{ path: ['auth', 'refresh'], method: 'POST', auth: false }],
+  },
+  {
+    key: 'authLogout', name: 'auth-logout', entry: 'auth/logout.ts',
+    env: { cognito: true },
+    // RevokeToken is a public client API — no IAM or table access needed.
+    permissions: { dynamodb: 'none', cognito: false },
+    // Public: the refresh token in the body is the credential being revoked.
+    routes: [{ path: ['auth', 'logout'], method: 'POST', auth: false }],
   },
   {
     key: 'authForgotPassword', name: 'auth-forgot-password', entry: 'auth/forgot-password.ts',
@@ -78,7 +88,8 @@ const authLambdas: LambdaDefinition[] = [
   {
     key: 'authResetPassword', name: 'auth-reset-password', entry: 'auth/reset-password.ts',
     env: { cognito: true },
-    permissions: { dynamodb: 'none', cognito: false },
+    // cognito: AdminUserGlobalSignOut after a successful reset.
+    permissions: { dynamodb: 'none', cognito: ['AdminUserGlobalSignOut'] },
     routes: [{ path: ['auth', 'reset-password'], method: 'POST', auth: false }],
   },
 ];
@@ -94,8 +105,9 @@ const usersLambdas: LambdaDefinition[] = [
   },
   {
     key: 'usersDeleteMe', name: 'users-delete-me', entry: 'users/delete-me.ts',
-    env: { cognito: true },
-    permissions: { dynamodb: 'readWrite', cognito: true },   // cognito: AdminDeleteUser
+    env: { cognito: true, uploads: true },
+    // cognito: AdminDeleteUser; s3: delete the parent's Share A Tip photos.
+    permissions: { dynamodb: 'readWrite', cognito: ['AdminDeleteUser'], s3: 'readWrite' },
     overrides: { timeoutSeconds: 30 },
     routes: [{ path: ['users', 'me'], method: 'DELETE', auth: true }],
   },
@@ -107,7 +119,7 @@ const onboardLambdas: LambdaDefinition[] = [
   {
     key: 'onboardParents', name: 'onboard-parents', entry: 'onboard-parents/onboard.ts',
     env: { cognito: true, externalApi: true },
-    permissions: { dynamodb: 'readWrite', cognito: true },
+    permissions: { dynamodb: 'readWrite', cognito: ['AdminCreateUser', 'AdminSetUserPassword', 'AdminInitiateAuth'] },
     overrides: { timeoutSeconds: 30 },
     routes: [{ path: ['onboard-parents'], method: 'POST', auth: false }],
   },
@@ -445,7 +457,8 @@ const sharedTipsLambdas: LambdaDefinition[] = [
   {
     key: 'sharedTipsCreate', name: 'shared-tips-create', entry: 'shared-tips/create.ts',
     env: { uploads: true },
-    permissions: { dynamodb: 'readWrite', cognito: false, s3: 'read' },
+    // s3: read (HEAD + magic-byte sniff) and tag the upload as confirmed.
+    permissions: { dynamodb: 'readWrite', cognito: false, s3: 'readWrite' },
     routes: [{ path: ['shared-tips'], method: 'POST', auth: true }],
   },
   {
@@ -486,7 +499,8 @@ const weatherLambdas: LambdaDefinition[] = [
     env: { externalApi: true },
     permissions: { dynamodb: 'none', cognito: false },
     overrides: { timeoutSeconds: 15 },
-    routes: [{ path: ['weather'], method: 'GET', auth: false }],
+    // Authenticated: every call spends paid WeatherAPI quota (the app only calls it signed in).
+    routes: [{ path: ['weather'], method: 'GET', auth: true }],
   },
 ];
 

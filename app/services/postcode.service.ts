@@ -8,7 +8,7 @@ export interface Location {
 
 /** Resolves a UK postcode to lat/lng via Mapbox geocoding. */
 export async function getLocationForPostCode(postCode: string): Promise<Location | null> {
-  const token = env.mapboxToken();
+  const token = await env.mapboxToken();
   if (!token) return null;
 
   const encoded  = encodeURIComponent(postCode.trim());

@@ -11,11 +11,13 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { createChildSchema } from '../../schemas/child.schema';
 import { created } from '../../shared/utils/response';
 import type { CreateChildDto } from '../../dtos/child.dto';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dto     = event.body as unknown as CreateChildDto;
   const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
-  const child   = await service.create(dto);
+  const parentId = await resolveParentId(event, dto.parentId);
+  const child   = await service.create({ ...dto, parentId });
   return created({ ids: [child.id] });
 };
 

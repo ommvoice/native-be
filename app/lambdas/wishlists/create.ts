@@ -7,10 +7,12 @@ import { errorHandler } from '../../shared/middleware/error-handler';
 import { createWishlistSchema } from '../../schemas/wishlist.schema';
 import { created } from '../../shared/utils/response';
 import type { CreateWishlistDto } from '../../dtos/wishlist.dto';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dto = event.body as unknown as CreateWishlistDto;
-  return created(await new WishlistService().create(dto));
+  const parentId = await resolveParentId(event, dto.parentId);
+  return created(await new WishlistService().create({ ...dto, parentId }));
 };
 
 export const handler = middy(baseHandler)

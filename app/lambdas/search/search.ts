@@ -12,6 +12,7 @@ import { Narrowed } from '../../shared/types/assets.types';
 import { RecommendationV2Service } from '../../services/recommendation-v2.service';
 import { getInitialScore } from '../../services/scoring-v2.service';
 import type { Score } from '../../dtos/recommendation.dto';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const SKIP_ALL = 'all';
 
@@ -45,7 +46,7 @@ const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxy
   // `qs['facility'].split(',')` on a value that was already an array).
   const qs = (event.queryStringParameters ?? {}) as unknown as Record<string, unknown>;
   const dto: OpportunitySearchQueryDto = {
-    parentId: qs['parentId'] as string,
+    parentId: await resolveParentId(event, qs['parentId'] as string | undefined),
     childId: qs['childId'] as string | undefined,
     interestSubCategorySlug: qs['interestSubCategorySlug'] as string | undefined,
     facility: (qs['facility'] as string[] | undefined) ?? [],

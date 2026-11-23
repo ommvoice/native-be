@@ -1,17 +1,18 @@
 import * as yup from 'yup';
-import { PersonVariant } from '../repositories/child.repository';
+import type { PersonVariant } from '../repositories/child.repository';
+import { dateOfBirthString, nameString, slugArray } from './limits';
 
 export const createChildSchema = yup.object({
-  parentId:               yup.string().required('parentId is required'),
-  nameOrNickName:         yup.string().required('nameOrNickName is required'),
-  dateOfBirth:            yup.string().required('dateOfBirth is required'),
+  parentId:               yup.string().optional(), // ignored: derived from the auth token (must match if sent)
+  nameOrNickName:         nameString().required('nameOrNickName is required'),
+  dateOfBirth:            dateOfBirthString().required('dateOfBirth is required'),
   // Only 'child' | 'adult' are client-settable — 'guest' is set by POST /children/guest (with its
   // expireDate), 'parent' is never a child row.
-  variant:                yup.mixed<PersonVariant>().oneOf(["guest" , "parent" , "child" , "adult"], 'variant must be child or adult or guest').default('child'),
-  skillIds:               yup.array(yup.string().required()).default([]),
-  interestCategoryIds:    yup.array(yup.string().required()).default([]),
-  interestSubCategoryIds: yup.array(yup.string().required()).default([]),
-  interestTags:           yup.array(yup.string().required()).default([]),
+  variant:                yup.mixed<PersonVariant>().oneOf(['child', 'adult'], 'variant must be child or adult').default('child'),
+  skillIds:               slugArray().default([]),
+  interestCategoryIds:    slugArray().default([]),
+  interestSubCategoryIds: slugArray().default([]),
+  interestTags:           slugArray().default([]),
 }).required();
 
 // POST /children/guest — the service always stores variant: 'guest', so any client-sent variant is
@@ -19,16 +20,16 @@ export const createChildSchema = yup.object({
 export const createGuestChildSchema = createChildSchema.omit(['variant']);
 
 export const updateChildSchema = yup.object({
-  nameOrNickName: yup.string(),
-  dateOfBirth:    yup.string(),
-  skillIds:       yup.array(yup.string().required()),
+  nameOrNickName: nameString(),
+  dateOfBirth:    dateOfBirthString(),
+  skillIds:       slugArray(),
 }).required();
 
 export const updateChildInterestsSchema = yup.object({
-  interestCategoryIds:    yup.array(yup.string().required()).required().default([]),
-  interestSubCategoryIds: yup.array(yup.string().required()).required().default([]),
+  interestCategoryIds:    slugArray().required().default([]),
+  interestSubCategoryIds: slugArray().required().default([]),
 }).required();
 
 export const updateChildInterestTagsSchema = yup.object({
-  interestTags: yup.array(yup.string().required()).required().default([]),
+  interestTags: slugArray().required().default([]),
 }).required();

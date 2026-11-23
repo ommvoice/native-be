@@ -13,7 +13,7 @@ export async function mapboxDrivingOneToMany(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-  const token = env.mapboxToken();
+  const token = await env.mapboxToken();
   if (!token) return destinations.map(() => ({ distanceMeters: null, durationSeconds: null }));
 
   const coords = [origin, ...destinations]
@@ -53,7 +53,7 @@ export async function googleDrivingOneToMany(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-  const apiKey = env.googleMapsApiKey();
+  const apiKey = await env.googleMapsApiKey();
 
   if (!apiKey) {
     return destinations.map(() => ({
@@ -187,7 +187,7 @@ export async function googleDrivingOneToMany1(
   origin: { lat: number; lon: number },
   destinations: { lat: number; lon: number }[],
 ): Promise<MatrixResult[]> {
-   const apiKey = env.googleMapsApiKey();
+   const apiKey = await env.googleMapsApiKey();
 
 
   if (!apiKey || destinations.length === 0) {

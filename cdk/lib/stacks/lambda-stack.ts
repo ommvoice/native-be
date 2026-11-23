@@ -3,11 +3,13 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaNode from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as path from 'path';
 import { Construct } from 'constructs';
 import { AppConfig, TABLE_ENV_VARS } from '../config/app-config';
-import { LAMBDA_RUNTIME, LAYER_BUNDLING, S3_BUNDLED_MODULES, logRetentionDays } from '../config/lambda-config';
+import { LAMBDA_RUNTIME, LAYER_BUNDLING, S3_BUNDLED_MODULES, SECRETS_BUNDLED_MODULES, logRetentionDays } from '../config/lambda-config';
 import { allLambdas } from '../config/lambda-registry';
+import { tablesUsedBy } from '../utils/table-usage';
 import { ApiLambda } from '../constructs/api-lambda.construct';
 import type { CognitoStack } from './cognito-stack';
 
@@ -56,10 +58,11 @@ export class LambdaStack extends cdk.Stack {
       COGNITO_CLIENT_ID:    cognito.outputs.userPoolClientId,
     };
 
+    // Only the secret's NAME goes into the Lambda environment — the key values are read at runtime
+    // (app/shared/config/secrets.ts). Create/update the secret with scripts/push-third-party-secret.ts.
+    const thirdPartySecret = secretsmanager.Secret.fromSecretNameV2(this, 'ThirdPartySecret', config.thirdPartySecretName);
     const externalApiEnv = {
-      MAPBOX_ACCESS_TOKEN: config.mapboxAccessToken,
-      WEATHER_API_KEY:     config.weatherApiKey,
-      GOOGLE_MAPS_API_KEY: config.googleMapsApiKey,
+      THIRD_PARTY_SECRET_ID: config.thirdPartySecretName,
     };
 
     const uploadsEnv = {
@@ -68,7 +71,6 @@ export class LambdaStack extends cdk.Stack {
 
     const lambdasDir = path.join(__dirname, '../../..', 'app', 'lambdas');
     const retention  = logRetentionDays(config.env);
-    const allTables  = Object.values(tables);
     const fns: Record<string, lambdaNode.NodejsFunction> = {};
 
     // ── Helper ────────────────────────────────────────────────────────────────
@@ -111,12 +113,26 @@ export class LambdaStack extends cdk.Stack {
         def.entry,
         extraEnv,
         def.overrides ?? {},
-        def.permissions.s3 ? S3_BUNDLED_MODULES : [],
+        [...new Set([
+          ...(def.permissions.s3   ? S3_BUNDLED_MODULES      : []),
+          ...(def.env?.externalApi ? SECRETS_BUNDLED_MODULES : []),
+        ])],
       );
 
-      if (def.permissions.dynamodb === 'readWrite') allTables.forEach(t => t.grantReadWriteData(fn));
-      if (def.permissions.dynamodb === 'read')      allTables.forEach(t => t.grantReadData(fn));
-      if (def.permissions.cognito)                  cognito.grantAdminActions(fn);
+      if (def.env?.externalApi) thirdPartySecret.grantRead(fn);
+
+      // Least privilege: only the tables this handler's code can reach (see utils/table-usage.ts).
+      const usedTables = tablesUsedBy(path.join(lambdasDir, def.entry)).map((k) => {
+        const table = tables[k];
+        if (!table) throw new Error(`${def.key}: code references unknown table TABLES.${k}`);
+        return table;
+      });
+      if (def.permissions.dynamodb === 'readWrite') usedTables.forEach(t => t.grantReadWriteData(fn));
+      if (def.permissions.dynamodb === 'read')      usedTables.forEach(t => t.grantReadData(fn));
+      if (def.permissions.cognito === true)         cognito.grantAdminActions(fn);
+      else if (Array.isArray(def.permissions.cognito) && def.permissions.cognito.length) {
+        cognito.grantAdminActions(fn, def.permissions.cognito);
+      }
       if (def.permissions.s3 === 'put')             uploadsBucket.grantPut(fn);
       if (def.permissions.s3 === 'read')            uploadsBucket.grantRead(fn);
       if (def.permissions.s3 === 'readWrite')       uploadsBucket.grantReadWrite(fn);

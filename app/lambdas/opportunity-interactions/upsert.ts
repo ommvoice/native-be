@@ -7,10 +7,11 @@ import { bodyValidator } from '../../shared/middleware/body-validator.js';
 import { ok } from '../../shared/utils/response.js';
 import { setOpportunityInteractionSchema } from '../../schemas/opportunity-interaction.schema.js';
 import type { CreateOpportunityInteractionDto } from '../../dtos/opportunity-interaction.dto';
+import { resolveParentId } from '../../shared/auth/current-parent.js';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const dto = event.body as unknown as CreateOpportunityInteractionDto;
-  const record = await new OpportunityInteractionService().set(dto);
+  const record = await new OpportunityInteractionService().set({ ...dto, parentId: await resolveParentId(event, dto.parentId) });
   return ok(record);
 };
 

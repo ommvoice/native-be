@@ -8,13 +8,15 @@ import { WishlistService } from '../../services/wishlist.service';
 import { errorHandler } from '../../shared/middleware/error-handler';
 import { AppError } from '../../shared/errors/app-error';
 import { noContent } from '../../shared/utils/response';
+import { resolveParentId } from '../../shared/auth/current-parent';
 
 const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const id = event.pathParameters?.['id'];
   if (!id) throw new AppError(400, 'id path parameter is required');
+  const parentId = await resolveParentId(event);
 
   const service = new ChildService(new ChildRepository(), new InterestRepository(), new ParentRepository(), new WishlistService());
-  await service.delete(id);
+  await service.delete(id, parentId);
   return noContent();
 };
 

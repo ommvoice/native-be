@@ -39,7 +39,11 @@ export const LAYER_EXTERNAL_MODULES: string[] = [
   '@aws-sdk/client-cognito-identity-provider',
   '@aws-sdk/client-dynamodb',
   '@aws-sdk/lib-dynamodb',
-  '@smithy/*',          // AWS SDK internal utilities (transitive deps)
+  // @smithy/* (AWS SDK internals) is deliberately NOT external. Every Lambda bundles SDK clients
+  // that aren't in the layer (Secrets Manager via env.ts → secrets.ts; S3 for uploads), and those
+  // need the @smithy versions they were built against — the layer's are older and crash at load
+  // ("Named export 'JsonCodec' not found"). The layer's own Cognito/DynamoDB clients still resolve
+  // their @smithy deps from /opt/nodejs/node_modules, so the two copies never mix.
 
   // ── Middy middleware ──────────────────────────────────────────────────────
   '@middy/core',
@@ -89,21 +93,18 @@ export function getBundlingOptions(appEnv: string, bundledModules: string[] = []
  * Adding them to the layer would publish a new layer version, and the layer ARN is a
  * cross-stack export imported by the api-stack authorizer — CloudFormation refuses to change
  * an export that is in use ("Cannot update export ... in use by native-be-<env>-api-stack").
- * @smithy/* is bundled too so client-s3 gets the smithy versions it was built against rather
- * than the (older) ones in the layer.
+ * (@smithy/* is bundled into every function — see LAYER_EXTERNAL_MODULES.)
  */
 export const S3_BUNDLED_MODULES: string[] = [
   '@aws-sdk/client-s3',
   '@aws-sdk/s3-request-presigner',
   '@aws-sdk/s3-presigned-post',
-  '@smithy/*',
 ];
 
 /** Bundled into functions that read third-party API keys (env.externalApi) — same reason as
  * S3_BUNDLED_MODULES: adding to the shared layer would change its in-use cross-stack export. */
 export const SECRETS_BUNDLED_MODULES: string[] = [
   '@aws-sdk/client-secrets-manager',
-  '@smithy/*',
 ];
 
 // ── CloudWatch log retention ───────────────────────────────────────────────────

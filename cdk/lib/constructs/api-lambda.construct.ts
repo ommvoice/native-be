@@ -74,11 +74,10 @@ export class ApiLambda extends Construct {
         // Polyfill __dirname / __filename for any transitive dep that still uses them
         // (ESM removes these globals; this shim restores them via import.meta.url)
         banner: 'import{fileURLToPath}from"node:url";import{dirname}from"node:path";const __filename=fileURLToPath(import.meta.url);const __dirname=dirname(__filename);'
-          // Bundled CJS packages (e.g. @aws-sdk/client-s3's dist-cjs) call require("node:https"), which
-          // esbuild's ESM output can't satisfy ("Dynamic require ... is not supported") — give them a real require.
-          + (props.bundledModules?.length
-            ? 'import{createRequire}from"node:module";const require=createRequire(import.meta.url);'
-            : ''),
+          // Bundled CJS packages (AWS SDK clients + @smithy/*, bundled into every function) call
+          // require("node:https"), which esbuild's ESM output can't satisfy ("Dynamic require ... is
+          // not supported") — give them a real require.
+          + 'import{createRequire}from"node:module";const require=createRequire(import.meta.url);',
       },
     });
   }

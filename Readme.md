@@ -1,188 +1,210 @@
 # native-be
 
-Serverless REST API for the Native Family app.
-Built with **AWS Lambda + API Gateway + DynamoDB**, deployed via **AWS CDK** (TypeScript).
+Serverless REST API for the Native Family app: **API Gateway + Lambda + DynamoDB + Cognito**, deployed with **AWS CDK** (TypeScript).
+
+---
+
+## Where it runs
+
+The same code is deployed to two AWS accounts. Choose the account by the npm script you run (`…:technit` or `…:native`).
+
+| Target | AWS account | Region | AWS profile | API URL (used by the app) |
+|---|---|---|---|---|
+| `technit` | 664876795774 | eu-west-3 | `cdk_profile_fo9` | `https://api-family-uat.reporting-tool.co.uk` (app dev builds) |
+| `native` | 437039341434 | us-east-1 | `cdk_profile_native` | `https://api-family-uat.api.native-app.com` (app release builds) |
+
+Each target is a block in [cdk/cdk.json](cdk/cdk.json) with its account, profile, region, sender email and `enableWaf` setting.
+
+> **Keep `"environment": "uat"` in both blocks.** It names every AWS resource: stacks `native-be-uat-*`, tables `native-be-uat-*`, the user pool and the keys secret. If you change it, CDK builds a new, empty backend with a new user pool, and users can no longer log in to the app.
+
+The custom domains above are mapped to each API by hand in API Gateway; CDK doesn't manage them. The default `execute-api` URL is disabled.
 
 ---
 
 ## Architecture
 
 ```
-API Gateway (REST)
-    └── Lambda per route   ← app/lambdas/
-        ├── Middy middleware (auth, validation, error handling)
-        ├── Services        ← app/services/
-        └── Repositories    ← app/repositories/
-            └── DynamoDB (20 tables)
+API Gateway (REST, stage "uat")  ── optional AWS WAF (enableWaf in cdk.json)
+  └── Lambda per route            ← app/lambdas/   (routes + permissions: cdk/lib/config/lambda-registry.ts)
+        ├── Services              ← app/services/
+        └── Repositories          ← app/repositories/  →  DynamoDB
 
-Infrastructure as Code ← cdk/
-    ├── CognitoStack – User Pool + Client (IDs auto-injected into Lambdas as env vars)
-    ├── TableStack   – all DynamoDB tables
-    ├── LambdaStack  – all Lambda functions + shared Layer
-    └── ApiStack     – API Gateway routes
-
-Seed scripts ← seed/
-    └── runs against the deployed DynamoDB tables
+cdk/ (4 stacks, deployed in this order)
+  ├── native-be-uat-cognito-stack   User Pool + app client (IDs injected into Lambdas)
+  ├── native-be-uat-table-stack     DynamoDB tables + uploads S3 bucket
+  ├── native-be-uat-lambda-stack    every Lambda + the shared layer (layers/)
+  └── native-be-uat-api-stack       API Gateway routes, throttling, WAF
 ```
 
-All resource names are generated from `{appName}-{env}-{resource}` — nothing is hardcoded.
+- **Third-party API keys** (Mapbox, WeatherAPI, Google Maps) live in **AWS Secrets Manager** as `native-be/uat/third-party` in each account. They aren't stored in `cdk.json` or as Lambda environment variables. See [One-time setup](#one-time-setup-per-account).
+- **DynamoDB permissions** are worked out automatically for each Lambda from the code it imports ([cdk/lib/utils/table-usage.ts](cdk/lib/utils/table-usage.ts)).
+- **API reference:** the routes are in [cdk/lib/config/lambda-registry.ts](cdk/lib/config/lambda-registry.ts), and [native-be.postman_collection.json](native-be.postman_collection.json) has example requests.
 
 ---
 
 ## Prerequisites
 
-| Tool | Version | Purpose |
-|------|---------|---------|
-| Node.js | 20+ | Runtime for CDK, seeds, and local dev |
-| npm | 10+ | Package manager |
-| AWS CLI | v2 | Credentials for CDK deployments |
-| AWS CDK | (installed via `cdk/node_modules`) | Infrastructure deployment |
-| Docker | optional | Run DynamoDB locally |
+| Tool | Notes |
+|---|---|
+| Node.js 20+ | Lambdas run on Node 22 |
+| AWS CLI v2 | With the profiles `cdk_profile_fo9` and `cdk_profile_native` in `~/.aws/credentials` |
+| **Docker Desktop (running)** | Required to deploy: the shared Lambda layer is built in a container |
 
-> **AWS credentials** must be configured before running any deploy command.
-> Run `aws configure` or set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` env vars.
-
----
-
-## 1 — Install all dependencies (single command)
-
-Installs packages in three locations: project root, `cdk/`, and `layers/`.
+Install everything (root, `cdk/` and `layers/`):
 
 ```bash
 npm run install:all
 ```
 
-This is equivalent to:
+---
+
+## One-time setup per account
+
+You only do these steps once per account, not on every deploy. They're already done for both accounts except where noted.
+
+**1. Bootstrap CDK** (already done in both accounts):
+
 ```bash
-npm install            # root — seed scripts, dev tools, Lambda type definitions
-npm install --prefix cdk     # CDK toolkit and constructs
-npm install --prefix layers  # packages bundled into the Lambda shared layer
+npm run cdk:bootstrap:technit
+npm run cdk:bootstrap:native
 ```
+
+**2. Store the third-party API keys in Secrets Manager.** Create `cdk/secrets.local.json`. It's gitignored, so never commit it:
+
+```json
+{
+  "technit": { "mapboxAccessToken": "sk....", "weatherApiKey": "...", "googleMapsApiKey": "..." },
+  "native":  { "mapboxAccessToken": "sk....", "weatherApiKey": "...", "googleMapsApiKey": "..." }
+}
+```
+
+Then push it (key values are never printed):
+
+```bash
+npm run secrets:push:technit
+npm run secrets:push:native
+```
+
+Run the push again only when a key changes, for example after a rotation. Lambdas read the secret when they start, so running instances keep the old key until AWS restarts them; to switch straight away, deploy.
+
+> If the secret is missing, **the deploy still succeeds**, but weather, routing and postcode lookups fail at runtime. Always push it before the first deploy to a new account.
+
+**3. Verify the sender email in SES** (same region as the target). Cognito sends password-reset codes from the `fromEmail` set in `cdk.json`. While SES is in sandbox mode it delivers only to verified addresses, so request SES production access before going live.
 
 ---
 
-## 2 — Environment variables
+## Deploy
 
-Create a `.env` file in the project root:
+Do this on every release. Make sure Docker is running, then:
 
-```env
-# ── AWS ────────────────────────────────────────────────────────────────────────
-AWS_REGION=eu-west-2
-AWS_ACCESS_KEY_ID=your_access_key_id
-AWS_SECRET_ACCESS_KEY=your_secret_access_key
+```bash
+# 1. Preview what will change (optional, recommended)
+npm run cdk:diff:technit
 
-# ── App / CDK naming (must match --context values used in deploy commands) ─────
-APP_NAME=native-be
-APP_ENV=dev          # dev | staging | prod
-
-# ── Auth (AWS Cognito) ─────────────────────────────────────────────────────────
-# NOTE: COGNITO_USER_POOL_ID and COGNITO_CLIENT_ID are NOT needed here.
-# The CognitoStack creates the User Pool and Client automatically on deploy,
-# and CDK injects both IDs directly into Lambda environment variables.
-# After deploying you can look them up in CloudFormation Outputs if needed.
-
-# ── External services ─────────────────────────────────────────────────────────
-MAPBOX_ACCESS_TOKEN=pk.xxxxxx
-WEATHER_API_KEY=xxxxxxxx
-
-# ── Local DynamoDB (optional — omit to use real AWS DynamoDB) ─────────────────
-# DYNAMODB_ENDPOINT=http://localhost:8000
+# 2. Deploy all 4 stacks (about 5–10 min)
+npm run deploy:technit
 ```
 
-> **Seed scripts** read `APP_NAME` + `APP_ENV` to compute table names, e.g.
-> `APP_NAME=native-be APP_ENV=dev` → tables are `native-be-dev-users`, `native-be-dev-parents`, etc.
-> These must match the `--context env=dev` used when deploying.
+For the client account, use `npm run cdk:diff:native` and `npm run deploy:native`.
+
+After the deploy:
+
+1. **Smoke-test** the API URL for that target from the table above. For example, log in through the app or Postman and load the Today screen.
+2. **If you changed opportunity data**, reseed it (see [Opportunity data](#opportunity-data)).
+3. **Deploy the backend before you release an app build that needs it.** The API keeps working with older app builds, so this order is always safe.
+
+**Recommended order for a change:** deploy `technit` → test with an app dev build → deploy `native` → ship the app release.
 
 ---
 
-## 3 — Bootstrap CDK (one-time per AWS account/region)
+## Opportunity data
 
-CDK needs a bootstrap stack in your AWS account before the first deploy.
-Only required once per account + region combination.
+Venues, events, clubs and routes come from a spreadsheet, go through generated seed files, and become JSON assets in `app/shared/assets/`. They are then loaded into DynamoDB, and the live API reads them from there.
 
 ```bash
-npm run cdk:bootstrap
+npm run merge:opportunities      # merge an admin-sheet export into the seed files
+npm run export:data-json         # seed files → app/shared/assets/*.json
+APP_ENV=technit npm run seed:opportunities
+APP_ENV=native  npm run seed:opportunities
 ```
+
+> `seed:opportunities` **wipes and refills** all four opportunity tables. The app shows no opportunities for the minute or so it takes, so run it against `native` at a quiet time.
+
+Full regeneration from the spreadsheet (rarely needed; it loses manual fixes in the seed files): `generate:enums` → `parse:venues-data` / `parse:events-data` / `parse:clubs-data` / `parse:routes-data` → `export:data-json`.
+
+Other data commands:
+
+```bash
+APP_ENV=technit npm run seed:community                          # demo community provider (hub screen)
+APP_ENV=native  npm run backfill:email-verified -- --dry-run    # list Cognito users that can't reset their password
+APP_ENV=native  npm run backfill:email-verified                 # …and fix them (idempotent)
+npm run images:optimize -- <folder>                             # resize opportunity photos before upload
+```
+
+`APP_ENV` is the target name (`technit` or `native`, default `technit`). The data scripts use that target's AWS profile automatically.
 
 ---
 
-## 4 — Deploy
-
-Deploy all three stacks (tables → lambdas → API Gateway) with a single command.
+## Destroy — read this first
 
 ```bash
-# Development environment
-npm run deploy:dev
-
-# Staging
-npm run deploy:staging
-
-# Production
-npm run deploy:prod
+npm run destroy:technit
+npm run destroy:native
 ```
 
-CDK will print the **API base URL** at the end of the deploy, e.g.:
-```
-Outputs:
-native-be-dev-api-stack.ApiUrl = https://xxxxxxxxxx.execute-api.eu-west-2.amazonaws.com/dev/
-```
+**Neither target is protected.** Destroy permanently deletes the DynamoDB tables (all users, families and children) and the Cognito user pool (all logins). Never run `destroy:native`: that account holds the live app's data.
 
 ---
 
-## 5 — Seed data
+## All npm commands
 
-After tables are created by the deploy, load all reference and opportunity data.
+| Command | What it does |
+|---|---|
+| `npm test` / `npm run test:watch` | Unit tests (vitest) |
+| `npm run install:all` | Install root + `cdk/` + `layers/` |
+| `npm run deploy:<target>` | Deploy all stacks |
+| `npm run cdk:diff:<target>` | Show what a deploy would change |
+| `npm run cdk:synth:<target>` | Generate the CloudFormation templates only |
+| `npm run secrets:push:<target>` | Create or update the third-party keys secret |
+| `npm run cdk:bootstrap:<target>` | One-time CDK bootstrap of an account |
+| `npm run destroy:<target>` | Delete everything, including data (see above) |
+| `npm run seed:opportunities` | Reload opportunity tables (`APP_ENV=<target>`) |
+| `npm run seed:community` | Seed demo community provider (`APP_ENV=<target>`) |
+| `npm run backfill:email-verified` | Fix users who can't reset their password (`APP_ENV=<target>`) |
+| `npm run merge:opportunities` / `export:data-json` | Opportunity data pipeline |
+| `npm run generate:enums` / `parse:*-data` | Full regeneration from the spreadsheet |
+| `npm run images:optimize` | Resize/re-encode opportunity images |
+| `npm run test:recommendations` / `test:recommendationsV3` | Run the scoring locally against live tables |
+| `npm run explain:opportunity` | Explain why one opportunity scores/filters the way it does |
+| `npm run audit:schedule` / `audit:weather` | Check every opportunity against the schedule/weather rules |
 
-```bash
-# Seed all data (reference data + opportunities + demo user) — run after deploy
-APP_ENV=dev npm run seed:all
-```
-
-Individual seed commands (run in dependency order if seeding manually):
-
-```bash
-npm run seed:interests     # interest categories
-npm run seed:facilities    # facility types
-npm run seed:themes        # opportunity themes + variants (all 7 interest groups)
-npm run seed:skills        # skills (depends on themes)
-npm run seed:opp-themes    # opportunity themes legacy table
-npm run seed:opp-v2:clubs  # opportunity clubs (v2)
-npm run seed:opp-v2:events # opportunity events (v2)
-npm run seed:opp-v2:routes # opportunity routes (v2)
-npm run seed:opp-v2:venues # opportunity venues (v2)
-
-# Optional demo / test data
-npm run seed:demo-user     # demo parent + children (requires seed:all first)
-npm run seed:demo-rec      # recommendation demo data
-npm run seed:demo-swagger  # 50 corridor opportunities for Swagger testing
-```
-
-All seed scripts are **idempotent** — safe to re-run without creating duplicates.
+`<target>` is `technit` or `native`.
 
 ---
 
-## 6 — Deploy + seed in one command
+## Adding another account
 
-```bash
-npm run up:dev       # deploy:dev + seed:all (APP_ENV=dev)
-npm run up:staging   # deploy:staging + seed:all (APP_ENV=staging)
-npm run up:prod      # deploy:prod only (no auto-seed in production)
-```
+1. Add a profile for the account to `~/.aws/credentials`.
+2. In [cdk/cdk.json](cdk/cdk.json), copy a block (for example to `"prod"`) and set `awsAccountId`, `awsProfileName` and `awsProfileRegion`. Choose its `environment` (a new name means new, empty resources), and set `fromEmail`.
+3. Copy the six `…:native` scripts in [package.json](package.json), replacing `native` with the new name and the profile.
+4. Add the new name to `cdk/secrets.local.json`.
+5. Run `cdk:bootstrap:<name>`, then `secrets:push:<name>`, then `deploy:<name>`.
+6. Create the custom domain in API Gateway and map it to the new API's `uat` stage, or whatever stage the new `environment` uses.
+
+> Naming an environment `prod` makes CDK keep (RETAIN) the tables and user pool when you run destroy.
 
 ---
 
-## 7 — Destroy
+## Troubleshooting
 
-Tear down all three stacks in a single command.
-
-```bash
-npm run destroy:dev      # removes all native-be-dev-* resources
-npm run destroy:staging
-npm run destroy:prod     # use carefully — tables are RETAINED in prod
-```
-
-> Tables in `prod` have `removalPolicy: RETAIN` — they will **not** be deleted on destroy.
-> Tables in `dev`/`staging` are deleted automatically.
+| Symptom | Fix |
+|---|---|
+| `Cannot connect to the Docker daemon` during deploy | Start Docker Desktop |
+| `Need to perform AWS calls for account …, but the current credentials are for …` | The profile doesn't match the target. Use the npm scripts, which pass the right `--profile` |
+| `Context variable missing on CDK command` | You ran `cdk` directly. Use the npm scripts, which pass `--context config=<target>` |
+| Weather/directions return 500 after deploy | The keys secret is missing in that account. Run `npm run secrets:push:<target>` |
+| `No CDK context "…" in cdk/cdk.json` from a data script | Set `APP_ENV=technit` or `APP_ENV=native` |
+| Password-reset email never arrives | Verify the sender in SES (region of the target), or request SES production access |
 
 ---
 
@@ -190,189 +212,19 @@ npm run destroy:prod     # use carefully — tables are RETAINED in prod
 
 ```
 native-be-lambda-v0/
-├── app/                        # Lambda application code
-│   ├── lambdas/                # Lambda handlers (one file per API operation)
-│   │   ├── auth/               # register, login, me
-│   │   ├── children/           # create, get, update, update-interests
-│   │   ├── parents/            # get, update-search-radius, update-interests
-│   │   ├── onboard-parents/    # onboard
-│   │   ├── users/              # get-me
-│   │   ├── interests/          # list-categories, list-sub-categories
-│   │   ├── skills/             # list
-│   │   ├── themes/             # list, list-variants
-│   │   ├── facilities/         # list
-│   │   ├── opportunity/        # venues-v2, events-v2, clubs-v2, routes-v2
-│   │   ├── recommendations-v2/ # get, nearby
-│   │   ├── wishlists/          # list, create
-│   │   ├── search/             # search
-│   │   └── weather/            # get
-│   ├── repositories/           # DynamoDB data access
-│   ├── services/               # Business logic
-│   ├── schemas/                # Yup validation schemas
-│   ├── dtos/                   # TypeScript types / interfaces
-│   └── shared/
-│       ├── config/env.ts       # Typed environment variable access
-│       ├── db/                 # DynamoDB client, table names, helpers
-│       ├── errors/             # AppError class
-│       ├── middleware/         # Middy: auth, body-validator, error-handler
-│       └── utils/              # response builder, logger
-│
-├── cdk/                        # AWS CDK infrastructure
-│   ├── bin/app.ts              # CDK app entry point
-│   ├── lib/
-│   │   ├── config/app-config.ts   # Central config — all resource names
-│   │   ├── constructs/            # Reusable ApiLambda construct
-│   │   └── stacks/
-│   │       ├── table-stack.ts     # 20 DynamoDB tables
-│   │       ├── lambda-stack.ts    # ~35 Lambda functions + Layer
-│   │       └── api-stack.ts       # REST API Gateway
-│   └── cdk.json
-│
-├── layers/                     # Lambda shared layer
-│   └── package.json            # @middy/*, yup, uuid, aws-jwt-verify, etc.
-│
-├── seed/                       # DynamoDB seed scripts
-│   ├── config/db.ts            # DynamoDB client + table names for seeds
-│   ├── lib/                    # Reusable seed helpers
-│   ├── themes/                 # Theme seed files (7 interest groups)
-│   ├── variants/               # Theme variant seed files
-│   ├── opportunity/            # v2 opportunity data (clubs, events, routes, venues)
-│   ├── demo/                   # Demo user, recommendations, swagger corridor
-│   └── index.ts                # Master seed runner (all 9 steps)
-│
-├── scripts/                    # Local DynamoDB table setup (optional)
-│   ├── setup-dynamodb-tables.ts
-│   └── destroy-dynamodb-tables.ts
-│
-├── .env                        # Not committed — see section 2
-├── package.json
-└── Readme.md
-```
-
----
-
-## API routes
-
-All routes are prefixed with the stage name, e.g. `https://xxx.execute-api.eu-west-2.amazonaws.com/dev/`.
-
-| Method | Path | Auth | Description |
-|--------|------|------|-------------|
-| POST | `/auth/register` | — | Create account |
-| POST | `/auth/login` | — | Login, returns JWT |
-| GET | `/auth/me` | JWT | Logged-in user |
-| GET | `/users/me` | JWT | User + parent profile |
-| POST | `/onboard-parents` | — | Register parent + children |
-| GET | `/parents/{id}` | JWT | Parent profile |
-| PUT | `/parents/{id}/search-radius` | JWT | Update search radius |
-| PUT | `/parents/{id}/interests` | JWT | Update interest preferences |
-| POST | `/children` | JWT | Add child |
-| GET | `/children/{id}` | JWT | Get child |
-| PUT | `/children/{id}` | JWT | Update child |
-| PUT | `/children/{id}/interests` | JWT | Update child interests |
-| GET | `/interests/categories` | — | All interest categories |
-| GET | `/interests/sub-categories` | — | Sub-categories (filter: `?categoryId=`) |
-| GET | `/skills` | — | All skills |
-| GET | `/themes` | — | All themes |
-| GET | `/themes/variants` | — | All theme variants (filter: `?themeId=`) |
-| GET | `/facilities` | — | All facilities |
-| GET | `/opportunity/venues` | — | Venues list (v2) |
-| GET | `/opportunity/venues/{id}` | — | Single venue |
-| GET | `/opportunity/events` | — | Events list (v2) |
-| GET | `/opportunity/events/{id}` | — | Single event |
-| GET | `/opportunity/clubs` | — | Clubs list (v2) |
-| GET | `/opportunity/clubs/{id}` | — | Single club |
-| GET | `/opportunity/routes` | — | Routes list (v2) |
-| GET | `/opportunity/routes/{id}` | — | Single route |
-| GET | `/recommendations-v2?parentId=` | JWT | Scored recommendations |
-| GET | `/recommendations-v2/nearby?parentId=` | JWT | Nearby recommendations |
-| GET | `/wishlists?parentId=` | JWT | Parent's wishlists |
-| POST | `/wishlists` | JWT | Create wishlist |
-| GET | `/search?parentId=` | JWT | Search opportunities |
-| GET | `/weather?postcode=` | — | Weather by postcode |
-
----
-
-## All npm commands
-
-```bash
-# Install
-npm run install:all          # install root + cdk/ + layers/ in one command
-
-# CDK
-npm run cdk:bootstrap        # one-time AWS account bootstrap
-npm run cdk:synth            # preview CloudFormation output
-
-# Deploy (creates/updates all AWS resources)
-npm run deploy:dev
-npm run deploy:staging
-npm run deploy:prod
-
-# Destroy (removes all AWS resources)
-npm run destroy:dev
-npm run destroy:staging
-npm run destroy:prod
-
-# Deploy + seed in one command
-npm run up:dev               # deploy dev, then seed:all
-npm run up:staging           # deploy staging, then seed:all
-
-# Seed (run after deploy, requires .env with APP_ENV set)
-npm run seed:all             # run all seed steps in order
-npm run seed:interests
-npm run seed:facilities
-npm run seed:skills
-npm run seed:themes
-npm run seed:variants
-npm run seed:opp-v2:clubs
-npm run seed:opp-v2:events
-npm run seed:opp-v2:routes
-npm run seed:opp-v2:venues
-npm run seed:demo-user
-npm run seed:demo-rec
-npm run seed:demo-swagger
-
-# Tests
-npm test
-npm run test:watch
-```
-
----
-
-## Error responses
-
-All errors return structured JSON:
-
-```json
-{ "error": "Human-readable message" }
-```
-
-| Status | Meaning |
-|--------|---------|
-| 400 | Bad request / invalid input |
-| 401 | Missing or expired JWT |
-| 404 | Resource not found |
-| 409 | Conflict (e.g. email already exists) |
-| 422 | Validation failed (body/query schema) |
-| 500 | Unexpected server error |
-
----
-
-## Local DynamoDB (optional)
-
-To develop seed scripts against a local DynamoDB instance instead of AWS:
-
-```bash
-# 1. Start DynamoDB Local via Docker
-docker run -p 8000:8000 amazon/dynamodb-local
-
-# 2. Add to .env
-DYNAMODB_ENDPOINT=http://localhost:8000
-AWS_ACCESS_KEY_ID=local
-AWS_SECRET_ACCESS_KEY=local
-
-# 3. Create tables locally (uses scripts/ not CDK)
-npx tsx scripts/setup-dynamodb-tables.ts
-
-# 4. Seed
-npm run seed:all
+├── app/
+│   ├── lambdas/        one folder per API area (auth, parents, children, plan, wishlists, …)
+│   ├── services/       business logic
+│   ├── repositories/   DynamoDB access
+│   ├── schemas/        yup request validation
+│   └── shared/         auth helpers, config (env, secrets), db, middleware, JSON assets
+├── cdk/
+│   ├── bin/app.ts      CDK entry point
+│   ├── lib/config/     app-config, lambda-registry (routes), cognito/api/lambda settings
+│   ├── lib/stacks/     cognito, table, lambda, api stacks
+│   ├── cdk.json        targets (technit / native)
+│   └── secrets.local.json   third-party keys — gitignored, never commit
+├── layers/             shared Lambda layer dependencies
+├── scripts/            seed, data pipeline, audits, secret push
+└── seed/               generated opportunity seed data + seed config
 ```

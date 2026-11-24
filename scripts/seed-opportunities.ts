@@ -4,20 +4,14 @@
  * assets under app/shared/assets/ (venues.json, events.json, clubs.json,
  * routes.json — see AssetsService for the read-side equivalent).
  *
- * Usage: APP_ENV=dev npx tsx scripts/seed-opportunities.ts
- * (APP_ENV defaults to "dev" — see seed/config/index.ts for how the table
+ * Usage: APP_ENV=technit npm run seed:opportunities   (or APP_ENV=native)
+ * (APP_ENV is a cdk/cdk.json context, default "technit" — see seed/config/index.ts for how the table
  * prefix/region are resolved from cdk/cdk.json context.)
  *
- * By default this only upserts (Put — insert new ids, fully overwrite matching ones); it never
- * deletes anything, so rows whose id isn't in the current JSON are left behind as orphans. Pass
- * one of the flags below to also/instead clear a table first — clearing is a full table scan +
- * batch-delete (DynamoDB has no truncate), so it's O(table size) and irreversible:
- *
- *   --clear        Delete every existing row in each table, then seed as normal (a full reset).
- *   --clear-only   Delete every existing row and stop — does not reseed afterwards.
- *
- * Clearing "prod" additionally requires --force-prod, so a stray --clear against the wrong
- * APP_ENV can't wipe production by accident.
+ * It ALWAYS does a full reset (there are no flags): every row in the four tables is deleted (full
+ * scan + batch-delete), then the current JSON is written. The live API reads these tables
+ * (AssetsService → OpportunityService), so the app shows no opportunities for the minute or so the
+ * run takes — run it at a quiet time, especially with APP_ENV=native.
  *
  * Records marked `active: false` (REMOVE rows merged in by scripts/merge-opportunity-updates.ts) are
  * never seeded, and any copy of them already in the table from an earlier run is deleted — otherwise

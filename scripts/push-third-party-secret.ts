@@ -2,10 +2,10 @@
  * Creates / updates the Secrets Manager secret that deployed Lambdas read their third-party API keys
  * from (see app/shared/config/secrets.ts and cdk/lib/stacks/lambda-stack.ts).
  *
- *   AWS_PROFILE=cdk_profile_fo9 npx tsx scripts/push-third-party-secret.ts uat
+ *   npx tsx scripts/push-third-party-secret.ts technit   (or: native)
  *
  * Values come from cdk/secrets.local.json (gitignored, never committed):
- *   { "uat": { "mapboxAccessToken": "...", "weatherApiKey": "...", "googleMapsApiKey": "..." } }
+ *   { "technit": { "mapboxAccessToken": "...", "weatherApiKey": "...", "googleMapsApiKey": "..." } }
  * Secret name: context.<env>.thirdPartySecretName in cdk/cdk.json, default "<appName>/<env>/third-party".
  * Key values are never printed.
  */
@@ -35,7 +35,8 @@ async function main() {
 
   const name: string = ctx.thirdPartySecretName || `${ctx.appName}/${ctx.environment}/third-party`;
   const SecretString = JSON.stringify(Object.fromEntries(KEYS.map((k) => [k, local[k]])));
-  const client = new SecretsManagerClient({ region: ctx.awsProfileRegion });
+  // Use the context's own profile + region so a "native" push can never land in the uat account.
+  const client = new SecretsManagerClient({ region: ctx.awsProfileRegion, profile: ctx.awsProfileName });
 
   try {
     await client.send(new PutSecretValueCommand({ SecretId: name, SecretString }));

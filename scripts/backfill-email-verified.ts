@@ -7,11 +7,11 @@
  * already get it, so this only needs running once per environment (it's idempotent anyway).
  *
  * Usage:
- *   APP_ENV=uat npx tsx scripts/backfill-email-verified.ts --dry-run   # list who'd be updated
- *   APP_ENV=uat npx tsx scripts/backfill-email-verified.ts             # apply
+ *   APP_ENV=native npm run backfill:email-verified -- --dry-run   # list who'd be updated
+ *   APP_ENV=native npm run backfill:email-verified                # apply
  *
- * Runs with your local AWS credentials (e.g. AWS_PROFILE=cdk_profile_fo9). The user pool is
- * resolved by name ({appName}-{env}-user-pool), the same name CognitoStack gives it.
+ * APP_ENV is a cdk/cdk.json context (technit | native); its awsProfileName/region are used. The user
+ * pool is resolved by name ({appName}-{env}-user-pool), the same name CognitoStack gives it.
  */
 import {
   AdminUpdateUserAttributesCommand,
@@ -23,8 +23,11 @@ import {
 import { getAppContext, prefix } from "../seed/config/index.js";
 
 const dryRun = process.argv.includes("--dry-run");
-const { awsProfileRegion } = getAppContext(process.env.APP_ENV ?? "dev");
-const cognito = new CognitoIdentityProviderClient({ region: awsProfileRegion });
+const { awsProfileRegion, awsProfileName } = getAppContext(process.env.APP_ENV ?? "technit");
+const cognito = new CognitoIdentityProviderClient({
+  region: awsProfileRegion,
+  ...(awsProfileName && !process.env.AWS_PROFILE ? { profile: awsProfileName } : {}),
+});
 
 async function findUserPoolId(name: string): Promise<string> {
   let nextToken: string | undefined;

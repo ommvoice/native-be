@@ -8,7 +8,7 @@ import { TABLE_SUFFIXES } from "./table-suffixes.js";
 
 // ── CDK context ────────────────────────────────────────────────────────────────
 
-type AppContext = { appName: string; environment: string; awsProfileRegion: string };
+type AppContext = { appName: string; environment: string; awsProfileRegion: string; awsProfileName?: string };
 
 export function getAppContext(env: string, cdkFileName?:string): AppContext {
   const cdkFilePath = cdkFileName ?  `cdk/${cdkFileName}` :  "cdk/cdk.json"
@@ -16,13 +16,14 @@ export function getAppContext(env: string, cdkFileName?:string): AppContext {
     readFileSync(resolve(process.cwd(), cdkFilePath), "utf-8"),
   );
   const ctx = cdkJson.context?.[env] as AppContext | undefined;
-  if (!ctx) throw new Error(`No CDK context found for env "${env}"`);
-  console.log(`Using CDK context for seeding :`, ctx);
+  if (!ctx) throw new Error(`No CDK context "${env}" in ${cdkFilePath} — use APP_ENV=technit or APP_ENV=native`);
+  console.log(`Using CDK context "${env}":`, { appName: ctx.appName, environment: ctx.environment, region: ctx.awsProfileRegion, profile: ctx.awsProfileName });
   return ctx;
 }
 
-const APP_ENV = process.env.APP_ENV ?? "dev";
-const { appName, environment, awsProfileRegion } = getAppContext(APP_ENV);
+// APP_ENV is a cdk.json context name: "technit" (default) or "native".
+const APP_ENV = process.env.APP_ENV ?? "technit";
+const { appName, environment, awsProfileRegion, awsProfileName } = getAppContext(APP_ENV);
 const prefix = `${appName}-${environment}`;
 
 export { appName, environment, prefix };
@@ -31,6 +32,9 @@ export { appName, environment, prefix };
 
 const client = new DynamoDBClient({
   region: awsProfileRegion ?? process.env.AWS_REGION,
+  // That context's own AWS profile, so APP_ENV=native can never write to the technit account.
+  // Set AWS_PROFILE yourself to override (e.g. CI without a ~/.aws profile file).
+  ...(awsProfileName && !process.env.AWS_PROFILE ? { profile: awsProfileName } : {}),
 });
 
 export const db = DynamoDBDocumentClient.from(client, {

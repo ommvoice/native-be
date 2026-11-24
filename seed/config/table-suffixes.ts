@@ -7,6 +7,7 @@ export const TABLE_SUFFIXES = {
   parents:                  'parents',
   children:                 'children',
   drivingLegs:              'driving-legs',
+  routeLegs:                'route-legs',
   wishlists:                'wishlists',
   wishlistItems:            'wishlist-items',
   visitIntentions:          'visit-intentions',

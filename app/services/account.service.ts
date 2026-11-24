@@ -6,8 +6,18 @@ import { ParentRepository } from '../repositories/parent.repository';
 import { AuthService } from './auth.service';
 import { deletePrefix } from '../shared/storage/s3-client';
 import { photoPrefix } from './shared-tip.service';
+import { originKeyOf, RouteLegRepository } from '../repositories/route-leg.repository';
 
 const ids = (items: Record<string, unknown>[], pkField = 'id') => items.map((i) => i[pkField] as string);
+
+/** Cached routes start from the parent's (rounded) home location — delete them with the account.
+ * Other parents at the same point lose only cache rows, which are re-routed on their next request. */
+async function deleteHomeRouteLegs(parent: { latitude?: unknown; longitude?: unknown }): Promise<void> {
+  const lat = Number.parseFloat(String(parent.latitude ?? ''));
+  const lon = Number.parseFloat(String(parent.longitude ?? ''));
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+  await new RouteLegRepository().deleteOrigin(originKeyOf(lat, lon));
+}
 
 export class AccountService {
   constructor(
@@ -18,7 +28,8 @@ export class AccountService {
 
   /**
    * Permanently deletes the signed-in account and everything hanging off it:
-   * wishlist items → wishlists → opportunity interactions → visit intentions → driving legs
+   * wishlist items → wishlists → opportunity interactions → visit intentions → driving legs (incl.
+   * the route-leg cache from their home)
    * → shared tips (+ their photos in S3) → children → parent → user → Cognito login.
    *
    * Children-first / Cognito-last on purpose: if any step fails the user can still log in and
@@ -57,6 +68,7 @@ export class AccountService {
         batchDeleteItems(TABLES.opportunityInteractions, ids(interactions)),
         batchDeleteItems(TABLES.visitIntentions, ids(visitIntentions)),
         batchDeleteItems(TABLES.drivingLegs, ids(drivingLegs, 'typeId'), 'typeId'),
+        deleteHomeRouteLegs(parent),
         batchDeleteItems(TABLES.sharedTips, ids(sharedTips)),
         // Erasure includes the photos the parent uploaded with their tips.
         deletePrefix(photoPrefix(parentId)),

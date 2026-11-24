@@ -19,6 +19,7 @@ export const env = {
     parents:                  () => required('TABLE_PARENTS'),
     children:                 () => required('TABLE_CHILDREN'),
     drivingLegs:              () => required('TABLE_DRIVING_LEGS'),
+    routeLegs:                () => required('TABLE_ROUTE_LEGS'),
     wishlists:                () => required('TABLE_WISHLISTS'),
     wishlistItems:            () => required('TABLE_WISHLIST_ITEMS'),
     visitIntentions:          () => required('TABLE_VISIT_INTENTIONS'),

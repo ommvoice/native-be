@@ -6,6 +6,9 @@ export const MAPBOX_MATRIX_MAX_DESTINATIONS = 24;
 interface MatrixResult {
   distanceMeters: number | null;
   durationSeconds: number | null;
+  /** Google answered for this destination and there is no driving route (condition ROUTE_NOT_FOUND).
+   * Unset when the call failed — that must not be cached as "no route". */
+  routeNotFound?: boolean;
 }
 
 /** Calls Mapbox Matrix API: 1 origin → N destinations (max 24). */
@@ -155,6 +158,11 @@ export async function googleDrivingOneToMany(
       const durationSeconds = route.duration
         ? parseFloat(route.duration.replace('s', ''))
         : null;
+
+      if (route.condition === 'ROUTE_NOT_FOUND') {
+        results[destinationIndex] = { distanceMeters: null, durationSeconds: null, routeNotFound: true };
+        continue;
+      }
 
       results[destinationIndex] = {
         distanceMeters: route.distanceMeters ?? null,

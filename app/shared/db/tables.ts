@@ -10,6 +10,7 @@ export const TABLES = {
   get parents()                  { return env.tables.parents(); },
   get children()                 { return env.tables.children(); },
   get drivingLegs()              { return env.tables.drivingLegs(); },
+  get routeLegs()                { return env.tables.routeLegs(); },
   get wishlists()                { return env.tables.wishlists(); },
   get wishlistItems()            { return env.tables.wishlistItems(); },
   get visitIntentions()          { return env.tables.visitIntentions(); },

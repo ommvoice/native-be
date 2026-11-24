@@ -392,17 +392,18 @@ export class RecommendationV2Service {
       })
       .filter(Boolean) as ReturnType<typeof buildRoutableLeg>[];
 
-    // Nearby mode (opportunity details → "Nearby ideas"): distance AND travel time are measured
-    // from the opportunity being viewed, not the parent's home. Only places already within the
-    // straight-line radius get routed (keeps routing calls tiny), and these opportunity →
-    // opportunity legs bypass the per-parent home-leg cache so they never overwrite it.
+    // Driving distance/time from `lat`/`lon` — the parent's home, or for Nearby ("Nearby ideas" on
+    // opportunity details) the opportunity being viewed. Google bills per routed leg, so:
+    //   - when distance filters (anything but a skipped distance step), only legs inside the radius
+    //     in a straight line are routed: a road is never shorter than the straight line, so the rest
+    //     would be dropped by the distance step anyway;
+    //   - legsFrom caches every leg per origin (shared by all parents/viewers) and routes it once.
     const isNearby = !!narrowed.opp;
-    const drivingMap = isNearby
-      ? await this.drivingLegs.computeLegsFrom(
-        { lat, lon },
-        routable.filter((leg) => ScoringV4.haversineDistanceMiles(lat, lon, leg.lat, leg.lon) <= maxMiles),
-      )
-      : await this.drivingLegs.ensureLegsCached(narrowed.id, routable);
+    const distanceFilters = isNearby || initialScores.distanceScore !== 100;
+    const toRoute = distanceFilters
+      ? routable.filter((leg) => ScoringV4.haversineDistanceMiles(lat, lon, leg.lat, leg.lon) < maxMiles)
+      : routable;
+    const drivingMap = await this.drivingLegs.legsFrom({ lat, lon }, toRoute);
 
     const distanceWithScoreMatch = weatherScoreMatch
       .map((item) => {

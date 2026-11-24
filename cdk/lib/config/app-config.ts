@@ -92,6 +92,7 @@ export const TABLE_ENV_VARS = {
   parents:                  'TABLE_PARENTS',
   children:                 'TABLE_CHILDREN',
   drivingLegs:              'TABLE_DRIVING_LEGS',
+  routeLegs:                'TABLE_ROUTE_LEGS',
   wishlists:                'TABLE_WISHLISTS',
   wishlistItems:            'TABLE_WISHLIST_ITEMS',
   visitIntentions:          'TABLE_VISIT_INTENTIONS',

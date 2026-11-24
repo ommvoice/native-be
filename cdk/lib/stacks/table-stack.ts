@@ -84,8 +84,17 @@ export class TableStack extends cdk.Stack {
 
     // ── Driving legs ──────────────────────────────────────────────────────────
 
+    // LEGACY — no longer written or read for routing (keyed by typeId alone, so parents overwrote
+    // each other's legs and every request re-billed Google). Only account deletion still clears it.
+    // Remove in a later deploy, once no Lambda references TABLE_DRIVING_LEGS.
     const drivingLegs = t('DrivingLegs', tableNames.drivingLegs, 'typeId');
     gsi(drivingLegs, 'parentId-index', 'parentId');
+
+    // Driving legs cache: one row per route origin (home / viewed opportunity, rounded) + opportunity.
+    // Rows expire via TTL so routes refresh occasionally. See RouteLegRepository.
+    const routeLegs = t('RouteLegs', tableNames.routeLegs, 'originKey', 'typeId', {
+      timeToLiveAttribute: 'expiresAt',
+    });
 
     // ── Wishlists ─────────────────────────────────────────────────────────────
 
@@ -146,6 +155,7 @@ export class TableStack extends cdk.Stack {
       clubs,
       routes,
       drivingLegs,
+      routeLegs,
       wishlists,
       wishlistItems,
       visitIntentions,

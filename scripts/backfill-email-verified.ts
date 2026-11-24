@@ -7,10 +7,10 @@
  * already get it, so this only needs running once per environment (it's idempotent anyway).
  *
  * Usage:
- *   APP_ENV=native npm run backfill:email-verified -- --dry-run   # list who'd be updated
- *   APP_ENV=native npm run backfill:email-verified                # apply
+ *   APP_ENV=native:uat npm run backfill:email-verified -- --dry-run   # list who'd be updated
+ *   APP_ENV=native:uat npm run backfill:email-verified            # apply
  *
- * APP_ENV is a cdk/cdk.json context (technit | native); its awsProfileName/region are used. The user
+ * APP_ENV is a deploy target <account>:<stage> (technit:uat | native:uat | …:prod); its awsProfileName/region are used. The user
  * pool is resolved by name ({appName}-{env}-user-pool), the same name CognitoStack gives it.
  */
 import {
@@ -21,9 +21,10 @@ import {
   type UserType,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { getAppContext, prefix } from "../seed/config/index.js";
+import { DEFAULT_TARGET } from "../seed/config/cdk-target.js";
 
 const dryRun = process.argv.includes("--dry-run");
-const { awsProfileRegion, awsProfileName } = getAppContext(process.env.APP_ENV ?? "technit");
+const { awsProfileRegion, awsProfileName } = getAppContext(process.env.APP_ENV ?? DEFAULT_TARGET);
 const cognito = new CognitoIdentityProviderClient({
   region: awsProfileRegion,
   ...(awsProfileName && !process.env.AWS_PROFILE ? { profile: awsProfileName } : {}),

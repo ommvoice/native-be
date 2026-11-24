@@ -6,8 +6,8 @@
  * against `affiliatedBaseId: "BASE-N007"` (CTCRM Lympstone in the RN app's bundled
  * src/lib/constants/militaryBases.ts).
  *
- * Usage: APP_ENV=technit npm run seed:community   (or APP_ENV=native)
- * (APP_ENV is a cdk/cdk.json context, default "technit" — see seed/config/index.ts for how the table prefix/region are
+ * Usage: APP_ENV=technit:uat npm run seed:community   (or native:uat, technit:prod, native:prod)
+ * (APP_ENV is a deploy target <account>:<stage>, default "technit:uat" — see seed/config/index.ts for how the table prefix/region are
  * resolved from cdk/cdk.json context.)
  *
  * By default this only upserts (Put — insert new ids, fully overwrite matching ones); it never

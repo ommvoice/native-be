@@ -24,7 +24,7 @@
  * Usage:
  *   npx tsx scripts/merge-opportunity-updates.ts --base newData4.xlsx --base newData3.xlsx --incoming newData5.xlsx          # dry run
  *   npx tsx scripts/merge-opportunity-updates.ts --base newData4.xlsx --base newData3.xlsx --incoming newData5.xlsx --apply
- * Then: npm run export:data-json  (JSON assets)  →  APP_ENV=technit npm run seed:opportunities  (DynamoDB)
+ * Then: npm run export:data-json  (JSON assets)  →  APP_ENV=technit:uat npm run seed:opportunities  (DynamoDB)
  */
 import * as fs from "node:fs";
 import * as path from "node:path";

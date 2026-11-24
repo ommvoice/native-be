@@ -4,14 +4,14 @@
  * assets under app/shared/assets/ (venues.json, events.json, clubs.json,
  * routes.json — see AssetsService for the read-side equivalent).
  *
- * Usage: APP_ENV=technit npm run seed:opportunities   (or APP_ENV=native)
- * (APP_ENV is a cdk/cdk.json context, default "technit" — see seed/config/index.ts for how the table
+ * Usage: APP_ENV=technit:uat npm run seed:opportunities   (or native:uat, technit:prod, native:prod)
+ * (APP_ENV is a deploy target <account>:<stage>, default "technit:uat" — see seed/config/index.ts for how the table
  * prefix/region are resolved from cdk/cdk.json context.)
  *
  * It ALWAYS does a full reset (there are no flags): every row in the four tables is deleted (full
  * scan + batch-delete), then the current JSON is written. The live API reads these tables
  * (AssetsService → OpportunityService), so the app shows no opportunities for the minute or so the
- * run takes — run it at a quiet time, especially with APP_ENV=native.
+ * run takes — run it at a quiet time, especially against native:uat or a prod target.
  *
  * Records marked `active: false` (REMOVE rows merged in by scripts/merge-opportunity-updates.ts) are
  * never seeded, and any copy of them already in the table from an earlier run is deleted — otherwise

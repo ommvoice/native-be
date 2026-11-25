@@ -177,7 +177,7 @@ export class AuthService {
   /**
    * Exchanges a still-valid refresh token for a new id token, without the user re-entering their
    * password. Cognito doesn't rotate the refresh token on this flow — the same one keeps working
-   * until it hits its own validity (10 years, see COGNITO_TOKEN_VALIDITY) or is revoked by
+   * until it hits its own validity (365 days, see COGNITO_TOKEN_VALIDITY) or is revoked by
    * logout()/signOutEverywhere(); the client calls this each time the short-lived id token (1h) expires.
    */
   async refresh(refreshToken: string) {

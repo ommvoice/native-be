@@ -203,15 +203,28 @@ export class ApiStack extends cdk.Stack {
       visibilityConfig: metric(name),
     });
 
+    // Rate-limit blocks answer 429 (not WAF's default 403): a 403 on /auth/refresh used to read as
+    // "session rejected" in the app and signed out every user behind a busy shared IP (carrier NAT,
+    // office Wi-Fi). Managed-rule blocks stay 403 — the app no longer treats 403 as a logout either.
+    const rateLimited: wafv2.CfnWebACL.RuleActionProperty = {
+      block: { customResponse: { responseCode: 429, customResponseBodyKey: 'rate-limited' } },
+    };
+
     const acl = new wafv2.CfnWebACL(this, 'ApiWaf', {
       scope:            'REGIONAL',
       defaultAction:    { allow: {} },
       visibilityConfig: metric('api-waf'),
+      customResponseBodies: {
+        'rate-limited': {
+          contentType: 'APPLICATION_JSON',
+          content:     JSON.stringify({ message: 'Too many requests — please try again in a minute.' }),
+        },
+      },
       rules: [
         {
           name:     'rate-limit-auth',
           priority: 0,
-          action:   { block: {} },
+          action:   rateLimited,
           statement: {
             rateBasedStatement: {
               limit:            WAF_RATE_LIMIT_AUTH,
@@ -231,7 +244,7 @@ export class ApiStack extends cdk.Stack {
         {
           name:      'rate-limit-all',
           priority:  1,
-          action:    { block: {} },
+          action:    rateLimited,
           statement: { rateBasedStatement: { limit: WAF_RATE_LIMIT_ALL, aggregateKeyType: 'IP' } },
           visibilityConfig: metric('rate-limit-all'),
         },
